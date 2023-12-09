@@ -1,0 +1,28 @@
+{
+  "library": "spring-boot",
+  "generatorName": "spring",
+  "useSpringBoot3": true,
+
+  "modelPackage": "de.netzkronehd.license.api.server.springboot.models",
+  "apiPackage": "de.netzkronehd.license.api.server.springboot.api",
+  "invokerPackage": "de.netzkronehd.license.api.server.springboot.invoker",
+  "configPackage": "de.netzkronehd.license.api.server.springboot.configuration",
+
+  "modelNameSuffix": "Dto",
+
+  "groupId": "de.netzkronehd.license",
+  "artifactId": "license-api-server-spring-boot",
+
+  "hideGenerationTimestamp": true,
+  "serializableModel": true,
+  "serializationLibrary": "jackson",
+
+  "useRuntimeException": true,
+  "useSwaggerUI": true,
+  "documentationProvider": "none",
+
+  "delegatePattern": false,
+  "interfaceOnly": true,
+  "build": "maven"
+
+}

@@ -1,0 +1,27 @@
+version: '3'
+services:
+
+  openapi-generator-server-springboot:
+    image: openapitools/openapi-generator-cli:latest
+    volumes:
+      - ./target/spring:/local/spring
+      - ./openapi.yaml:/home/openapi.yaml
+      - ./config-server-spring-boot.json:/home/config-server-spring-boot.json
+    command: generate -i /home/openapi.yaml -g ${SPRING_GENERATOR} -o /local/spring -c /home/config-server-spring-boot.json
+
+  openapi-generator-client-webclient:
+    image: openapitools/openapi-generator-cli:latest
+    volumes:
+      - ./target/webclient:/local/webclient
+      - ./openapi.yaml:/home/openapi.yaml
+      - ./config-client-webclient.json:/home/config-client-webclient.json
+    command: generate -i /home/openapi.yaml -g ${WEBCLIENT_GENERATOR} -o /local/webclient -c /home/config-client-webclient.json
+
+  openapi-generator-client-typescript-fetch:
+    image: openapitools/openapi-generator-cli:latest
+    volumes:
+      - ./target/typescript:/local/typescript
+      - ./openapi.yaml:/home/openapi.yaml
+      - ./config-client-typescript-fetch.json:/home/config-client-typescript-fetch.json
+    command: generate -i /home/openapi.yaml -g ${TYPE_SCRIPT_GENERATOR} -o /local/typescript -c /home/config-client-typescript-fetch.json
+

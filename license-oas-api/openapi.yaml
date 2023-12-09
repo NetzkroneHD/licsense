@@ -1,0 +1,204 @@
+openapi: 3.0.0
+info:
+  title: License-API
+  description: License-API
+  version: 1.0.0
+
+servers:
+  - url: 'http://localhost:8080/license/api/v1'
+
+paths:
+  /license:
+    post:
+      security:
+        - bearerAuth: []
+      operationId: createLicense
+      tags:
+        - License
+      description: Creates an license
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/License'
+      responses:
+        200:
+          description: License valid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/License'
+        403:
+          description: License invalid
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Reason why it is invalid
+        404:
+          description: License not found
+  /license/{license}:
+    get:
+      operationId: getLicense
+      tags:
+        - License
+      description: Checks a license
+      parameters:
+        - name: license
+          in: path
+          description: License key
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: License valid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/License'
+        403:
+          description: License invalid
+          content:
+            application/json:
+              schema:
+                type: string
+                $ref: '#/components/schemas/License'
+        404:
+          description: License not found
+    put:
+      security:
+        - bearerAuth: []
+      operationId: updateLicense
+      tags:
+        - License
+      description: Updates a license
+      parameters:
+        - name: license
+          in: path
+          description: License key
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/License'
+      responses:
+        200:
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/License'
+        404:
+          description: License not found
+    delete:
+      security:
+        - bearerAuth: []
+      operationId: deleteLicense
+      tags:
+        - License
+      description: Deletes a license
+      parameters:
+        - name: license
+          in: path
+          description: License key
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: License valid
+        404:
+          description: License not found
+  /logs/{license}:
+    get:
+      security:
+        - bearerAuth: []
+      operationId: getLicenseLogs
+      tags:
+        - License
+      description: Gets the logs
+      parameters:
+        - name: license
+          in: path
+          description: License key
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: License valid
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LicenseLog'
+
+        403:
+          description: License invalid
+        404:
+          description: License not found
+
+
+
+security:
+  - bearerAuth: []
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    License:
+      description: License
+      type: object
+      required:
+        - licenseKey
+        - notes
+        - publisher
+        - valid
+      properties:
+        licenseKey:
+          description: Key of the license
+          type: string
+        publisher:
+          description: Publisher of the license
+          type: string
+        notes:
+          description: Note for the license
+          type: string
+        valid:
+          description: Validity for the license
+          type: boolean
+    LicenseLog:
+      description: Log of a License check
+      type: object
+      required:
+        - id
+        - license
+        - ip
+        - dateTime
+      properties:
+        id:
+          description: ID of the entry
+          type: integer
+          format: int32
+        license:
+          description: Key of the license
+          type: string
+        ip:
+          description: IP of the client
+          type: string
+          format: ipv4
+        dateTime:
+          description: Date of the check
+          type: string
+          format: date-time

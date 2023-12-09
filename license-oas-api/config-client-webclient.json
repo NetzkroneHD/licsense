@@ -1,0 +1,28 @@
+{
+
+  "library": "webclient",
+  "generatorName": "java",
+
+  "modelPackage": "de.netzkronehd.license.api.client.webclient.models",
+  "apiPackage": "de.netzkronehd.license.api.client.webclient.api",
+  "invokerPackage": "de.netzkronehd.license.api.client.webclient.invoker",
+  "configPackage": "de.netzkronehd.license.api.client.webclient.configuration",
+
+  "modelNameSuffix": "Dto",
+
+  "groupId": "de.netzkronehd.license",
+  "artifactId": "license-api-client-webclient",
+
+  "hideGenerationTimestamp": true,
+  "serializableModel": true,
+  "serializationLibrary": "jackson",
+
+  "useRuntimeException": true,
+  "useSwaggerUI": true,
+  "documentationProvider": "none",
+
+  "delegatePattern": true,
+  "interfaceOnly": true,
+  "build": "maven"
+
+}
