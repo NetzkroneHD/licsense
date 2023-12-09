@@ -1,6 +1,7 @@
 package de.netzkronehd.license.config;
 
 import de.netzkronehd.license.security.OAuth2RoleConverter;
+import de.netzkronehd.license.service.DefaultUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -21,10 +22,11 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     private final LicenseConfig licenseConfig;
+    private final DefaultUserDetailsService defaultUserDetailsService;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http.authorizeHttpRequests(registry -> registry
+        return http.authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(
                                 HttpMethod.GET,
                                 "/api/v1/license/**",
@@ -36,6 +38,7 @@ public class SecurityConfig {
                         ).hasAuthority("ROLE_ADMIN")
                         .anyRequest().authenticated()
                 )
+                .userDetailsService(defaultUserDetailsService)
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())))
                 .build();
     }

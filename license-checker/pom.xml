@@ -8,4 +8,13 @@
     </parent>
     <artifactId>license-checker</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>de.netzkronehd.license</groupId>
+            <artifactId>license-api-client-webclient</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
 </project>

@@ -1,0 +1,286 @@
+{
+	"info": {
+		"_postman_id": "567ee6f8-d9d3-4149-829d-525e23d411b5",
+		"name": "license",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26056002"
+	},
+	"item": [
+		{
+			"name": "create license",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"licenseKey\": \"key\",\r\n  \"publisher\": \"me\",\r\n  \"notes\": \"created\",\r\n  \"valid\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/v1/license",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"license"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get license",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/api/v1/license/:license",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"license",
+						":license"
+					],
+					"variable": [
+						{
+							"key": "license",
+							"value": "asdfasdf",
+							"description": "The license to get"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update license",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"licenseKey\": \"string\",\r\n  \"publisher\": \"string\",\r\n  \"notes\": \"string\",\r\n  \"valid\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/v1/license/:license",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"license",
+						":license"
+					],
+					"variable": [
+						{
+							"key": "license",
+							"value": "asdfasdf",
+							"description": "The license to update"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete license",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/api/v1/license/:license",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"license",
+						":license"
+					],
+					"variable": [
+						{
+							"key": "license",
+							"value": "asdfasdf",
+							"description": "The license to get"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get logs",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/api/v1/logs/:license",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"logs",
+						":license"
+					],
+					"variable": [
+						{
+							"key": "license",
+							"value": "asdfasdf"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "clientSecret",
+				"value": "7CHdYlPpft8Pnqfg3t90tnmJNqIIM3hi",
+				"type": "string"
+			},
+			{
+				"key": "clientId",
+				"value": "license-client",
+				"type": "string"
+			},
+			{
+				"key": "authUrl",
+				"value": "http://localhost:8082/realms/license/protocol/openid-connect/auth",
+				"type": "string"
+			},
+			{
+				"key": "accessTokenUrl",
+				"value": "http://localhost:8082/realms/license/protocol/openid-connect/token",
+				"type": "string"
+			},
+			{
+				"key": "tokenName",
+				"value": "spring-demo",
+				"type": "string"
+			},
+			{
+				"key": "scope",
+				"value": "openid",
+				"type": "string"
+			},
+			{
+				"key": "useBrowser",
+				"value": false,
+				"type": "boolean"
+			},
+			{
+				"key": "grant_type",
+				"value": "authorization_code",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJja3Vyb2planY5U240cGxoRURzUTAta3U4bkV1eU5kY0VBczBGQ0FIelFvIn0.eyJleHAiOjE3MDIxMjgwMDksImlhdCI6MTcwMjEyNzcwOSwiYXV0aF90aW1lIjoxNzAyMTI3NzA4LCJqdGkiOiIyMmVjYzRhNi02MzY0LTRkYzEtYTQ5YS00NTgwYTk5MWY0NGMiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODIvcmVhbG1zL2xpY2Vuc2UiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiYzBiMjk2M2ItMjU5NC00NDY2LWFlZDItZjE1OGQ3MWM2MDEwIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoibGljZW5zZS1jbGllbnQiLCJzZXNzaW9uX3N0YXRlIjoiYjcxNWVhZGUtYjlmNC00NWZhLWFjNWItMTk2ZmYyODJmOTdkIiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyIqIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsIlJPTEVfQURNSU4iLCJkZWZhdWx0LXJvbGVzLWxpY2Vuc2UiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoib3BlbmlkIGVtYWlsIHByb2ZpbGUiLCJzaWQiOiJiNzE1ZWFkZS1iOWY0LTQ1ZmEtYWM1Yi0xOTZmZjI4MmY5N2QiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsInByZWZlcnJlZF91c2VybmFtZSI6ImxpY2Vuc2UtcmVnaXN0ZXIifQ.il9nKlnKPMHCgLvvAtkF6x9CdLjBb6acOymvqcBwelrdV71nN2_eww_99QiuQ_1fZrIj2H2ELvPmNbymSz8VkFQZVC7xq9WAaA86lC8Fx8Ya6VrtziWKTSCdsEhOd_UajuJihQPcmcOZn6kIHdkFY6_UZHgVFrdrHpqmSNiTP7kooTbGg3QcBc387-8PwPneybVBIX9kss9e8sSoJOnxmOGHONodAXQ2Kc5YeJasfldbUNibUfIGc-_m97CeSmAI6nypRp5PeYWo5UUeJyeSq--eixtmttqTSz_zzULDXMdor7X-_HA2mZOnCve58SaoxDvU9v4uLmZxZQBLhAQXQw",
+			"type": "string"
+		}
+	]
+}

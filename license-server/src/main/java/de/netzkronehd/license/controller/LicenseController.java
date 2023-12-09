@@ -9,7 +9,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.NativeWebRequest;
 
@@ -42,8 +41,8 @@ public class LicenseController implements LicenseApi {
     }
 
     @Override
-    public ResponseEntity<String> updateLicense(String license, @Valid String body) {
-        return LicenseApi.super.updateLicense(license, body);
+    public ResponseEntity<LicenseDto> updateLicense(String license, @Valid LicenseDto licenseDto) {
+        return LicenseApi.super.updateLicense(license, licenseDto);
     }
 
     @Override

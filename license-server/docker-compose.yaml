@@ -23,7 +23,7 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
 
   keycloak:
-    image: bitnami/keycloak
+    image: bitnami/keycloak:${KEYCLOAK_VERSION}
     restart: unless-stopped
     depends_on:
       postgres:
@@ -36,12 +36,11 @@ services:
       KEYCLOAK_DATABASE_PORT: 5432
       KEYCLOAK_DATABASE_USER: ${PG_USER}
       KEYCLOAK_DATABASE_PASSWORD: ${PG_PASSWORD}
-#    command:
-#      - start-dev
-#      - Dkeycloak.migration.action=import
-#      - Dkeycloak.migration.provider=singleFile
-#      - Dkeycloak.migration.file=/keycloak-transfer/license-realm.json
-#      - Dkeycloak.migration.strategy=OVERWRITE_EXISTING
+      KEYCLOAK_MIGRATION_ACTION: import
+      KEYCLOAK_MIGRATION_PROVIDER: singleFile
+      KEYCLOAK_MIGRATION_FILE: /keycloak-transfer/license-realm.json
+      KEYCLOAK_MIGRATION_STRATEGY: OVERWRITE_EXISTING
+    command: start-dev Dkeycloak.migration.action=import Dkeycloak.migration.provider=singleFile Dkeycloak.migration.file=/keycloak-transfer/license-realm.json Dkeycloak.migration.strategy=OVERWRITE_EXISTING
     healthcheck:
       test: ["CMD", "curl", "-f", "http://127.0.0.1:8080/realms/master"]
       interval: 30s
