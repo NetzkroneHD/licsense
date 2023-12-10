@@ -55,7 +55,7 @@ services:
       - './keycloak/exports:/keycloak-transfer'
       - './keycloak/auto-import:/opt/bitnami/keycloak/data'
 
-  spring-server:
+  license-server:
     build:
       context: .
       dockerfile: Dockerfile-spring

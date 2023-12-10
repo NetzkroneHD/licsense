@@ -1,7 +1,6 @@
 package de.netzkronehd.license.service;
 
 import de.netzkronehd.license.config.LicenseConfig;
-import de.netzkronehd.license.model.LicenseLogModel;
 import de.netzkronehd.license.model.LicenseModel;
 import de.netzkronehd.license.repository.LicenseRepository;
 import de.netzkronehd.license.utils.Utils;
@@ -10,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.OffsetDateTime;
 import java.util.Objects;
 
 @Service
@@ -25,25 +23,7 @@ public class LicenseService {
     public LicenseModel getLicense(String license) {
         Objects.requireNonNull(license);
         if(license.trim().isEmpty()) throw new IllegalStateException("License can not be empty.");
-
         return this.licenseRepository.findById(license).orElseThrow();
-    }
-
-    public LicenseModel checkLicense(String ip, String licenseKey) {
-        final LicenseModel license = getLicense(licenseKey);
-        final LicenseLogModel licenseLog = new LicenseLogModel();
-        licenseLog.setIp(ip);
-        licenseLog.setLicense(licenseKey);
-        licenseLog.setDateTime(OffsetDateTime.now());
-        logService.createLog(licenseLog);
-        if (!license.getValidUntil().isAfter(OffsetDateTime.now())) {
-            license.setValid(false);
-            this.licenseRepository.save(license);
-            log.info("License '{}' is not valid anymore.", license);
-        }
-
-        log.info("Checked license '{}' by '{}'.", licenseKey, ip);
-        return license;
     }
 
     public String getNewLicenseKey() {
@@ -62,8 +42,10 @@ public class LicenseService {
         created.setNotes(license.getNotes());
         created.setPublisher(license.getPublisher());
         created.setValid(true);
+        created.setValidUntil(license.getValidUntil());
+
         licenseRepository.save(created);
-        log.info("Created the license '{}'.", created.getLicense());
+        log.info("Created the license '{}'.", created);
         return created;
     }
 
@@ -81,10 +63,14 @@ public class LicenseService {
         return licenseToUpdate;
     }
 
+    public void save(LicenseModel license) {
+        this.licenseRepository.save(license);
+        log.info("Saved license '{}'.", license);
+    }
+
     public void deleteLicense(String license) {
         this.licenseRepository.deleteById(license);
         log.info("Deleted license '{}'.", license);
     }
-
 
 }

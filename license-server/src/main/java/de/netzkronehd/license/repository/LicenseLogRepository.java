@@ -11,4 +11,6 @@ public interface LicenseLogRepository extends JpaRepository<LicenseLogModel, Int
 
     List<LicenseLogModel> findAllByLicense(String license);
 
+    void deleteAllByLicense(String license);
+
 }
