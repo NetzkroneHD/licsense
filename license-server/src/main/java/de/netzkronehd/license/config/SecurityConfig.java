@@ -2,14 +2,13 @@ package de.netzkronehd.license.config;
 
 import de.netzkronehd.license.security.OAuth2RoleConverter;
 import de.netzkronehd.license.service.DefaultUserDetailsService;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
@@ -17,8 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
-@RequiredArgsConstructor(onConstructor_ = {@Autowired})
+@AllArgsConstructor(onConstructor_ = {@Autowired})
 public class SecurityConfig {
 
     private final LicenseConfig licenseConfig;
@@ -32,11 +30,22 @@ public class SecurityConfig {
                                 "/api/v1/license/**",
                                 "/api/v1/actuator/health"
                         ).permitAll()
-                        .requestMatchers(
+                        .requestMatchers(HttpMethod.GET,
+                                "/api/v1/logs**"
+                        ).hasAnyAuthority("ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.POST,
                                 "/api/v1/license**",
-                                "/api/v1/logs/**"
-                        ).hasAuthority("ROLE_ADMIN")
-                        .anyRequest().authenticated()
+                                "/api/v1/logs**"
+                        ).hasAnyAuthority("ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.PUT,
+                                "/api/v1/license**",
+                                "/api/v1/logs**"
+                        ).hasAnyAuthority("ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.DELETE,
+                                "/api/v1/license**",
+                                "/api/v1/logs**"
+                        ).hasAnyAuthority("ROLE_ADMIN")
+                        .anyRequest().permitAll()
                 )
                 .userDetailsService(defaultUserDetailsService)
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())))

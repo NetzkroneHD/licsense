@@ -1,6 +1,6 @@
 package de.netzkronehd.license.service;
 
-import de.netzkronehd.license.model.LicenseLog;
+import de.netzkronehd.license.model.LicenseLogModel;
 import de.netzkronehd.license.repository.LicenseLogRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,8 +16,8 @@ public class LicenseLogService {
 
     private final LicenseLogRepository licenseLogRepository;
 
-    public void createLog(LicenseLog licenseLog) {
-        final LicenseLog createdLog = new LicenseLog();
+    public void createLog(LicenseLogModel licenseLog) {
+        final LicenseLogModel createdLog = new LicenseLogModel();
         createdLog.setLicense(licenseLog.getLicense());
         createdLog.setIp(licenseLog.getIp());
         createdLog.setDateTime(licenseLog.getDateTime());
@@ -25,11 +25,11 @@ public class LicenseLogService {
         log.info("Created license log '{}'.", createdLog);
     }
 
-    public LicenseLog getLog(int id) {
+    public LicenseLogModel getLog(int id) {
         return this.licenseLogRepository.findById(id).orElseThrow();
     }
 
-    public List<LicenseLog> getLogs(String license) {
+    public List<LicenseLogModel> getLogs(String license) {
         return this.licenseLogRepository.findAllByLicense(license);
     }
 

@@ -6,11 +6,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.OffsetDateTime;
+
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class License {
+public class LicenseModel {
 
     @Id
     private String license;
@@ -18,5 +20,6 @@ public class License {
     private String publisher;
     private String notes;
     private boolean valid;
+    private OffsetDateTime validUntil;
 
 }

@@ -23,7 +23,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"licenseKey\": \"key\",\r\n  \"publisher\": \"me\",\r\n  \"notes\": \"created\",\r\n  \"valid\": true\r\n}",
+					"raw": "{\n  \"licenseKey\": \"string\",\n  \"publisher\": \"string\",\n  \"notes\": \"string\",\n  \"valid\": true,\n  \"validUntil\": \"2023-12-09T19:28:55.430Z\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -98,7 +98,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"licenseKey\": \"string\",\r\n  \"publisher\": \"string\",\r\n  \"notes\": \"string\",\r\n  \"valid\": true\r\n}",
+					"raw": "{\n  \"licenseKey\": \"string\",\n  \"publisher\": \"string\",\n  \"notes\": \"string\",\n  \"valid\": true,\n  \"validUntil\": \"2023-12-09T19:28:55.430Z\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
