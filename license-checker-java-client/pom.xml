@@ -6,7 +6,7 @@
         <artifactId>license</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>license-checker</artifactId>
+    <artifactId>license-checker-java-client</artifactId>
 
     <dependencies>
         <dependency>

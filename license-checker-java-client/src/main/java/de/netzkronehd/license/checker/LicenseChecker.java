@@ -57,6 +57,9 @@ public class LicenseChecker {
 
     /**
      * Retrieves license information for the specified license key along with HTTP information.
+     * <p><b>200</b> - License valid
+     * <p><b>403</b> - License invalid
+     * <p><b>404</b> - License not found
      *
      * @param licenseKey The license key to retrieve information for.
      * @return A Mono emitting the ResponseEntity containing LicenseDto if retrieval is successful.
@@ -79,6 +82,7 @@ public class LicenseChecker {
     /**
      * Creates a new license using the provided LicenseDto along with HTTP information.
      * You may need authentication and authorization for the api call.
+     * <p><b>200</b> - License valid
      *
      * @param licenseDto The LicenseDto containing information for creating the license.
      * @return A Mono emitting the ResponseEntity containing the created LicenseDto if creation is successful.
@@ -101,6 +105,8 @@ public class LicenseChecker {
     /**
      * Deletes a license with the specified license key along with HTTP information.
      * You may need authentication and authorization for the api call.
+     * <p><b>200</b> - License valid
+     * <p><b>404</b> - License not found
      *
      * @param license The license key to be deleted.
      * @return A Mono emitting the ResponseEntity indicating the completion of the deletion operation.
@@ -123,6 +129,8 @@ public class LicenseChecker {
     /**
      * Retrieves license logs for the specified license key along with HTTP information.
      * You may need authentication and authorization for the api call.
+     * <p><b>200</b> - License valid
+     * <p><b>404</b> - License not found
      *
      * @param license The license key for which logs are to be retrieved.
      * @return A Mono emitting the ResponseEntity containing a list of LicenseLogDto if retrieval is successful.
@@ -146,6 +154,8 @@ public class LicenseChecker {
     /**
      * Updates an existing license with the specified license key using the provided LicenseDto along with HTTP information.
      * You may need authentication and authorization for the api call.
+     * <p><b>200</b> - Updated
+     * <p><b>404</b> - License not found
      *
      * @param license The license key to be updated.
      * @param licenseDto The LicenseDto containing information for updating the license.

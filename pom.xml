@@ -21,7 +21,7 @@
 	<modules>
 		<module>license-server</module>
 		<module>license-oas-api</module>
-		<module>license-checker</module>
+		<module>license-checker-java-client</module>
 	</modules>
 
 </project>
