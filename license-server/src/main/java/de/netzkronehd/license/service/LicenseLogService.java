@@ -46,11 +46,6 @@ public class LicenseLogService {
         log.info("Deleted log '{}'", id);
     }
 
-    public void deleteLog(String license) {
-        this.licenseLogRepository.deleteAllByLicense(license);
-        log.info("Deleted all logs from the license '{}'.", license);
-    }
-
     private void checkIdIsGreaterThanZero(int id) {
         if(id < 0) throw new IllegalStateException("Id can not be smaller than 0. ("+id+" < 0)");
     }

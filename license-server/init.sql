@@ -1,1 +1,1 @@
-CREATE DATABASE keycloak;
+CREATE DATABASE bitnami_keycloak;

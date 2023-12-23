@@ -1,0 +1,4 @@
+name: license-example-plugin
+version: '${project.version}'
+main: de.netzkronehd.licenseexample.License
+api-version: '1.20'

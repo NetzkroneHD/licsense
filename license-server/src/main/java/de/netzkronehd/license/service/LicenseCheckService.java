@@ -69,8 +69,8 @@ public class LicenseCheckService {
         final LicenseModel licenseModel = this.licenseService.getLicense(license);
         checkIfPublisherIsEqual(publisher, licenseModel);
 
-        this.logService.deleteLog(license);
         this.licenseService.deleteLicense(license);
+        log.info("Deleted license '{}' by '{}'.", licenseModel, publisher);
     }
 
     private void checkPublisher(String publisher) {
