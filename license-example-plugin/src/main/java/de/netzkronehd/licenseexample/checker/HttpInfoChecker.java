@@ -26,10 +26,7 @@ public class HttpInfoChecker extends Checker {
                 } else {
                     invalid();
                 }
-
             }
-
-
         }, throwable -> {
             licensePlugin.getLogger().info("Could not check license! "+throwable);
         });

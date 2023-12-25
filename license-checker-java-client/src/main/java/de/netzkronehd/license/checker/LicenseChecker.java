@@ -270,18 +270,18 @@ public class LicenseChecker {
      * @return A Mono emitting the LicenseDto if retrieval is successful.
      */
     public static Mono<LicenseDto> getLicense(String basePath, String license) {
-        return getLicense(basePath, null, license);
+        return getLicense(basePath, license, null);
     }
 
     /**
      * Retrieves license information using a JWT token for authentication.
      *
      * @param basePath The api base path for license retrieval.
-     * @param jwtToken The JWT token for authentication. Can be null if not required.
      * @param license The license to be retrieved.
+     * @param jwtToken The JWT token for authentication. Can be null if not required.
      * @return A Mono emitting the LicenseDto if retrieval is successful.
      */
-    public static Mono<LicenseDto> getLicense(String basePath, String jwtToken, String license) {
+    public static Mono<LicenseDto> getLicense(String basePath, String license, String jwtToken) {
         final LicenseChecker checker = new LicenseChecker(basePath, jwtToken);
         return checker.getLicense(license);
     }

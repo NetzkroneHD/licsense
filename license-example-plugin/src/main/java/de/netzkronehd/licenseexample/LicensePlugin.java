@@ -11,7 +11,6 @@ public final class LicensePlugin extends JavaPlugin {
 
 
 
-
     }
 
     @Override
