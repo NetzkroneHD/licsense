@@ -15,12 +15,11 @@ services:
       timeout: 1s
       retries: 500
     ports:
-      - "5432:5432"
+      - "543:5432"
     networks:
-      - backend
+      - keycloak-network
     volumes:
       - ./keycloak/pg-data:/var/lib/postgresql/data
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
 
   keycloak:
     image: bitnami/keycloak:${KEYCLOAK_VERSION}
@@ -49,39 +48,11 @@ services:
       - "8082:8080"
       - "8787:8787" # debug port
     networks:
-      - backend
+      - keycloak-network
     volumes:
       - './keycloak/themes:/opt/bitnami/keycloak/themes'
       - './keycloak/exports:/keycloak-transfer'
       - './keycloak/auto-import:/opt/bitnami/keycloak/data/import'
 
-  license-server:
-    build:
-      context: .
-      dockerfile: Dockerfile-spring
-    restart: unless-stopped
-    environment:
-      - LICENSE_GENERATION_MULTIPLIER=50
-      - SERVER_SERVLET_CONTEXT_PATH=/api/v1
-      - MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE=health
-      - LOGGING_FILE_PATH=./logs
-      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI=http://localhost:8082/realms/license
-      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI=http://localhost:8082/realms/license/protocol/openid-connect/certs
-      - LICENSE_ROLE_PREFIX=ROLE_
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/${PG_DATABASE}
-      - SPRING_DATASOURCE_USERNAME=${PG_USER}
-      - SPRING_DATASOURCE_PASSWORD=${PG_PASSWORD}
-      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
-      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.PostgreSQLDialect
-      - SPRING_JPA_HIBERNATE_DLL_AUTO=update
-    depends_on:
-      keycloak:
-        condition: service_healthy
-    ports:
-      - "8080:8080"
-    networks:
-      - backend
-
 networks:
-  backend:
-
+  keycloak-network:

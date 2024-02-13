@@ -23,6 +23,7 @@
 		<module>license-oas-api</module>
 		<module>license-checker-java-client</module>
 		<module>license-example-plugin</module>
-	</modules>
+        <module>license-oauth2-server</module>
+    </modules>
 
 </project>

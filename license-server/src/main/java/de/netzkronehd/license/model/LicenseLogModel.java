@@ -1,5 +1,6 @@
 package de.netzkronehd.license.model;
 
+import de.netzkronehd.license.listmode.behavior.ListBehaviorResult;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,5 +29,6 @@ public class LicenseLogModel {
     private String license;
     private String ip;
     private OffsetDateTime dateTime;
+    private ListBehaviorResult listBehaviorResult;
 
 }

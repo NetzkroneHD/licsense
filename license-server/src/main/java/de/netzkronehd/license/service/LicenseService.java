@@ -43,6 +43,8 @@ public class LicenseService {
         created.setPublisher(license.getPublisher());
         created.setValid(true);
         created.setValidUntil(license.getValidUntil());
+        created.setListMode(license.getListMode());
+        created.setIpAddresses(license.getIpAddresses());
 
         licenseRepository.save(created);
         log.info("Created the license '{}'.", created);
@@ -57,6 +59,8 @@ public class LicenseService {
         licenseToUpdate.setValid(update.isValid());
         licenseToUpdate.setValidUntil(update.getValidUntil());
         licenseToUpdate.setPublisher(update.getPublisher());
+        licenseToUpdate.setListMode(update.getListMode());
+        licenseToUpdate.setIpAddresses(update.getIpAddresses());
 
         licenseRepository.save(licenseToUpdate);
         log.info("Updated license '{}'.", license);

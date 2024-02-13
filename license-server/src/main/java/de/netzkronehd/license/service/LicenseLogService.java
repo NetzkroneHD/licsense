@@ -27,6 +27,7 @@ public class LicenseLogService {
         createdLog.setLicense(licenseLog.getLicense());
         createdLog.setIp(licenseLog.getIp());
         createdLog.setDateTime(licenseLog.getDateTime());
+        createdLog.setListBehaviorResult(licenseLog.getListBehaviorResult());
 
         this.licenseLogRepository.save(createdLog);
         log.info("Created license log '{}'.", createdLog);

@@ -1,8 +1,12 @@
 package de.netzkronehd.license.service;
 
+import de.netzkronehd.license.exception.ListModeException;
 import de.netzkronehd.license.exception.PermissionException;
+import de.netzkronehd.license.listmode.behavior.ListBehaviorResult;
+import de.netzkronehd.license.model.LicenseCheckResult;
 import de.netzkronehd.license.model.LicenseLogModel;
 import de.netzkronehd.license.model.LicenseModel;
+import de.netzkronehd.license.model.OAuth2Model;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +30,27 @@ public class LicenseCheckService {
         return this.licenseService.createLicense(license);
     }
 
-    public LicenseModel checkLicense(String ip, String licenseKey) {
+    public LicenseModel getLicense(OAuth2Model model, String licenseKey) {
+        final LicenseModel license = licenseService.getLicense(licenseKey);
+        if(!license.getPublisher().equals(model.getSub())) {
+            throw new PermissionException();
+        }
+        return license;
+    }
+
+    public LicenseCheckResult checkLicense(String ip, String licenseKey) throws ListModeException {
         final LicenseModel license = licenseService.getLicense(licenseKey);
         final LicenseLogModel licenseLog = new LicenseLogModel();
         licenseLog.setIp(ip);
         licenseLog.setLicense(licenseKey);
         licenseLog.setDateTime(OffsetDateTime.now());
+
+        if (license.getListMode().checkState(license.getIpAddresses(), ip) == ListBehaviorResult.DISALLOW) {
+            licenseLog.setListBehaviorResult(ListBehaviorResult.DISALLOW);
+            logService.createLog(licenseLog);
+            throw new ListModeException(license.getListMode(), ip);
+        }
+        licenseLog.setListBehaviorResult(ListBehaviorResult.ALLOW);
 
         logService.createLog(licenseLog);
         if (license.isValid() && license.getValidUntil() != null && !license.getValidUntil().isAfter(OffsetDateTime.now())) {
@@ -40,7 +59,7 @@ public class LicenseCheckService {
             this.licenseService.save(license);
         }
         log.info("Checked license '{}' by '{}'.", licenseKey, ip);
-        return license;
+        return new LicenseCheckResult(licenseKey, license.getPublisher(), license.getNotes(), license.isValid(), license.getValidUntil());
     }
 
     public LicenseModel updateLicense(String license, String publisher, LicenseModel update) {

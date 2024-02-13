@@ -8,7 +8,6 @@ import de.netzkronehd.license.mapper.LicenseMapper;
 import de.netzkronehd.license.model.OAuth2Model;
 import de.netzkronehd.license.security.OAuth2TokenSecurity;
 import de.netzkronehd.license.service.LicenseCheckService;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,9 +27,6 @@ public class LicenseController implements LicenseApi {
     private final LicenseMapper licenseMapper;
     private final LicenseCheckService licenseCheckService;
     private final OAuth2TokenSecurity tokenSecurity;
-
-    private HttpServletRequest request;
-
 
     @Override
     public ResponseEntity<LicenseDto> createLicense(@Valid LicenseDto licenseDto) {
@@ -81,8 +77,13 @@ public class LicenseController implements LicenseApi {
 
     @Override
     public ResponseEntity<LicenseDto> getLicense(String license) {
+        final OAuth2Model model = tokenSecurity.getModel(SecurityContextHolder.getContext().getAuthentication());
+        if (model == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+
         try {
-            return ResponseEntity.ok(this.licenseMapper.map(this.licenseCheckService.checkLicense(this.request.getRemoteAddr(), license)));
+            return ResponseEntity.ok(this.licenseMapper.map(this.licenseCheckService.getLicense(model, license)));
+        } catch (PermissionException ex) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         } catch (NoSuchElementException ex) {
             return ResponseEntity.notFound().build();
         }

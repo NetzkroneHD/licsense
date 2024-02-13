@@ -8,6 +8,35 @@ servers:
   - url: 'http://localhost:8080/license/api/v1'
 
 paths:
+  /check/{license}:
+    get:
+      operationId: checkLicense
+      tags:
+        - LicenseCheck
+      description: Checks a license
+      parameters:
+        - name: license
+          in: path
+          description: License key
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: License valid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LicenseCheckResult'
+        403:
+          description: License invalid
+          content:
+            application/json:
+              schema:
+                type: string
+                $ref: '#/components/schemas/LicenseCheckResult'
+        404:
+          description: License not found
   /license:
     post:
       security:
@@ -40,10 +69,12 @@ paths:
           description: License not found
   /license/{license}:
     get:
+      security:
+        - bearerAuth: []
       operationId: getLicense
       tags:
         - License
-      description: Checks a license
+      description: Get a license
       parameters:
         - name: license
           in: path
@@ -157,8 +188,50 @@ components:
       scheme: bearer
       bearerFormat: JWT
   schemas:
+    ListMode:
+      type: string
+      enum: [BLACKLIST, WHITELIST]
+    ListBehaviorResult:
+      type: string
+      enum: [ALLOW, DISALLOW]
     License:
       description: License
+      type: object
+      required:
+        - licenseKey
+        - notes
+        - publisher
+        - valid
+        - validUntil
+        - listMode
+        - ipAddresses
+      properties:
+        licenseKey:
+          description: Key of the license
+          type: string
+        publisher:
+          description: Publisher of the license
+          type: string
+        notes:
+          description: Note for the license
+          type: string
+        valid:
+          description: Validity for the license
+          type: boolean
+        validUntil:
+          description: Expiration date of the license
+          type: string
+          format: date-time
+        listMode:
+          description: The Mode how the server checks the ip Address
+          $ref: '#/components/schemas/ListMode'
+        ipAddresses:
+          description: Allowed ip address patterns
+          type: array
+          items:
+            type: string
+    LicenseCheckResult:
+      description: Result of a license check
       type: object
       required:
         - licenseKey
@@ -191,6 +264,7 @@ components:
         - license
         - ip
         - dateTime
+        - listBehaviorResult
       properties:
         id:
           description: ID of the entry
@@ -207,3 +281,6 @@ components:
           description: Date of the check
           type: string
           format: date-time
+        listBehaviorResult:
+          description: Result of the checked ip
+          $ref: '#/components/schemas/ListBehaviorResult'

@@ -2,6 +2,7 @@ package de.netzkronehd.license.security;
 
 import de.netzkronehd.license.model.OAuth2Model;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Component;
 import java.util.Collection;
 
 @Component
+@Slf4j
 public class OAuth2TokenSecurity {
 
     public OAuth2Model getModel(HttpServletRequest request) {
@@ -31,8 +33,7 @@ public class OAuth2TokenSecurity {
 
     public OAuth2Model getModel(Authentication authentication) {
         if(authentication == null) return null;
-
-        final Jwt jwt = (Jwt) authentication.getPrincipal();
+        if(!(authentication.getPrincipal() instanceof Jwt jwt)) return null;
         return new OAuth2Model(jwt.getClaimAsString("sub"),
                 (WebAuthenticationDetails) authentication.getDetails(),
                 (Collection<GrantedAuthority>) authentication.getAuthorities()
