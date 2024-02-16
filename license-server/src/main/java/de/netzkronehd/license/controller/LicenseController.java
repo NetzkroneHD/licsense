@@ -7,7 +7,6 @@ import de.netzkronehd.license.mapper.LicenseMapper;
 import de.netzkronehd.license.model.OAuth2Model;
 import de.netzkronehd.license.security.OAuth2TokenSecurity;
 import de.netzkronehd.license.service.LicenseCheckService;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,8 +26,6 @@ public class LicenseController implements LicenseApi {
     private final LicenseMapper licenseMapper;
     private final LicenseCheckService licenseCheckService;
     private final OAuth2TokenSecurity tokenSecurity;
-
-    private HttpServletRequest request;
 
     @Override
     public ResponseEntity<LicenseDto> createLicense(@Valid LicenseDto licenseDto) {
@@ -80,7 +77,6 @@ public class LicenseController implements LicenseApi {
     @Override
     public ResponseEntity<LicenseDto> getLicense(String license) {
         final OAuth2Model model = tokenSecurity.getModel(SecurityContextHolder.getContext().getAuthentication());
-        log.info("'{}' tried to get license without authentication.", request.getRemoteAddr());
         if (model == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 
         try {
