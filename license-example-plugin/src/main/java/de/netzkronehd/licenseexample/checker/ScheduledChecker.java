@@ -2,6 +2,7 @@ package de.netzkronehd.licenseexample.checker;
 
 import de.netzkronehd.license.checker.LicenseChecker;
 import de.netzkronehd.licenseexample.LicensePlugin;
+import org.bukkit.Bukkit;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -29,6 +30,15 @@ public class ScheduledChecker extends Checker {
 
     @Override
     public void checkLicense(String key) {
-
+        this.licenseChecker.getLicense(key).subscribe(licenseDto -> {
+            if (licenseDto.getValid()) {
+                valid();
+            } else {
+                invalid();
+            }
+        }, throwable -> {
+            licensePlugin.getLogger().info("Error while getting license.");
+            Bukkit.shutdown();
+        });
     }
 }

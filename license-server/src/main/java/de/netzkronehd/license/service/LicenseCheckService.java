@@ -30,7 +30,7 @@ public class LicenseCheckService {
         return this.licenseService.createLicense(license);
     }
 
-    public LicenseModel getLicense(OAuth2Model model, String licenseKey) {
+    public LicenseModel getLicense(OAuth2Model model, String licenseKey) throws PermissionException {
         final LicenseModel license = licenseService.getLicense(licenseKey);
         if(!license.getPublisher().equals(model.getSub())) {
             throw new PermissionException();
@@ -62,7 +62,7 @@ public class LicenseCheckService {
         return new LicenseCheckResult(licenseKey, license.getPublisher(), license.getNotes(), license.isValid(), license.getValidUntil());
     }
 
-    public LicenseModel updateLicense(String license, String publisher, LicenseModel update) {
+    public LicenseModel updateLicense(String license, String publisher, LicenseModel update) throws PermissionException {
         checkPublisher(publisher);
 
         final LicenseModel licenseToUpdate = this.licenseService.getLicense(license);
@@ -73,7 +73,7 @@ public class LicenseCheckService {
         return this.licenseService.updateLicense(license, update);
     }
 
-    public List<LicenseLogModel> getLogs(String license, String publisher) {
+    public List<LicenseLogModel> getLogs(String license, String publisher) throws PermissionException {
         checkPublisher(publisher);
 
         final LicenseModel licenseModel = this.licenseService.getLicense(license);
@@ -82,7 +82,7 @@ public class LicenseCheckService {
         return this.logService.getLogs(license);
     }
 
-    public void deleteLicense(String license, String publisher) {
+    public void deleteLicense(String license, String publisher) throws PermissionException {
         checkPublisher(publisher);
 
         final LicenseModel licenseModel = this.licenseService.getLicense(license);
@@ -96,7 +96,7 @@ public class LicenseCheckService {
         if(!StringUtils.hasText(publisher)) throw new IllegalStateException("Publisher can not be an empty string '"+publisher+"'");
     }
 
-    private void checkIfPublisherIsEqual(String publisher, LicenseModel licenseModel) {
+    private void checkIfPublisherIsEqual(String publisher, LicenseModel licenseModel) throws PermissionException {
         if (publisher != null && !licenseModel.getPublisher().equals(publisher)) throw new PermissionException();
     }
 

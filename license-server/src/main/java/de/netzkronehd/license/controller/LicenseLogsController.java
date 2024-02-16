@@ -3,6 +3,7 @@ package de.netzkronehd.license.controller;
 
 import de.netzkronehd.license.api.server.springboot.api.LogsApi;
 import de.netzkronehd.license.api.server.springboot.models.LicenseLogDto;
+import de.netzkronehd.license.exception.PermissionException;
 import de.netzkronehd.license.mapper.LicenseMapper;
 import de.netzkronehd.license.model.OAuth2Model;
 import de.netzkronehd.license.security.OAuth2TokenSecurity;
@@ -34,6 +35,8 @@ public class LicenseLogsController implements LogsApi {
             return ResponseEntity.ok(licenseMapper.map(checkService.getLogs(license, model.getSub())));
         } catch (NoSuchElementException ex) {
             return ResponseEntity.notFound().build();
+        } catch (PermissionException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
     }
 }
