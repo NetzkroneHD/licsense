@@ -22,39 +22,6 @@ services:
       - ./keycloak/pg-data:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
 
-  keycloak:
-    image: bitnami/keycloak:${KEYCLOAK_VERSION}
-    restart: unless-stopped
-    depends_on:
-      postgres:
-        condition: service_healthy
-    environment:
-      KEYCLOAK_ADMIN_USER: admin
-      KEYCLOAK_ADMIN_PASSWORD: admin
-      KEYCLOAK_DATABASE_HOST: postgres
-      KEYCLOAK_DATABASE_NAME: bitnami_keycloak
-      KEYCLOAK_DATABASE_PORT: 5432
-      KEYCLOAK_DATABASE_USER: ${PG_USER}
-      KEYCLOAK_DATABASE_PASSWORD: ${PG_PASSWORD}
-      KEYCLOAK_MIGRATION_ACTION: import
-      KEYCLOAK_MIGRATION_PROVIDER: singleFile
-      KEYCLOAK_MIGRATION_FILE: /keycloak-transfer/license-realm.json
-      KEYCLOAK_MIGRATION_STRATEGY: OVERWRITE_EXISTING
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://127.0.0.1:8080/realms/master"]
-      interval: 30s
-      timeout: 5s
-      retries: 500
-    ports:
-      - "8082:8080"
-      - "8787:8787" # debug port
-    networks:
-      - backend
-    volumes:
-      - './keycloak/themes:/opt/bitnami/keycloak/themes'
-      - './keycloak/exports:/keycloak-transfer'
-      - './keycloak/auto-import:/opt/bitnami/keycloak/data/import'
-
   license-server:
     build:
       context: .
@@ -66,7 +33,7 @@ services:
       - MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE=health
       - LOGGING_FILE_PATH=./logs
       - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI=http://localhost:8082/realms/license
-      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI=http://localhost:8082/realms/license/protocol/openid-connect/certs
+      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI=http://host.docker.internal:8082/realms/license/protocol/openid-connect/certs
       - LICENSE_ROLE_PREFIX=ROLE_
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/${PG_DATABASE}
       - SPRING_DATASOURCE_USERNAME=${PG_USER}
@@ -75,12 +42,14 @@ services:
       - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.PostgreSQLDialect
       - SPRING_JPA_HIBERNATE_DLL_AUTO=update
     depends_on:
-      keycloak:
+      postgres:
         condition: service_healthy
     ports:
       - "8080:8080"
     networks:
       - backend
+    volumes:
+      - ./logs:/logs
 
 networks:
   backend:
