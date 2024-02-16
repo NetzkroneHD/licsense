@@ -1,0 +1,33 @@
+<mat-form-field class="form-field">
+    <mat-label>{{ input.label }}</mat-label>
+    @if (input.prefix) {
+        <span matPrefix class="text input-prefix">{{ input.prefix }} &nbsp;</span>
+    }
+
+    <input matInput
+           (input)="onValueChange($event)"
+           type="{{input.inputType}}"
+           [attr.maxlength]="input.maxLength"
+           [formControl]="formControl"
+           [placeholder]="input.placeholder">
+
+    @if (input.hint && !input.error.hasError && !input.maxLength) {
+        <mat-hint [align]="input.hint.align" class="text">
+            {{ input.hint.text }}
+        </mat-hint>
+    }
+
+    @if (input.maxLength) {
+        <mat-hint align="end">{{ formControl.getRawValue()?.length }} / {{ input.maxLength }}</mat-hint>
+    }
+
+    @if (formControl.value) {
+        <button matSuffix mat-icon-button aria-label="Clear" (click)="onClearClick()" [disabled]="!formControl.value">
+            <mat-icon>close</mat-icon>
+
+        </button>
+    }
+
+    <mat-error class="error">{{ input.error.text }}</mat-error>
+</mat-form-field>
+
