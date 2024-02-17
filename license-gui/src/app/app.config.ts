@@ -16,11 +16,11 @@ export const appConfig: ApplicationConfig = {
     provideOAuthClient(),
     {
       provide: LicenseApi,
-      useValue: new LicenseApi(environment.apiConfig.licenseApi)
+      useValue: new LicenseApi(environment.apiConfig)
     },
     {
       provide: LicenseCheckApi,
-      useValue: new LicenseCheckApi(environment.apiConfig.licenseCheckApi),
+      useValue: new LicenseCheckApi(environment.apiConfig),
     }
   ]
 };

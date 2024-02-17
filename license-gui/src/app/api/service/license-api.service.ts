@@ -1,6 +1,5 @@
 import {inject, Injectable} from '@angular/core';
-import {ApiResponse, Configuration, LicenseApi, LicenseDto} from '@license/license-api-client-typescript-fetch';
-import {environment} from '../../../environments/environment';
+import {ApiResponse, LicenseApi, LicenseDto} from '@license/license-api-client-typescript-fetch';
 import type {LicenseLogDto} from '@license/license-api-client-typescript-fetch/src/models';
 
 @Injectable({
@@ -53,13 +52,6 @@ export class LicenseApiService {
 
   public getLicenseLogsRaw(license: string): Promise<ApiResponse<Array<LicenseLogDto>>> {
     return this.licenseApi.getLicenseLogsRaw({license: license});
-  }
-
-  public setAccessToken(token: string) {
-    environment.apiConfig.licenseApi.config = new Configuration({
-      ...environment.apiConfig.licenseApi,
-      accessToken: token
-    });
   }
 
 }

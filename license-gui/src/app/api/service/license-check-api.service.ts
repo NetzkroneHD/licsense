@@ -10,7 +10,8 @@ export class LicenseCheckApiService {
 
   private readonly licenseCheckApi: LicenseCheckApi = inject(LicenseCheckApi);
 
-  constructor() { }
+  constructor() {
+  }
 
   public checkLicense(license: string): Promise<LicenseCheckResultDto> {
     return this.licenseCheckApi.checkLicense({license: license})
@@ -21,8 +22,8 @@ export class LicenseCheckApiService {
   }
 
   public setAccessToken(token: string) {
-    environment.apiConfig.licenseCheckApi.config = new Configuration({
-      ...environment.apiConfig.licenseCheckApi,
+    environment.apiConfig.config = new Configuration({
+      ...environment.apiConfig,
       accessToken: token
     });
   }

@@ -1,0 +1,31 @@
+<div [cdkContextMenuTriggerFor]="menu" (cdkContextMenuOpened)="onOpened()" (cdkContextMenuClosed)="onClosed()">
+  <ng-content></ng-content>
+</div>
+
+<ng-template #menu>
+  <div class="context-menu" cdkMenu *ngIf="isAllowedToOpen">
+    <ng-container *ngFor="let item of items">
+      <ng-container *ngIf="hasChildren(item); else leafNode">
+        <button class="context-menu-item" cdkMenuItem
+                [attr.disabled]="(!item.disabled ? null:item.disabled)"
+                (click)="onItemClick(item.id)"
+                [cdkMenuTriggerFor]="subMenu"
+                *ngIf="menuComponent.menu as subMenu">
+          <mat-icon class="icon" *ngIf="item.icon">{{ item.icon }}</mat-icon>
+          {{ item.title }}
+          <span>&#10148;</span>
+        </button>
+
+        <license-context-menu #menuComponent [items]="item.entries!"></license-context-menu>
+      </ng-container>
+      <ng-template #leafNode>
+        <button class="context-menu-item" cdkMenuItem
+                (click)="onItemClick(item.id)"
+                [attr.disabled]="(!item.disabled ? null:item.disabled)">
+          <mat-icon class="icon" *ngIf="item.icon">{{ item.icon }}</mat-icon>
+          {{ item.title }}
+        </button>
+      </ng-template>
+    </ng-container>
+  </div>
+</ng-template>

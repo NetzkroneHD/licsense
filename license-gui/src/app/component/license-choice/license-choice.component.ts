@@ -1,28 +1,38 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {MatFormField, MatHint, MatLabel} from '@angular/material/form-field';
-import {LicenseChoice} from './license-choice.interface';
-import {MatOption, MatSelect, MatSelectChange} from '@angular/material/select';
+import {Component, ContentChild, EventEmitter, Input, Output, TemplateRef, ViewChild} from '@angular/core';
+import {MatMenu, MenuCloseReason} from '@angular/material/menu';
+import {LicenseChoiceMenu} from './license-choice-menu.interface';
+import {LicenseChoiceMenuItem} from './license-choice-menu-item.interface';
+import {NgTemplateOutlet} from '@angular/common';
+import {MatCheckbox} from '@angular/material/checkbox';
+import {FormsModule} from '@angular/forms';
 
 @Component({
-    selector: 'license-choice',
-    standalone: true,
-    imports: [
-        MatFormField,
-        MatSelect,
-        MatOption,
-        MatHint,
-        MatLabel
-    ],
-    templateUrl: './license-choice.component.html',
-    styleUrl: './license-choice.component.scss'
+  selector: 'license-choice',
+  standalone: true,
+  imports: [
+    NgTemplateOutlet,
+    MatMenu,
+    MatCheckbox,
+    FormsModule
+
+  ],
+  templateUrl: './license-choice.component.html',
+  styleUrl: './license-choice.component.scss'
 })
-export class LicenseChoiceComponent {
+export class LicenseChoiceMenuComponent {
 
-    @Input({required: true}) choice!: LicenseChoice;
+  @Input({required: true}) menu!: LicenseChoiceMenu;
 
-    @Output() selectionChange$: EventEmitter<MatSelectChange> = new EventEmitter<MatSelectChange>();
+  @Output() itemTriggered$: EventEmitter<LicenseChoiceMenuItem> = new EventEmitter<LicenseChoiceMenuItem>();
+  @Output() menuClosed$: EventEmitter<MenuCloseReason> = new EventEmitter<MenuCloseReason>();
 
-    constructor() {
-    }
+  @ContentChild(TemplateRef) rootTriggerButton: TemplateRef<unknown> | null = null;
+  @ViewChild(MatMenu) matMenu!: MatMenu;
 
+  constructor() {
+  }
+
+  protected onChoiceClicked(item: LicenseChoiceMenuItem) {
+    this.itemTriggered$.emit(item)
+  }
 }

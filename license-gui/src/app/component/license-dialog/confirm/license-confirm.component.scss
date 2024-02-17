@@ -1,0 +1,16 @@
+//@use './styles' as theme;
+
+.dialog {
+  //background-color: map-get(theme.$my-accent);
+}
+
+.cancel-button.mat-mdc-raised-button:not(:disabled) {
+  //color: ;
+  //background-color: ;
+}
+
+.accept-button.mat-mdc-raised-button:not(:disabled) {
+  //background-color: ;
+  //color: ;
+}
+

@@ -1,0 +1,19 @@
+<ng-container>
+  <div class="dialog" [cdkTrapFocus]="true">
+    <div mat-dialog-title>{{ title || 'TITLE' }}</div>
+
+    <mat-dialog-content>
+      {{ message || 'MESSAGE' }}
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+      <button mat-raised-button [mat-dialog-close]="false" class="cancel-button" color="secondary">
+        {{ cancelCaption || 'cancelCaption' }}
+      </button>
+
+      <button mat-raised-button [mat-dialog-close]="true" class="accept-button" color="primary">
+        <div>{{ confirmCaption || 'confirmCaption' }}</div>
+      </button>
+    </mat-dialog-actions>
+  </div>
+</ng-container>

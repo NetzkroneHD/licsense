@@ -1,14 +1,15 @@
-<mat-form-field class="form-field">
-    <mat-label>{{ choice.label }}</mat-label>
-    <mat-select [placeholder]="choice.placeholder" [(value)]="choice.input" (selectionChange)="selectionChange$.emit($event)">
-        @for (option of choice.options; track choice) {
-            <mat-option [value]="option.value">{{ option.displayValue }}</mat-option>
-        }
-    </mat-select>
-    @if (choice.hint) {
-        <mat-hint [align]="choice.hint.align">
-            {{ choice.hint.text }}
-        </mat-hint>
-    }
-</mat-form-field>
+<ng-container *ngTemplateOutlet="rootTriggerButton; context: {choice: choice}">
 
+</ng-container>
+
+<mat-menu #choice (closed)="menuClosed$.emit($event)">
+  @for (item of menu.items; track item) {
+    <mat-checkbox class="choice-item"
+                  [(ngModel)]="item.activated"
+                  (click)="$event.stopPropagation()"
+                  [color]="item.color"
+                  (change)="onChoiceClicked(item)">
+      {{item.value}}
+    </mat-checkbox>
+  }
+</mat-menu>
