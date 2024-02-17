@@ -23,6 +23,7 @@ public class LicenseCheckService {
 
     private final LicenseService licenseService;
     private final LicenseLogService logService;
+    private final PublisherService publisherService;
 
     public LicenseModel createLicense(LicenseModel license, String publisher) {
         checkPublisher(publisher);
@@ -36,6 +37,13 @@ public class LicenseCheckService {
             throw new PermissionException();
         }
         return license;
+    }
+
+    public List<LicenseModel> getLicenses(OAuth2Model model, String publisher) throws PermissionException {
+        if(!model.getSub().equalsIgnoreCase(publisher)) {
+            throw new PermissionException();
+        }
+        return publisherService.getLicenses(publisher);
     }
 
     public LicenseCheckResult checkLicense(String ip, String licenseKey) throws ListModeException {

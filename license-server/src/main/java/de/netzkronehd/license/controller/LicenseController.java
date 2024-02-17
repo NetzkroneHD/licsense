@@ -31,6 +31,7 @@ public class LicenseController implements LicenseApi {
     public ResponseEntity<LicenseDto> createLicense(@Valid LicenseDto licenseDto) {
         final OAuth2Model model = tokenSecurity.getModel(SecurityContextHolder.getContext().getAuthentication());
         if (model == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        if (!model.isAdmin()) return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
 
         try {
             licenseDto.setPublisher(model.getSub());
@@ -45,6 +46,7 @@ public class LicenseController implements LicenseApi {
     public ResponseEntity<Void> deleteLicense(String license) {
         final OAuth2Model model = tokenSecurity.getModel(SecurityContextHolder.getContext().getAuthentication());
         if (model == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        if (!model.isAdmin()) return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
 
         try {
             licenseCheckService.deleteLicense(license, model.getSub());
@@ -62,6 +64,7 @@ public class LicenseController implements LicenseApi {
     public ResponseEntity<LicenseDto> updateLicense(String license, @Valid LicenseDto licenseDto) {
         final OAuth2Model model = tokenSecurity.getModel(SecurityContextHolder.getContext().getAuthentication());
         if (model == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        if (!model.isAdmin()) return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
 
         try {
             return ResponseEntity.ok(licenseMapper.map(licenseCheckService.updateLicense(license, model.getSub(), licenseMapper.map(licenseDto))));

@@ -1,12 +1,8 @@
 FROM eclipse-temurin:17.0.8.1_1-jre
 
-RUN apt update
-RUN apt install socat iputils-ping iproute2 -y
-
 COPY target/*.jar /home/app/license-server.jar
 
 EXPOSE 8080
 
-CMD socat tcp-l:8082,fork,reuseaddr tcp:keycloak:8080 & java -jar /home/app/license-server.jar
-
+CMD java -jar /home/app/license-server.jar
 

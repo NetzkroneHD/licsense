@@ -33,6 +33,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET,
                                 "/api/v1/logs**"
                         ).hasAnyAuthority("ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.GET,
+                                "/api/v1/publisher**"
+                        ).authenticated()
                         .requestMatchers(HttpMethod.POST,
                                 "/api/v1/license**",
                                 "/api/v1/logs**"

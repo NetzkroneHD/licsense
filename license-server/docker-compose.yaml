@@ -17,10 +17,10 @@ services:
     ports:
       - "5432:5432"
     networks:
-      - backend
+      - license-backend
     volumes:
-      - ./keycloak/pg-data:/var/lib/postgresql/data
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - ./server-data/database/data:/var/lib/postgresql/data
+      - ./server-data/database/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
 
   license-server:
     build:
@@ -47,10 +47,10 @@ services:
     ports:
       - "8080:8080"
     networks:
-      - backend
+      - license-backend
     volumes:
-      - ./logs:/logs
+      - ./server-data/logs:/logs
 
 networks:
-  backend:
+  license-backend:
 

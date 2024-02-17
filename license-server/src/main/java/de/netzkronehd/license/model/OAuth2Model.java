@@ -17,4 +17,12 @@ public class OAuth2Model {
     private WebAuthenticationDetails details;
     private Collection<GrantedAuthority> authorities;
 
+    public boolean hasRole(String role) {
+        return authorities.stream().anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equalsIgnoreCase(role));
+    }
+
+    public boolean isAdmin() {
+        return hasRole("ROLE_ADMIN");
+    }
+
 }

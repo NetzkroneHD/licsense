@@ -8,6 +8,34 @@ servers:
   - url: 'http://localhost:8080/license/api/v1'
 
 paths:
+  /publisher/{publisher}/license:
+    get:
+      security:
+        - bearerAuth: [ ]
+      operationId: getLicensesFromPublisher
+      tags:
+        - Publisher
+      description: Gets all licenses from a publisher
+      parameters:
+        - name: publisher
+          in: path
+          description: publisher uuid
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Valid request
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/License'
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
   /check/{license}:
     get:
       operationId: checkLicense
