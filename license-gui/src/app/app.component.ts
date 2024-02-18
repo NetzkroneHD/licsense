@@ -13,6 +13,10 @@ import {
   MatSidenavContent
 } from '@angular/material/sidenav';
 import {MatIcon} from '@angular/material/icon';
+import {TranslateModule, TranslateService} from '@ngx-translate/core';
+import {LicenseDropdownMenuComponent} from './component/license-dropdown-menu/license-dropdown-menu.component';
+import {MatMenuTrigger} from '@angular/material/menu';
+import {LicenseDropdownMenuItem} from './component/license-dropdown-menu/license-dropdown-menu-item.interface';
 
 @Component({
   selector: 'app-root',
@@ -27,17 +31,35 @@ import {MatIcon} from '@angular/material/icon';
     MatButton,
     MatDrawer,
     MatIconButton,
-    MatIcon
-
+    MatIcon,
+    LicenseDropdownMenuComponent,
+    MatMenuTrigger,
+    TranslateModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
-  title = environment.title;
+
+  protected readonly title = environment.title;
+
+  protected readonly dropdownMenu: LicenseDropdownMenuItem[] = [
+    {
+      id: 'en',
+      title: 'EN',
+      disabled: false
+    },
+    {
+      id: 'de',
+      title: 'DE',
+      disabled: false
+    }
+  ]
 
   constructor(private readonly oAuthService: OAuthService,
-              private readonly tokenService: TokenService) {
+              private readonly tokenService: TokenService,
+              private readonly translateService: TranslateService) {
+
 
   }
 
@@ -56,7 +78,7 @@ export class AppComponent implements OnInit {
     });
   }
 
-  onUserLoggedIn() {
+  protected onUserLoggedIn() {
     const identityClaims = this.oAuthService.getIdentityClaims();
     console.log("user logged in ", identityClaims);
     if (!identityClaims) {
@@ -71,4 +93,12 @@ export class AppComponent implements OnInit {
     console.log("roles", jwt['realm_access']['roles'])
   }
 
+  protected onChangeLanguage(item: LicenseDropdownMenuItem) {
+    this.translateService.use(item.id);
+  }
+
+  protected onLogoutClicked(item: LicenseDropdownMenuItem) {
+    if(item.id !== 'logout') return;
+    this.oAuthService.logOut();
+  }
 }

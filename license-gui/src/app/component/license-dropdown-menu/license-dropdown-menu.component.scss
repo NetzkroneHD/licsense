@@ -1,0 +1,32 @@
+
+.menu {
+  //background-color: white;
+}
+
+.menu-item {
+  display: block;
+}
+
+.menu-item-root-button {
+  padding-left: 0;
+  padding-right: 0;
+  //background-color: white;
+}
+
+//.menu-item-root-button:hover {
+//  background-color: lightgray;
+//}
+
+
+//.mat-mdc-menu-content {
+//  background-color: white;
+//}
+
+.mat-icon {
+  display: inline;
+}
+
+//Wird verwendet, um die Klasse die von Angular automatisch gesetzt wird zu überschreiben
+.mat-mdc-menu-item:not([disabled]):hover {
+  //background-color: lightgray;
+}

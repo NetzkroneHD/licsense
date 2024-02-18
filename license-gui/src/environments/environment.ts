@@ -1,6 +1,19 @@
 import * as pkg from '../../package.json';
 import {Configuration} from '@license/license-api-client-typescript-fetch';
 import {AuthConfig} from 'angular-oauth2-oidc';
+import {MatDateFormats} from '@angular/material/core';
+
+const momentDateAdapter: MatDateFormats = {
+  parse: {
+    dateInput: 'DD.MM.YYYY',
+  },
+  display: {
+    dateInput: 'DD.MM.YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM-YYYY',
+  }
+}
 
 const authCodeFlowConfig: AuthConfig = {
   issuer: 'http://localhost:8082/realms/license',
@@ -10,7 +23,7 @@ const authCodeFlowConfig: AuthConfig = {
   dummyClientSecret: '7CHdYlPpft8Pnqfg3t90tnmJNqIIM3hi',
   responseType: 'code',
   scope: 'openid',
-  showDebugInformation: true
+  showDebugInformation: true,
 }
 
 export const apiConfig: Configuration = new Configuration({
@@ -22,4 +35,5 @@ export const environment = {
   production: false,
   authConfig: authCodeFlowConfig,
   apiConfig: apiConfig,
+  momentDateAdapter: momentDateAdapter
 }

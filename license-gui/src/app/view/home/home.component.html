@@ -1,8 +1,38 @@
+<license-date-picker [datePicker]="{
+    label: 'Enter a date range' | translate,
+    hint: environment.momentDateAdapter.display.dateInput+' - '+environment.momentDateAdapter.display.dateInput,
+    startDate: {
+      placeholder: 'Start Date' | translate,
+    },
+    endDate: {
+      placeholder: 'End Date' | translate,
+    },
+    applyButton: {
+      text: 'Apply' | translate,
+      color: 'primary'
+    },
+    cancelButton: {
+      text: 'Cancel' | translate,
+      color: undefined
+    }
+  }">
+
+</license-date-picker>
+
+<br><br>
+<hr>
+<br><br>
+
 <license-choice [menu]="choiceMenu">
   <ng-template let-choice="choice">
-    <button mat-raised-button color="primary" [matMenuTriggerFor]="choice">ChoiceMenu</button>
+    <button mat-raised-button color="primary" [matMenuTriggerFor]="choice">{{ 'Choose' | translate }}</button>
   </ng-template>
 </license-choice>
+
+<br><br>
+<hr>
+<br><br>
+
 <license-context-menu [items]="contextMenuItems">
   <h1>TEST</h1>
   <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus elementum id velit a pharetra.

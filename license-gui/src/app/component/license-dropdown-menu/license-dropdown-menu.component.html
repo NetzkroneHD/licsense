@@ -1,0 +1,37 @@
+@if (isRootNode && rootTriggerButton) {
+  <ng-container *ngTemplateOutlet="rootTriggerButton; context: {menu: menu}">
+
+  </ng-container>
+} @else {
+  <button mat-menu-item
+          [matMenuTriggerFor]="menu"
+          [disabled]="trigger.disabled"
+          (click)="onItemClick(trigger)" class="menu-item">
+    @if (trigger.icon) {
+      <mat-icon class="mat-icon">{{ trigger.icon }}</mat-icon>
+    }
+    {{ trigger.title }}
+  </button>
+}
+
+<mat-menu #menu="matMenu" class="menu" (closed)="menuClosed$.emit($event)">
+  <ng-container *ngFor="let item of items">
+    <button mat-menu-item class="menu-item menu-item-root-button" [disabled]="item.disabled">
+      <license-dropdown-menu
+        [items]="item.entries!"
+        [trigger]="item"
+        [isRootNode]="false"
+        *ngIf="hasChildren(item); else menuItem">
+      </license-dropdown-menu>
+    </button>
+
+    <ng-template #menuItem>
+      <button mat-menu-item class="menu-item" (click)="onItemClick(item)" [disabled]="item.disabled">
+        @if (item.icon) {
+          <mat-icon class="mat-icon">{{ trigger.icon }}</mat-icon>
+        }
+        {{ item.title }}
+      </button>
+    </ng-template>
+  </ng-container>
+</mat-menu>

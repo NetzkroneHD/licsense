@@ -5,6 +5,9 @@ import {LicenseChoiceMenuComponent} from '../../component/license-choice/license
 import {MatMenuTrigger} from '@angular/material/menu';
 import {LicenseContextMenuComponent} from '../../component/license-context-menu/license-context-menu.component';
 import {MatButton} from '@angular/material/button';
+import {LicenseDatePickerComponent} from '../../component/license-date-picker/license-date-picker.component';
+import {environment} from '../../../environments/environment';
+import {TranslateModule, TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'license-home',
@@ -13,7 +16,9 @@ import {MatButton} from '@angular/material/button';
     LicenseChoiceMenuComponent,
     MatMenuTrigger,
     LicenseContextMenuComponent,
-    MatButton
+    MatButton,
+    LicenseDatePickerComponent,
+    TranslateModule
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -65,4 +70,22 @@ export class HomeComponent {
     ]
   };
 
+  constructor(private readonly translateService: TranslateService) {
+    this.translateService.getStreamOnTranslationChange('Enter a date range').subscribe(value => {
+      console.log("getStreamOnTranslationChange", value)
+    })
+    this.translateService.get('Enter a date range').subscribe(value => {
+      console.log("get", value)
+    });
+  }
+
+  changeLanguage() {
+    if (this.translateService.store.currentLang === 'de') {
+      this.translateService.use("en").subscribe(() => console.log("changed from de to en"));
+    } else {
+      this.translateService.use("de").subscribe(() => console.log("changed from en to de"));
+    }
+  }
+
+  protected readonly environment = environment;
 }

@@ -4,6 +4,27 @@
   </button>
   <span class="mouse-hover">{{ title }}</span>
   <span class="spacer"></span>
+  <license-dropdown-menu [items]="dropdownMenu" (itemClick$)="onChangeLanguage($event)">
+    <ng-template let-menu="menu">
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>language</mat-icon>
+      </button>
+    </ng-template>
+  </license-dropdown-menu>
+
+  <license-dropdown-menu [items]="[{
+      id: 'logout',
+      title: 'Logout' | translate,
+      disabled: false
+    }]" (itemClick$)="onLogoutClicked($event)">
+    <ng-template let-menu="menu">
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </ng-template>
+  </license-dropdown-menu>
+
+
 </mat-toolbar>
 
 <mat-drawer-container class="example-container">
