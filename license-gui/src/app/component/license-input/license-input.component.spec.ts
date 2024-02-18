@@ -10,7 +10,7 @@ describe('LicenseInputComponent', () => {
     await TestBed.configureTestingModule({
       imports: [LicenseInputComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(LicenseInputComponent);
     component = fixture.componentInstance;

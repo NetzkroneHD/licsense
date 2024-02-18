@@ -1,10 +1,12 @@
 import {
   AfterViewChecked,
-  Component, ContentChild,
+  Component,
+  ContentChild,
   EventEmitter,
   Input,
   OnDestroy,
-  Output, TemplateRef,
+  Output,
+  TemplateRef,
   ViewChild
 } from '@angular/core';
 import {NgForOf, NgIf, NgTemplateOutlet} from '@angular/common';

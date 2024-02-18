@@ -1,4 +1,3 @@
-
 export interface LicenseDropdownMenuItem {
   id: string,
   title?: string;

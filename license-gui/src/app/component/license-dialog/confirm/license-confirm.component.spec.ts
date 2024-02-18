@@ -23,14 +23,19 @@ describe('LicenseConfirmComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ LicenseConfirmComponent, MatDialogModule, MatButtonModule, A11yModule],
+      imports: [LicenseConfirmComponent, MatDialogModule, MatButtonModule, A11yModule],
       providers: [
         // eslint-disable-next-line @typescript-eslint/no-empty-function
-        { provide: MatDialogRef, useValue: { close: (): void => {} } },
-        { provide: MAT_DIALOG_DATA, useValue: mockedDialogData }
+        {
+          provide: MatDialogRef, useValue: {
+            close: (): void => {
+            }
+          }
+        },
+        {provide: MAT_DIALOG_DATA, useValue: mockedDialogData}
       ]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(LicenseConfirmComponent);
     component = fixture.componentInstance;

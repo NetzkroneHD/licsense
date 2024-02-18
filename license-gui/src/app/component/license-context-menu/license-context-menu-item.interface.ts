@@ -1,4 +1,3 @@
-
 export interface LicenseContextMenuItem {
   id: string,
   title?: string;

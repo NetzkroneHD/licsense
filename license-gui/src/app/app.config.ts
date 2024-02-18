@@ -10,9 +10,11 @@ import {environment} from '../environments/environment.prod';
 import {provideMomentDateAdapter} from '@angular/material-moment-adapter';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {provideStore} from '@ngrx/store';
+import {provideEffects} from '@ngrx/effects';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
-    return new TranslateHttpLoader(http);
+  return new TranslateHttpLoader(http);
 }
 
 export const appConfig: ApplicationConfig = {
@@ -22,6 +24,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     provideOAuthClient(),
     provideMomentDateAdapter(environment.momentDateAdapter),
+    provideStore(),
     TranslateModule.forRoot({
       defaultLanguage: 'en',
       loader: {
@@ -37,6 +40,8 @@ export const appConfig: ApplicationConfig = {
     {
       provide: LicenseCheckApi,
       useValue: new LicenseCheckApi(environment.apiConfig),
-    }
+    },
+    provideStore(),
+    provideEffects()
   ]
 };

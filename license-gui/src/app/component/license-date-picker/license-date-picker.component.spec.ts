@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { LicenseDatePickerComponent } from './license-date-picker.component';
+import {LicenseDatePickerComponent} from './license-date-picker.component';
 
 describe('LicenseDatePickerComponent', () => {
   let component: LicenseDatePickerComponent;
@@ -10,8 +10,8 @@ describe('LicenseDatePickerComponent', () => {
     await TestBed.configureTestingModule({
       imports: [LicenseDatePickerComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(LicenseDatePickerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

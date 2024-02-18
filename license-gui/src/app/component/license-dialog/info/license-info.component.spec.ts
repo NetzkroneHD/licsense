@@ -20,13 +20,18 @@ describe('LicenseInfoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ LicenseInfoComponent, MatDialogModule, MatButtonModule, A11yModule],
+      imports: [LicenseInfoComponent, MatDialogModule, MatButtonModule, A11yModule],
       providers: [
-        { provide: MatDialogRef, useValue: { close: (): void => {} } },
-        { provide: MAT_DIALOG_DATA, useValue: mockedDialogData },
+        {
+          provide: MatDialogRef, useValue: {
+            close: (): void => {
+            }
+          }
+        },
+        {provide: MAT_DIALOG_DATA, useValue: mockedDialogData},
       ],
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(LicenseInfoComponent);
     component = fixture.componentInstance;

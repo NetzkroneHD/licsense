@@ -7,10 +7,11 @@ import {LicenseConfirmDialogData} from './confirm/license-confirm.interface';
 import {LicenseInfoComponent} from './info/license-info.component';
 import {LicenseInfoDialogData} from './info/license-info.interface';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class LicenseDialogService {
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog) {
+  }
 
   public confirm(data: LicenseConfirmDialogData): Observable<boolean> {
     return this.dialog

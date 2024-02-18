@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {RouterOutlet} from '@angular/router';
+import {Router, RouterOutlet} from '@angular/router';
 import {OAuthService} from 'angular-oauth2-oidc';
 import {environment} from '../environments/environment';
 import {TokenService} from './api/service/token.service';
@@ -13,10 +13,11 @@ import {
   MatSidenavContent
 } from '@angular/material/sidenav';
 import {MatIcon} from '@angular/material/icon';
-import {TranslateModule, TranslateService} from '@ngx-translate/core';
+import {TranslateModule} from '@ngx-translate/core';
 import {LicenseDropdownMenuComponent} from './component/license-dropdown-menu/license-dropdown-menu.component';
 import {MatMenuTrigger} from '@angular/material/menu';
 import {LicenseDropdownMenuItem} from './component/license-dropdown-menu/license-dropdown-menu-item.interface';
+import {UserSettingsStateFacade} from './state/user-settings/user-settings-state-facade.service';
 
 @Component({
   selector: 'app-root',
@@ -58,8 +59,8 @@ export class AppComponent implements OnInit {
 
   constructor(private readonly oAuthService: OAuthService,
               private readonly tokenService: TokenService,
-              private readonly translateService: TranslateService) {
-
+              private readonly router: Router,
+              private readonly userSettingsFacade: UserSettingsStateFacade) {
 
   }
 
@@ -67,6 +68,8 @@ export class AppComponent implements OnInit {
     this.oAuthService.configure(environment.authConfig);
     this.oAuthService.loadDiscoveryDocumentAndLogin().then(() => {
       this.onUserLoggedIn();
+    }, () => {
+      this.router.navigate(['auth-failed']).then();
     });
     this.oAuthService.setupAutomaticSilentRefresh();
     this.oAuthService.events.subscribe(event => {
@@ -94,11 +97,11 @@ export class AppComponent implements OnInit {
   }
 
   protected onChangeLanguage(item: LicenseDropdownMenuItem) {
-    this.translateService.use(item.id);
+    this.userSettingsFacade.changeLanguage(item.id);
   }
 
   protected onLogoutClicked(item: LicenseDropdownMenuItem) {
-    if(item.id !== 'logout') return;
+    if (item.id !== 'logout') return;
     this.oAuthService.logOut();
   }
 }

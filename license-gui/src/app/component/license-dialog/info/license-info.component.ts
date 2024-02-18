@@ -21,7 +21,7 @@ export class LicenseInfoComponent {
   confirmCaption = '';
 
   constructor(@Inject(MAT_DIALOG_DATA) private data: LicenseInfoDialogData,
-    public readonly dialogRef: MatDialogRef<LicenseInfoDialogData>
+              public readonly dialogRef: MatDialogRef<LicenseInfoDialogData>
   ) {
     this.title = data.title;
     this.message = data.message;
