@@ -1,4 +1,4 @@
-import {Component, inject, signal} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {LicenseContextMenuItem} from '../../component/license-context-menu/license-context-menu-item.interface';
 import {LicenseChoiceMenu} from '../../component/license-choice/license-choice-menu.interface';
 import {LicenseChoiceMenuComponent} from '../../component/license-choice/license-choice.component';
@@ -83,6 +83,7 @@ export class HomeComponent {
 
   constructor(private readonly translateService: TranslateService,
               private readonly oAuthService: OAuthService) {
+
     if (this.oAuthService.getIdentityClaims()) {
       console.log("logged in")
       this.publishApiService.getLicensesFromPublisher(this.publishApiService.getCurrentPublisher()).then(value => {
