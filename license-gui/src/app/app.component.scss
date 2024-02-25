@@ -10,12 +10,12 @@
 }
 
 
-.example-container {
+.license-sidenav-container {
   width: 100%;
   height: 93%;
 }
 
-.example-sidenav-content {
+.license-sidenav-content {
   display: flex;
   height: 100%;
   align-items: flex-start;
@@ -24,6 +24,7 @@
   margin-left: 15px;
 }
 
-.example-sidenav {
+.license-sidenav {
   padding: 20px;
+  scroll-behavior: auto;
 }

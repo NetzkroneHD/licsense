@@ -5,13 +5,13 @@ import {routes} from './app.routes';
 import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
 import {HttpClient, provideHttpClient} from '@angular/common/http';
 import {provideOAuthClient} from 'angular-oauth2-oidc';
-import {LicenseApi, LicenseCheckApi} from '@license/license-api-client-typescript-fetch';
-import {environment} from '../environments/environment.prod';
 import {provideMomentDateAdapter} from '@angular/material-moment-adapter';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {provideStore} from '@ngrx/store';
 import {provideEffects} from '@ngrx/effects';
+import {LicenseApi, LicenseCheckApi, PublisherApi} from '@license/license-api-client-typescript-fetch';
+import {environment} from '../environments/environment';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
@@ -25,6 +25,7 @@ export const appConfig: ApplicationConfig = {
     provideOAuthClient(),
     provideMomentDateAdapter(environment.momentDateAdapter),
     provideStore(),
+    provideEffects(),
     TranslateModule.forRoot({
       defaultLanguage: 'en',
       loader: {
@@ -41,7 +42,9 @@ export const appConfig: ApplicationConfig = {
       provide: LicenseCheckApi,
       useValue: new LicenseCheckApi(environment.apiConfig),
     },
-    provideStore(),
-    provideEffects()
+    {
+      provide: PublisherApi,
+      useValue: new PublisherApi(environment.apiConfig)
+    }
   ]
 };

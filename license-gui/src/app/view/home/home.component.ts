@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject, signal} from '@angular/core';
 import {LicenseContextMenuItem} from '../../component/license-context-menu/license-context-menu-item.interface';
 import {LicenseChoiceMenu} from '../../component/license-choice/license-choice-menu.interface';
 import {LicenseChoiceMenuComponent} from '../../component/license-choice/license-choice.component';
@@ -8,6 +8,11 @@ import {MatButton} from '@angular/material/button';
 import {LicenseDatePickerComponent} from '../../component/license-date-picker/license-date-picker.component';
 import {environment} from '../../../environments/environment';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
+import {LicenseApiService} from '../../api/service/license-api.service';
+import {LicenseCheckApiService} from '../../api/service/license-check-api.service';
+import {PublisherApiService} from '../../api/service/publisher-api.service';
+import {LicenseDto} from '@license/license-api-client-typescript-fetch';
+import {OAuthService} from 'angular-oauth2-oidc';
 
 @Component({
   selector: 'license-home',
@@ -70,13 +75,25 @@ export class HomeComponent {
     ]
   };
 
-  constructor(private readonly translateService: TranslateService) {
-    this.translateService.getStreamOnTranslationChange('Enter a date range').subscribe(value => {
-      console.log("getStreamOnTranslationChange", value)
-    })
-    this.translateService.get('Enter a date range').subscribe(value => {
-      console.log("get", value)
-    });
+  protected readonly licenseApiService: LicenseApiService = inject(LicenseApiService);
+  protected readonly licenseCheckApiService: LicenseCheckApiService = inject(LicenseCheckApiService);
+  protected readonly publishApiService: PublisherApiService = inject(PublisherApiService);
+
+  protected licenses: LicenseDto[] = [];
+
+  constructor(private readonly translateService: TranslateService,
+              private readonly oAuthService: OAuthService) {
+    if (this.oAuthService.getIdentityClaims()) {
+      console.log("logged in")
+      this.publishApiService.getLicensesFromPublisher(this.publishApiService.getCurrentPublisher()).then(value => {
+        this.licenses = value;
+      })
+    } else {
+      console.log("waiting for login")
+      this.oAuthService.events.subscribe(event => {
+
+      })
+    }
   }
 
   changeLanguage() {

@@ -1,8 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {UserSettingsState} from './user-settings.state';
 import {TranslateService} from '@ngx-translate/core';
-import {Store} from '@ngrx/store';
-import * as UserSettingsActions from './user-settings.action';
 
 
 @Injectable({
@@ -11,13 +9,14 @@ import * as UserSettingsActions from './user-settings.action';
 export class UserSettingsStateFacade {
 
   private readonly userSettingsState: UserSettingsState = inject(UserSettingsState);
-
   private readonly translateService: TranslateService = inject(TranslateService);
 
-  private readonly store: Store = inject(Store);
-
   public changeLanguage(language: string) {
-    this.store.dispatch(UserSettingsActions.changeLanguage.do({language: language}));
+    console.log("changeLanguage", language)
+    this.translateService.use(language).subscribe(value => {
+      console.log("changed language", value);
+      this.userSettingsState.changeLanguage(language);
+    })
   }
 
 }
