@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.NoSuchElementException;
@@ -21,6 +22,7 @@ import java.util.NoSuchElementException;
 @RestController
 @AllArgsConstructor(onConstructor_ = {@Autowired})
 @Slf4j
+@CrossOrigin
 public class LicenseController implements LicenseApi {
 
     private final LicenseMapper licenseMapper;

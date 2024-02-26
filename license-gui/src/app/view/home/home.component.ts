@@ -12,7 +12,6 @@ import {LicenseApiService} from '../../api/service/license-api.service';
 import {LicenseCheckApiService} from '../../api/service/license-check-api.service';
 import {PublisherApiService} from '../../api/service/publisher-api.service';
 import {LicenseDto} from '@license/license-api-client-typescript-fetch';
-import {OAuthService} from 'angular-oauth2-oidc';
 
 @Component({
   selector: 'license-home',
@@ -81,20 +80,17 @@ export class HomeComponent {
 
   protected licenses: LicenseDto[] = [];
 
-  constructor(private readonly translateService: TranslateService,
-              private readonly oAuthService: OAuthService) {
+  constructor(private readonly translateService: TranslateService) {
+  }
 
-    if (this.oAuthService.getIdentityClaims()) {
-      console.log("logged in")
-      this.publishApiService.getLicensesFromPublisher(this.publishApiService.getCurrentPublisher()).then(value => {
-        this.licenses = value;
-      })
-    } else {
-      console.log("waiting for login")
-      this.oAuthService.events.subscribe(event => {
-
-      })
-    }
+  retrievePublisher() {
+    // fetch(new URL("http://localhost:8080/api/v1/test")).then(value => {
+    //   console.log("response", value);
+    //   console.log("basePath", environment.apiConfig.basePath)
+    // });
+    this.publishApiService.getLicensesFromPublisher(this.publishApiService.getCurrentPublisher()).then(value => {
+      this.licenses = value;
+    })
   }
 
   changeLanguage() {
