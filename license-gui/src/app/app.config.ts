@@ -1,5 +1,5 @@
 import {ApplicationConfig} from '@angular/core';
-import {provideRouter} from '@angular/router';
+import {provideRouter, withComponentInputBinding} from '@angular/router';
 
 import {routes} from './app.routes';
 import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
@@ -8,10 +8,11 @@ import {provideOAuthClient} from 'angular-oauth2-oidc';
 import {provideMomentDateAdapter} from '@angular/material-moment-adapter';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import {provideStore} from '@ngrx/store';
-import {provideEffects} from '@ngrx/effects';
 import {LicenseApi, LicenseCheckApi, PublisherApi} from '@license/license-api-client-typescript-fetch';
 import {environment} from '../environments/environment';
+import {provideToastr} from 'ngx-toastr';
+import {provideStore} from '@ngrx/store';
+import {provideEffects} from '@ngrx/effects';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
@@ -19,13 +20,20 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes),
+    provideRouter(routes, withComponentInputBinding()),
     provideAnimationsAsync(),
     provideHttpClient(),
     provideOAuthClient(),
     provideMomentDateAdapter(environment.momentDateAdapter),
     provideStore(),
     provideEffects(),
+    provideToastr({
+      closeButton: true,
+      progressBar: true,
+      preventDuplicates: true,
+      enableHtml: true,
+      positionClass: 'toast-bottom-right',
+    }),
     TranslateModule.forRoot({
       defaultLanguage: 'en',
       loader: {

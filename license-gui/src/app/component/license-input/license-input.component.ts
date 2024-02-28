@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {MatError, MatFormField, MatHint, MatLabel} from '@angular/material/form-field';
+import {MatError, MatFormField, MatHint, MatLabel, MatSuffix} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
 import {MatIconButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
@@ -17,7 +17,8 @@ import {FormBuilder, FormControl, ReactiveFormsModule} from '@angular/forms';
     MatIcon,
     ReactiveFormsModule,
     MatLabel,
-    MatError
+    MatError,
+    MatSuffix
   ],
   templateUrl: './license-input.component.html',
   styleUrl: './license-input.component.scss'

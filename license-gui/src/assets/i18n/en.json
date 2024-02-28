@@ -7,5 +7,13 @@
   "Cancel": "Apply",
   "Choose": "Choose",
   "Logout": "Logout",
-  "Retrieve Publisher Data": "Retrieve Publisher Data"
+  "Retrieve Publisher Data": "Retrieve Publisher Data",
+  "ID": "ID",
+  "License": "License",
+  "IP": "IP",
+  "Date": "Date",
+  "Request Result": "Request Result",
+  "Error while getting logs.": "Error while getting logs.",
+  "Error: {{error}}": "{{error}}",
+  "Filter": "Filter"
 }

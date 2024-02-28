@@ -7,7 +7,7 @@ import {LicenseContextMenuComponent} from '../../component/license-context-menu/
 import {MatButton} from '@angular/material/button';
 import {LicenseDatePickerComponent} from '../../component/license-date-picker/license-date-picker.component';
 import {environment} from '../../../environments/environment';
-import {TranslateModule, TranslateService} from '@ngx-translate/core';
+import {TranslateModule} from '@ngx-translate/core';
 import {LicenseApiService} from '../../api/service/license-api.service';
 import {LicenseCheckApiService} from '../../api/service/license-check-api.service';
 import {PublisherApiService} from '../../api/service/publisher-api.service';
@@ -80,25 +80,7 @@ export class HomeComponent {
 
   protected licenses: LicenseDto[] = [];
 
-  constructor(private readonly translateService: TranslateService) {
-  }
-
-  retrievePublisher() {
-    // fetch(new URL("http://localhost:8080/api/v1/test")).then(value => {
-    //   console.log("response", value);
-    //   console.log("basePath", environment.apiConfig.basePath)
-    // });
-    this.publishApiService.getLicensesFromPublisher(this.publishApiService.getCurrentPublisher()).then(value => {
-      this.licenses = value;
-    })
-  }
-
-  changeLanguage() {
-    if (this.translateService.store.currentLang === 'de') {
-      this.translateService.use("en").subscribe(() => console.log("changed from de to en"));
-    } else {
-      this.translateService.use("de").subscribe(() => console.log("changed from en to de"));
-    }
+  constructor() {
   }
 
   protected readonly environment = environment;

@@ -71,19 +71,16 @@ export class AppComponent implements OnInit {
     }, () => {
       this.router.navigate(['auth-failed']).then();
     });
+
     this.oAuthService.setupAutomaticSilentRefresh();
     if (this.oAuthService.hasValidAccessToken()) {
-      console.log("hasValidAccessToken", this.oAuthService.getAccessToken());
       this.tokenService.setAccessToken(this.oAuthService.getAccessToken());
     }
     this.oAuthService.events.subscribe(event => {
-      console.log("OAuthEvent", event.type);
       if (event.type !== 'token_refreshed') {
         return;
       }
-      console.log("tokenRefreshed", this.oAuthService.getAccessToken());
       this.tokenService.setAccessToken(this.oAuthService.getAccessToken());
-
     });
   }
 

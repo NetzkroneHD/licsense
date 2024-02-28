@@ -7,5 +7,13 @@
   "Cancel": "Abbrechen",
   "Choose": "Auswählen",
   "Logout": "Abmelden",
-  "Retrieve Publisher Data": "Benutzerdaten laden"
+  "Retrieve Publisher Data": "Benutzerdaten laden",
+  "ID": "ID",
+  "License": "Lizenz",
+  "IP": "IP",
+  "Date": "Datum",
+  "Request Result": "Anfrage Ergebnis",
+  "Error while getting logs.": "Fehler beim Laden der Logs.",
+  "Error: {{error}}": "{{error}}",
+  "Filter": "Filter"
 }
