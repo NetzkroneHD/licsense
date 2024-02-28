@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router, RouterOutlet} from '@angular/router';
 import {OAuthService} from 'angular-oauth2-oidc';
 import {environment} from '../environments/environment';
@@ -57,6 +57,11 @@ export class AppComponent implements OnInit {
     }
   ]
 
+  protected expanded = true;
+
+  @ViewChild('expanded') expandedDrawer!: MatDrawer;
+  @ViewChild('small') smallDrawer!: MatDrawer;
+
   constructor(private readonly oAuthService: OAuthService,
               private readonly tokenService: TokenService,
               private readonly router: Router,
@@ -106,4 +111,19 @@ export class AppComponent implements OnInit {
     if (item.id !== 'logout') return;
     this.oAuthService.logOut();
   }
+
+  toggleSidenav() {
+    if (this.expanded) {
+      this.expandedDrawer.toggle().then(() => {
+        this.expanded = false;
+        this.smallDrawer.open();
+      });
+    } else {
+      this.smallDrawer.toggle().then(() => {
+        this.expanded = true;
+        this.expandedDrawer.open();
+      })
+    }
+  }
+
 }

@@ -12,7 +12,7 @@ export class UserLicenseStateFacade {
   private readonly licenseState = inject(UserLicenseState);
 
   public setLicenses(licenses: LicenseDto[]) {
-
+    this.licenseState.setUserLicensesReducer(licenses);
   }
 
   public setLicenseLogs(licenseLogs: LicenseLogDto[]) {
