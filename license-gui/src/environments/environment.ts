@@ -34,7 +34,7 @@ const headers: HTTPHeaders = {
 }
 
 export const apiConfig: Configuration = new Configuration({
-  basePath: "http://localhost:8080/api/v1".replace(/\/+$/, ""),
+  basePath: "http://localhost:8080/license/api/v1".replace(/\/+$/, ""),
   headers: headers
 });
 

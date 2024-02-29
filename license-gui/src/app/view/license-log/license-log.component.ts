@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, effect, Input, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, effect, ViewChild} from '@angular/core';
 import {LicenseTableComponent} from '../../component/license-table/license-table.component';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatProgressBar} from '@angular/material/progress-bar';
@@ -17,7 +17,6 @@ import {
   MatTableDataSource
 } from '@angular/material/table';
 import {UserLicenseState} from '../../state/user-license/user-license.state';
-import {LicenseLogDto} from '@license/license-api-client-typescript-fetch/src/models';
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
 import {ToastrService} from 'ngx-toastr';
@@ -28,6 +27,7 @@ import {MatInput} from '@angular/material/input';
 import {FormsModule} from '@angular/forms';
 import {MatIcon} from '@angular/material/icon';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
+import {UserLicenseStateFacade} from '../../state/user-license/user-license-state-facade.service';
 
 @Component({
   selector: 'license-license-log',
@@ -65,8 +65,6 @@ import {MatProgressSpinner} from '@angular/material/progress-spinner';
 })
 export class LicenseLogComponent implements AfterViewInit {
 
-  @Input() initialLicenseLoad: string | undefined | null;
-
   protected loading = false;
   protected displayedColumns = ['id', 'license', 'ip', 'dateTime', 'listBehaviorResult'];
   protected dataSource;
@@ -76,19 +74,26 @@ export class LicenseLogComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(protected readonly userLicenseState: UserLicenseState,
+              private readonly userLicenseFacade: UserLicenseStateFacade,
               private readonly licenseApiService: LicenseApiService,
               private readonly toasterService: ToastrService,
               private readonly translateService: TranslateService) {
 
-
-
-    const logs: LicenseLogDto[] = [];
-
-    this.dataSource = new MatTableDataSource(logs);
+    this.dataSource = new MatTableDataSource(this.userLicenseState.selectUserLicenseLogs$());
 
     effect(() => {
-      if(this.dataSource.data == this.userLicenseState.selectUserLicenseLogs$()) return;
+      this.loading = this.userLicenseState.isLoadingLogs$();
+    });
+
+    effect(() => {
       this.dataSource.data = this.userLicenseState.selectUserLicenseLogs$();
+    });
+
+    effect(() => {
+      const userLicenseError = this.userLicenseState.selectError$();
+      if (userLicenseError.title && userLicenseError.message) {
+        this.toasterService.error(userLicenseError.message, userLicenseError.title);
+      }
     });
 
   }
@@ -123,5 +128,9 @@ export class LicenseLogComponent implements AfterViewInit {
   clearFilter() {
     this.filterValue = '';
     this.applyFilter();
+  }
+
+  refresh() {
+    this.userLicenseFacade.loadLogs('r35139uui9wIpQT68U8bxp1tGryDR35Yv9dRtAItlNgHe91dLh');
   }
 }

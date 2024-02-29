@@ -34,6 +34,11 @@ public class LicenseLogsController implements LogsApi {
         if (model == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 
         try {
+            try {
+                Thread.sleep(1500);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             return ResponseEntity.ok(licenseLogMapper.map(checkService.getLogs(license, model.getSub())));
         } catch (NoSuchElementException ex) {
             return ResponseEntity.notFound().build();

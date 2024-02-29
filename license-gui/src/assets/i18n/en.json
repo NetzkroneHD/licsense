@@ -13,7 +13,8 @@
   "IP": "IP",
   "Date": "Date",
   "Request Result": "Request Result",
-  "Error while getting logs.": "Error while getting logs.",
+  "Error while loading licenses.": "Error while loading licenses.",
+  "Error while loading logs.": "Error while loading logs.",
   "Error: {{error}}": "{{error}}",
   "Filter": "Filter"
 }

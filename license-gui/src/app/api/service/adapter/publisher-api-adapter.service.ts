@@ -2,7 +2,8 @@ import {inject, Injectable} from '@angular/core';
 import {
   ApiResponse,
   GetLicensesFromPublisherRequest,
-  InitOverrideFunction, LicenseDto,
+  InitOverrideFunction,
+  LicenseDto,
   PublisherApi
 } from '@license/license-api-client-typescript-fetch';
 import {environment} from '../../../../environments/environment';
@@ -24,7 +25,6 @@ export class PublisherApiAdapter extends PublisherApi {
   }
 
   public override getLicensesFromPublisher(requestParameters: GetLicensesFromPublisherRequest, initOverrides?: RequestInit | InitOverrideFunction): Promise<Array<LicenseDto>> {
-    console.log("config", this.configuration.accessToken);
     return this.publisherApi.getLicensesFromPublisher(requestParameters, initOverrides);
   }
 }

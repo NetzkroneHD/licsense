@@ -18,6 +18,8 @@ import {LicenseDropdownMenuComponent} from './component/license-dropdown-menu/li
 import {MatMenuTrigger} from '@angular/material/menu';
 import {LicenseDropdownMenuItem} from './component/license-dropdown-menu/license-dropdown-menu-item.interface';
 import {UserSettingsStateFacade} from './state/user-settings/user-settings-state-facade.service';
+import {UserLicenseStateFacade} from './state/user-license/user-license-state-facade.service';
+import {PublisherApiService} from './api/service/publisher-api.service';
 
 @Component({
   selector: 'app-root',
@@ -65,7 +67,9 @@ export class AppComponent implements OnInit {
   constructor(private readonly oAuthService: OAuthService,
               private readonly tokenService: TokenService,
               private readonly router: Router,
-              private readonly userSettingsFacade: UserSettingsStateFacade) {
+              private readonly userSettingsFacade: UserSettingsStateFacade,
+              private readonly publisherApiService: PublisherApiService,
+              private readonly userLicenseStateFacade: UserLicenseStateFacade) {
 
   }
 
@@ -78,15 +82,18 @@ export class AppComponent implements OnInit {
     });
 
     this.oAuthService.setupAutomaticSilentRefresh();
-    if (this.oAuthService.hasValidAccessToken()) {
-      this.tokenService.setAccessToken(this.oAuthService.getAccessToken());
-    }
     this.oAuthService.events.subscribe(event => {
       if (event.type !== 'token_refreshed') {
         return;
       }
       this.tokenService.setAccessToken(this.oAuthService.getAccessToken());
     });
+
+    this.tokenService.setAccessToken(this.oAuthService.getAccessToken());
+    console.log("accessToken", this.oAuthService.getAccessToken())
+
+    this.userLicenseStateFacade.loadLicensesCurrentPublisher();
+
   }
 
   protected onUserLoggedIn() {
@@ -116,12 +123,10 @@ export class AppComponent implements OnInit {
     if (this.expanded) {
       this.expandedDrawer.toggle().then(() => {
         this.expanded = false;
-        this.smallDrawer.open();
       });
     } else {
       this.smallDrawer.toggle().then(() => {
         this.expanded = true;
-        this.expandedDrawer.open();
       })
     }
   }
