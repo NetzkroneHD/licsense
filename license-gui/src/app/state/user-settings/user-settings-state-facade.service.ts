@@ -12,9 +12,7 @@ export class UserSettingsStateFacade {
   private readonly translateService: TranslateService = inject(TranslateService);
 
   public changeLanguage(language: string) {
-    console.log("changeLanguage", language)
     this.translateService.use(language).subscribe(value => {
-      console.log("changed language", value);
       this.userSettingsState.changeLanguage(language);
     })
   }

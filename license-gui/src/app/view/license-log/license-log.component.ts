@@ -87,6 +87,7 @@ export class LicenseLogComponent implements AfterViewInit {
 
     effect(() => {
       this.dataSource.data = this.userLicenseState.selectUserLicenseLogs$();
+      this.toasterService.success(this.translateService.instant("Successfully loaded logs."))
     });
 
     effect(() => {
@@ -95,6 +96,11 @@ export class LicenseLogComponent implements AfterViewInit {
         this.toasterService.error(userLicenseError.message, userLicenseError.title);
       }
     });
+
+    const currentLicense = this.userLicenseState.selectCurrentLicense$();
+    if(currentLicense) {
+      this.userLicenseFacade.loadLogs(currentLicense);
+    }
 
   }
 

@@ -11,12 +11,14 @@ export type UserLicenseError = {
 export interface UserLicense {
   licenses: LicenseDto[],
   licenseLogs: LicenseLogDto[],
-  error: UserLicenseError
+  currentSelectedLicense: string | null,
+  error: UserLicenseError,
 }
 
 export const initialState: UserLicense = {
   licenses: [],
   licenseLogs: [],
+  currentSelectedLicense: null,
   error: {title: null, message: null}
 }
 
@@ -27,18 +29,52 @@ export class UserLicenseState {
 
   private loadingLogs$ = signal(0);
   private loadingLicenses$ = signal(0);
+  private loadingCreate$ = signal(false);
+  private loadingUpdate$ = signal(0);
+  private loadingDelete$ = signal(0);
 
   state$ = signalState<UserLicense>(initialState);
   selectUserLicenses$ = computed(() => this.state$.licenses());
   selectUserLicenseLogs$ = computed(() => this.state$.licenseLogs());
   selectError$ = computed(() => this.state$.error());
+  selectCurrentLicense$ = computed(() => this.state$.currentSelectedLicense());
+
   isLoadingLogs$ = computed(() => this.loadingLogs$() !== 0);
   isLoadingLicenses$ = computed(() => this.loadingLicenses$() !== 0);
+  isLoadingCreate$ = computed(() => this.loadingCreate$);
+  isLoadingUpdate = computed(() => this.loadingUpdate$() !== 0);
+  isLoadingDelete = computed(() => this.loadingDelete$() !== 0);
 
   constructor() {
 
   }
 
+  public setCurrentLicense(license: string) {
+    patchState(this.state$, (state) => ({
+      ...state,
+      currentSelectedLicense: license
+    }));
+  }
+
+  public setLoadingCreate(loading: boolean) {
+    this.loadingCreate$.set(loading);
+  }
+
+  public setLoadingLicenseDelete(loading: boolean) {
+    if (loading) {
+      this.loadingDelete$.update(value => value+1);
+    } else {
+      this.loadingDelete$.update(value => value-1);
+    }
+  }
+
+  public setLoadingLicenseUpdate(loading: boolean) {
+    if (loading) {
+      this.loadingUpdate$.update(value => value+1);
+    } else {
+      this.loadingUpdate$.update(value => value-1);
+    }
+  }
 
   public setLoadingLicenses(loading: boolean) {
     if (loading) {
@@ -78,4 +114,29 @@ export class UserLicenseState {
 
   }
 
+  public createLicense(license: LicenseDto) {
+    patchState(this.state$, (state) => ({
+      ...state,
+      licenses: state.licenses.concat([license])
+    }));
+  }
+
+  public updateLicense(licenseKey: string, license: LicenseDto) {
+    patchState(this.state$, (state) => ({
+      ...state,
+      licenses: state.licenses.map(value => {
+        if (value.licenseKey === licenseKey) {
+          return license;
+        }
+        return value;
+      })
+    }))
+  }
+
+  public deleteLicense(licenseKey: string) {
+    patchState(this.state$, (state) => ({
+      ...state,
+      licenses: state.licenses.filter(value => value.licenseKey !== licenseKey)
+    }))
+  }
 }

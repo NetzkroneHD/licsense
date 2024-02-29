@@ -8,7 +8,7 @@
       <ng-container *ngIf="hasChildren(item); else leafNode">
         <button class="context-menu-item" cdkMenuItem
                 [attr.disabled]="(!item.disabled ? null:item.disabled)"
-                (click)="onItemClick(item.id)"
+                (click)="onItemClick(item)"
                 [cdkMenuTriggerFor]="subMenu"
                 *ngIf="menuComponent.menu as subMenu">
           <mat-icon class="icon" *ngIf="item.icon">{{ item.icon }}</mat-icon>
@@ -20,7 +20,7 @@
       </ng-container>
       <ng-template #leafNode>
         <button class="context-menu-item" cdkMenuItem
-                (click)="onItemClick(item.id)"
+                (click)="onItemClick(item)"
                 [attr.disabled]="(!item.disabled ? null:item.disabled)">
           <mat-icon class="icon" *ngIf="item.icon">{{ item.icon }}</mat-icon>
           {{ item.title }}

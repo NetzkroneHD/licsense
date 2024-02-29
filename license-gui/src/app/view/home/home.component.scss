@@ -1,0 +1,23 @@
+@use '@angular/material' as mat;
+
+:host {
+  width: 95%;
+}
+
+.license-table {
+  margin-bottom: 1%;
+}
+
+.license-form-field {
+  display: block;
+  max-width: 25%;
+  min-width: 250px;
+}
+
+.license-table-header {
+  user-select: none;
+}
+
+.license-table-row:hover {
+  background-color: map-get(mat.$indigo-palette, 50);
+}

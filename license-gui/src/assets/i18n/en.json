@@ -13,6 +13,7 @@
   "IP": "IP",
   "Date": "Date",
   "Request Result": "Request Result",
+  "Successfully loaded logs.": "Successfully loaded logs.",
   "Error while loading licenses.": "Error while loading licenses.",
   "Error while loading logs.": "Error while loading logs.",
   "Error: {{error}}": "{{error}}",

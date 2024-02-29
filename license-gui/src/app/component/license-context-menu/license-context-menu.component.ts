@@ -50,7 +50,7 @@ export class LicenseContextMenuComponent implements AfterViewChecked, OnDestroy 
   isAllowedToOpen: boolean = true;
 
   @Output()
-  contextItemClickEmitter = new EventEmitter<string>();
+  contextItemClickEmitter = new EventEmitter<LicenseContextMenuItem>();
 
   @Output()
   contextMenuOpened = new EventEmitter<unknown>();
@@ -92,8 +92,8 @@ export class LicenseContextMenuComponent implements AfterViewChecked, OnDestroy 
     }
   }
 
-  onItemClick(itemId: string) {
-    this.contextItemClickEmitter.emit(itemId);
+  onItemClick(item: LicenseContextMenuItem) {
+    this.contextItemClickEmitter.emit(item);
   }
 
   hasChildren(item: LicenseContextMenuItem) {

@@ -27,26 +27,13 @@
 
 </mat-toolbar>
 
-@if (expanded) {
-  <mat-drawer-container class="license-sidenav-container">
-    <mat-drawer #expanded class="license-sidenav" mode="side" [opened]="true">
-      <p>Auto-resizing sidenav</p>
-    </mat-drawer>
+<mat-drawer-container class="license-sidenav-container">
+  <mat-drawer #expanded class="license-sidenav" mode="side" [opened]="true">
+    <p>Auto-resizing sidenav</p>
+  </mat-drawer>
 
-    <div class="license-sidenav-content">
-      <div style="display: block; height: 15px; width: 15px; margin-left: 15px"></div>
-      <router-outlet style="display: block; margin-top: 1px; margin-left: 15px"></router-outlet>
-    </div>
-  </mat-drawer-container>
-} @else {
-  <mat-drawer-container class="license-sidenav-container">
-    <mat-drawer #small class="license-sidenav" mode="side" [opened]="true">
-      <p>s</p>
-    </mat-drawer>
-
-    <div class="license-sidenav-content">
-      <div style="display: block; height: 15px; width: 15px; margin-left: 15px"></div>
-      <router-outlet style="display: block; margin-top: 1px; margin-left: 15px"></router-outlet>
-    </div>
-  </mat-drawer-container>
-}
+  <div class="license-sidenav-content">
+    <div style="display: block; height: 15px; width: 15px; margin-left: 15px"></div>
+    <router-outlet style="display: block; margin-top: 1px; margin-left: 15px"></router-outlet>
+  </div>
+</mat-drawer-container>

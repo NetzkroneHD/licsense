@@ -62,7 +62,6 @@ export class AppComponent implements OnInit {
   protected expanded = true;
 
   @ViewChild('expanded') expandedDrawer!: MatDrawer;
-  @ViewChild('small') smallDrawer!: MatDrawer;
 
   constructor(private readonly oAuthService: OAuthService,
               private readonly tokenService: TokenService,
@@ -92,7 +91,7 @@ export class AppComponent implements OnInit {
     this.tokenService.setAccessToken(this.oAuthService.getAccessToken());
     console.log("accessToken", this.oAuthService.getAccessToken())
 
-    this.userLicenseStateFacade.loadLicensesCurrentPublisher();
+    this.userLicenseStateFacade.loadLicensesFromCurrentPublisher();
 
   }
 
@@ -120,15 +119,7 @@ export class AppComponent implements OnInit {
   }
 
   toggleSidenav() {
-    if (this.expanded) {
-      this.expandedDrawer.toggle().then(() => {
-        this.expanded = false;
-      });
-    } else {
-      this.smallDrawer.toggle().then(() => {
-        this.expanded = true;
-      })
-    }
+    this.expandedDrawer.toggle();
   }
 
 }
