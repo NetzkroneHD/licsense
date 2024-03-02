@@ -18,6 +18,8 @@ import {MatSlideToggle} from '@angular/material/slide-toggle';
 import {environment} from '../../../environments/environment';
 import {LicenseDateSinglePickerComponent} from '../license-date-single-picker/license-date-single-picker.component';
 import {CdkDrag, CdkDragHandle} from '@angular/cdk/drag-drop';
+import {MatRadioButton, MatRadioGroup} from '@angular/material/radio';
+import {ListModeDto} from '@license/license-api-client-typescript-fetch';
 
 @Component({
   selector: 'license-edit',
@@ -41,7 +43,9 @@ import {CdkDrag, CdkDragHandle} from '@angular/cdk/drag-drop';
     MatSlideToggle,
     LicenseDateSinglePickerComponent,
     CdkDrag,
-    CdkDragHandle
+    CdkDragHandle,
+    MatRadioGroup,
+    MatRadioButton
   ],
   templateUrl: './license-edit.component.html',
   styleUrl: './license-edit.component.scss'
@@ -59,10 +63,15 @@ export class LicenseEditComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
+    setTimeout(() => {
+      this.datePicker.date.setValue(this.licenseEdit.validUntil);
+    })
+    // this.datePicker.date.setValue(this.licenseEdit.validUntil);
 
   }
 
 
   protected readonly String = String;
   protected readonly environment = environment;
+  protected readonly ListModeDto = ListModeDto;
 }

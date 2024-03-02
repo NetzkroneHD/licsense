@@ -18,8 +18,32 @@ export class LicenseEditService {
 
   }
 
-  public edit(license: LicenseDto) {
+  public edit(license: LicenseDto): Observable<LicenseEditAction> {
+    const licenseEdit: LicenseEdit = {
+      licenseKey: license.licenseKey,
+      publisher: license.publisher,
+      notes: license.notes,
+      valid: license.valid,
+      validUntil: license.validUntil,
+      listMode: license.listMode,
+      ipAddresses: [...license.ipAddresses],
+      editType: 'edit',
+      dialog: {
+        title: this.translateService.instant('Edit a license.'),
+        confirmCaption: this.translateService.instant('Save'),
+        cancelCaption: this.translateService.instant('Cancel')
+      },
+      licenseReference: license
+    }
 
+    return this.dialog
+      .open(LicenseEditComponent, {
+        disableClose: true,
+        width: '45%',
+        data: licenseEdit,
+        delayFocusTrap: false,
+      })
+      .afterClosed();
   }
 
   public create(): Observable<LicenseEditAction> {

@@ -1,6 +1,8 @@
 <ng-container>
   <div class="dialog" [cdkTrapFocus]="true">
-    <div mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle class="license-drag-area license-text">{{ licenseEdit.dialog.title }}</div>
+    <div mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle
+         class="license-drag-area license-text">{{ licenseEdit.dialog.title }}
+    </div>
 
     <mat-dialog-content>
       <mat-form-field class="license-form-field" #licenseKey>
@@ -28,6 +30,8 @@
         }
       </mat-slide-toggle>
 
+      <div class="license-spacer"></div>
+
       <license-date-single-picker #validUntil
                                   class="license-form-field"
                                   [datePicker]="{label: 'Valid Until' | translate, hint: environment.momentDateAdapter.display.dateInput, placeholder: 'Start Date' | translate}"
@@ -36,6 +40,12 @@
 
       </license-date-single-picker>
 
+      <mat-radio-group aria-label="Select an option" [(ngModel)]="licenseEdit.listMode">
+        <mat-radio-button [value]="ListModeDto.Blacklist" class="no-select license-radio-button">{{ListModeDto.Blacklist}}</mat-radio-button>
+        <mat-radio-button [value]="ListModeDto.Whitelist" class="no-select license-radio-button">{{ListModeDto.Whitelist}}</mat-radio-button>
+      </mat-radio-group>
+
+      <div class="license-spacer"></div>
 
     </mat-dialog-content>
 

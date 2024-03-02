@@ -7,10 +7,15 @@ import {UserLicenseStateFacade} from '../../state/user-license/user-license-stat
 import {UserLicenseState} from '../../state/user-license/user-license.state';
 import {ToastrService} from 'ngx-toastr';
 import {
-  MatCell, MatCellDef,
+  MatCell,
+  MatCellDef,
   MatColumnDef,
   MatHeaderCell,
-  MatHeaderCellDef, MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
+  MatHeaderCellDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatRow,
+  MatRowDef,
   MatTable,
   MatTableDataSource
 } from '@angular/material/table';
@@ -27,6 +32,7 @@ import {MatIconButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
 import {MatTooltip} from '@angular/material/tooltip';
 import {MatProgressBar} from '@angular/material/progress-bar';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'license-home',
@@ -79,7 +85,7 @@ export class HomeComponent implements AfterViewInit {
   protected displayedColumns = ['licenseKey', 'publisher', 'notes', 'valid', 'validUntil', 'listMode', 'ipAddresses'];
   protected dataSource;
   protected filterValue: any;
-  protected selectedLicense!: LicenseDto;
+  protected selectedLicense: {previous: LicenseDto | null; current: LicenseDto | null} = { previous: null, current: null};
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -90,7 +96,8 @@ export class HomeComponent implements AfterViewInit {
               private readonly toasterService: ToastrService,
               private readonly dialogService: LicenseDialogService,
               private readonly translateService: TranslateService,
-              private readonly licenseEditService: LicenseEditService) {
+              private readonly licenseEditService: LicenseEditService,
+              private readonly router: Router) {
 
     this.dataSource = new MatTableDataSource(this.userLicenseState.selectUserLicenses$());
 
@@ -115,16 +122,16 @@ export class HomeComponent implements AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
-  applyFilter() {
+  protected applyFilter() {
     this.dataSource.filter = this.filterValue.trim().toLowerCase();
   }
 
-  clearFilter() {
+  protected clearFilter() {
     this.filterValue = '';
     this.applyFilter();
   }
 
-  refresh() {
+  protected refresh() {
     if (this.userLicenseState.isLoadingAnyLicense$()) {
 
       this.toasterService.info(this.translateService.instant('The licenses are already loading.'), this.translateService.instant('Loading...'));
@@ -137,21 +144,27 @@ export class HomeComponent implements AfterViewInit {
 
   protected openContextMenu(event: MouseEvent, license: LicenseDto) {
     event.preventDefault();
-    this.selectedLicense = license;
+    this.selectedLicense = {current: license, previous: this.selectedLicense.previous};
     this.contextMenu.open({x: event.x, y: event.y});
   }
 
   protected contextItemClick(item: LicenseContextMenuItem) {
-    if (!this.selectedLicense) return;
+    if (!this.selectedLicense.previous) return;
     if (item.id === 'open') {
-
+      const licenseKey = this.selectedLicense.previous.licenseKey;
+      this.userLicenseStateFacade.setCurrentSelectedLicense(this.selectedLicense.previous.licenseKey);
+      this.router.navigate(['license-logs']).then(() => {
+        this.userLicenseStateFacade.loadLogs(licenseKey);
+      });
     } else if (item.id === 'edit') {
+      if (!this.selectedLicense.previous) return;
+      this.editLicense(this.selectedLicense.previous);
 
     } else if (item.id === 'delete') {
       this.dialogService.confirm(
         {
           title: 'Confirm Delete',
-          message: 'Are you sure to delete the license ' + this.selectedLicense.licenseKey + '?',
+          message: 'Are you sure to delete the license ' + this.selectedLicense.previous.licenseKey + '?',
           confirmCaption: 'Delete',
           cancelCaption: 'Cancel',
           discardWithEscape: true
@@ -164,9 +177,20 @@ export class HomeComponent implements AfterViewInit {
 
   }
 
-  createLicense() {
+  protected createLicense() {
     this.licenseEditService.create().subscribe(editAction => {
-      console.log("editAction", editAction);
+      console.log("createAction", editAction);
     });
+  }
+
+  protected editLicense(license: LicenseDto) {
+    this.licenseEditService.edit(license).subscribe(editAction => {
+      console.log("editAction", editAction);
+    })
+  }
+
+
+  contextMenuClosed() {
+    this.selectedLicense = {previous: this.selectedLicense.current, current: null};
   }
 }

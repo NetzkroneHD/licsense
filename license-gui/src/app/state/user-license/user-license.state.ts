@@ -4,8 +4,13 @@ import {LicenseLogDto} from '@license/license-api-client-typescript-fetch/src/mo
 import {LicenseDto} from '@license/license-api-client-typescript-fetch';
 
 export type UserLicenseError = {
-  title: string | null,
-  message: string | null
+  title: string | undefined,
+  message: string | undefined
+}
+
+export type UserLicenseSuccess = {
+  title: string | undefined,
+  message: string | undefined
 }
 
 export interface UserLicense {
@@ -13,13 +18,15 @@ export interface UserLicense {
   licenseLogs: LicenseLogDto[],
   currentSelectedLicense: string | null,
   error: UserLicenseError,
+  success: UserLicenseSuccess
 }
 
 export const initialState: UserLicense = {
   licenses: [],
   licenseLogs: [],
   currentSelectedLicense: null,
-  error: {title: null, message: null}
+  error: {title: undefined, message: undefined},
+  success: {title: undefined, message: undefined},
 }
 
 @Injectable({
@@ -37,6 +44,7 @@ export class UserLicenseState {
   selectUserLicenses$ = computed(() => this.state$.licenses());
   selectUserLicenseLogs$ = computed(() => this.state$.licenseLogs());
   selectError$ = computed(() => this.state$.error());
+  selectSuccess$ = computed(() => this.state$.success());
   selectCurrentLicense$ = computed(() => this.state$.currentSelectedLicense());
 
   isLoadingLogs$ = computed(() => this.loadingLogs$() !== 0);
@@ -49,6 +57,13 @@ export class UserLicenseState {
 
   constructor() {
 
+  }
+
+  public setSuccess(success: UserLicenseSuccess) {
+    patchState(this.state$, (state) => ({
+      ...state,
+      success: success
+    }));
   }
 
   public setCurrentLicense(license: string) {

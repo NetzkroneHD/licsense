@@ -18,9 +18,7 @@ import {
 } from '@angular/material/table';
 import {UserLicenseState} from '../../state/user-license/user-license.state';
 import {MatButton, MatIconButton} from '@angular/material/button';
-import {TranslateModule, TranslateService} from '@ngx-translate/core';
-import {ToastrService} from 'ngx-toastr';
-import {LicenseApiService} from '../../api/service/license-api.service';
+import {TranslateModule} from '@ngx-translate/core';
 import {LicenseInputComponent} from '../../component/license-input/license-input.component';
 import {MatFormField, MatLabel, MatSuffix} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
@@ -74,10 +72,7 @@ export class LicenseLogComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(protected readonly userLicenseState: UserLicenseState,
-              private readonly userLicenseFacade: UserLicenseStateFacade,
-              private readonly licenseApiService: LicenseApiService,
-              private readonly toasterService: ToastrService,
-              private readonly translateService: TranslateService) {
+              private readonly userLicenseFacade: UserLicenseStateFacade) {
 
     this.dataSource = new MatTableDataSource(this.userLicenseState.selectUserLicenseLogs$());
 
@@ -87,20 +82,7 @@ export class LicenseLogComponent implements AfterViewInit {
 
     effect(() => {
       this.dataSource.data = this.userLicenseState.selectUserLicenseLogs$();
-      this.toasterService.success(this.translateService.instant("Successfully loaded logs."))
     });
-
-    effect(() => {
-      const userLicenseError = this.userLicenseState.selectError$();
-      if (userLicenseError.title && userLicenseError.message) {
-        this.toasterService.error(userLicenseError.message, userLicenseError.title);
-      }
-    });
-
-    const currentLicense = this.userLicenseState.selectCurrentLicense$();
-    if(currentLicense) {
-      this.userLicenseFacade.loadLogs(currentLicense);
-    }
 
   }
 
@@ -109,26 +91,8 @@ export class LicenseLogComponent implements AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
-  loadLicenseLogs(license: string) {
-    this.loading = true;
-
-    this.licenseApiService.getLicenseLogsRaw(license)
-      .then(async apiResponse => {
-        if (apiResponse.raw.status === 200) {
-          this.dataSource.data = await apiResponse.value();
-        } else {
-          this.toasterService.error(this.translateService.instant("Error: {{error}}").replace("{{error}}", apiResponse.raw.statusText), this.translateService.instant("Error while getting logs."));
-        }
-      }).catch(reason => {
-        this.toasterService.error(this.translateService.instant("Error: {{error}}").replace("{{error}}", reason), this.translateService.instant("Error while getting logs."));
-    }).finally(() => {
-      this.loading = false;
-    });
-  }
-
   applyFilter() {
     this.dataSource.filter = this.filterValue.trim().toLowerCase();
-    console.log("fitlerValue", this.filterValue)
   }
 
   clearFilter() {
