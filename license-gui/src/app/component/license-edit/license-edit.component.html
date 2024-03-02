@@ -1,0 +1,54 @@
+<ng-container>
+  <div class="dialog" [cdkTrapFocus]="true">
+    <div mat-dialog-title>{{ licenseEdit.dialog.title }}</div>
+
+    <mat-dialog-content>
+      <mat-form-field class="license-form-field" #licenseKey>
+        <mat-label>{{ 'License Key' | translate }}</mat-label>
+        <input matInput [disabled]="true" [ngModel]="(String(licenseEdit.licenseKey))">
+        <mat-hint>{{ 'Generated value' | translate }}</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field class="license-form-field" #publisher>
+        <mat-label>{{ 'Publisher' | translate }}</mat-label>
+        <input matInput [disabled]="true" [ngModel]="(String(licenseEdit.publisher))">
+        <mat-hint>{{ 'Generated value' | translate }}</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field class="license-form-field" #notes>
+        <mat-label>{{ 'Notes' | translate }}</mat-label>
+        <input matInput [(ngModel)]="licenseEdit.notes">
+      </mat-form-field>
+
+      <mat-slide-toggle class="no-select" [(ngModel)]="licenseEdit.valid" #valid>
+        @if (licenseEdit.valid) {
+          {{ 'Valid' | translate }}
+        } @else {
+          {{ 'Invalid' | translate }}
+        }
+      </mat-slide-toggle>
+
+      <license-date-single-picker #validUntil
+                                  class="license-form-field"
+                                  [datePicker]="{label: 'Valid Until' | translate, hint: environment.momentDateAdapter.display.dateInput, placeholder: 'Start Date' | translate}"
+
+      >
+
+      </license-date-single-picker>
+
+
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+      <button mat-raised-button class="cancel-button" color="secondary"
+              [mat-dialog-close]="{licenseEdit: licenseEdit, confirmAction: false, changes: changes}">
+        {{ licenseEdit.dialog.cancelCaption }}
+      </button>
+
+      <button mat-raised-button class="accept-button" color="primary"
+              [mat-dialog-close]="{licenseEdit: licenseEdit, confirmAction: true, changes: changes}">
+        {{ licenseEdit.dialog.confirmCaption }}
+      </button>
+    </mat-dialog-actions>
+  </div>
+</ng-container>

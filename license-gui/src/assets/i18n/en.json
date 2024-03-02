@@ -1,10 +1,12 @@
 {
   "Hello": "Hello",
+  "Enter a date": "Enter a date",
   "Enter a date range": "Enter a date range",
   "Start Date": "Start Date",
   "End Date": "End Date",
+  "Create": "Create",
   "Apply": "Apply",
-  "Cancel": "Apply",
+  "Cancel": "Cancel",
   "Choose": "Choose",
   "Logout": "Logout",
   "Retrieve Publisher Data": "Retrieve Publisher Data",
@@ -17,5 +19,15 @@
   "Error while loading licenses.": "Error while loading licenses.",
   "Error while loading logs.": "Error while loading logs.",
   "Error: {{error}}": "{{error}}",
-  "Filter": "Filter"
+  "Filter": "Filter",
+  "Refresh": "Refresh",
+  "Publisher": "Publisher",
+  "Notes": "Notes",
+  "Valid": "Valid",
+  "Valid Until": "Valid Until",
+  "List-Mode": "List-Mode",
+  "IP-Addresses": "IP-Addresses",
+  "Create a license.": "CREATE LICENSE",
+  "Generated value": "Generated value",
+  "Validity": "Validity"
 }

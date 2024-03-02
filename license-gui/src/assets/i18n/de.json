@@ -1,8 +1,10 @@
 {
   "Hello": "Hello",
+  "Enter a date": "Datum angeben",
   "Enter a date range": "Zeitraum angeben",
   "Start Date": "Von",
   "End Date": "Bis",
+  "Create": "Erstellen",
   "Apply": "Übernehmen",
   "Cancel": "Abbrechen",
   "Choose": "Auswählen",
@@ -17,5 +19,17 @@
   "Error while loading licenses.": "Fehler beim Laden der Lizenzen.",
   "Error while loading logs.": "Fehler beim Laden der Logs.",
   "Error: {{error}}": "{{error}}",
-  "Filter": "Filter"
+  "Filter": "Filter",
+  "Refresh": "Daten aktualisieren",
+  "Loading...": "Lade...",
+  "The licenses are already loading.": "Die Lizenzen werden bereits geladen.",
+  "Publisher": "Ersteller",
+  "Notes": "Notizen",
+  "Valid": "Gültig",
+  "Valid Until": "Gültig bis",
+  "List-Mode": "List-Modus",
+  "IP-Addresses": "IP-Adressen",
+  "Create a license.": "LIZENZ ERSTELLEN",
+  "Generated value": "Generierter Wert",
+  "Validity": "Gültigkeit"
 }

@@ -19,7 +19,6 @@ import {MatMenuTrigger} from '@angular/material/menu';
 import {LicenseDropdownMenuItem} from './component/license-dropdown-menu/license-dropdown-menu-item.interface';
 import {UserSettingsStateFacade} from './state/user-settings/user-settings-state-facade.service';
 import {UserLicenseStateFacade} from './state/user-license/user-license-state-facade.service';
-import {PublisherApiService} from './api/service/publisher-api.service';
 
 @Component({
   selector: 'app-root',
@@ -67,7 +66,6 @@ export class AppComponent implements OnInit {
               private readonly tokenService: TokenService,
               private readonly router: Router,
               private readonly userSettingsFacade: UserSettingsStateFacade,
-              private readonly publisherApiService: PublisherApiService,
               private readonly userLicenseStateFacade: UserLicenseStateFacade) {
 
   }
@@ -76,6 +74,7 @@ export class AppComponent implements OnInit {
     this.oAuthService.configure(environment.authConfig);
     this.oAuthService.loadDiscoveryDocumentAndLogin().then(() => {
       this.onUserLoggedIn();
+      this.userLicenseStateFacade.loadLicensesFromCurrentPublisher();
     }, () => {
       this.router.navigate(['auth-failed']).then();
     });
@@ -88,17 +87,17 @@ export class AppComponent implements OnInit {
       this.tokenService.setAccessToken(this.oAuthService.getAccessToken());
     });
 
-    this.tokenService.setAccessToken(this.oAuthService.getAccessToken());
-    console.log("accessToken", this.oAuthService.getAccessToken())
-
-    this.userLicenseStateFacade.loadLicensesFromCurrentPublisher();
+    if(this.oAuthService.getIdentityClaims()) {
+      this.tokenService.setAccessToken(this.oAuthService.getAccessToken());
+      this.userLicenseStateFacade.loadLicensesFromCurrentPublisher();
+    }
 
   }
 
   protected onUserLoggedIn() {
     const identityClaims = this.oAuthService.getIdentityClaims();
     if (!identityClaims) {
-      console.log("Login failed. No Claim available.")
+      console.log("Login failed. No Claim available.");
       return;
     }
 

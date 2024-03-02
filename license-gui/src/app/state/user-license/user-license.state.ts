@@ -41,9 +41,11 @@ export class UserLicenseState {
 
   isLoadingLogs$ = computed(() => this.loadingLogs$() !== 0);
   isLoadingLicenses$ = computed(() => this.loadingLicenses$() !== 0);
-  isLoadingCreate$ = computed(() => this.loadingCreate$);
+  isLoadingCreate$ = computed(() => this.loadingCreate$());
   isLoadingUpdate = computed(() => this.loadingUpdate$() !== 0);
-  isLoadingDelete = computed(() => this.loadingDelete$() !== 0);
+  isLoadingDelete$ = computed(() => this.loadingDelete$() !== 0);
+
+  isLoadingAnyLicense$ = computed(() => this.isLoadingLicenses$() || this.isLoadingCreate$() || this.isLoadingUpdate() || this.isLoadingDelete$());
 
   constructor() {
 

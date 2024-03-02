@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
@@ -16,12 +16,12 @@ import {LicenseDatePicker} from './license-date-picker.interface';
 export class LicenseDatePickerComponent {
 
   private readonly _dateRange = new FormGroup({
-    startDate: new FormControl(),
-    endDate: new FormControl()
+    startDate: new FormControl<Date | null>(null),
+    endDate: new FormControl<Date | null>(null)
   });
 
-  public readonly applyButtonClick$ = new EventEmitter<MouseEvent>();
-  public readonly cancelButtonClick$ = new EventEmitter<MouseEvent>();
+  @Output() public readonly applyButtonClick$ = new EventEmitter<MouseEvent>();
+  @Output() public readonly cancelButtonClick$ = new EventEmitter<MouseEvent>();
 
   @Input({required: true}) datePicker!: LicenseDatePicker;
 
@@ -29,7 +29,10 @@ export class LicenseDatePickerComponent {
   }
 
 
-  get dateRange(): FormGroup<{ endDate: FormControl<any>; startDate: FormControl<any> }> {
+  @Output() get dateRange(): FormGroup<{
+    endDate: FormControl<Date | null>;
+    startDate: FormControl<Date | null>
+  }> {
     return this._dateRange;
   }
 }
