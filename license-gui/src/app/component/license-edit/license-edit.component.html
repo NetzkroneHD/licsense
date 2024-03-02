@@ -1,6 +1,6 @@
 <ng-container>
   <div class="dialog" [cdkTrapFocus]="true">
-    <div mat-dialog-title>{{ licenseEdit.dialog.title }}</div>
+    <div mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle class="license-drag-area license-text">{{ licenseEdit.dialog.title }}</div>
 
     <mat-dialog-content>
       <mat-form-field class="license-form-field" #licenseKey>

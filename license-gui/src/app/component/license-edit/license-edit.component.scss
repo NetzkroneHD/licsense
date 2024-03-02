@@ -1,7 +1,18 @@
+@use '@angular/material' as mat;
+
 .license-form-field {
   display: block;
 }
 
 .no-select {
   user-select: none;
+}
+
+.license-drag-area {
+  cursor: move;
+  background-color: map-get(mat.$indigo-palette, 500);
+}
+
+.license-text {
+  color: white;
 }

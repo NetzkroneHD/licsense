@@ -17,6 +17,7 @@ import {TranslateModule} from '@ngx-translate/core';
 import {MatSlideToggle} from '@angular/material/slide-toggle';
 import {environment} from '../../../environments/environment';
 import {LicenseDateSinglePickerComponent} from '../license-date-single-picker/license-date-single-picker.component';
+import {CdkDrag, CdkDragHandle} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'license-edit',
@@ -38,7 +39,9 @@ import {LicenseDateSinglePickerComponent} from '../license-date-single-picker/li
     FormsModule,
     MatHint,
     MatSlideToggle,
-    LicenseDateSinglePickerComponent
+    LicenseDateSinglePickerComponent,
+    CdkDrag,
+    CdkDragHandle
   ],
   templateUrl: './license-edit.component.html',
   styleUrl: './license-edit.component.scss'
