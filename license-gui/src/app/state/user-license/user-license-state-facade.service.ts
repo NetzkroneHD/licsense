@@ -79,6 +79,8 @@ export class UserLicenseStateFacade {
       });
     }).finally(() => {
       this.licenseState.setLoadingCreate(false);
+      this.setSuccess({title: undefined, message: undefined});
+      this.setError({title: undefined, message: undefined});
     })
   }
 
@@ -97,6 +99,8 @@ export class UserLicenseStateFacade {
       });
     }).finally(() => {
       this.licenseState.setLoadingLicenseUpdate(false);
+      this.setSuccess({title: undefined, message: undefined});
+      this.setError({title: undefined, message: undefined});
     })
   }
 
@@ -115,11 +119,14 @@ export class UserLicenseStateFacade {
       });
     }).finally(() => {
       this.licenseState.setLoadingLicenseDelete(false);
+      this.setSuccess({title: undefined, message: undefined});
+      this.setError({title: undefined, message: undefined});
     })
   }
 
   public loadLogs(license: string) {
     this.licenseState.setLoadingLogs(true);
+    this.setLicenseLogs([]);
     this.licenseApiService.getLicenseLogs(license).then(licenseLogs => {
       this.licenseState.setUserLicenseLogs(licenseLogs);
       this.setSuccess({
@@ -133,6 +140,8 @@ export class UserLicenseStateFacade {
       });
     }).finally(() => {
       this.licenseState.setLoadingLogs(false);
+      this.setSuccess({title: undefined, message: undefined});
+      this.setError({title: undefined, message: undefined});
     })
   }
 
@@ -155,6 +164,8 @@ export class UserLicenseStateFacade {
       });
     }).finally(() => {
       this.licenseState.setLoadingLicenses(false);
+      this.setSuccess({title: undefined, message: undefined});
+      this.setError({title: undefined, message: undefined});
     });
   }
 
