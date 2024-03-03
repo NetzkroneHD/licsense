@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { LicenseDateSinglePickerComponent } from './license-date-single-picker.component';
+import {LicenseDateSinglePickerComponent} from './license-date-single-picker.component';
 
 describe('LicenseDateSinglePickerComponent', () => {
   let component: LicenseDateSinglePickerComponent;
@@ -11,7 +11,7 @@ describe('LicenseDateSinglePickerComponent', () => {
       imports: [LicenseDateSinglePickerComponent]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(LicenseDateSinglePickerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -18,9 +18,6 @@ export class RouteStoreService {
         this.routeStore.setCurrentRoute(toRoute(event.url));
       }
     });
-
-
-
   }
 
   public setCurrentRoute(route: Route) {

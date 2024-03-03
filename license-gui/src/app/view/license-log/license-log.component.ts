@@ -26,6 +26,7 @@ import {FormsModule} from '@angular/forms';
 import {MatIcon} from '@angular/material/icon';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
 import {UserLicenseStoreFacade} from '../../state/user-license/user-license-store-facade.service';
+import {MatTooltip} from '@angular/material/tooltip';
 
 @Component({
   selector: 'license-license-log',
@@ -56,7 +57,8 @@ import {UserLicenseStoreFacade} from '../../state/user-license/user-license-stor
     MatIconButton,
     MatIcon,
     MatSuffix,
-    MatProgressSpinner
+    MatProgressSpinner,
+    MatTooltip
   ],
   templateUrl: './license-log.component.html',
   styleUrl: './license-log.component.scss'

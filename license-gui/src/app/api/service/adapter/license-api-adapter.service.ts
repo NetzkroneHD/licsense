@@ -1,10 +1,14 @@
 import {inject, Injectable} from '@angular/core';
 import {
   ApiResponse,
-  CreateLicenseRequest, DeleteLicenseRequest, GetLicenseLogsRequest, GetLicenseRequest,
+  CreateLicenseRequest,
+  DeleteLicenseRequest,
+  GetLicenseLogsRequest,
+  GetLicenseRequest,
   InitOverrideFunction,
   LicenseApi,
-  LicenseDto, UpdateLicenseRequest
+  LicenseDto,
+  UpdateLicenseRequest
 } from '@license/license-api-client-typescript-fetch';
 import type {LicenseLogDto} from '@license/license-api-client-typescript-fetch/src/models';
 import {environment} from '../../../../environments/environment';

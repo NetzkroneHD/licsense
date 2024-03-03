@@ -1,5 +1,4 @@
 {
-  "Hello": "Hello",
   "Enter a date": "Enter a date",
   "Enter a date range": "Enter a date range",
   "Start Date": "Start Date",
@@ -16,12 +15,21 @@
   "IP": "IP",
   "Date": "Date",
   "Request Result": "Request Result",
+  "Successfully created a license.": "Successfully created a license.",
+  "Error while creating license.": "Error while creating license.",
+  "Successfully updated a license.": "Successfully updated a license.",
+  "Error while updating license.": "Error while updating license.",
+  "Successfully deleted a license.": "Successfully deleted a license.",
+  "Error while deleting license.": "Error while deleting license.",
   "Successfully loaded logs.": "Successfully loaded logs.",
-  "Error while loading licenses.": "Error while loading licenses.",
   "Error while loading logs.": "Error while loading logs.",
+  "Successfully loaded licenses.": "Successfully loaded licenses.",
+  "Error while loading licenses.": "Error while loading licenses.",
   "Error: {{error}}": "{{error}}",
   "Filter": "Filter",
   "Refresh": "Refresh",
+  "Loading...": "Loading...",
+  "The licenses are already loading.": "The licenses are already loading.",
   "Publisher": "Publisher",
   "Notes": "Notes",
   "Valid": "Valid",
@@ -31,5 +39,8 @@
   "Create a license.": "CREATE LICENSE",
   "Edit a license.": "EDIT LICENSE",
   "Generated value": "Generated value",
-  "Validity": "Validity"
+  "Validity": "Validity",
+  "Open Logs": "Open logs",
+  "Edit": "Edit",
+  "Delete": "Delete"
 }

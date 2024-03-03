@@ -1,5 +1,5 @@
 import {Component, effect, OnInit, ViewChild} from '@angular/core';
-import {Router, RouterOutlet} from '@angular/router';
+import {RouterOutlet} from '@angular/router';
 import {OAuthService} from 'angular-oauth2-oidc';
 import {environment} from '../environments/environment';
 import {TokenService} from './api/service/token.service';
@@ -17,7 +17,7 @@ import {TranslateModule} from '@ngx-translate/core';
 import {LicenseDropdownMenuComponent} from './component/license-dropdown-menu/license-dropdown-menu.component';
 import {MatMenuTrigger} from '@angular/material/menu';
 import {LicenseDropdownMenuItem} from './component/license-dropdown-menu/license-dropdown-menu-item.interface';
-import {UserSettingsStateFacade} from './state/user-settings/user-settings-state-facade.service';
+import {UserSettingsStoreFacade} from './state/user-settings/user-settings-store-facade.service';
 import {UserLicenseStoreFacade} from './state/user-license/user-license-store-facade.service';
 import {LicenseSidenavComponent} from './component/license-sidenav/license-sidenav.component';
 import {LicenseSidenavItem} from './component/license-sidenav/license-sidenav-item.interface';
@@ -72,11 +72,10 @@ export class AppComponent implements OnInit {
 
   constructor(private readonly oAuthService: OAuthService,
               private readonly tokenService: TokenService,
-              private readonly userSettingsFacade: UserSettingsStateFacade,
+              private readonly userSettingsFacade: UserSettingsStoreFacade,
               private readonly userLicenseStateFacade: UserLicenseStoreFacade,
               private readonly routeStoreService: RouteStoreService,
-              private readonly routeStore: RouteStore,
-              private readonly router: Router) {
+              private readonly routeStore: RouteStore) {
 
     effect(() => {
       const route = this.routeStore.selectCurrentRoute$();

@@ -1,20 +1,20 @@
 import {patchState, signalState} from '@ngrx/signals';
 import {computed, Injectable} from '@angular/core';
 
-export interface UserSettings {
+export interface UserSettingsState {
   language: string;
 }
 
-export const initialState: UserSettings = {
+export const initialState: UserSettingsState = {
   language: 'en',
 }
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserSettingsState {
+export class UserSettingsStore {
 
-  state = signalState<UserSettings>(initialState);
+  state = signalState<UserSettingsState>(initialState);
 
   selectUserLanguage$ = computed(() => this.state.language());
 

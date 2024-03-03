@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { LicenseEditComponent } from './license-edit.component';
+import {LicenseEditComponent} from './license-edit.component';
 
 describe('LicenseEditComponent', () => {
   let component: LicenseEditComponent;
@@ -11,7 +11,7 @@ describe('LicenseEditComponent', () => {
       imports: [LicenseEditComponent]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(LicenseEditComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

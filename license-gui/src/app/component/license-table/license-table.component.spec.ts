@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { LicenseTableComponent } from './license-table.component';
+import {LicenseTableComponent} from './license-table.component';
 
 describe('LicenseTableComponent', () => {
   let component: LicenseTableComponent;
@@ -11,7 +11,7 @@ describe('LicenseTableComponent', () => {
       imports: [LicenseTableComponent]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(LicenseTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

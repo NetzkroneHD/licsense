@@ -1,6 +1,5 @@
 import {AfterViewInit, Component, effect, ViewChild} from '@angular/core';
 import {LicenseContextMenuItem} from '../../component/license-context-menu/license-context-menu-item.interface';
-import {LicenseChoiceMenu} from '../../component/license-choice/license-choice-menu.interface';
 import {LicenseContextMenuComponent} from '../../component/license-context-menu/license-context-menu.component';
 import {environment} from '../../../environments/environment';
 import {UserLicenseStoreFacade} from '../../state/user-license/user-license-store-facade.service';
@@ -72,14 +71,6 @@ export class HomeComponent implements AfterViewInit {
     {id: 'edit', title: 'Edit', icon: 'edit', disabled: false,},
     {id: 'delete', title: 'Delete', icon: 'delete', disabled: false,}
   ];
-
-  choiceMenu: LicenseChoiceMenu = {
-    items: [
-      {id: '1', value: 'Onion', activated: false},
-      {id: '2', value: 'Sausage', activated: false},
-      {id: '3', value: 'Tomato', activated: false}
-    ]
-  };
 
   protected loading = false;
   protected displayedColumns = ['licenseKey', 'publisher', 'notes', 'valid', 'validUntil', 'listMode', 'ipAddresses'];

@@ -76,6 +76,11 @@ export class LicenseEditComponent implements AfterViewInit {
     this.licenseEdit = data;
     this.dateFormControl.addValidators(Validators.required);
     this.dateFormControl.setValue(this.licenseEdit.validUntil);
+    this.dateFormControl.valueChanges.subscribe(value => {
+      if (value) {
+        this.licenseEdit.validUntil = value;
+      }
+    })
   }
 
   ngAfterViewInit() {

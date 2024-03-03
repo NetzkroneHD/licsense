@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {Pipe, PipeTransform} from '@angular/core';
 import {LicenseSidenavItem} from './license-sidenav-item.interface';
 
 @Pipe({

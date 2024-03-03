@@ -1,5 +1,4 @@
 {
-  "Hello": "Hello",
   "Enter a date": "Datum angeben",
   "Enter a date range": "Zeitraum angeben",
   "Start Date": "Von",
@@ -16,9 +15,16 @@
   "IP": "IP",
   "Date": "Datum",
   "Request Result": "Anfrage Ergebnis",
+  "Successfully created a license.": "Lizenz wurde erstellt.",
+  "Error while creating license.": "Fehler beim Erstellen der Lizenz.",
+  "Successfully updated a license.": "Lizenz wurde aktualisiert.",
+  "Error while updating license.": "Fehler beim Aktualisieren der Lizenz.",
+  "Successfully deleted a license.": "Lizenz wurde gelöscht.",
+  "Error while deleting license.": "Fehler beim Löschen der Lizenz.",
   "Successfully loaded logs.": "Logs erfolgreich geladen.",
-  "Error while loading licenses.": "Fehler beim Laden der Lizenzen.",
   "Error while loading logs.": "Fehler beim Laden der Logs.",
+  "Successfully loaded licenses.": "Lizenzen wurden geladen.",
+  "Error while loading licenses.": "Fehler beim Laden der Lizenzen.",
   "Error: {{error}}": "{{error}}",
   "Filter": "Filter",
   "Refresh": "Daten aktualisieren",
@@ -33,5 +39,8 @@
   "Create a license.": "LIZENZ ERSTELLEN",
   "Edit a license.": "LIZENZ BEARBEITEN",
   "Generated value": "Generierter Wert",
-  "Validity": "Gültigkeit"
+  "Validity": "Gültigkeit",
+  "Open Logs": "Logs öffnen",
+  "Edit": "Bearbeiten",
+  "Delete": "Löschen"
 }
