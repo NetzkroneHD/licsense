@@ -45,8 +45,13 @@ export class LicenseSidenavComponent {
 
   @Input() dragDropDelay = 200;
   @Input() tooltipShowDelay = 500;
+
   @Output() listItemClicked = new EventEmitter<LicenseSidenavItem>();
   @Output() listItemsOrderChanged = new EventEmitter<LicenseSidenavItem[]>();
+
+  public toggle() {
+    this.opened = !this.opened;
+  }
 
 
   protected itemClicked(item: LicenseSidenavItem) {
@@ -54,7 +59,7 @@ export class LicenseSidenavComponent {
     this.listItemClicked.emit(item);
   }
 
-  onDrop(event: {
+  protected onDrop(event: {
     container: { data: LicenseSidenavItem[] };
     item: { data: LicenseSidenavItem };
     previousContainer: { data: LicenseSidenavItem[] };

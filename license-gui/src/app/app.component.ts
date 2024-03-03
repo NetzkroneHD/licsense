@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, effect, OnInit, ViewChild} from '@angular/core';
 import {Router, RouterOutlet} from '@angular/router';
 import {OAuthService} from 'angular-oauth2-oidc';
 import {environment} from '../environments/environment';
@@ -19,6 +19,10 @@ import {MatMenuTrigger} from '@angular/material/menu';
 import {LicenseDropdownMenuItem} from './component/license-dropdown-menu/license-dropdown-menu-item.interface';
 import {UserSettingsStateFacade} from './state/user-settings/user-settings-state-facade.service';
 import {UserLicenseStoreFacade} from './state/user-license/user-license-store-facade.service';
+import {LicenseSidenavComponent} from './component/license-sidenav/license-sidenav.component';
+import {LicenseSidenavItem} from './component/license-sidenav/license-sidenav-item.interface';
+import {RouteStoreService} from './state/route/route.service';
+import {RouteStore, toRoute} from './state/route/route-store.service';
 
 @Component({
   selector: 'app-root',
@@ -36,7 +40,8 @@ import {UserLicenseStoreFacade} from './state/user-license/user-license-store-fa
     MatIcon,
     LicenseDropdownMenuComponent,
     MatMenuTrigger,
-    TranslateModule
+    TranslateModule,
+    LicenseSidenavComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
@@ -58,16 +63,28 @@ export class AppComponent implements OnInit {
     }
   ]
 
-  protected expanded = true;
+  @ViewChild('sidenav') sidenav!: LicenseSidenavComponent;
 
-  @ViewChild('expanded') expandedDrawer!: MatDrawer;
+  protected sidenavItems: LicenseSidenavItem[] = [
+    {id: 'home', icon: {name: 'home', size: 32}, description: 'Home', selected: true, activity: {count: 0}, disabled: {reason: '', state: false}, group: 'first', hasCustomOrder: false},
+    {id: 'license-logs', icon: {name: 'description', size: 32}, description: 'Logs', selected: false, activity: {count: 0}, disabled: {reason: '', state: false}, group: 'first', hasCustomOrder: false},
+  ];
 
   constructor(private readonly oAuthService: OAuthService,
               private readonly tokenService: TokenService,
-              private readonly router: Router,
               private readonly userSettingsFacade: UserSettingsStateFacade,
-              private readonly userLicenseStateFacade: UserLicenseStoreFacade) {
+              private readonly userLicenseStateFacade: UserLicenseStoreFacade,
+              private readonly routeStoreService: RouteStoreService,
+              private readonly routeStore: RouteStore,
+              private readonly router: Router) {
 
+    effect(() => {
+      const route = this.routeStore.selectCurrentRoute$();
+      this.clearToggle();
+      const item = this.sidenavItems.find(value => value.id === route);
+      if(!item) return;
+      item.selected = true;
+    });
   }
 
   ngOnInit() {
@@ -76,7 +93,7 @@ export class AppComponent implements OnInit {
       this.onUserLoggedIn();
       this.userLicenseStateFacade.loadLicensesFromCurrentPublisher();
     }, () => {
-      this.router.navigate(['auth-failed']).then();
+      this.routeStoreService.setCurrentRoute('auth-failed');
     });
 
     this.oAuthService.setupAutomaticSilentRefresh();
@@ -117,8 +134,17 @@ export class AppComponent implements OnInit {
     this.oAuthService.logOut();
   }
 
-  toggleSidenav() {
-    this.expandedDrawer.toggle();
+  protected toggleSidenav() {
+    this.sidenav.toggle();
   }
 
+  protected sidenavItemClick(item: LicenseSidenavItem) {
+    this.clearToggle();
+    item.selected = true;
+    this.routeStoreService.setCurrentRoute(toRoute(item.id));
+  }
+
+  private clearToggle() {
+    this.sidenavItems.forEach(value => value.selected = false);
+  }
 }

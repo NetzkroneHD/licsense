@@ -1,21 +1,19 @@
 <mat-sidenav-container>
 
   <!--    Seiteninhalt  -->
-  <mat-sidenav-content class="content" role="main" aria-label="Seiteninhalt">
+  <mat-sidenav-content class="content" role="main">
     <ng-content></ng-content>
   </mat-sidenav-content>
 
   <!--    Sidenav   -->
-  <mat-sidenav #sidenav class="sidenav" [mode]="mode" [(opened)]="opened" [fixedTopGap]="fixedTopGap" role="navigation"
-               aria-label="Seitennavigation">
+  <mat-sidenav #sidenav class="sidenav" [mode]="mode" [(opened)]="opened" [fixedTopGap]="fixedTopGap" role="navigation">
 
     <mat-nav-list class="container height-outer">
-      <div cdkDropList cdkDragHandle [cdkDropListData]="items" class="list height-inner" role="navigation"
-           (cdkDropListDropped)="onDrop($event)" aria-label="Liste von Navigations-Schaltflächen">
+      <div cdkDropList cdkDragHandle [cdkDropListData]="items" class="list height-inner" role="navigation" (cdkDropListDropped)="onDrop($event)">
 
         <div class="alignment height-inner">
-          <div *ngFor="let group of items | licenseSidenavGroupMapper | keyvalue; let firstGroup = first">
-            <div *ngFor="let item of group.value; let i = index; let first = first">
+          <div *ngFor="let group of items | licenseSidenavGroupMapper | keyvalue;">
+            <div *ngFor="let item of group.value; let first = first">
               <!--              Drag and Drop aktiviert-->
               <a *ngIf="item.hasCustomOrder" mat-list-item
                  [class]="'item-block no-user-select ' + item?.additionalStyleClass" cdkDrag

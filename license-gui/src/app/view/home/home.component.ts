@@ -31,8 +31,8 @@ import {MatIconButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
 import {MatTooltip} from '@angular/material/tooltip';
 import {MatProgressBar} from '@angular/material/progress-bar';
-import {Router} from '@angular/router';
 import {NotificationStoreService} from '../../state/toaster/notification.service';
+import {RouteStoreService} from '../../state/route/route.service';
 
 @Component({
   selector: 'license-home',
@@ -98,8 +98,8 @@ export class HomeComponent implements AfterViewInit {
               private readonly userLicenseState: UserLicenseStore,
               private readonly dialogService: LicenseDialogService,
               private readonly licenseEditService: LicenseEditService,
-              private readonly router: Router,
-              private readonly notificationService: NotificationStoreService) {
+              private readonly notificationService: NotificationStoreService,
+              private readonly routeStoreService: RouteStoreService) {
 
     this.dataSource = new MatTableDataSource(this.userLicenseState.selectUserLicenses$());
 
@@ -155,10 +155,8 @@ export class HomeComponent implements AfterViewInit {
     if (item.id === 'open') {
       const licenseKey = this.selectedLicense.previous.licenseKey;
       this.userLicenseStateFacade.setCurrentSelectedLicense(this.selectedLicense.previous.licenseKey);
+      this.routeStoreService.setCurrentRoute('license-logs').then(() => this.userLicenseStateFacade.loadLogs(licenseKey));
 
-      this.router.navigate(['license-logs']).then(() => {
-        this.userLicenseStateFacade.loadLogs(licenseKey);
-      });
     } else if (item.id === 'edit') {
       if (!this.selectedLicense.previous) return;
       this.editLicense(this.selectedLicense.previous);
