@@ -16,7 +16,7 @@ import {
   MatTable,
   MatTableDataSource
 } from '@angular/material/table';
-import {UserLicenseState} from '../../state/user-license/user-license.state';
+import {UserLicenseStore} from '../../state/user-license/user-license-store.service';
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {TranslateModule} from '@ngx-translate/core';
 import {LicenseInputComponent} from '../../component/license-input/license-input.component';
@@ -25,7 +25,7 @@ import {MatInput} from '@angular/material/input';
 import {FormsModule} from '@angular/forms';
 import {MatIcon} from '@angular/material/icon';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
-import {UserLicenseStateFacade} from '../../state/user-license/user-license-state-facade.service';
+import {UserLicenseStoreFacade} from '../../state/user-license/user-license-store-facade.service';
 
 @Component({
   selector: 'license-license-log',
@@ -71,8 +71,8 @@ export class LicenseLogComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(protected readonly userLicenseState: UserLicenseState,
-              private readonly userLicenseFacade: UserLicenseStateFacade) {
+  constructor(protected readonly userLicenseState: UserLicenseStore,
+              private readonly userLicenseFacade: UserLicenseStoreFacade) {
 
     this.dataSource = new MatTableDataSource(this.userLicenseState.selectUserLicenseLogs$());
 

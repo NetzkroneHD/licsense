@@ -1,6 +1,6 @@
 <mat-form-field class="license-form-field">
   <mat-label>{{ datePicker.label }}</mat-label>
-  <input matInput [matDatepicker]="picker" [formControl]="date">
+  <input matInput [matDatepicker]="picker" [formControl]="dateFormControl">
   @if (datePicker.hint) {
     <mat-hint>{{ datePicker.hint }}</mat-hint>
   }

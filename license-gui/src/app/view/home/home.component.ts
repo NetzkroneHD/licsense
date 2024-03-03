@@ -3,9 +3,8 @@ import {LicenseContextMenuItem} from '../../component/license-context-menu/licen
 import {LicenseChoiceMenu} from '../../component/license-choice/license-choice-menu.interface';
 import {LicenseContextMenuComponent} from '../../component/license-context-menu/license-context-menu.component';
 import {environment} from '../../../environments/environment';
-import {UserLicenseStateFacade} from '../../state/user-license/user-license-state-facade.service';
-import {UserLicenseState} from '../../state/user-license/user-license.state';
-import {ToastrService} from 'ngx-toastr';
+import {UserLicenseStoreFacade} from '../../state/user-license/user-license-store-facade.service';
+import {UserLicenseStore} from '../../state/user-license/user-license-store.service';
 import {
   MatCell,
   MatCellDef,
@@ -23,7 +22,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort, MatSortHeader} from '@angular/material/sort';
 import {LicenseDto} from '@license/license-api-client-typescript-fetch';
 import {LicenseDialogService} from '../../component/license-dialog/license-dialog.service';
-import {TranslateModule, TranslateService} from '@ngx-translate/core';
+import {TranslateModule} from '@ngx-translate/core';
 import {LicenseEditService} from '../../component/license-edit/license-edit.service';
 import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
@@ -33,6 +32,7 @@ import {MatIcon} from '@angular/material/icon';
 import {MatTooltip} from '@angular/material/tooltip';
 import {MatProgressBar} from '@angular/material/progress-bar';
 import {Router} from '@angular/router';
+import {NotificationStoreService} from '../../state/toaster/notification.service';
 
 @Component({
   selector: 'license-home',
@@ -85,19 +85,21 @@ export class HomeComponent implements AfterViewInit {
   protected displayedColumns = ['licenseKey', 'publisher', 'notes', 'valid', 'validUntil', 'listMode', 'ipAddresses'];
   protected dataSource;
   protected filterValue: any;
-  protected selectedLicense: {previous: LicenseDto | null; current: LicenseDto | null} = { previous: null, current: null};
+  protected selectedLicense: { previous: LicenseDto | null; current: LicenseDto | null } = {
+    previous: null,
+    current: null
+  };
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild('contextMenu') contextMenu!: LicenseContextMenuComponent;
 
-  constructor(private readonly userLicenseStateFacade: UserLicenseStateFacade,
-              private readonly userLicenseState: UserLicenseState,
-              private readonly toasterService: ToastrService,
+  constructor(private readonly userLicenseStateFacade: UserLicenseStoreFacade,
+              private readonly userLicenseState: UserLicenseStore,
               private readonly dialogService: LicenseDialogService,
-              private readonly translateService: TranslateService,
               private readonly licenseEditService: LicenseEditService,
-              private readonly router: Router) {
+              private readonly router: Router,
+              private readonly notificationService: NotificationStoreService) {
 
     this.dataSource = new MatTableDataSource(this.userLicenseState.selectUserLicenses$());
 
@@ -108,13 +110,8 @@ export class HomeComponent implements AfterViewInit {
     effect(() => {
       this.loading = this.userLicenseState.isLoadingAnyLicense$();
     });
+    console.log("length", "192.168.2.2,192.168.2.10".length)
 
-    effect(() => {
-      const userLicenseError = this.userLicenseState.selectError$();
-      if (userLicenseError.title && userLicenseError.message) {
-        this.toasterService.error(userLicenseError.message, userLicenseError.title);
-      }
-    });
   }
 
   ngAfterViewInit() {
@@ -133,14 +130,19 @@ export class HomeComponent implements AfterViewInit {
 
   protected refresh() {
     if (this.userLicenseState.isLoadingAnyLicense$()) {
-
-      this.toasterService.info(this.translateService.instant('The licenses are already loading.'), this.translateService.instant('Loading...'));
+      this.notificationService.setInfo({title: 'Loading...', message: 'The licenses are already loading.'}, true);
       return;
     }
     this.userLicenseStateFacade.loadLicensesFromCurrentPublisher();
   }
 
   protected readonly environment = environment;
+
+  protected getShortedString(str: string): string {
+    // 	192.168.2.2,192.168.2.10
+
+    return "";
+  }
 
   protected openContextMenu(event: MouseEvent, license: LicenseDto) {
     event.preventDefault();
@@ -153,6 +155,7 @@ export class HomeComponent implements AfterViewInit {
     if (item.id === 'open') {
       const licenseKey = this.selectedLicense.previous.licenseKey;
       this.userLicenseStateFacade.setCurrentSelectedLicense(this.selectedLicense.previous.licenseKey);
+
       this.router.navigate(['license-logs']).then(() => {
         this.userLicenseStateFacade.loadLogs(licenseKey);
       });
@@ -161,32 +164,59 @@ export class HomeComponent implements AfterViewInit {
       this.editLicense(this.selectedLicense.previous);
 
     } else if (item.id === 'delete') {
+      const licenseKey: string = this.selectedLicense.previous.licenseKey;
       this.dialogService.confirm(
         {
           title: 'Confirm Delete',
-          message: 'Are you sure to delete the license ' + this.selectedLicense.previous.licenseKey + '?',
+          message: 'Are you sure to delete the license ' + licenseKey + '?',
           confirmCaption: 'Delete',
           cancelCaption: 'Cancel',
           discardWithEscape: true
         }
       ).subscribe(value => {
-        console.log("delete", value)
-
+        if (!value) return;
+        this.userLicenseStateFacade.deleteLicense(licenseKey);
       })
     }
 
   }
 
   protected createLicense() {
-    this.licenseEditService.create().subscribe(editAction => {
-      console.log("createAction", editAction);
+    this.licenseEditService.create().subscribe(createAction => {
+      if (!createAction.confirmAction) return;
+      const licenseToCreate: LicenseDto = {
+        licenseKey: '',
+        publisher: '',
+        notes: createAction.licenseEdit.notes,
+        valid: createAction.licenseEdit.valid,
+        validUntil: createAction.licenseEdit.validUntil,
+        listMode: createAction.licenseEdit.listMode,
+        ipAddresses: createAction.licenseEdit.ipAddresses
+      };
+      this.userLicenseStateFacade.createLicense(licenseToCreate);
     });
   }
 
   protected editLicense(license: LicenseDto) {
     this.licenseEditService.edit(license).subscribe(editAction => {
-      console.log("editAction", editAction);
-    })
+      if (!editAction.confirmAction) return;
+      const licenseToEdit: LicenseDto = {
+        licenseKey: editAction.licenseEdit.licenseKey,
+        publisher: editAction.licenseEdit.publisher,
+        notes: editAction.licenseEdit.notes,
+        valid: editAction.licenseEdit.valid,
+        validUntil: editAction.licenseEdit.validUntil,
+        listMode: editAction.licenseEdit.listMode,
+        ipAddresses: editAction.licenseEdit.ipAddresses
+      };
+
+      if (JSON.stringify(license) === JSON.stringify(licenseToEdit)) {
+        this.notificationService.setInfo({title: undefined, message: 'No changes have been made.'}, true);
+        return;
+      }
+
+      this.userLicenseStateFacade.updateLicense(license.licenseKey, licenseToEdit);
+    });
   }
 
 

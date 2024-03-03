@@ -18,7 +18,7 @@ import {LicenseDropdownMenuComponent} from './component/license-dropdown-menu/li
 import {MatMenuTrigger} from '@angular/material/menu';
 import {LicenseDropdownMenuItem} from './component/license-dropdown-menu/license-dropdown-menu-item.interface';
 import {UserSettingsStateFacade} from './state/user-settings/user-settings-state-facade.service';
-import {UserLicenseStateFacade} from './state/user-license/user-license-state-facade.service';
+import {UserLicenseStoreFacade} from './state/user-license/user-license-store-facade.service';
 
 @Component({
   selector: 'app-root',
@@ -66,7 +66,7 @@ export class AppComponent implements OnInit {
               private readonly tokenService: TokenService,
               private readonly router: Router,
               private readonly userSettingsFacade: UserSettingsStateFacade,
-              private readonly userLicenseStateFacade: UserLicenseStateFacade) {
+              private readonly userLicenseStateFacade: UserLicenseStoreFacade) {
 
   }
 

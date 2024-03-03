@@ -35,17 +35,50 @@
       <license-date-single-picker #validUntil
                                   class="license-form-field"
                                   [datePicker]="{label: 'Valid Until' | translate, hint: environment.momentDateAdapter.display.dateInput, placeholder: 'Start Date' | translate}"
+                                  [dateFormControl]="dateFormControl"
 
       >
 
       </license-date-single-picker>
 
+      {{ 'List-Mode' | translate }}:
+
       <mat-radio-group aria-label="Select an option" [(ngModel)]="licenseEdit.listMode">
-        <mat-radio-button [value]="ListModeDto.Blacklist" class="no-select license-radio-button">{{ListModeDto.Blacklist}}</mat-radio-button>
-        <mat-radio-button [value]="ListModeDto.Whitelist" class="no-select license-radio-button">{{ListModeDto.Whitelist}}</mat-radio-button>
+        <mat-radio-button [value]="ListModeDto.Blacklist"
+                          class="no-select license-radio-button">{{ ListModeDto.Blacklist }}
+        </mat-radio-button>
+        <mat-radio-button [value]="ListModeDto.Whitelist"
+                          class="no-select license-radio-button">{{ ListModeDto.Whitelist }}
+        </mat-radio-button>
       </mat-radio-group>
 
       <div class="license-spacer"></div>
+
+      <mat-form-field class="license-form-field" #ipAddresses>
+        <mat-label>{{'IP-Addresses' | translate}}</mat-label>
+        <mat-chip-grid #chipGrid aria-label="Enter ip addresses">
+          @for (ip of licenseEdit.ipAddresses; track ip) {
+            <mat-chip-row
+              (removed)="removeIp(ip)"
+              [editable]="true"
+              (edited)="editIp(ip, $event)"
+              [aria-description]="'press enter to edit ' + ip">
+              {{ ip }}
+              <button matChipRemove [attr.aria-label]="'remove ' + ip">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip-row>
+          }
+
+          <input [placeholder]="('New IP-Address separated by comma' | translate)"
+                 [matChipInputFor]="chipGrid"
+                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                 [matChipInputAddOnBlur]="true"
+                 (matChipInputTokenEnd)="addIp($event)"/>
+
+        </mat-chip-grid>
+      </mat-form-field>
+
 
     </mat-dialog-content>
 
@@ -56,7 +89,7 @@
       </button>
 
       <button mat-raised-button class="accept-button" color="primary"
-              [mat-dialog-close]="{licenseEdit: licenseEdit, confirmAction: true, changes: changes}">
+              [mat-dialog-close]="{licenseEdit: licenseEdit, confirmAction: true, changes: changes}" [disabled]="!formControlGroup.valid">
         {{ licenseEdit.dialog.confirmCaption }}
       </button>
     </mat-dialog-actions>

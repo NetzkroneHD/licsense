@@ -32,7 +32,11 @@ import {LicenseDateSinglePicker} from './license-date-picker.interface';
 export class LicenseDateSinglePickerComponent {
 
   @Input({required: true}) datePicker!: LicenseDateSinglePicker;
+  @Input({required: true}) dateFormControl!: FormControl<Date | null>;
 
-  date: FormControl<Date | null> = new FormControl<Date | null>(null);
+  constructor() {
+
+  }
+
 
 }

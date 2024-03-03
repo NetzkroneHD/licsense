@@ -3,36 +3,22 @@ import {computed, Injectable, signal} from '@angular/core';
 import {LicenseLogDto} from '@license/license-api-client-typescript-fetch/src/models';
 import {LicenseDto} from '@license/license-api-client-typescript-fetch';
 
-export type UserLicenseError = {
-  title: string | undefined,
-  message: string | undefined
-}
-
-export type UserLicenseSuccess = {
-  title: string | undefined,
-  message: string | undefined
-}
-
-export interface UserLicense {
+export interface UserLicenseState {
   licenses: LicenseDto[],
   licenseLogs: LicenseLogDto[],
-  currentSelectedLicense: string | null,
-  error: UserLicenseError,
-  success: UserLicenseSuccess
+  currentSelectedLicense: string | null
 }
 
-export const initialState: UserLicense = {
+export const initialState: UserLicenseState = {
   licenses: [],
   licenseLogs: [],
-  currentSelectedLicense: null,
-  error: {title: undefined, message: undefined},
-  success: {title: undefined, message: undefined},
+  currentSelectedLicense: null
 }
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserLicenseState {
+export class UserLicenseStore {
 
   private loadingLogs$ = signal(0);
   private loadingLicenses$ = signal(0);
@@ -40,11 +26,9 @@ export class UserLicenseState {
   private loadingUpdate$ = signal(0);
   private loadingDelete$ = signal(0);
 
-  state$ = signalState<UserLicense>(initialState);
+  state$ = signalState<UserLicenseState>(initialState);
   selectUserLicenses$ = computed(() => this.state$.licenses());
   selectUserLicenseLogs$ = computed(() => this.state$.licenseLogs());
-  selectError$ = computed(() => this.state$.error());
-  selectSuccess$ = computed(() => this.state$.success());
   selectCurrentLicense$ = computed(() => this.state$.currentSelectedLicense());
 
   isLoadingLogs$ = computed(() => this.loadingLogs$() !== 0);
@@ -57,13 +41,6 @@ export class UserLicenseState {
 
   constructor() {
 
-  }
-
-  public setSuccess(success: UserLicenseSuccess) {
-    patchState(this.state$, (state) => ({
-      ...state,
-      success: success
-    }));
   }
 
   public setCurrentLicense(license: string) {
@@ -79,41 +56,34 @@ export class UserLicenseState {
 
   public setLoadingLicenseDelete(loading: boolean) {
     if (loading) {
-      this.loadingDelete$.update(value => value+1);
+      this.loadingDelete$.update(value => value + 1);
     } else {
-      this.loadingDelete$.update(value => value-1);
+      this.loadingDelete$.update(value => value - 1);
     }
   }
 
   public setLoadingLicenseUpdate(loading: boolean) {
     if (loading) {
-      this.loadingUpdate$.update(value => value+1);
+      this.loadingUpdate$.update(value => value + 1);
     } else {
-      this.loadingUpdate$.update(value => value-1);
+      this.loadingUpdate$.update(value => value - 1);
     }
   }
 
   public setLoadingLicenses(loading: boolean) {
     if (loading) {
-      this.loadingLicenses$.update(value => value+1);
+      this.loadingLicenses$.update(value => value + 1);
     } else {
-      this.loadingLicenses$.update(value => value-1);
+      this.loadingLicenses$.update(value => value - 1);
     }
   }
 
   public setLoadingLogs(loading: boolean) {
     if (loading) {
-      this.loadingLogs$.update(value => value+1);
+      this.loadingLogs$.update(value => value + 1);
     } else {
-      this.loadingLogs$.update(value => value-1);
+      this.loadingLogs$.update(value => value - 1);
     }
-  }
-
-  public setError(error: UserLicenseError) {
-    patchState(this.state$, (state) => ({
-      ...state,
-      error: error
-    }))
   }
 
   public setUserLicenses(licenses: LicenseDto[]) {
