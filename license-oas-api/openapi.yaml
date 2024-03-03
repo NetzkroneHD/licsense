@@ -267,6 +267,7 @@ components:
         - publisher
         - valid
         - validUntil
+        - signature
       properties:
         licenseKey:
           description: Key of the license
@@ -284,6 +285,9 @@ components:
           description: Expiration date of the license
           type: string
           format: date-time
+        signature:
+          description: Encrypted signature
+          type: string
     LicenseLog:
       description: Log of a License check
       type: object

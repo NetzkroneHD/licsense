@@ -1,6 +1,7 @@
 FROM eclipse-temurin:17.0.8.1_1-jre
 
 COPY target/*.jar /home/app/license-server.jar
+COPY server-data/key /home/app
 
 EXPOSE 8080
 

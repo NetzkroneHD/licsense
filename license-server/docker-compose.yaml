@@ -29,6 +29,7 @@ services:
     restart: unless-stopped
     environment:
       - LICENSE_GENERATION_MULTIPLIER=50
+      - LICENSE_SIGNATURE=K$BeCM8VZ.#S/B]gSbm-wgN_@x7cC5
       - SERVER_SERVLET_CONTEXT_PATH=/license/api/v1
       - SERVER_FORWARD_HEADERS_STRATEGY=framework
       - MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE=health
