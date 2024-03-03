@@ -5,6 +5,7 @@ services:
     image: openapitools/openapi-generator-cli:latest
     volumes:
       - ./target/spring:/local/spring
+      - ./license-key.pub:/local/spring/src/main/resources/license-key.pub
       - ./openapi.yaml:/home/openapi.yaml
       - ./config-server-spring-boot.json:/home/config-server-spring-boot.json
     command: generate -i /home/openapi.yaml -g ${SPRING_GENERATOR} -o /local/spring -c /home/config-server-spring-boot.json
@@ -13,6 +14,7 @@ services:
     image: openapitools/openapi-generator-cli:latest
     volumes:
       - ./target/webclient:/local/webclient
+      - ./license-key.pub:/local/webclient/src/main/resources/license-key.pub
       - ./openapi.yaml:/home/openapi.yaml
       - ./config-client-webclient.json:/home/config-client-webclient.json
     command: generate -i /home/openapi.yaml -g ${WEBCLIENT_GENERATOR} -o /local/webclient -c /home/config-client-webclient.json
