@@ -1,7 +1,7 @@
 import {patchState, signalState} from '@ngrx/signals';
 import {computed, Injectable} from '@angular/core';
 
-export type Route = 'home' | 'license-logs' | 'auth-failed';
+export type Route = 'home' | 'license-logs' | 'auth-failed' | 'signature';
 
 export interface RouteState {
   currentRoute: Route,
@@ -10,13 +10,14 @@ export interface RouteState {
 export function toRoute(path: string): Route {
   const cleanedPath = path.replace(/^\//, '');
   switch (cleanedPath) {
-        case 'home':
-        case 'license-logs':
-        case 'auth-failed':
-            return cleanedPath as Route;
-        default:
-            return 'home';
-    }
+    case 'home':
+    case 'license-logs':
+    case 'signature':
+    case 'auth-failed':
+      return cleanedPath as Route;
+    default:
+      return 'home';
+  }
 }
 
 export const initialState: RouteState = {

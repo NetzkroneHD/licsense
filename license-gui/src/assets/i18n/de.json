@@ -42,5 +42,32 @@
   "Validity": "Gültigkeit",
   "Open Logs": "Logs öffnen",
   "Edit": "Bearbeiten",
-  "Delete": "Löschen"
+  "Delete": "Löschen",
+  "signature": {
+    "general": "Generelle Info",
+    "text": "Die Verwendung des öffentlichen Schlüssels ist entscheidend für die Überprüfung der Authentizität einer API-Antwort. Sollte der öffentliche Schlüssel die Signatur nicht entschlüsseln können, wird das Vertrauen in die Integrität der API-Antwort beeinträchtigt.",
+    "explanation": {
+      "title": "Erklärung der Public/Private Key-Verschlüsselung:",
+      "text": "Public/private key encryption, bekannt als asymmetrische Kryptographie, umfasst ein Paar kryptografischer Schlüssel: einen öffentlichen Schlüssel und einen privaten Schlüssel."
+    },
+    "public-key": {
+      "name": "Öffentlicher Schlüssel",
+      "text": "Dieser Schlüssel wird offen geteilt und von Entitäten genutzt, die sichere Kommunikation mit dem Inhaber des entsprechenden privaten Schlüssels suchen. Er dient dazu, Daten zu verschlüsseln oder digitale Signaturen zu überprüfen."
+    },
+    "private-key": {
+      "name": "Privater Schlüssel",
+      "text": "Von seinem Besitzer vertraulich gehalten, ist dieser Schlüssel unerlässlich zum Entschlüsseln von mit dem entsprechenden öffentlichen Schlüssel verschlüsselten Daten oder zum Erzeugen digitaler Signaturen."
+    },
+    "verifying": "Beim sicheren Übertragen von Informationen oder Überprüfen der Authentizität einer Nachricht:",
+    "encryption": {
+      "name": "Verschlüsselung",
+      "text": "Der Sender verschlüsselt die Nachricht mit dem öffentlichen Schlüssel des Empfängers. Dies stellt sicher, dass nur der beabsichtigte Empfänger, der im Besitz des entsprechenden privaten Schlüssels ist, die Nachricht entschlüsseln und darauf zugreifen kann."
+    },
+    "signature-verification": {
+      "name": "Signaturüberprüfung",
+      "text": "Nach Erhalt einer Nachricht mit einer digitalen Signatur verwendet der Empfänger den öffentlichen Schlüssel des Senders, um deren Authentizität zu überprüfen. Erfolgreiche Überprüfung bestätigt, dass die Nachricht seit ihrer Unterzeichnung durch den Sender unverändert geblieben ist."
+    },
+    "end": "Öffentliche-/Private-Schlüssel-Verschlüsselung gewährleistet Vertraulichkeit, Integrität und Authentizität in der Kommunikation. Sie stellt sicher, dass nur autorisierte Empfänger mit Zugriff auf den privaten Schlüssel Nachrichten entschlüsseln können, während nur der legitime Absender, der den privaten Schlüssel besitzt, gültige digitale Signaturen erzeugen kann.",
+    "download": "Öffentlicher Schlüssel herunterladen"
+  }
 }

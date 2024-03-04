@@ -34,13 +34,6 @@ public class PublisherController implements PublisherApi {
         if (model == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 
         try {
-
-            try {
-                Thread.sleep(1500);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-
             return ResponseEntity.ok(licenseMapper.map(licenseCheckService.getLicenses(model, publisher)));
         } catch (PermissionException e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();

@@ -43,5 +43,6 @@ export const environment = {
   production: false,
   authConfig: authCodeFlowConfig,
   apiConfig: apiConfig,
-  momentDateAdapter: momentDateAdapter
+  momentDateAdapter: momentDateAdapter,
+  accountSettingsUrl: new URL('http://localhost:8082/realms/license/account')
 };
