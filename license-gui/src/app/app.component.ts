@@ -69,7 +69,7 @@ export class AppComponent implements OnInit {
     {id: 'home', icon: {name: 'home', size: 32}, description: 'Home', selected: true, activity: {count: 0}, disabled: {reason: '', state: false}, group: 'first', hasCustomOrder: false},
     {id: 'license-logs', icon: {name: 'description', size: 32}, description: 'Logs', selected: false, activity: {count: 0}, disabled: {reason: '', state: false}, group: 'first', hasCustomOrder: false},
     {id: 'signature', icon: {name: 'key', size: 32}, description: 'Signature', selected: false, activity: {count: 0}, disabled: {reason: '', state: false}, group: 'first', hasCustomOrder: false},
-    {id: 'settings', icon: {name: 'account_circle', size: 32}, description: 'Account Settings', selected: false, activity: {count: 0}, disabled: {reason: '', state: false}, group: 'last', hasCustomOrder: false},
+    {id: 'settings', icon: {name: 'account_circle', size: 32}, description: 'Account Settings', selected: false, activity: {count: 0}, disabled: {reason: '', state: false}, group: 'first', hasCustomOrder: false},
   ];
 
   constructor(private readonly oAuthService: OAuthService,

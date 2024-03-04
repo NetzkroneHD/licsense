@@ -72,7 +72,7 @@ public class LicenseCheckService {
             this.licenseService.save(license);
         }
         log.info("Checked license '{}' by '{}'.", licenseKey, ip);
-        return new LicenseCheckResult(licenseKey, license.getPublisher(), license.getNotes(), license.isValid(), license.getValidUntil(), keyService.encrypt(Utils.getRandomString(30)));
+        return new LicenseCheckResult(licenseKey, license.getPublisher(), license.getNotes(), license.isValid(), license.getValidUntil(), keyService.encrypt(Utils.getRandomString(licenseConfig.getSignatureLength())));
     }
 
     public LicenseModel updateLicense(String license, String publisher, LicenseModel update) throws PermissionException {

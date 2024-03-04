@@ -21,4 +21,7 @@ public class LicenseConfig {
     @Value("${license.private-key-file}")
     private String privateKeyFile;
 
+    @Value("${license.signature-length}")
+    private int signatureLength;
+
 }

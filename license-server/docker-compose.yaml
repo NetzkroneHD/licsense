@@ -30,6 +30,7 @@ services:
     environment:
       - LICENSE_GENERATION_MULTIPLIER=50
       - LICENSE_PRIVATE_KEY_FILE=license-key-private.der
+      - LICENSE_SIGNATURE_LENGTH=150
       - LICENSE_ROLE_PREFIX=ROLE_
       - SERVER_SERVLET_CONTEXT_PATH=/license/api/v1
       - SERVER_FORWARD_HEADERS_STRATEGY=framework

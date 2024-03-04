@@ -128,8 +128,6 @@ export class HomeComponent implements AfterViewInit {
     this.userLicenseStateFacade.loadLicensesFromCurrentPublisher();
   }
 
-  protected readonly environment = environment;
-
   protected getShortedString(str: string): string {
     // 	192.168.2.2,192.168.2.10
 
@@ -209,8 +207,9 @@ export class HomeComponent implements AfterViewInit {
     });
   }
 
-
   contextMenuClosed() {
     this.selectedLicense = {previous: this.selectedLicense.current, current: null};
   }
+
+  protected readonly environment = environment;
 }
