@@ -8,6 +8,7 @@ import de.netzkronehd.license.model.LicenseCheckResult;
 import de.netzkronehd.license.model.LicenseLogModel;
 import de.netzkronehd.license.model.LicenseModel;
 import de.netzkronehd.license.model.OAuth2Model;
+import de.netzkronehd.license.utils.Utils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +72,7 @@ public class LicenseCheckService {
             this.licenseService.save(license);
         }
         log.info("Checked license '{}' by '{}'.", licenseKey, ip);
-        return new LicenseCheckResult(licenseKey, license.getPublisher(), license.getNotes(), license.isValid(), license.getValidUntil(), keyService.encrypt(licenseConfig.getCheckSignature()));
+        return new LicenseCheckResult(licenseKey, license.getPublisher(), license.getNotes(), license.isValid(), license.getValidUntil(), keyService.encrypt(Utils.getRandomString(30)));
     }
 
     public LicenseModel updateLicense(String license, String publisher, LicenseModel update) throws PermissionException {
