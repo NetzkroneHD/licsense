@@ -1,5 +1,6 @@
 package de.netzkronehd.license.service;
 
+import de.netzkronehd.license.config.LicenseConfig;
 import de.netzkronehd.license.exception.ListModeException;
 import de.netzkronehd.license.exception.PermissionException;
 import de.netzkronehd.license.listmode.behavior.ListBehaviorResult;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.security.GeneralSecurityException;
 import java.time.OffsetDateTime;
 import java.util.List;
 
@@ -24,6 +26,8 @@ public class LicenseCheckService {
     private final LicenseService licenseService;
     private final LicenseLogService logService;
     private final PublisherService publisherService;
+    private final LicenseConfig licenseConfig;
+    private final KeyService keyService;
 
     public LicenseModel createLicense(LicenseModel license, String publisher) {
         checkPublisher(publisher);
@@ -46,7 +50,7 @@ public class LicenseCheckService {
         return publisherService.getLicenses(publisher);
     }
 
-    public LicenseCheckResult checkLicense(String ip, String licenseKey) throws ListModeException {
+    public LicenseCheckResult checkLicense(String ip, String licenseKey) throws ListModeException, GeneralSecurityException {
         final LicenseModel license = licenseService.getLicense(licenseKey);
         final LicenseLogModel licenseLog = new LicenseLogModel();
         licenseLog.setIp(ip);
@@ -67,7 +71,7 @@ public class LicenseCheckService {
             this.licenseService.save(license);
         }
         log.info("Checked license '{}' by '{}'.", licenseKey, ip);
-        return new LicenseCheckResult(licenseKey, license.getPublisher(), license.getNotes(), license.isValid(), license.getValidUntil());
+        return new LicenseCheckResult(licenseKey, license.getPublisher(), license.getNotes(), license.isValid(), license.getValidUntil(), keyService.encrypt(licenseConfig.getCheckSignature()));
     }
 
     public LicenseModel updateLicense(String license, String publisher, LicenseModel update) throws PermissionException {

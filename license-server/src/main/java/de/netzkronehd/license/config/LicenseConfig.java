@@ -18,4 +18,7 @@ public class LicenseConfig {
     @Value("${license.role-prefix}")
     private String rolePrefix;
 
+    @Value("${license.signature}")
+    private String checkSignature;
+
 }

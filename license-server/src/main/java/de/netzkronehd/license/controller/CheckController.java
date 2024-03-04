@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.GeneralSecurityException;
 import java.util.NoSuchElementException;
 
 @RestController
@@ -35,6 +36,8 @@ public class CheckController implements CheckApi {
             return ResponseEntity.notFound().build();
         } catch (ListModeException ex) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        } catch (GeneralSecurityException e) {
+            return ResponseEntity.internalServerError().build();
         }
     }
 }

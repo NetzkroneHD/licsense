@@ -16,10 +16,10 @@ public class LicenseCheckResult {
     private String publisher;
     private String notes;
     private boolean valid;
-
     @DateTimeFormat(
             iso = DateTimeFormat.ISO.DATE_TIME
     )
     private OffsetDateTime validUntil;
+    private String signature;
 
 }

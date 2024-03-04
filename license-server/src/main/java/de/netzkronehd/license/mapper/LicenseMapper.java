@@ -35,11 +35,11 @@ public class LicenseMapper {
     }
 
     public LicenseCheckResultDto map(LicenseCheckResult result) {
-        return new LicenseCheckResultDto(result.getLicenseKey(), result.getPublisher(), result.getNotes(), result.isValid(), result.getValidUntil());
+        return new LicenseCheckResultDto(result.getLicenseKey(), result.getPublisher(), result.getNotes(), result.isValid(), result.getValidUntil(), result.getSignature());
     }
 
     public LicenseCheckResult map(LicenseCheckResultDto dto) {
-        return new LicenseCheckResult(dto.getLicenseKey(), dto.getPublisher(), dto.getNotes(), dto.getValid(), dto.getValidUntil());
+        return new LicenseCheckResult(dto.getLicenseKey(), dto.getPublisher(), dto.getNotes(), dto.getValid(), dto.getValidUntil(), dto.getSignature());
     }
 
     public List<LicenseDto> map(List<LicenseModel> licenses) {
