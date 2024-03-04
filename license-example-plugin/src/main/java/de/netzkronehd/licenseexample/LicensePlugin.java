@@ -6,7 +6,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
@@ -15,11 +14,13 @@ public final class LicensePlugin extends JavaPlugin {
     @Override
     public void onEnable() {
 
+        final File publicKeyFile = new File(getDataFolder().getAbsolutePath(), "license-key-public.der");
         final String key = getConfig().getString("license-key");
+
         final ScheduledChecker scheduledChecker;
         try {
-            scheduledChecker = new ScheduledChecker(this, "http://localhost:8080/license/api/v1", new SignatureChecker());
-        } catch (URISyntaxException | IOException | NoSuchAlgorithmException | InvalidKeySpecException e) {
+            scheduledChecker = new ScheduledChecker(this, "http://localhost:8080/license/api/v1", new SignatureChecker(publicKeyFile));
+        } catch (IOException | NoSuchAlgorithmException | InvalidKeySpecException e) {
             throw new RuntimeException(e);
         }
         scheduledChecker.startChecking(key);
@@ -31,4 +32,5 @@ public final class LicensePlugin extends JavaPlugin {
     public void onDisable() {
 
     }
+
 }
