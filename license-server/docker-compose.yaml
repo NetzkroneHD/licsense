@@ -29,14 +29,14 @@ services:
     restart: unless-stopped
     environment:
       - LICENSE_GENERATION_MULTIPLIER=50
-      - LICENSE_SIGNATURE=K$BeCM8VZ.#S/B]gSbm-wgN_@x7cC5
+      - LICENSE_PRIVATE_KEY_FILE=license-key-private.der
+      - LICENSE_ROLE_PREFIX=ROLE_
       - SERVER_SERVLET_CONTEXT_PATH=/license/api/v1
       - SERVER_FORWARD_HEADERS_STRATEGY=framework
       - MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE=health
       - LOGGING_FILE_PATH=./logs
       - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI=http://localhost:8082/realms/license
       - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI=http://host.docker.internal:8082/realms/license/protocol/openid-connect/certs
-      - LICENSE_ROLE_PREFIX=ROLE_
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/${PG_DATABASE}
       - SPRING_DATASOURCE_USERNAME=${PG_USER}
       - SPRING_DATASOURCE_PASSWORD=${PG_PASSWORD}

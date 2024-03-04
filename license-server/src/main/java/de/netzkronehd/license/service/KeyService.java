@@ -1,6 +1,8 @@
 package de.netzkronehd.license.service;
 
+import de.netzkronehd.license.config.LicenseConfig;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.Cipher;
@@ -21,8 +23,9 @@ public class KeyService {
 
     private final PrivateKey privateKey;
 
-    public KeyService() throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
-        this.privateKey = loadPrivateKey(new File("/home/app", "license-key-private.der"));
+    @Autowired
+    public KeyService(LicenseConfig licenseConfig) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
+        this.privateKey = loadPrivateKey(new File("/home/app", licenseConfig.getPrivateKeyFile()));
     }
 
     private PrivateKey loadPrivateKey(File file) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
