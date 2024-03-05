@@ -1,4 +1,4 @@
-.app-toolbar {
+.license-toolbar {
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -9,12 +9,6 @@
   min-width: 10px;
 }
 
-
-.license-sidenav-container {
-  width: 100%;
-  height: 93%;
-}
-
 .license-sidenav-content {
   display: flex;
   height: 100%;
@@ -22,7 +16,6 @@
   justify-content: flex-start;
   flex-direction: column;
   margin-left: 15px;
-  scroll-behavior: auto !important;
 }
 
 .license-sidenav {
