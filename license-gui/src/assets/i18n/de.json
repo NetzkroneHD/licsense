@@ -43,6 +43,7 @@
   "Open Logs": "Logs öffnen",
   "Edit": "Bearbeiten",
   "Delete": "Löschen",
+  "Create License": "Lizenz erstellen",
   "signature": {
     "general": "Generelle Info",
     "text": "Die Verwendung des öffentlichen Schlüssels ist entscheidend für die Überprüfung der Authentizität einer API-Antwort. Sollte der öffentliche Schlüssel die Signatur nicht entschlüsseln können, wird das Vertrauen in die Integrität der API-Antwort beeinträchtigt.",
@@ -69,5 +70,18 @@
     },
     "end": "Öffentliche-/Private-Schlüssel-Verschlüsselung gewährleistet Vertraulichkeit, Integrität und Authentizität in der Kommunikation. Sie stellt sicher, dass nur autorisierte Empfänger mit Zugriff auf den privaten Schlüssel Nachrichten entschlüsseln können, während nur der legitime Absender, der den privaten Schlüssel besitzt, gültige digitale Signaturen erzeugen kann.",
     "download": "Öffentlicher Schlüssel herunterladen"
+  },
+  "sidenavItems": {
+    "home": "Startseite",
+    "license-logs": "Logs",
+    "signature": "Signatur",
+    "settings": "Account Einstellungen"
+  },
+  "home": {
+    "contextMenuItems": {
+      "open": "Logs öffnen",
+      "edit": "Bearbeiten",
+      "delete": "Löschen"
+    }
   }
 }

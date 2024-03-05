@@ -13,7 +13,7 @@ import {
   MatSidenavContent
 } from '@angular/material/sidenav';
 import {MatIcon} from '@angular/material/icon';
-import {TranslateModule} from '@ngx-translate/core';
+import {TranslateModule, TranslateService} from '@ngx-translate/core';
 import {LicenseDropdownMenuComponent} from './component/license-dropdown-menu/license-dropdown-menu.component';
 import {MatMenuTrigger} from '@angular/material/menu';
 import {LicenseDropdownMenuItem} from './component/license-dropdown-menu/license-dropdown-menu-item.interface';
@@ -23,6 +23,7 @@ import {LicenseSidenavComponent} from './component/license-sidenav/license-siden
 import {LicenseSidenavItem} from './component/license-sidenav/license-sidenav-item.interface';
 import {RouteStoreService} from './state/route/route.service';
 import {RouteStore, toRoute} from './state/route/route-store.service';
+import {UserSettingsStore} from './state/user-settings/user-settings-store.service';
 
 @Component({
   selector: 'app-root',
@@ -66,26 +67,74 @@ export class AppComponent implements OnInit {
   @ViewChild('sidenav') sidenav!: LicenseSidenavComponent;
 
   protected sidenavItems: LicenseSidenavItem[] = [
-    {id: 'home', icon: {name: 'home', size: 32}, description: 'Home', selected: true, activity: {count: 0}, disabled: {reason: '', state: false}, group: 'first', hasCustomOrder: false},
-    {id: 'license-logs', icon: {name: 'description', size: 32}, description: 'Logs', selected: false, activity: {count: 0}, disabled: {reason: '', state: false}, group: 'first', hasCustomOrder: false},
-    {id: 'signature', icon: {name: 'key', size: 32}, description: 'Signature', selected: false, activity: {count: 0}, disabled: {reason: '', state: false}, group: 'first', hasCustomOrder: false},
-    {id: 'settings', icon: {name: 'account_circle', size: 32}, description: 'Account Settings', selected: false, activity: {count: 0}, disabled: {reason: '', state: false}, group: 'first', hasCustomOrder: false},
+    {
+      id: 'home',
+      icon: {name: 'home', size: 32},
+      description: 'Home',
+      selected: true,
+      activity: {count: 0},
+      disabled: {reason: '', state: false},
+      group: 'first',
+      hasCustomOrder: false
+    },
+    {
+      id: 'license-logs',
+      icon: {name: 'description', size: 32},
+      description: 'Logs',
+      selected: false,
+      activity: {count: 0},
+      disabled: {reason: '', state: false},
+      group: 'first',
+      hasCustomOrder: false
+    },
+    {
+      id: 'signature',
+      icon: {name: 'key', size: 32},
+      description: 'Signature',
+      selected: false,
+      activity: {count: 0},
+      disabled: {reason: '', state: false},
+      group: 'first',
+      hasCustomOrder: false
+    },
+    {
+      id: 'settings',
+      icon: {name: 'account_circle', size: 32},
+      description: 'Account Settings',
+      selected: false,
+      activity: {count: 0},
+      disabled: {reason: '', state: false},
+      group: 'last',
+      hasCustomOrder: false
+    },
   ];
 
   constructor(private readonly oAuthService: OAuthService,
               private readonly tokenService: TokenService,
               private readonly userSettingsFacade: UserSettingsStoreFacade,
+              private readonly userSettingsStore: UserSettingsStore,
               private readonly userLicenseStateFacade: UserLicenseStoreFacade,
               private readonly routeStoreService: RouteStoreService,
-              private readonly routeStore: RouteStore) {
+              private readonly routeStore: RouteStore,
+              private readonly translateService: TranslateService) {
 
     effect(() => {
       const route = this.routeStore.selectCurrentRoute$();
       this.clearToggle();
       const item = this.sidenavItems.find(value => value.id === route);
-      if(!item) return;
+      if (!item) return;
       item.selected = true;
     });
+
+    effect(() => {
+      const lang = this.userSettingsStore.selectUserLanguage$();
+      setTimeout(() => {
+        this.sidenavItems.forEach(item => {
+          item.description = this.translateService.instant('sidenavItems.' + item.id);
+        });
+      });
+    });
+
   }
 
   ngOnInit() {
@@ -105,7 +154,7 @@ export class AppComponent implements OnInit {
       this.tokenService.setAccessToken(this.oAuthService.getAccessToken());
     });
 
-    if(this.oAuthService.getIdentityClaims()) {
+    if (this.oAuthService.getIdentityClaims()) {
       this.tokenService.setAccessToken(this.oAuthService.getAccessToken());
       this.userLicenseStateFacade.loadLicensesFromCurrentPublisher();
     }

@@ -21,7 +21,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort, MatSortHeader} from '@angular/material/sort';
 import {LicenseDto} from '@license/license-api-client-typescript-fetch';
 import {LicenseDialogService} from '../../component/license-dialog/license-dialog.service';
-import {TranslateModule} from '@ngx-translate/core';
+import {TranslateModule, TranslateService} from '@ngx-translate/core';
 import {LicenseEditService} from '../../component/license-edit/license-edit.service';
 import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
@@ -32,6 +32,7 @@ import {MatTooltip} from '@angular/material/tooltip';
 import {MatProgressBar} from '@angular/material/progress-bar';
 import {NotificationStoreService} from '../../state/toaster/notification.service';
 import {RouteStoreService} from '../../state/route/route.service';
+import {UserSettingsStore} from '../../state/user-settings/user-settings-store.service';
 
 @Component({
   selector: 'license-home',
@@ -91,7 +92,9 @@ export class HomeComponent implements AfterViewInit {
               private readonly dialogService: LicenseDialogService,
               private readonly licenseEditService: LicenseEditService,
               private readonly notificationService: NotificationStoreService,
-              private readonly routeStoreService: RouteStoreService) {
+              private readonly userSettingsStore: UserSettingsStore,
+              private readonly routeStoreService: RouteStoreService,
+              private readonly translateService: TranslateService) {
 
     this.dataSource = new MatTableDataSource(this.userLicenseState.selectUserLicenses$());
 
@@ -102,7 +105,15 @@ export class HomeComponent implements AfterViewInit {
     effect(() => {
       this.loading = this.userLicenseState.isLoadingAnyLicense$();
     });
-    console.log("length", "192.168.2.2,192.168.2.10".length)
+
+    effect(() => {
+      const lang = this.userSettingsStore.selectUserLanguage$();
+      setTimeout(() => {
+        this.contextMenuItems.forEach(item => {
+          item.title = this.translateService.instant('home.contextMenuItems.' + item.id);
+        });
+      });
+    });
 
   }
 

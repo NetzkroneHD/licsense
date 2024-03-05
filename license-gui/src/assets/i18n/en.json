@@ -43,6 +43,7 @@
   "Open Logs": "Open logs",
   "Edit": "Edit",
   "Delete": "Delete",
+  "Create License": "Create License",
   "signature": {
     "general": "General Info",
     "text": "The utilization of the public key is pivotal in verifying the authenticity of an API response. Should the public key fail to decrypt the signature, trust in the integrity of the API response is compromised.",
@@ -69,5 +70,18 @@
     },
     "end": "Public/private key encryption guarantees confidentiality, integrity, and authenticity in communication. It ensures that only authorized recipients with access to the private key can decipher messages, while only the legitimate sender, holding the private key, can produce valid digital signatures.",
     "download": "Download Public Key"
+  },
+  "sidenavItems": {
+    "home": "Home",
+    "license-logs": "Logs",
+    "signature": "Signature",
+    "settings": "Account Settings"
+  },
+  "home": {
+    "contextMenuItems": {
+      "open": "Open logs",
+      "edit": "Edit",
+      "delete": "Delete"
+    }
   }
 }

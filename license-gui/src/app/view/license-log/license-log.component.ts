@@ -103,6 +103,8 @@ export class LicenseLogComponent implements AfterViewInit {
   }
 
   refresh() {
-    this.userLicenseFacade.loadLogs('r35139uui9wIpQT68U8bxp1tGryDR35Yv9dRtAItlNgHe91dLh');
+    const currentLicense = this.userLicenseState.selectCurrentLicense$();
+    if(!currentLicense) return;
+    this.userLicenseFacade.loadLogs(currentLicense);
   }
 }
