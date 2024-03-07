@@ -9,6 +9,7 @@ services:
     restart: unless-stopped
     ports:
       - "80:8080"
+      - "4200:8080"
     networks:
       - frontend
 
