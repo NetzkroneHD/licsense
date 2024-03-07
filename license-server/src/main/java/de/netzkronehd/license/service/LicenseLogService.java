@@ -2,6 +2,7 @@ package de.netzkronehd.license.service;
 
 import de.netzkronehd.license.model.LicenseLogModel;
 import de.netzkronehd.license.repository.LicenseLogRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,18 @@ public class LicenseLogService {
         log.info("Created license log '{}'.", createdLog);
     }
 
+    public void deleteLog(int id) {
+        checkIdIsGreaterThanZero(id);
+        this.licenseLogRepository.deleteById(id);
+        log.info("Deleted log '{}'", id);
+    }
+
+    @Transactional
+    public void deleteLogs(String license) {
+        this.licenseLogRepository.deleteAllByLicense(license);
+        log.info("Deleted all logs of '{}'.", license);
+    }
+
     public LicenseLogModel getLog(int id) {
         checkIdIsGreaterThanZero(id);
         return this.licenseLogRepository.findById(id).orElseThrow();
@@ -40,11 +53,6 @@ public class LicenseLogService {
 
     public List<LicenseLogModel> getLogs(String license) {
         return this.licenseLogRepository.findAllByLicense(license);
-    }
-
-    public void deleteLog(int id) {
-        checkIdIsGreaterThanZero(id);
-        log.info("Deleted log '{}'", id);
     }
 
     private void checkIdIsGreaterThanZero(int id) {

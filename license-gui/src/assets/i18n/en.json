@@ -23,6 +23,8 @@
   "Error while deleting license.": "Error while deleting license.",
   "Successfully loaded logs.": "Successfully loaded logs.",
   "Error while loading logs.": "Error while loading logs.",
+  "Successfully deleted logs.": "Successfully deleted logs.",
+  "Error while deleting logs.": "Error while deleting logs.",
   "Successfully loaded licenses.": "Successfully loaded licenses.",
   "Error while loading licenses.": "Error while loading licenses.",
   "Error: {{error}}": "{{error}}",
@@ -49,6 +51,7 @@
   "Authentication failed": "Authentication failed",
   "Authentication failed. Retry to continue.": "Authentication failed. Retry to continue.",
   "Retry": "Retry",
+  "Delete logs": "Delete logs",
   "deleteLicense": {
     "text": "Are you sure to delete the license {{licenseKey}}?"
   },

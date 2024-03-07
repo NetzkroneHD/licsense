@@ -2,7 +2,6 @@ import * as pkg from '../../package.json';
 import {Configuration} from '@license/license-api-client-typescript-fetch';
 import {AuthConfig} from 'angular-oauth2-oidc';
 import {MatDateFormats} from '@angular/material/core';
-import {HTTPHeaders} from '@license/license-api-client-typescript-fetch/src/runtime';
 
 const momentDateAdapter: MatDateFormats = {
   parse: {
@@ -23,17 +22,10 @@ const authCodeFlowConfig: AuthConfig = {
   clientId: 'license-client',
   responseType: 'code',
   scope: 'openid',
-  showDebugInformation: true,
-}
-
-
-const headers: HTTPHeaders = {
-  'Access-Control-Allow-Origin': '*',
 }
 
 export const apiConfig: Configuration = new Configuration({
-  basePath: "http://localhost:8080/api/v1".replace(/\/+$/, ""),
-  headers: headers
+  basePath: "http://host.docker.internal:8080/api/v1".replace(/\/+$/, "")
 });
 
 export const environment = {

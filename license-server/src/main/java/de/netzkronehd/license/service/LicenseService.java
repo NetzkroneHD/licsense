@@ -18,7 +18,6 @@ public class LicenseService {
 
     private final LicenseConfig config;
     private final LicenseRepository licenseRepository;
-    private final LicenseLogService logService;
 
     public LicenseModel getLicense(String license) {
         Objects.requireNonNull(license);

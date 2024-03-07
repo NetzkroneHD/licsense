@@ -32,9 +32,26 @@ public class LicenseLogsController implements LogsApi {
     public ResponseEntity<List<LicenseLogDto>> getLicenseLogs(String license) {
         final OAuth2Model model = tokenSecurity.getModel(SecurityContextHolder.getContext().getAuthentication());
         if (model == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        if (!model.isAdmin()) return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
 
         try {
             return ResponseEntity.ok(licenseLogMapper.map(checkService.getLogs(license, model.getSub())));
+        } catch (NoSuchElementException ex) {
+            return ResponseEntity.notFound().build();
+        } catch (PermissionException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+    }
+
+    @Override
+    public ResponseEntity<Void> deleteLicenseLogs(String license) {
+        final OAuth2Model model = tokenSecurity.getModel(SecurityContextHolder.getContext().getAuthentication());
+        if (model == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        if (!model.isAdmin()) return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+
+        try {
+            this.checkService.deleteLogs(license, model.getSub());
+            return ResponseEntity.ok().build();
         } catch (NoSuchElementException ex) {
             return ResponseEntity.notFound().build();
         } catch (PermissionException e) {

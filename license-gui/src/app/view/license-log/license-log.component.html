@@ -13,6 +13,9 @@
     <button mat-icon-button (click)="refresh()" [matTooltip]="('Refresh' | translate) ">
       <mat-icon>refresh</mat-icon>
     </button>
+    <button mat-icon-button (click)="deleteHistory()" [matTooltip]="('Delete logs' | translate) " [disabled]="(userLicenseState.selectCurrentLicense$() === null)">
+      <mat-icon>delete_history</mat-icon>
+    </button>
   </div>
 
   @if (loading) {

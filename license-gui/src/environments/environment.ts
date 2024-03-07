@@ -2,7 +2,6 @@ import * as pkg from '../../package.json';
 import {Configuration} from '@license/license-api-client-typescript-fetch';
 import {AuthConfig} from 'angular-oauth2-oidc';
 import {MatDateFormats} from '@angular/material/core';
-import {HTTPHeaders} from '@license/license-api-client-typescript-fetch/src/runtime';
 
 const momentDateAdapter: MatDateFormats = {
   parse: {
@@ -19,7 +18,7 @@ const momentDateAdapter: MatDateFormats = {
 const authCodeFlowConfig: AuthConfig = {
   issuer: 'http://localhost:8082/realms/license',
   redirectUri: window.location.origin,
-  postLogoutRedirectUri: window.location.origin+"/loggedOut",
+  postLogoutRedirectUri: window.location.origin+'/loggedOut',
   clientId: 'license-client',
   dummyClientSecret: '7CHdYlPpft8Pnqfg3t90tnmJNqIIM3hi',
   responseType: 'code',
@@ -28,14 +27,8 @@ const authCodeFlowConfig: AuthConfig = {
   showDebugInformation: true,
 }
 
-
-const headers: HTTPHeaders = {
-  'Access-Control-Allow-Origin': '*',
-}
-
 export const apiConfig: Configuration = new Configuration({
-  basePath: "http://localhost:8080/license/api/v1".replace(/\/+$/, ""),
-  headers: headers
+  basePath: "http://host.docker.internal:8080/license/api/v1".replace(/\/+$/, ""),
 });
 
 export const environment = {

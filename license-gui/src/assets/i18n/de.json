@@ -23,6 +23,8 @@
   "Error while deleting license.": "Fehler beim Löschen der Lizenz.",
   "Successfully loaded logs.": "Logs erfolgreich geladen.",
   "Error while loading logs.": "Fehler beim Laden der Logs.",
+  "Successfully deleted logs.": "Logs wurden gelöscht.",
+  "Error while deleting logs.": "Fehler beim Löschen der Logs.",
   "Successfully loaded licenses.": "Lizenzen wurden geladen.",
   "Error while loading licenses.": "Fehler beim Laden der Lizenzen.",
   "Error: {{error}}": "{{error}}",
@@ -49,6 +51,7 @@
   "Authentication failed": "Authentifizierung fehlgeschlagen",
   "Authentication failed. Retry to continue.": "Authentifizierung fehlgeschlagen. Versuche es erneut, um fortzufahren.",
   "Retry": "Erneut versuchen",
+  "Delete logs": "Logs löschen",
   "deleteLicense": {
     "text": "Bist du dir sicher, dass du die Lizenz {{licenseKey}} löschen möchtest?"
   },
@@ -77,7 +80,7 @@
       "text": "Nach Erhalt einer Nachricht mit einer digitalen Signatur verwendet der Empfänger den öffentlichen Schlüssel des Senders, um deren Authentizität zu überprüfen. Erfolgreiche Überprüfung bestätigt, dass die Nachricht seit ihrer Unterzeichnung durch den Sender unverändert geblieben ist."
     },
     "end": "Öffentliche-/Private-Schlüssel-Verschlüsselung gewährleistet Vertraulichkeit, Integrität und Authentizität in der Kommunikation. Sie stellt sicher, dass nur autorisierte Empfänger mit Zugriff auf den privaten Schlüssel Nachrichten entschlüsseln können, während nur der legitime Absender, der den privaten Schlüssel besitzt, gültige digitale Signaturen erzeugen kann.",
-    "download": "Öffentlicher Schlüssel herunterladen"
+    "download": "Öffentlichen Schlüssel herunterladen"
   },
   "sidenavItems": {
     "home": "Startseite",

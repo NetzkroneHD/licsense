@@ -107,4 +107,10 @@ export class LicenseLogComponent implements AfterViewInit {
     if(!currentLicense) return;
     this.userLicenseFacade.loadLogs(currentLicense);
   }
+
+  deleteHistory() {
+    const currentLicense = this.userLicenseState.selectCurrentLicense$();
+    if(!currentLicense) return;
+    this.userLicenseFacade.deleteLogs(currentLicense);
+  }
 }

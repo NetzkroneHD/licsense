@@ -1,7 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {
   ApiResponse,
-  CreateLicenseRequest,
+  CreateLicenseRequest, DeleteLicenseLogsRequest,
   DeleteLicenseRequest,
   GetLicenseLogsRequest,
   GetLicenseRequest,
@@ -16,7 +16,7 @@ import {environment} from '../../../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class LicenseApiAdapter extends LicenseApi{
+export class LicenseApiAdapter extends LicenseApi {
 
   private readonly licenseApi: LicenseApi = inject(LicenseApi);
 
@@ -54,6 +54,14 @@ export class LicenseApiAdapter extends LicenseApi{
 
   public override getLicenseLogs(requestParameters: GetLicenseLogsRequest, initOverrides?: RequestInit | InitOverrideFunction): Promise<Array<LicenseLogDto>> {
     return this.licenseApi.getLicenseLogs(requestParameters, initOverrides);
+  }
+
+  override deleteLicenseLogs(requestParameters: DeleteLicenseLogsRequest, initOverrides?: RequestInit | InitOverrideFunction): Promise<void> {
+    return this.licenseApi.deleteLicenseLogs(requestParameters, initOverrides);
+  }
+
+  override deleteLicenseLogsRaw(requestParameters: DeleteLicenseLogsRequest, initOverrides?: RequestInit | InitOverrideFunction): Promise<ApiResponse<void>> {
+    return this.licenseApi.deleteLicenseLogsRaw(requestParameters, initOverrides);
   }
 
   public override updateLicenseRaw(requestParameters: UpdateLicenseRequest, initOverrides?: RequestInit | InitOverrideFunction): Promise<ApiResponse<LicenseDto>> {

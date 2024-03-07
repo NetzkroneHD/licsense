@@ -34,6 +34,10 @@ export class LicenseApiService {
     return this.licenseApi.getLicenseLogs({license: license});
   }
 
+  public deleteLicenseLogs(license: string): Promise<void> {
+    return this.licenseApi.deleteLicenseLogs({license: license});
+  }
+
   // Raw
   public createLicenseRaw(license: LicenseDto): Promise<ApiResponse<LicenseDto>> {
     return this.licenseApi.createLicenseRaw({licenseDto: license})
@@ -53,6 +57,10 @@ export class LicenseApiService {
 
   public getLicenseLogsRaw(license: string): Promise<ApiResponse<Array<LicenseLogDto>>> {
     return this.licenseApi.getLicenseLogsRaw({license: license});
+  }
+
+  public deleteLicenseLogsRaw(license: string): Promise<ApiResponse<void>> {
+    return this.licenseApi.deleteLicenseLogsRaw({license: license});
   }
 
 }

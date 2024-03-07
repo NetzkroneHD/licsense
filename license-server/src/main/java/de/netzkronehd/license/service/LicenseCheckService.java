@@ -100,8 +100,18 @@ public class LicenseCheckService {
 
         final LicenseModel licenseModel = this.licenseService.getLicense(license);
         checkIfPublisherIsEqual(publisher, licenseModel);
-
         this.licenseService.deleteLicense(license);
+
+        this.logService.deleteLogs(license);
+    }
+
+    public void deleteLogs(String license, String publisher) throws PermissionException {
+        checkPublisher(publisher);
+
+        final LicenseModel licenseModel = this.licenseService.getLicense(license);
+        checkIfPublisherIsEqual(publisher, licenseModel);
+
+        this.logService.deleteLogs(license);
     }
 
     private void checkPublisher(String publisher) {
@@ -111,5 +121,4 @@ public class LicenseCheckService {
     private void checkIfPublisherIsEqual(String publisher, LicenseModel licenseModel) throws PermissionException {
         if (publisher != null && !licenseModel.getPublisher().equals(publisher)) throw new PermissionException();
     }
-
 }

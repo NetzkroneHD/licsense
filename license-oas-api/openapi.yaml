@@ -203,7 +203,27 @@ paths:
           description: License invalid
         404:
           description: License not found
-
+    delete:
+      security:
+        - bearerAuth: [ ]
+      operationId: deleteLicenseLogs
+      tags:
+        - License
+      description: Deletes logs from a license
+      parameters:
+        - name: license
+          in: path
+          description: License key
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: License valid
+        403:
+          description: License invalid
+        404:
+          description: License not found
 
 
 security:

@@ -23,6 +23,8 @@
   "Error while deleting license.": "Error al eliminar la licencia.",
   "Successfully loaded logs.": "Registros cargados exitosamente.",
   "Error while loading logs.": "Error al cargar los registros.",
+  "Successfully deleted logs.": "Registros eliminados exitosamente.",
+  "Error while deleting logs.": "Error al eliminar los registros.",
   "Successfully loaded licenses.": "Licencias cargadas exitosamente.",
   "Error while loading licenses.": "Error al cargar las licencias.",
   "Error: {{error}}": "Error: {{error}}",
@@ -49,6 +51,7 @@
   "Authentication failed": "Error de autenticación",
   "Authentication failed. Retry to continue.": "Autenticación fallida. Inténtalo de nuevo para continuar.",
   "Retry": "Intentar de nuevo",
+  "Delete logs": "Eliminar registros",
   "deleteLicense": {
     "text": "¿Estas seguro que quieres borrar la Licencia {{licenseKey}}?"
   },
