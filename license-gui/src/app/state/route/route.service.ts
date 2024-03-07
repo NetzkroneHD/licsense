@@ -6,7 +6,7 @@ import {NavigationEnd, Router} from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
-export class RouteStoreService {
+export class RouteStoreFacade {
 
   private readonly routeStore = inject(RouteStore);
   private readonly router = inject(Router);

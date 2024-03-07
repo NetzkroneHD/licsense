@@ -44,6 +44,14 @@
   "Edit": "Edit",
   "Delete": "Delete",
   "Create License": "Create License",
+  "Confirm Delete": "Confirm Delete",
+  "New IP address separated by comma": "New IP address separated by comma",
+  "Authentication failed": "Authentication failed",
+  "Authentication failed. Retry to continue.": "Authentication failed. Retry to continue.",
+  "Retry": "Retry",
+  "deleteLicense": {
+    "text": "Are you sure to delete the license {{licenseKey}}?"
+  },
   "signature": {
     "general": "General Info",
     "text": "The utilization of the public key is pivotal in verifying the authenticity of an API response. Should the public key fail to decrypt the signature, trust in the integrity of the API response is compromised.",

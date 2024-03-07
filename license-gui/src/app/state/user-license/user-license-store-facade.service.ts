@@ -5,7 +5,7 @@ import {LicenseLogDto} from '@license/license-api-client-typescript-fetch/src/mo
 import {PublisherApiService} from '../../api/service/publisher-api.service';
 import {TranslateService} from '@ngx-translate/core';
 import {LicenseApiService} from '../../api/service/license-api.service';
-import {NotificationStoreService} from '../toaster/notification.service';
+import {NotificationStoreService} from '../notification/notification.service';
 
 
 @Injectable({

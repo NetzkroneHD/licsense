@@ -1,0 +1,95 @@
+{
+  "Enter a date": "Introducir una fecha",
+  "Enter a date range": "Introducir un rango de fechas",
+  "Start Date": "Fecha de inicio",
+  "End Date": "Fecha de fin",
+  "Create": "Crear",
+  "Apply": "Aplicar",
+  "Save": "Guardar",
+  "Cancel": "Cancelar",
+  "Choose": "Elegir",
+  "Logout": "Cerrar sesión",
+  "Retrieve Publisher Data": "Recuperar datos del editor",
+  "ID": "ID",
+  "License": "Licencia",
+  "IP": "IP",
+  "Date": "Fecha",
+  "Request Result": "Resultado de la solicitud",
+  "Successfully created a license.": "Licencia creada exitosamente.",
+  "Error while creating license.": "Error al crear la licencia.",
+  "Successfully updated a license.": "Licencia actualizada exitosamente.",
+  "Error while updating license.": "Error al actualizar la licencia.",
+  "Successfully deleted a license.": "Licencia eliminada exitosamente.",
+  "Error while deleting license.": "Error al eliminar la licencia.",
+  "Successfully loaded logs.": "Registros cargados exitosamente.",
+  "Error while loading logs.": "Error al cargar los registros.",
+  "Successfully loaded licenses.": "Licencias cargadas exitosamente.",
+  "Error while loading licenses.": "Error al cargar las licencias.",
+  "Error: {{error}}": "Error: {{error}}",
+  "Filter": "Filtrar",
+  "Refresh": "Actualizar",
+  "Loading...": "Cargando...",
+  "The licenses are already loading.": "Las licencias ya se están cargando.",
+  "Publisher": "Editor",
+  "Notes": "Notas",
+  "Valid": "Válido",
+  "Valid Until": "Válido Hasta",
+  "List-Mode": "Modo Lista",
+  "IP-Addresses": "Direcciones IP",
+  "Create a license.": "CREAR LICENCIA",
+  "Edit a license.": "EDITAR LICENCIA",
+  "Generated value": "Valor generado",
+  "Validity": "Validez",
+  "Open Logs": "Abrir registros",
+  "Edit": "Editar",
+  "Delete": "Eliminar",
+  "Create License": "Crear Licencia",
+  "Confirm Delete": "Confirmar",
+  "New IP address separated by comma": "Nueva dirección IP, separada por una coma",
+  "Authentication failed": "Error de autenticación",
+  "Authentication failed. Retry to continue.": "Autenticación fallida. Inténtalo de nuevo para continuar.",
+  "Retry": "Intentar de nuevo",
+  "deleteLicense": {
+    "text": "¿Estas seguro que quieres borrar la Licencia {{licenseKey}}?"
+  },
+  "signature": {
+    "general": "Información General",
+    "text": "La utilización de la clave pública es fundamental para verificar la autenticidad de una respuesta de API. Si la clave pública no puede descifrar la firma, se compromete la confianza en la integridad de la respuesta de la API.",
+    "explanation": {
+      "title": "Explicación de la encriptación de clave pública/privada:",
+      "text": "La encriptación de clave pública/privada, conocida como criptografía asimétrica, implica un par de claves criptográficas: una clave pública y una clave privada."
+    },
+    "public-key": {
+      "name": "Clave Pública",
+      "text": "Esta clave se comparte abiertamente y se utiliza por entidades que buscan comunicación segura con el titular de la clave privada correspondiente. Sirve para encriptar datos o verificar firmas digitales."
+    },
+    "private-key": {
+      "name": "Clave Privada",
+      "text": "Mantenido en secreto por su propietario, esta clave es esencial para descifrar datos encriptados con la clave pública correspondiente o generar firmas digitales."
+    },
+    "verifying": "Al transmitir información de forma segura o verificar la autenticidad de un mensaje:",
+    "encryption": {
+      "name": "Encriptación",
+      "text": "El remitente encripta el mensaje usando la clave pública del destinatario. Esto garantiza que solo el destinatario previsto, que posee la clave privada correspondiente, pueda descifrar y acceder al mensaje."
+    },
+    "signature-verification": {
+      "name": "Verificación de Firma",
+      "text": "Al recibir un mensaje con una firma digital, el destinatario utiliza la clave pública del remitente para verificar su autenticidad. La verificación exitosa confirma que el mensaje no ha sido alterado desde su firma por el remitente."
+    },
+    "end": "La encriptación de clave pública/privada garantiza confidencialidad, integridad y autenticidad en la comunicación. Asegura que solo los destinatarios autorizados con acceso a la clave privada puedan descifrar mensajes, mientras que solo el remitente legítimo, que posee la clave privada, pueda producir firmas digitales válidas.",
+    "download": "Descargar Clave Pública"
+  },
+  "sidenavItems": {
+    "home": "Inicio",
+    "license-logs": "Registros",
+    "signature": "Llave",
+    "settings": "Configuración de la cuenta"
+  },
+  "home": {
+    "contextMenuItems": {
+      "open": "Abrir registros",
+      "edit": "Editar",
+      "delete": "Eliminar"
+    }
+  }
+}

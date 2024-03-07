@@ -1,0 +1,101 @@
+version: '3.1'
+
+services:
+
+  postgres:
+    image: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+      POSTGRES_DB: ${PG_DATABASE}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 1s
+      timeout: 1s
+      retries: 500
+    networks:
+      - keycloak-network
+    volumes:
+      - ./keycloak/pg-data:/var/lib/postgresql/data
+
+  cert-setup:
+    image: alpine
+    volumes:
+      - ./keycloak/https:/etc/x509/https
+    command:
+      - /bin/sh
+      - -c
+      - |
+        apk add --no-cache openssl openjdk8 && \
+        openssl req -x509 -nodes \
+        -days 365 \
+        -newkey rsa:2048 \
+        -keyout /etc/x509/https/tls.key \
+        -out /etc/x509/https/tls.crt \
+        -config /etc/ssl/certificate.cnf \
+        -subj '/CN=localhost' \
+        && openssl pkcs12 -export \
+        -in /etc/x509/https/tls.crt \
+        -inkey /etc/x509/https/tls.key \
+        -out /etc/x509/https/keystore.p12 \
+        -name localhost \
+        -password pass:password \
+        && keytool -importkeystore \
+        -srckeystore /etc/x509/https/keystore.p12 \
+        -srcstoretype pkcs12 \
+        -destkeystore /etc/x509/https/keystore.jks \
+        -deststoretype jks \
+        -storepass password \
+        -srcstorepass password \
+        -noprompt \
+        && chmod 644 /etc/x509/https/tls.* \
+        && chmod 644 /etc/x509/https/keystore.*
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:${KEYCLOAK_VERSION}
+    command:
+      - start
+      - --optimized
+      - --hostname=localhost
+      - --hostname-strict-backchannel=true
+      - --https-certificate-file=/etc/x509/https/tls.crt
+      - --https-certificate-key-file=/etc/x509/https/tls.key
+      - --https-key-store-file=/etc/x509/https/keystore.jks
+      - --https-key-store-password=${HTTPS_KEY_STORE_PASSWORD}
+      - --https-key-store-type=${HTTPS_KEY_STORE_TYPE}
+      - --import-realm
+      - --spi-theme-static-max-age=-1
+      - --spi-theme-cache-themes=false
+      - --spi-theme-cache-templates=false
+      - --verbose
+    environment:
+      DB_VENDOR: postgres
+      DB_ADDR: postgres
+      DB_DATABASE: ${PG_DATABASE}
+      DB_SCHEMA: public
+      DB_USER: ${PG_USER}
+      DB_PASSWORD: ${PG_PASSWORD}
+      DB_PORT: 5432
+      QUARKUS_HTTP_HOST: 0.0.0.0
+      KEYCLOAK_FRONTEND_URL: https://localhost:8443
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_HEALTH_ENABLED: true
+      KC_METRICS_ENABLED: true
+      KEYCLOAK_IMPORT: /keycloak/auto-import
+    ports:
+      - "8443:8443"
+    networks:
+      - keycloak-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+      cert-setup:
+        condition: service_completed_successfully
+    volumes:
+      - './keycloak/exports:/keycloak-transfer'
+      - './keycloak/https:/etc/x509/https:ro'
+
+networks:
+  keycloak-network:

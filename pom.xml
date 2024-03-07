@@ -25,6 +25,7 @@
 		<module>license-example-plugin</module>
         <module>license-oauth2-server</module>
 		<module>license-gui</module>
+        <module>license-oauth2-server-prod</module>
     </modules>
 
 </project>

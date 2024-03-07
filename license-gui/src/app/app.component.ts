@@ -1,8 +1,6 @@
 import {Component, effect, OnInit, ViewChild} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
-import {OAuthService} from 'angular-oauth2-oidc';
 import {environment} from '../environments/environment';
-import {TokenService} from './api/service/token.service';
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatToolbar} from '@angular/material/toolbar';
 import {
@@ -18,12 +16,11 @@ import {LicenseDropdownMenuComponent} from './component/license-dropdown-menu/li
 import {MatMenuTrigger} from '@angular/material/menu';
 import {LicenseDropdownMenuItem} from './component/license-dropdown-menu/license-dropdown-menu-item.interface';
 import {UserSettingsStoreFacade} from './state/user-settings/user-settings-store-facade.service';
-import {UserLicenseStoreFacade} from './state/user-license/user-license-store-facade.service';
 import {LicenseSidenavComponent} from './component/license-sidenav/license-sidenav.component';
 import {LicenseSidenavItem} from './component/license-sidenav/license-sidenav-item.interface';
-import {RouteStoreService} from './state/route/route.service';
+import {RouteStoreFacade} from './state/route/route.service';
 import {RouteStore, toRoute} from './state/route/route-store.service';
-import {UserSettingsStore} from './state/user-settings/user-settings-store.service';
+import {LoginService} from './service/login.service';
 
 @Component({
   selector: 'app-root',
@@ -52,16 +49,9 @@ export class AppComponent implements OnInit {
   protected readonly title = environment.title;
 
   protected readonly dropdownMenu: LicenseDropdownMenuItem[] = [
-    {
-      id: 'en',
-      title: 'EN',
-      disabled: false
-    },
-    {
-      id: 'de',
-      title: 'DE',
-      disabled: false
-    }
+    {id: 'en', title: 'EN', disabled: false},
+    {id: 'de', title: 'DE', disabled: false},
+    {id: 'es', title: 'ES', disabled: false}
   ]
 
   @ViewChild('sidenav') sidenav!: LicenseSidenavComponent;
@@ -109,70 +99,30 @@ export class AppComponent implements OnInit {
     },
   ];
 
-  constructor(private readonly oAuthService: OAuthService,
-              private readonly tokenService: TokenService,
-              private readonly userSettingsFacade: UserSettingsStoreFacade,
-              private readonly userSettingsStore: UserSettingsStore,
-              private readonly userLicenseStateFacade: UserLicenseStoreFacade,
-              private readonly routeStoreService: RouteStoreService,
+  constructor(private readonly userSettingsFacade: UserSettingsStoreFacade,
+              private readonly routeStoreService: RouteStoreFacade,
               private readonly routeStore: RouteStore,
-              private readonly translateService: TranslateService) {
+              private readonly translateService: TranslateService,
+              private readonly loginService: LoginService) {
 
     effect(() => {
       const route = this.routeStore.selectCurrentRoute$();
       this.clearToggle();
-      const item = this.sidenavItems.find(value => value.id === route);
-      if (!item) return;
-      item.selected = true;
+      this.sidenavItems.filter(item => item.id === route).forEach(item => {
+        item.selected = true;
+      });
     });
 
-    effect(() => {
-      const lang = this.userSettingsStore.selectUserLanguage$();
-      setTimeout(() => {
-        this.sidenavItems.forEach(item => {
-          item.description = this.translateService.instant('sidenavItems.' + item.id);
-        });
+    this.translateService.store.onLangChange.subscribe(() => {
+      this.sidenavItems.forEach(item => {
+        item.description = this.translateService.instant('sidenavItems.' + item.id);
       });
     });
 
   }
 
   ngOnInit() {
-    this.oAuthService.configure(environment.authConfig);
-    this.oAuthService.loadDiscoveryDocumentAndLogin().then(() => {
-      this.onUserLoggedIn();
-      this.userLicenseStateFacade.loadLicensesFromCurrentPublisher();
-    }, () => {
-      this.routeStoreService.setCurrentRoute('auth-failed');
-    });
-
-    this.oAuthService.setupAutomaticSilentRefresh();
-    this.oAuthService.events.subscribe(event => {
-      if (event.type !== 'token_refreshed') {
-        return;
-      }
-      this.tokenService.setAccessToken(this.oAuthService.getAccessToken());
-    });
-
-    if (this.oAuthService.getIdentityClaims()) {
-      this.tokenService.setAccessToken(this.oAuthService.getAccessToken());
-      this.userLicenseStateFacade.loadLicensesFromCurrentPublisher();
-    }
-
-  }
-
-  protected onUserLoggedIn() {
-    const identityClaims = this.oAuthService.getIdentityClaims();
-    if (!identityClaims) {
-      console.log("Login failed. No Claim available.");
-      return;
-    }
-
-    const username = this.oAuthService.getIdentityClaims()['preferred_username'];
-    const jwt = JSON.parse(atob(this.oAuthService.getAccessToken().split('.')[1]));
-    console.log("username", username);
-    console.log("jwt", jwt);
-    console.log("roles", jwt['realm_access']['roles'])
+    this.loginService.login();
   }
 
   protected onChangeLanguage(item: LicenseDropdownMenuItem) {
@@ -181,7 +131,7 @@ export class AppComponent implements OnInit {
 
   protected onLogoutClicked(item: LicenseDropdownMenuItem) {
     if (item.id !== 'logout') return;
-    this.oAuthService.logOut();
+    this.loginService.logout();
   }
 
   protected toggleSidenav() {

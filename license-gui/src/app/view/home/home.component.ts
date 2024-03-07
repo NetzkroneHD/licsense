@@ -30,8 +30,8 @@ import {MatIconButton} from '@angular/material/button';
 import {MatIcon, MatIconModule} from '@angular/material/icon';
 import {MatTooltip} from '@angular/material/tooltip';
 import {MatProgressBar} from '@angular/material/progress-bar';
-import {NotificationStoreService} from '../../state/toaster/notification.service';
-import {RouteStoreService} from '../../state/route/route.service';
+import {NotificationStoreService} from '../../state/notification/notification.service';
+import {RouteStoreFacade} from '../../state/route/route.service';
 import {UserSettingsStore} from '../../state/user-settings/user-settings-store.service';
 
 @Component({
@@ -93,7 +93,7 @@ export class HomeComponent implements AfterViewInit {
               private readonly licenseEditService: LicenseEditService,
               private readonly notificationService: NotificationStoreService,
               private readonly userSettingsStore: UserSettingsStore,
-              private readonly routeStoreService: RouteStoreService,
+              private readonly routeStoreService: RouteStoreFacade,
               private readonly translateService: TranslateService) {
 
     this.dataSource = new MatTableDataSource(this.userLicenseState.selectUserLicenses$());
@@ -106,15 +106,11 @@ export class HomeComponent implements AfterViewInit {
       this.loading = this.userLicenseState.isLoadingAnyLicense$();
     });
 
-    effect(() => {
-      const lang = this.userSettingsStore.selectUserLanguage$();
-      setTimeout(() => {
-        this.contextMenuItems.forEach(item => {
+    this.translateService.store.onLangChange.subscribe(() => {
+      this.contextMenuItems.forEach(item => {
           item.title = this.translateService.instant('home.contextMenuItems.' + item.id);
         });
-      });
-    });
-
+    })
   }
 
   ngAfterViewInit() {
@@ -140,9 +136,11 @@ export class HomeComponent implements AfterViewInit {
   }
 
   protected getShortedString(str: string): string {
-    // 	192.168.2.2,192.168.2.10
-
-    return "";
+    if(str.length <= 40) return str;
+    const firstPart = str.substring(0, 19);
+    const middlePart = ".".repeat(3);
+    const lastPart = str.substring((str.length-20), str.length)
+    return firstPart+middlePart+lastPart;
   }
 
   protected openContextMenu(event: MouseEvent, license: LicenseDto) {
@@ -166,10 +164,10 @@ export class HomeComponent implements AfterViewInit {
       const licenseKey: string = this.selectedLicense.previous.licenseKey;
       this.dialogService.confirm(
         {
-          title: 'Confirm Delete',
-          message: 'Are you sure to delete the license ' + licenseKey + '?',
-          confirmCaption: 'Delete',
-          cancelCaption: 'Cancel',
+          title: this.translateService.instant('Confirm Delete'),
+          message: this.translateService.instant('deleteLicense.text').replace('{{licenseKey}}', licenseKey),
+          confirmCaption: this.translateService.instant('Delete'),
+          cancelCaption: this.translateService.instant('Cancel'),
           discardWithEscape: true
         }
       ).subscribe(value => {
@@ -223,4 +221,5 @@ export class HomeComponent implements AfterViewInit {
   }
 
   protected readonly environment = environment;
+  protected readonly String = String;
 }

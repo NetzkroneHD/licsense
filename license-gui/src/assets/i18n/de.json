@@ -44,6 +44,14 @@
   "Edit": "Bearbeiten",
   "Delete": "Löschen",
   "Create License": "Lizenz erstellen",
+  "Confirm Delete": "Löschen bestätigen",
+  "New IP-Address separated by comma": "Neue IP-Adresse getrennt durch ein Komma",
+  "Authentication failed": "Authentifizierung fehlgeschlagen",
+  "Authentication failed. Retry to continue.": "Authentifizierung fehlgeschlagen. Versuche es erneut, um fortzufahren.",
+  "Retry": "Erneut versuchen",
+  "deleteLicense": {
+    "text": "Bist du dir sicher, dass du die Lizenz {{licenseKey}} löschen möchtest?"
+  },
   "signature": {
     "general": "Generelle Info",
     "text": "Die Verwendung des öffentlichen Schlüssels ist entscheidend für die Überprüfung der Authentizität einer API-Antwort. Sollte der öffentliche Schlüssel die Signatur nicht entschlüsseln können, wird das Vertrauen in die Integrität der API-Antwort beeinträchtigt.",
