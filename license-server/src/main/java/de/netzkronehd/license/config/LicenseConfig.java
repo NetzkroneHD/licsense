@@ -24,4 +24,7 @@ public class LicenseConfig {
     @Value("${license.signature-length}")
     private int signatureLength;
 
+    @Value("${license.rate-limit}")
+    private int rateLimit;
+
 }
