@@ -41,7 +41,7 @@ export class LicenseInputComponent implements OnInit {
     this._formControl.markAllAsTouched();
   }
 
-  onClearClick() {
+  protected onClearClick() {
     this._formControl.reset();
     this.onClearButtonClick$.emit(this.input);
   }
@@ -51,7 +51,7 @@ export class LicenseInputComponent implements OnInit {
     return this._formControl;
   }
 
-  onValueChange(event: Event) {
+  protected onValueChange(event: Event) {
     this.onValueChange$.emit(event);
   }
 }

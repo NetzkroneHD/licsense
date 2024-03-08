@@ -32,7 +32,6 @@ import {MatTooltip} from '@angular/material/tooltip';
 import {MatProgressBar} from '@angular/material/progress-bar';
 import {NotificationStoreService} from '../../state/notification/notification.service';
 import {RouteStoreFacade} from '../../state/route/route.service';
-import {UserSettingsStore} from '../../state/user-settings/user-settings-store.service';
 
 @Component({
   selector: 'license-home',
@@ -92,7 +91,6 @@ export class HomeComponent implements AfterViewInit {
               private readonly dialogService: LicenseDialogService,
               private readonly licenseEditService: LicenseEditService,
               private readonly notificationService: NotificationStoreService,
-              private readonly userSettingsStore: UserSettingsStore,
               private readonly routeStoreService: RouteStoreFacade,
               private readonly translateService: TranslateService) {
 

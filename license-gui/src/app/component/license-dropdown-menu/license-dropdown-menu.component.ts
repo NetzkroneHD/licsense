@@ -67,11 +67,11 @@ export class LicenseDropdownMenuComponent implements AfterViewChecked, OnDestroy
     this.menuTrigger.closeMenu();
   }
 
-  hasChildren(item: LicenseDropdownMenuItem) {
+  protected hasChildren(item: LicenseDropdownMenuItem) {
     return item.entries && item.entries.length > 0;
   }
 
-  onItemClick(item: LicenseDropdownMenuItem) {
+  protected onItemClick(item: LicenseDropdownMenuItem) {
     this.itemClick$.emit(item);
   }
 }

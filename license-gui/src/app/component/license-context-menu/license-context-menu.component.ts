@@ -92,20 +92,20 @@ export class LicenseContextMenuComponent implements AfterViewChecked, OnDestroy 
     }
   }
 
-  onItemClick(item: LicenseContextMenuItem) {
+  protected onItemClick(item: LicenseContextMenuItem) {
     this.contextItemClickEmitter.emit(item);
   }
 
-  hasChildren(item: LicenseContextMenuItem) {
+  protected hasChildren(item: LicenseContextMenuItem) {
     return item.entries && item.entries.length > 0;
   }
 
-  onOpened() {
+  protected onOpened() {
     this.contextMenuOpened.emit();
     this.isOpened = true;
   }
 
-  onClosed() {
+  protected onClosed() {
     this.contextMenuClosed.emit();
   }
 

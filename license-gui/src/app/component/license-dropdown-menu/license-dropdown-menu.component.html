@@ -8,7 +8,7 @@
           [disabled]="trigger.disabled"
           (click)="onItemClick(trigger)" class="menu-item">
     @if (trigger.icon) {
-      <mat-icon class="mat-icon">{{ trigger.icon }}</mat-icon>
+      <mat-icon class="license-icon">{{ trigger.icon }}</mat-icon>
     }
     {{ trigger.title }}
   </button>
@@ -28,7 +28,7 @@
     <ng-template #menuItem>
       <button mat-menu-item class="menu-item" (click)="onItemClick(item)" [disabled]="item.disabled">
         @if (item.icon) {
-          <mat-icon class="mat-icon">{{ trigger.icon }}</mat-icon>
+          <mat-icon class="license-icon">{{ trigger.icon }}</mat-icon>
         }
         {{ item.title }}
       </button>

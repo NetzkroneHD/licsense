@@ -32,3 +32,8 @@ build/
 ### VS Code ###
 .vscode/
 /license-gui/.$Design.drawio.bkp
+/license-server/server-data/database/data/
+/license-example-plugin/dependency-reduced-pom.xml
+/license-oauth2-server/keycloak/pg-data/
+/license-server/server-data/logs/
+/mvnw

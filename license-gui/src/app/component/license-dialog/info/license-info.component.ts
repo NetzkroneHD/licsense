@@ -30,7 +30,7 @@ export class LicenseInfoComponent {
   }
 
   @HostListener('window:keyup.escape')
-  keyEventEscape(): void {
+  protected keyEventEscape(): void {
     if (this.data.discardWithEscape === true) {
       this.dialogRef.close(false);
     }

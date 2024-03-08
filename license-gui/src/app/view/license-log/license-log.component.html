@@ -10,7 +10,7 @@
         </button>
       }
     </mat-form-field>
-    <button mat-icon-button (click)="refresh()" [matTooltip]="('Refresh' | translate) ">
+    <button mat-icon-button (click)="refresh()" [matTooltip]="('Refresh' | translate) " [disabled]="(userLicenseState.selectCurrentLicense$() === null)">
       <mat-icon>refresh</mat-icon>
     </button>
     <button mat-icon-button (click)="deleteHistory()" [matTooltip]="('Delete logs' | translate) " [disabled]="(userLicenseState.selectCurrentLicense$() === null)">
