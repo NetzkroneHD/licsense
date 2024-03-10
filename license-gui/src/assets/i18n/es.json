@@ -27,6 +27,7 @@
   "Error while deleting logs.": "Error al eliminar los registros.",
   "Successfully loaded licenses.": "Licencias cargadas exitosamente.",
   "Error while loading licenses.": "Error al cargar las licencias.",
+  "No changes have been made.": "No se han hecho cambios.",
   "Error: {{error}}": "Error: {{error}}",
   "Filter": "Filtrar",
   "Refresh": "Actualizar",

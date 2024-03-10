@@ -22,7 +22,7 @@ const authCodeFlowConfig: AuthConfig = {
   clientId: 'license-client',
   dummyClientSecret: '7CHdYlPpft8Pnqfg3t90tnmJNqIIM3hi',
   responseType: 'code',
-  scope: 'openid profile email offline_access roles',
+  scope: 'openid',
   requireHttps: false,
   showDebugInformation: true,
 }
