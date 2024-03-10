@@ -54,7 +54,7 @@ services:
       - license-backend
     volumes:
       - ./server-data/logs:/logs
-
+      - ./server-data/key:/home/app/key
 networks:
   license-backend:
 

@@ -25,7 +25,7 @@ public class KeyService {
 
     @Autowired
     public KeyService(LicenseConfig licenseConfig) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
-        this.privateKey = loadPrivateKey(new File("/home/app", licenseConfig.getPrivateKeyFile()));
+        this.privateKey = loadPrivateKey(new File("/home/app/key", licenseConfig.getPrivateKeyFile()));
     }
 
     private PrivateKey loadPrivateKey(File file) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
