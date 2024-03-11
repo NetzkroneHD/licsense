@@ -10,10 +10,10 @@
         </button>
       }
     </mat-form-field>
-    <button mat-icon-button (click)="refresh()" [matTooltip]="('Refresh' | translate) ">
+    <button mat-icon-button (click)="refresh()" [matTooltip]="('Refresh' | translate) " [disabled]="loading">
       <mat-icon>refresh</mat-icon>
     </button>
-    <button mat-icon-button (click)="createLicense()" [matTooltip]="('Create License' | translate)">
+    <button mat-icon-button (click)="createLicense()" [matTooltip]="('Create License' | translate)" [disabled]="loading">
       <mat-icon>add_circle</mat-icon>
     </button>
   </div>

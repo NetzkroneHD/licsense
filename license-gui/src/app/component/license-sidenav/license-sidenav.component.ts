@@ -6,7 +6,7 @@ import {MatIconButton} from '@angular/material/button';
 import {LicenseSidenavItem} from './license-sidenav-item.interface';
 import {CdkDrag, CdkDragHandle, CdkDropList, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import {LicenseSidenavGroupMapperPipe} from './license-sidenav-group-mapper.pipe';
-import {KeyValuePipe, NgForOf, NgIf} from '@angular/common';
+import {KeyValuePipe, NgForOf} from '@angular/common';
 import {MatTooltip} from '@angular/material/tooltip';
 import {MatBadge} from '@angular/material/badge';
 
@@ -25,7 +25,6 @@ import {MatBadge} from '@angular/material/badge';
     LicenseSidenavGroupMapperPipe,
     KeyValuePipe,
     CdkDrag,
-    NgIf,
     MatTooltip,
     NgForOf,
     MatBadge,

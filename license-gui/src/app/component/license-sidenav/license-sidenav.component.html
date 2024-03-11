@@ -9,43 +9,45 @@
   <mat-sidenav #sidenav class="sidenav" [mode]="mode" [(opened)]="opened" [fixedTopGap]="fixedTopGap" role="navigation">
 
     <mat-nav-list class="container height-outer">
-      <div cdkDropList cdkDragHandle [cdkDropListData]="items" class="list height-inner" role="navigation" (cdkDropListDropped)="onDrop($event)">
+      <div cdkDropList cdkDragHandle [cdkDropListData]="items" class="list height-inner" role="navigation"
+           (cdkDropListDropped)="onDrop($event)">
 
         <div class="alignment height-inner">
           <div *ngFor="let group of items | licenseSidenavGroupMapper | keyvalue;">
-            <div *ngFor="let item of group.value; let first = first">
-              <!--              Drag and Drop aktiviert-->
-              <a *ngIf="item.hasCustomOrder" mat-list-item
-                 [class]="'item-block no-user-select ' + item?.additionalStyleClass" cdkDrag
-                 [cdkDragStartDelay]="dragDropDelay" cdkDragLockAxis="y" cdkDragBoundary=".container"
-                 [disabled]="item.disabled.state" cdkDragPreviewClass="dragPreview" (click)="itemClicked(item)"
-                 [class.disabled]="item.disabled.state" [class.activeItem]="item.selected"
-                 [matTooltip]="item.disabled ? item.disabled.reason : item.description"
-                 matTooltipPosition="right" [matTooltipShowDelay]="tooltipShowDelay" role="link"
-                 [attr.aria-label]="item.description">
+            @for (item of group.value; let first = $first; track item) {
+              @if (item.hasCustomOrder) {
+                <!--              Drag and Drop aktiviert-->
+                <a mat-list-item
+                   [class]="'item-block no-user-select ' + item?.additionalStyleClass" cdkDrag
+                   [cdkDragStartDelay]="dragDropDelay" cdkDragLockAxis="y" cdkDragBoundary=".container"
+                   [disabled]="item.disabled.state" cdkDragPreviewClass="dragPreview" (click)="itemClicked(item)"
+                   [class.disabled]="item.disabled.state" [class.activeItem]="item.selected"
+                   [matTooltip]="item.disabled ? item.disabled.reason : item.description"
+                   matTooltipPosition="right" [matTooltipShowDelay]="tooltipShowDelay" role="link"
+                   [attr.aria-label]="item.description">
 
                 <span class="badge" matBadgeOverlap="true"
                       [matBadge]="item.activity.count > 0 ? (item.activity.count > 99 ? '99+' : item.activity.count) : undefined"
                       matBadgeSize="small"></span>
-                <mat-icon [style]="{'font-size':item.icon.size}">{{ item.icon.name }}</mat-icon>
-              </a>
-
-              <!--              Drag and drop deaktiviert-->
-              <a *ngIf="!item.hasCustomOrder" mat-list-item
-                 [class]="'item-block no-user-select ' + item?.additionalStyleClass"
-                 [disabled]="item.disabled.state" (click)="itemClicked(item)"
-                 [class.disabled]="item.disabled.state" [class.activeItem]="item.selected"
-                 [matTooltip]="item.disabled.state ? item.disabled.reason : item.description"
-                 matTooltipPosition="right" [matTooltipShowDelay]="tooltipShowDelay" role="link"
-                 [attr.aria-label]="item.description">
+                  <mat-icon [style]="{'font-size':item.icon.size}">{{ item.icon.name }}</mat-icon>
+                </a>
+              } @else {
+                <!--              Drag and drop deaktiviert-->
+                <a mat-list-item
+                   [class]="'item-block no-user-select ' + item?.additionalStyleClass"
+                   [disabled]="item.disabled.state" (click)="itemClicked(item)"
+                   [class.disabled]="item.disabled.state" [class.activeItem]="item.selected"
+                   [matTooltip]="item.disabled.state ? item.disabled.reason : item.description"
+                   matTooltipPosition="right" [matTooltipShowDelay]="tooltipShowDelay" role="link"
+                   [attr.aria-label]="item.description">
 
                 <span class="badge" matBadgeOverlap="true"
                       [matBadge]="item.activity.count > 0 ? (item.activity.count > 99 ? '99+' : item.activity.count) : undefined"
                       matBadgeSize="small"></span>
-                <mat-icon [style]="{'font-size':item.icon.size}">{{ item.icon.name }}</mat-icon>
-              </a>
-
-            </div>
+                  <mat-icon [style]="{'font-size':item.icon.size}">{{ item.icon.name }}</mat-icon>
+                </a>
+              }
+            }
           </div>
         </div>
 

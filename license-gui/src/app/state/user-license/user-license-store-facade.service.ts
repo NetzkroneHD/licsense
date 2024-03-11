@@ -90,7 +90,6 @@ export class UserLicenseStoreFacade {
 
   public loadLogs(license: string) {
     this.licenseState.setLoadingLogs(true);
-    this.setLicenseLogs([]);
     this.licenseApiService.getLicenseLogs(license).then(licenseLogs => {
       this.licenseState.setUserLicenseLogs(licenseLogs);
       this.notificationStoreService.setSuccess({
