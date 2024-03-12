@@ -13,7 +13,7 @@
     <button mat-icon-button (click)="refresh()" [matTooltip]="('Refresh' | translate) " [disabled]="(userLicenseState.selectCurrentLicense$() === null || userLicenseState.isLoadingLogs$())">
       <mat-icon>refresh</mat-icon>
     </button>
-    <button mat-icon-button (click)="deleteHistory()" [matTooltip]="('Delete logs' | translate) " [disabled]="(userLicenseState.selectCurrentLicense$() === null || userLicenseState.isLoadingLogs$())">
+    <button mat-icon-button (click)="deleteHistory()" [matTooltip]="('Delete logs' | translate) " [disabled]="(userLicenseState.selectCurrentLicense$() === null || userLicenseState.selectUserLicenseLogs$().length === 0 || userLicenseState.isLoadingLogs$())">
       <mat-icon>delete_history</mat-icon>
     </button>
   </div>
