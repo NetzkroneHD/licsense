@@ -4,7 +4,7 @@
   </button>
   <span class="mouse-hover">{{ title }}</span>
   <span class="spacer"></span>
-  <license-dropdown-menu [items]="dropdownMenu" (itemClick$)="onChangeLanguage($event)">
+  <license-dropdown-menu [items]="uiItems.changeLanguageDropdownMenu" (itemClick$)="onChangeLanguage($event)">
     <ng-template let-menu="menu">
       <button mat-icon-button [matMenuTriggerFor]="menu">
         <mat-icon>language</mat-icon>
@@ -12,11 +12,7 @@
     </ng-template>
   </license-dropdown-menu>
 
-  <license-dropdown-menu [items]="[{
-      id: 'logout',
-      title: 'Logout' | translate,
-      disabled: false
-    }]" (itemClick$)="onLogoutClicked($event)">
+  <license-dropdown-menu [items]="uiItems.logoutDropdownMenu" (itemClick$)="onLogoutClicked($event)">
     <ng-template let-menu="menu">
       <button mat-icon-button [matMenuTriggerFor]="menu">
         <mat-icon>logout</mat-icon>
@@ -27,7 +23,7 @@
 
 </mat-toolbar>
 
-<license-sidenav #sidenav [items]="sidenavItems" (listItemClicked)="sidenavItemClick($event)" class="license-sidenav">
+<license-sidenav #sidenav [items]="uiItems.sidenavItems" (listItemClicked)="sidenavItemClick($event)" class="license-sidenav">
   <div class="license-sidenav-content">
     <div style="display: block; height: 15px; width: 15px; margin-left: 15px"></div>
     <router-outlet style="display: block; margin-top: 1px; margin-left: 15px"></router-outlet>

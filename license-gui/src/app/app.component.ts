@@ -21,6 +21,7 @@ import {LicenseSidenavItem} from './component/license-sidenav/license-sidenav-it
 import {RouteStoreFacade} from './state/route/route.service';
 import {RouteStore, toRoute} from './state/route/route-store.service';
 import {LoginService} from './service/login.service';
+import {uiItems} from '../environments/ui-items';
 
 @Component({
   selector: 'app-root',
@@ -56,49 +57,6 @@ export class AppComponent implements OnInit {
 
   @ViewChild('sidenav') sidenav!: LicenseSidenavComponent;
 
-  protected sidenavItems: LicenseSidenavItem[] = [
-    {
-      id: 'home',
-      icon: {name: 'home', size: 32},
-      description: 'Home',
-      selected: true,
-      activity: {count: 0},
-      disabled: {reason: '', state: false},
-      group: 'first',
-      hasCustomOrder: false
-    },
-    {
-      id: 'license-logs',
-      icon: {name: 'description', size: 32},
-      description: 'Logs',
-      selected: false,
-      activity: {count: 0},
-      disabled: {reason: '', state: false},
-      group: 'first',
-      hasCustomOrder: false
-    },
-    {
-      id: 'signature',
-      icon: {name: 'key', size: 32},
-      description: 'Signature',
-      selected: false,
-      activity: {count: 0},
-      disabled: {reason: '', state: false},
-      group: 'first',
-      hasCustomOrder: false
-    },
-    {
-      id: 'settings',
-      icon: {name: 'account_circle', size: 32},
-      description: 'Account Settings',
-      selected: false,
-      activity: {count: 0},
-      disabled: {reason: '', state: false},
-      group: 'last',
-      hasCustomOrder: false
-    },
-  ];
-
   constructor(private readonly userSettingsFacade: UserSettingsStoreFacade,
               private readonly routeStoreService: RouteStoreFacade,
               private readonly routeStore: RouteStore,
@@ -108,17 +66,23 @@ export class AppComponent implements OnInit {
     effect(() => {
       const route = this.routeStore.selectCurrentRoute$();
       this.clearToggle();
-      this.sidenavItems.filter(item => item.id === route).forEach(item => {
+      uiItems.sidenavItems.filter(item => item.id === route).forEach(item => {
         item.selected = true;
       });
     });
 
     this.translateService.store.onLangChange.subscribe(() => {
-      this.sidenavItems.forEach(item => {
+      uiItems.sidenavItems.forEach(item => {
         item.description = this.translateService.instant('sidenavItems.' + item.id);
       });
+      uiItems.homeContextMenuItems.forEach(item => {
+        item.title = this.translateService.instant('home.contextMenuItems.' + item.id);
+      });
+      uiItems.logoutDropdownMenu.forEach(item => {
+        if(!item.title) return;
+        item.title = this.translateService.instant(item.id);
+      })
     });
-
   }
 
   ngOnInit() {
@@ -149,6 +113,8 @@ export class AppComponent implements OnInit {
   }
 
   private clearToggle() {
-    this.sidenavItems.forEach(value => value.selected = false);
+    uiItems.sidenavItems.forEach(value => value.selected = false);
   }
+
+  protected readonly uiItems = uiItems;
 }

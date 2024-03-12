@@ -32,6 +32,7 @@ import {MatTooltip} from '@angular/material/tooltip';
 import {MatProgressBar} from '@angular/material/progress-bar';
 import {NotificationStoreService} from '../../state/notification/notification.service';
 import {RouteStoreFacade} from '../../state/route/route.service';
+import {uiItems} from '../../../environments/ui-items';
 
 @Component({
   selector: 'license-home',
@@ -67,12 +68,6 @@ import {RouteStoreFacade} from '../../state/route/route.service';
 })
 export class HomeComponent implements AfterViewInit {
 
-  contextMenuItems: LicenseContextMenuItem[] = [
-    {id: 'open', title: 'Open logs', icon: 'open_in_new', disabled: false},
-    {id: 'edit', title: 'Edit', icon: 'edit', disabled: false,},
-    {id: 'delete', title: 'Delete', icon: 'delete', disabled: false,}
-  ];
-
   protected loading = false;
   protected displayedColumns = ['licenseKey', 'publisher', 'notes', 'valid', 'validUntil', 'listMode', 'ipAddresses'];
   protected dataSource;
@@ -104,11 +99,6 @@ export class HomeComponent implements AfterViewInit {
       this.loading = this.userLicenseState.isLoadingAnyLicense$();
     });
 
-    this.translateService.store.onLangChange.subscribe(() => {
-      this.contextMenuItems.forEach(item => {
-          item.title = this.translateService.instant('home.contextMenuItems.' + item.id);
-        });
-    })
   }
 
   ngAfterViewInit() {
@@ -220,4 +210,5 @@ export class HomeComponent implements AfterViewInit {
 
   protected readonly environment = environment;
   protected readonly String = String;
+  protected readonly uiItems = uiItems;
 }

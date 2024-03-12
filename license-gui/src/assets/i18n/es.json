@@ -8,7 +8,7 @@
   "Save": "Guardar",
   "Cancel": "Cancelar",
   "Choose": "Elegir",
-  "Logout": "Cerrar sesión",
+  "logout": "Cerrar sesión",
   "Retrieve Publisher Data": "Recuperar datos del editor",
   "ID": "ID",
   "License": "Licencia",
