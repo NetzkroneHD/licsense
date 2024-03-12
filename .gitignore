@@ -37,3 +37,4 @@ build/
 /license-oauth2-server/keycloak/pg-data/
 /license-server/server-data/logs/
 /mvnw
+/license-oauth2-server/keycloak/themes/
