@@ -27,7 +27,7 @@ Private Key ist in der Datei "`license-key-private.der`" gespeichert.
 Public Key ist in der Datei "`license-key-public.der`" gespeichert.
 
 
-#### Swagger Editor 
+### Swagger Editor 
 ```sh
 docker run -it --rm-p 80:8080 swaggerapi/swagger-editor
 ```
