@@ -25,3 +25,9 @@ Private Key ist in der Datei "`license-key-private.der`" gespeichert.
 2. "`openssl rsa -pubin -inform PEM -in license-key-public.pem -outform DER -out license-key-public.der`": Konvertiert in das `pkcs8 ` Format.
 
 Public Key ist in der Datei "`license-key-public.der`" gespeichert.
+
+
+#### Swagger Editor 
+```sh
+docker run -it --rm-p 80:8080 swaggerapi/swagger-editor
+```
