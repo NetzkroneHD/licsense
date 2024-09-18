@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, effect, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, effect, inject, ViewChild} from '@angular/core';
 import {LicenseContextMenuItem} from '../../component/license-context-menu/license-context-menu-item.interface';
 import {LicenseContextMenuComponent} from '../../component/license-context-menu/license-context-menu.component';
 import {environment} from '../../../environments/environment';
@@ -72,6 +72,7 @@ export class HomeComponent implements AfterViewInit {
   protected displayedColumns = ['licenseKey', 'publisher', 'notes', 'valid', 'validUntil', 'listMode', 'ipAddresses'];
   protected dataSource;
   protected filterValue: any;
+
   protected selectedLicense: { previous: LicenseDto | null; current: LicenseDto | null } = {
     previous: null,
     current: null
@@ -81,22 +82,24 @@ export class HomeComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild('contextMenu') contextMenu!: LicenseContextMenuComponent;
 
-  constructor(private readonly userLicenseStateFacade: UserLicenseStoreFacade,
-              private readonly userLicenseState: UserLicenseStore,
-              private readonly dialogService: LicenseDialogService,
-              private readonly licenseEditService: LicenseEditService,
-              private readonly notificationService: NotificationStoreService,
-              private readonly routeStoreService: RouteStoreFacade,
-              private readonly translateService: TranslateService) {
+  private readonly userLicenseStoreFacade = inject(UserLicenseStoreFacade);
+  private readonly userLicenseStore = inject(UserLicenseStore);
+  private readonly dialogService = inject(LicenseDialogService);
+  private readonly licenseEditService = inject(LicenseEditService);
+  private readonly notificationService = inject(NotificationStoreService);
+  private readonly routeStoreService = inject(RouteStoreFacade);
+  private readonly translateService = inject(TranslateService);
 
-    this.dataSource = new MatTableDataSource(this.userLicenseState.selectUserLicenses$());
+  constructor() {
+
+    this.dataSource = new MatTableDataSource(this.userLicenseStore.selectUserLicenses$());
 
     effect(() => {
-      this.dataSource.data = this.userLicenseState.selectUserLicenses$();
+      this.dataSource.data = this.userLicenseStore.selectUserLicenses$();
     });
 
     effect(() => {
-      this.loading = this.userLicenseState.isLoadingAnyLicense$();
+      this.loading = this.userLicenseStore.isLoadingAnyLicense$();
     });
 
   }
@@ -116,19 +119,19 @@ export class HomeComponent implements AfterViewInit {
   }
 
   protected refresh() {
-    if (this.userLicenseState.isLoadingAnyLicense$()) {
+    if (this.userLicenseStore.isLoadingAnyLicense$()) {
       this.notificationService.setInfo({title: 'Loading...', message: 'The licenses are already loading.'}, true);
       return;
     }
-    this.userLicenseStateFacade.loadLicensesFromCurrentPublisher();
+    this.userLicenseStoreFacade.loadLicensesFromCurrentPublisher();
   }
 
   protected getShortedString(str: string): string {
-    if(str.length <= 40) return str;
+    if (str.length <= 40) return str;
     const firstPart = str.substring(0, 19);
     const middlePart = ".".repeat(3);
-    const lastPart = str.substring((str.length-20), str.length)
-    return firstPart+middlePart+lastPart;
+    const lastPart = str.substring((str.length - 20), str.length)
+    return firstPart + middlePart + lastPart;
   }
 
   protected openContextMenu(event: MouseEvent, license: LicenseDto) {
@@ -141,8 +144,8 @@ export class HomeComponent implements AfterViewInit {
     if (!this.selectedLicense.previous) return;
     if (item.id === 'open') {
       const licenseKey = this.selectedLicense.previous.licenseKey;
-      this.userLicenseStateFacade.setCurrentSelectedLicense(this.selectedLicense.previous.licenseKey);
-      this.routeStoreService.setCurrentRoute('license-logs').then(() => this.userLicenseStateFacade.loadLogs(licenseKey));
+      this.userLicenseStoreFacade.setCurrentSelectedLicense(this.selectedLicense.previous.licenseKey);
+      this.routeStoreService.setCurrentRoute('license-logs').then(() => this.userLicenseStoreFacade.loadLogs(licenseKey));
 
     } else if (item.id === 'edit') {
       if (!this.selectedLicense.previous) return;
@@ -160,7 +163,7 @@ export class HomeComponent implements AfterViewInit {
         }
       ).subscribe(value => {
         if (!value) return;
-        this.userLicenseStateFacade.deleteLicense(licenseKey);
+        this.userLicenseStoreFacade.deleteLicense(licenseKey);
       })
     }
 
@@ -178,7 +181,7 @@ export class HomeComponent implements AfterViewInit {
         listMode: createAction.licenseEdit.listMode,
         ipAddresses: createAction.licenseEdit.ipAddresses
       };
-      this.userLicenseStateFacade.createLicense(licenseToCreate);
+      this.userLicenseStoreFacade.createLicense(licenseToCreate);
     });
   }
 
@@ -200,7 +203,7 @@ export class HomeComponent implements AfterViewInit {
         return;
       }
 
-      this.userLicenseStateFacade.updateLicense(license.licenseKey, licenseToEdit);
+      this.userLicenseStoreFacade.updateLicense(license.licenseKey, licenseToEdit);
     });
   }
 

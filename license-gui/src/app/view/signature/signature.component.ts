@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {MatButton} from '@angular/material/button';
 import {FileService} from '../../service/file.service';
 import {TranslateModule} from '@ngx-translate/core';
@@ -15,10 +15,7 @@ import {TranslateModule} from '@ngx-translate/core';
 })
 export class SignatureComponent {
 
-  constructor(private readonly fileService: FileService) {
-
-  }
-
+  private readonly fileService = inject(FileService);
 
   protected downloadKey() {
     this.fileService.downloadPublicKey();

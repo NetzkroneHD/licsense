@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, effect, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, effect, inject, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort, MatSortHeader} from '@angular/material/sort';
 import {
@@ -61,17 +61,19 @@ export class LicenseLogComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(protected readonly userLicenseState: UserLicenseStore,
-              private readonly userLicenseFacade: UserLicenseStoreFacade) {
+  protected readonly userLicenseStore = inject(UserLicenseStore);
+  private readonly userLicenseStoreFacade = inject(UserLicenseStoreFacade);
 
-    this.dataSource = new MatTableDataSource(this.userLicenseState.selectUserLicenseLogs$());
+  constructor() {
+
+    this.dataSource = new MatTableDataSource(this.userLicenseStore.selectUserLicenseLogs$());
 
     effect(() => {
-      this.loading = this.userLicenseState.isLoadingLogs$();
+      this.loading = this.userLicenseStore.isLoadingLogs$();
     });
 
     effect(() => {
-      this.dataSource.data = this.userLicenseState.selectUserLicenseLogs$();
+      this.dataSource.data = this.userLicenseStore.selectUserLicenseLogs$();
     });
 
   }
@@ -91,14 +93,14 @@ export class LicenseLogComponent implements AfterViewInit {
   }
 
   refresh() {
-    const currentLicense = this.userLicenseState.selectCurrentLicense$();
+    const currentLicense = this.userLicenseStore.selectCurrentLicense$();
     if(!currentLicense) return;
-    this.userLicenseFacade.loadLogs(currentLicense);
+    this.userLicenseStoreFacade.loadLogs(currentLicense);
   }
 
   deleteHistory() {
-    const currentLicense = this.userLicenseState.selectCurrentLicense$();
+    const currentLicense = this.userLicenseStore.selectCurrentLicense$();
     if(!currentLicense) return;
-    this.userLicenseFacade.deleteLogs(currentLicense);
+    this.userLicenseStoreFacade.deleteLogs(currentLicense);
   }
 }

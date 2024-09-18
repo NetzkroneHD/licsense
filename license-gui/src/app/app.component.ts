@@ -1,4 +1,4 @@
-import {Component, effect, OnInit, ViewChild} from '@angular/core';
+import {Component, effect, inject, OnInit, ViewChild} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {environment} from '../environments/environment';
 import {MatButton, MatIconButton} from '@angular/material/button';
@@ -57,11 +57,13 @@ export class AppComponent implements OnInit {
 
   @ViewChild('sidenav') sidenav!: LicenseSidenavComponent;
 
-  constructor(private readonly userSettingsFacade: UserSettingsStoreFacade,
-              private readonly routeStoreService: RouteStoreFacade,
-              private readonly routeStore: RouteStore,
-              private readonly translateService: TranslateService,
-              private readonly loginService: LoginService) {
+  private readonly userSettingsFacade = inject(UserSettingsStoreFacade);
+  private readonly routeStoreService = inject(RouteStoreFacade);
+  private readonly routeStore = inject(RouteStore);
+  private readonly translateService = inject(TranslateService);
+  private readonly loginService = inject(LoginService);
+
+  constructor() {
 
     effect(() => {
       const route = this.routeStore.selectCurrentRoute$();
@@ -79,7 +81,7 @@ export class AppComponent implements OnInit {
         item.title = this.translateService.instant('home.contextMenuItems.' + item.id);
       });
       uiItems.logoutDropdownMenu.forEach(item => {
-        if(!item.title) return;
+        if (!item.title) return;
         item.title = this.translateService.instant(item.id);
       })
     });

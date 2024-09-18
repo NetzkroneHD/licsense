@@ -20,28 +20,24 @@ export const initialState: UserLicenseState = {
 })
 export class UserLicenseStore {
 
-  private loadingLogs$ = signal(0);
-  private loadingLicenses$ = signal(0);
-  private loadingCreate$ = signal(false);
-  private loadingUpdate$ = signal(0);
-  private loadingDelete$ = signal(0);
+  private readonly loadingLogs$ = signal(0);
+  private readonly loadingLicenses$ = signal(0);
+  private readonly loadingCreate$ = signal(false);
+  private readonly loadingUpdate$ = signal(0);
+  private readonly loadingDelete$ = signal(0);
 
-  state$ = signalState<UserLicenseState>(initialState);
-  selectUserLicenses$ = computed(() => this.state$.licenses());
-  selectUserLicenseLogs$ = computed(() => this.state$.licenseLogs());
-  selectCurrentLicense$ = computed(() => this.state$.currentSelectedLicense());
+  public readonly state$ = signalState<UserLicenseState>(initialState);
+  public readonly selectUserLicenses$ = computed(() => this.state$.licenses());
+  public readonly selectUserLicenseLogs$ = computed(() => this.state$.licenseLogs());
+  public readonly selectCurrentLicense$ = computed(() => this.state$.currentSelectedLicense());
 
-  isLoadingLogs$ = computed(() => this.loadingLogs$() !== 0);
-  isLoadingLicenses$ = computed(() => this.loadingLicenses$() !== 0);
-  isLoadingCreate$ = computed(() => this.loadingCreate$());
-  isLoadingUpdate = computed(() => this.loadingUpdate$() !== 0);
-  isLoadingDelete$ = computed(() => this.loadingDelete$() !== 0);
+  public readonly isLoadingLogs$ = computed(() => this.loadingLogs$() !== 0);
+  public readonly isLoadingLicenses$ = computed(() => this.loadingLicenses$() !== 0);
+  public readonly isLoadingCreate$ = computed(() => this.loadingCreate$());
+  public readonly isLoadingUpdate = computed(() => this.loadingUpdate$() !== 0);
+  public readonly isLoadingDelete$ = computed(() => this.loadingDelete$() !== 0);
 
-  isLoadingAnyLicense$ = computed(() => this.isLoadingLicenses$() || this.isLoadingCreate$() || this.isLoadingUpdate() || this.isLoadingDelete$());
-
-  constructor() {
-
-  }
+  public readonly isLoadingAnyLicense$ = computed(() => this.isLoadingLicenses$() || this.isLoadingCreate$() || this.isLoadingUpdate() || this.isLoadingDelete$());
 
   public setCurrentLicense(license: string) {
     patchState(this.state$, (state) => ({

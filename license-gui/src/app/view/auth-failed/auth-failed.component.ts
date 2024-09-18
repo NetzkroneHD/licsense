@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {LoginService} from '../../service/login.service';
 import {MatButton} from '@angular/material/button';
 import {TranslateModule} from '@ngx-translate/core';
@@ -15,9 +15,7 @@ import {TranslateModule} from '@ngx-translate/core';
 })
 export class AuthFailedComponent {
 
-  constructor(private readonly loginService: LoginService) {
-
-  }
+  private readonly loginService = inject(LoginService);
 
   protected retry() {
     this.loginService.login();
