@@ -120,7 +120,7 @@ export class HomeComponent implements AfterViewInit {
 
   protected refresh() {
     if (this.userLicenseStore.getLoadingAnyLicense()) {
-      this.notificationService.setInfo({title: 'Loading...', message: 'The licenses are already loading.'}, true);
+      this.notificationService.setMessage({title: 'Loading...', message: 'The licenses are already loading.', type: 'INFO'}, true);
       return;
     }
     this.userLicenseStoreFacade.loadLicensesFromCurrentPublisher();
@@ -199,7 +199,7 @@ export class HomeComponent implements AfterViewInit {
       };
 
       if (JSON.stringify(license) === JSON.stringify(licenseToEdit)) {
-        this.notificationService.setInfo({title: undefined, message: 'No changes have been made.'}, true);
+        this.notificationService.setMessage({title: undefined, message: 'No changes have been made.', type: 'INFO'}, true);
         return;
       }
 

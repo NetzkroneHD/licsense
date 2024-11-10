@@ -16,32 +16,16 @@ export class NotificationStoreService {
   constructor() {
 
     effect(() => {
-      const message: ToasterMessage = this.toasterState.getInfo();
-      if (!this.show(message)) return;
+      const message: ToasterMessage | undefined = this.toasterState.getMessage();
+      if (!message) return;
+      if (!this.canShow(message)) return;
+
       this.toasterService.info(message.message, message.title);
-    });
-
-    effect(() => {
-      const message: ToasterMessage = this.toasterState.getSuccess();
-      if (!this.show(message)) return;
-      this.toasterService.success(message.message, message.title);
-    });
-
-    effect(() => {
-      const message: ToasterMessage = this.toasterState.getWarn();
-      if (!this.show(message)) return;
-      this.toasterService.warning(message.message, message.title);
-    });
-
-    effect(() => {
-      const message: ToasterMessage = this.toasterState.getError();
-      if (!this.show(message)) return;
-      this.toasterService.error(message.message, message.title);
     });
 
   }
 
-  private show(message: ToasterMessage): boolean {
+  private canShow(message: ToasterMessage): boolean {
     if (message.title) {
       return true;
     } else if (message.message) {
@@ -50,7 +34,7 @@ export class NotificationStoreService {
     return false;
   }
 
-  public setInfo(info: ToasterMessage, translate?: boolean) {
+  public setMessage(info: ToasterMessage, translate?: boolean) {
     if (translate) {
       let title = '';
       let message = '';
@@ -60,50 +44,8 @@ export class NotificationStoreService {
       if (info.message) {
         message = this.translateService.instant(info.message);
       }
-      this.toasterState.setInfo({title: title, message: message});
-    } else this.toasterState.setInfo(info);
-  }
-
-  public setSuccess(success: ToasterMessage, translate?: boolean) {
-    if (translate) {
-      let title = '';
-      let message = '';
-      if (success.title) {
-        title = this.translateService.instant(success.title);
-      }
-      if (success.message) {
-        message = this.translateService.instant(success.message);
-      }
-      this.toasterState.setSuccess({title: title, message: message});
-    } else this.toasterState.setSuccess(success);
-  }
-
-  public setWarn(warn: ToasterMessage, translate?: boolean) {
-    if (translate) {
-      let title = '';
-      let message = '';
-      if (warn.title) {
-        title = this.translateService.instant(warn.title);
-      }
-      if (warn.message) {
-        message = this.translateService.instant(warn.message);
-      }
-      this.toasterState.setWarn({title: title, message: message});
-    } else this.toasterState.setWarn(warn);
-  }
-
-  public setError(error: ToasterMessage, translate?: boolean) {
-    if (translate) {
-      let title = '';
-      let message = '';
-      if (error.title) {
-        title = this.translateService.instant(error.title);
-      }
-      if (error.message) {
-        message = this.translateService.instant(error.message);
-      }
-      this.toasterState.setError({title: title, message: message});
-    } else this.toasterState.setError(error);
+      this.toasterState.setMessage({title: title, message: message, type: info.type});
+    } else this.toasterState.setMessage(info);
   }
 
 }

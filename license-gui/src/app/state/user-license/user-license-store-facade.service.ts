@@ -32,39 +32,39 @@ export class UserLicenseStoreFacade {
     this.licenseState.setLoadingCreate(true);
     this.licenseApiService.createLicense(license).then(createdLicense => {
       this.licenseState.createLicense(createdLicense);
-      this.notificationStoreService.setSuccess({
+      this.notificationStoreService.setMessage({
         title: undefined,
-        message: 'Successfully created a license.'
+        message: 'Successfully created a license.',
+        type: 'INFO'
       }, true)
     }).catch(reason => {
-      this.notificationStoreService.setError({
+      this.notificationStoreService.setMessage({
         title: this.translateService.instant('Error while creating license.'),
-        message: this.translateService.instant('Error: {{error}}').replace('{{error}}', reason)
+        message: this.translateService.instant('Error: {{error}}').replace('{{error}}', reason),
+        type: 'ERROR'
       });
     }).finally(() => {
       this.licenseState.setLoadingCreate(false);
-      this.notificationStoreService.setSuccess({title: undefined, message: undefined});
-      this.notificationStoreService.setError({title: undefined, message: undefined});
-    })
+    });
   }
 
   public updateLicense(licenseKey: string, license: LicenseDto) {
     this.licenseState.setLoadingLicenseUpdate(true);
     this.licenseApiService.updateLicense(licenseKey, license).then(updatedLicense => {
       this.licenseState.updateLicense(licenseKey, updatedLicense);
-      this.notificationStoreService.setSuccess({
+      this.notificationStoreService.setMessage({
         title: undefined,
-        message: 'Successfully updated a license.'
+        message: 'Successfully updated a license.',
+        type: 'SUCCESS'
       }, true)
     }).catch(reason => {
-      this.notificationStoreService.setError({
+      this.notificationStoreService.setMessage({
         title: this.translateService.instant('Error while updating license.'),
-        message: this.translateService.instant('Error: {{error}}').replace('{{error}}', reason)
+        message: this.translateService.instant('Error: {{error}}').replace('{{error}}', reason),
+        type: 'ERROR'
       });
     }).finally(() => {
       this.licenseState.setLoadingLicenseUpdate(false);
-      this.notificationStoreService.setSuccess({title: undefined, message: undefined});
-      this.notificationStoreService.setError({title: undefined, message: undefined});
     })
   }
 
@@ -72,19 +72,19 @@ export class UserLicenseStoreFacade {
     this.licenseState.setLoadingLicenseDelete(true);
     this.licenseApiService.deleteLicense(licenseKey).then(() => {
       this.licenseState.deleteLicense(licenseKey);
-      this.notificationStoreService.setSuccess({
+      this.notificationStoreService.setMessage({
         title: undefined,
-        message: 'Successfully deleted a license.'
+        message: 'Successfully deleted a license.',
+        type: 'SUCCESS'
       }, true)
     }).catch(reason => {
-      this.notificationStoreService.setError({
+      this.notificationStoreService.setMessage({
         title: this.translateService.instant('Error while deleting license.'),
-        message: this.translateService.instant('Error: {{error}}').replace('{{error}}', reason)
+        message: this.translateService.instant('Error: {{error}}').replace('{{error}}', reason),
+        type: 'ERROR'
       });
     }).finally(() => {
       this.licenseState.setLoadingLicenseDelete(false);
-      this.notificationStoreService.setSuccess({title: undefined, message: undefined});
-      this.notificationStoreService.setError({title: undefined, message: undefined});
     })
   }
 
@@ -92,19 +92,19 @@ export class UserLicenseStoreFacade {
     this.licenseState.setLoadingLogs(true);
     this.licenseApiService.getLicenseLogs(license).then(licenseLogs => {
       this.licenseState.setUserLicenseLogs(licenseLogs);
-      this.notificationStoreService.setSuccess({
+      this.notificationStoreService.setMessage({
         title: undefined,
-        message: 'Successfully loaded logs.'
+        message: 'Successfully loaded logs.',
+        type: 'SUCCESS'
       }, true)
     }).catch(reason => {
-      this.notificationStoreService.setError({
+      this.notificationStoreService.setMessage({
         title: this.translateService.instant('Error while loading logs.'),
-        message: this.translateService.instant('Error: {{error}}').replace('{{error}}', reason)
+        message: this.translateService.instant('Error: {{error}}').replace('{{error}}', reason),
+        type: 'ERROR'
       });
     }).finally(() => {
       this.licenseState.setLoadingLogs(false);
-      this.notificationStoreService.setSuccess({title: undefined, message: undefined});
-      this.notificationStoreService.setError({title: undefined, message: undefined});
     })
   }
 
@@ -112,19 +112,19 @@ export class UserLicenseStoreFacade {
     this.licenseState.setLoadingLogs(true);
     this.licenseApiService.deleteLicenseLogs(license).then(() => {
       this.licenseState.setUserLicenseLogs([]);
-      this.notificationStoreService.setSuccess({
+      this.notificationStoreService.setMessage({
         title: undefined,
-        message: 'Successfully deleted logs.'
+        message: 'Successfully deleted logs.',
+        type: 'SUCCESS'
       }, true);
     }).catch(reason => {
-      this.notificationStoreService.setError({
+      this.notificationStoreService.setMessage({
         title: this.translateService.instant('Error while deleting logs.'),
-        message: this.translateService.instant('Error: {{error}}').replace('{{error}}', reason)
+        message: this.translateService.instant('Error: {{error}}').replace('{{error}}', reason),
+        type: 'ERROR'
       });
     }).finally(() => {
       this.licenseState.setLoadingLogs(false);
-      this.notificationStoreService.setSuccess({title: undefined, message: undefined});
-      this.notificationStoreService.setError({title: undefined, message: undefined});
     });
   }
 
@@ -136,19 +136,19 @@ export class UserLicenseStoreFacade {
     this.licenseState.setLoadingLicenses(true);
     this.publisherApiService.getLicensesFromPublisher(publisher).then(licenses => {
       this.licenseState.setUserLicenses(licenses);
-      this.notificationStoreService.setSuccess({
+      this.notificationStoreService.setMessage({
         title: undefined,
-        message: this.translateService.instant('Successfully loaded licenses.')
+        message: this.translateService.instant('Successfully loaded licenses.'),
+        type: 'SUCCESS'
       });
     }).catch(reason => {
-      this.notificationStoreService.setError({
+      this.notificationStoreService.setMessage({
         title: this.translateService.instant('Error while loading licenses.'),
-        message: this.translateService.instant('Error: {{error}}').replace('{{error}}', reason)
+        message: this.translateService.instant('Error: {{error}}').replace('{{error}}', reason),
+        type: 'ERROR'
       });
     }).finally(() => {
       this.licenseState.setLoadingLicenses(false);
-      this.notificationStoreService.setSuccess({title: undefined, message: undefined});
-      this.notificationStoreService.setError({title: undefined, message: undefined});
     });
   }
 
@@ -159,7 +159,6 @@ export class UserLicenseStoreFacade {
   public setLicenseLogs(licenseLogs: LicenseLogDto[]) {
     this.licenseState.setUserLicenseLogs(licenseLogs);
   }
-
 
 }
 

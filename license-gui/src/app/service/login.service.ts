@@ -46,7 +46,7 @@ export class LoginService {
 
   private authFailed() {
     this.userSettingsStoreFacade.authFailed();
-    this.notificationFacade.setError({title: 'Authentication failed', message: undefined}, true);
+    this.notificationFacade.setMessage({title: 'Authentication failed', message: undefined, type: 'ERROR'}, true);
 
     this.routeStoreFacade.setCurrentRoute('auth-failed').then();
   }
