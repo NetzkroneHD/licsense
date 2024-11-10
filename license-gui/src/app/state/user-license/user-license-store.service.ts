@@ -21,11 +21,11 @@ export class UserLicenseStore {
   public readonly getUserLicenseLogs = this.userLicenseLogs.asReadonly();
   public readonly getCurrentLicense = this.currentSelectedLicense.asReadonly();
 
-  public readonly getLoadingLogs = this.loadingLogs.asReadonly();
-  public readonly getLoadingLicenses = this.loadingLicenses.asReadonly();
+  public readonly getLoadingLogs = computed(() => this.loadingLogs() !== 0);
+  public readonly getLoadingLicenses = computed(() => this.loadingLicenses() !== 0);
   public readonly getLoadingCreate = this.loadingCreate.asReadonly();
-  public readonly getLoadingUpdate = this.loadingUpdate.asReadonly();
-  public readonly getLoadingDelete = this.loadingDelete.asReadonly();
+  public readonly getLoadingUpdate = computed(() => this.loadingUpdate() !== 0);
+  public readonly getLoadingDelete = computed(() => this.loadingDelete() !== 0);
 
   public readonly getLoadingAnyLicense = computed(() => this.getLoadingLicenses() || this.getLoadingCreate() || this.getLoadingUpdate() || this.getLoadingDelete());
 
