@@ -11,8 +11,6 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {LicenseApi, LicenseCheckApi, PublisherApi} from '@license/license-api-client-typescript-fetch';
 import {environment} from '../environments/environment';
 import {provideToastr} from 'ngx-toastr';
-import {provideStore} from '@ngrx/store';
-import {provideEffects} from '@ngrx/effects';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
@@ -25,8 +23,6 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     provideOAuthClient(),
     provideMomentDateAdapter(environment.momentDateAdapter),
-    provideStore(),
-    provideEffects(),
     provideToastr({
       closeButton: true,
       progressBar: true,

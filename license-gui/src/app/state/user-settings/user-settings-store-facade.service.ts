@@ -1,8 +1,7 @@
 import {inject, Injectable} from '@angular/core';
-import {initialState, UserSettingsState, UserSettingsStore} from './user-settings-store.service';
+import {UserSettingsStore} from './user-settings-store.service';
 import {TranslateService} from '@ngx-translate/core';
 import {environment} from '../../../environments/environment';
-
 
 @Injectable({
   providedIn: 'root'
@@ -13,27 +12,17 @@ export class UserSettingsStoreFacade {
   private readonly translateService: TranslateService = inject(TranslateService);
 
   constructor() {
-
-    this.translateService.store.onLangChange.subscribe(value => {
-      console.log("onLangChange in Facade")
-      this.userSettingsState.changeLanguage(value.lang);
+    this.translateService.onDefaultLangChange.subscribe(value => {
+      this.userSettingsState.setLanguage(value.lang);
+    });
+    this.translateService.onLangChange.subscribe(value => {
+      this.userSettingsState.setLanguage(value.lang);
     });
 
-    let userSettingsJson = localStorage.getItem(environment.userSettingsKey);
-    if (!userSettingsJson) {
-      localStorage.setItem(environment.userSettingsKey, JSON.stringify(this.userSettingsState.state$()));
-      userSettingsJson = JSON.stringify(this.userSettingsState.state$())
+    let userLanguage = localStorage.getItem(environment.userSettingsKey);
+    if(userLanguage) {
+      this.changeLanguage(userLanguage);
     }
-
-    const parsed = JSON.parse(userSettingsJson);
-    if (JSON.stringify(Object.keys(parsed)) !== JSON.stringify(Object.keys(initialState))) {
-      localStorage.setItem(environment.userSettingsKey, JSON.stringify(this.userSettingsState.state$()));
-      return;
-    }
-
-    const userSettings = parsed as UserSettingsState;
-    this.changeLanguage(userSettings.language);
-
   }
 
   public authFailed() {
@@ -45,6 +34,3 @@ export class UserSettingsStoreFacade {
   }
 
 }
-
-
-

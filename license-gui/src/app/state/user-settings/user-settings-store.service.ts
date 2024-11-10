@@ -1,49 +1,33 @@
-import {patchState, signalState} from '@ngrx/signals';
-import {computed, effect, inject, Injectable} from '@angular/core';
+import {effect, inject, Injectable, signal} from '@angular/core';
 import {environment} from '../../../environments/environment';
 import {ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot} from '@angular/router';
-
-export interface UserSettingsState {
-  language: string,
-  authFailed: boolean
-}
-
-export const initialState: UserSettingsState = {
-  language: 'en',
-  authFailed: false
-}
-
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserSettingsStore {
 
-  state$ = signalState<UserSettingsState>(initialState);
+  private readonly language = signal<string>('');
+  private readonly authFailed = signal<boolean>(false);
 
-  selectUserLanguage$ = computed(() => this.state$.language());
-  selectAuthFailed$ = computed(() => this.state$.authFailed());
+  public readonly getUserLanguage = this.language.asReadonly();
+  public readonly getAuthFailed = this.authFailed.asReadonly();
 
   constructor() {
 
     effect(() => {
-      const state = this.state$();
-      localStorage.setItem(environment.userSettingsKey, JSON.stringify(state));
+      const lang = this.language();
+      if(lang !== '') return;
+      localStorage.setItem(environment.userSettingsKey, JSON.stringify(lang));
     });
   }
 
-  public changeLanguage(language: string) {
-    patchState(this.state$, (state) => ({
-      ...state,
-      language: language
-    }));
+  public setLanguage(language: string) {
+    this.language.set(language);
   }
 
   public setAuthFailed(authFailed: boolean) {
-    patchState(this.state$, (state) => ({
-      ...state,
-      authFailed: authFailed
-    }));
+    this.authFailed.set(authFailed);
   }
 
 }
@@ -54,7 +38,7 @@ export const canEnterAuthFailed: CanActivateFn = (
   state: RouterStateSnapshot,
   settingsStore = inject(UserSettingsStore)
 ) => {
-  return settingsStore.selectAuthFailed$();
+  return settingsStore.getAuthFailed();
 }
 
 export const canEnterRoutes: CanActivateFn = (
@@ -62,5 +46,5 @@ export const canEnterRoutes: CanActivateFn = (
   state: RouterStateSnapshot,
   settingsStore = inject(UserSettingsStore)
 ) => {
-  return !settingsStore.selectAuthFailed$();
+  return !settingsStore.getAuthFailed();
 }
