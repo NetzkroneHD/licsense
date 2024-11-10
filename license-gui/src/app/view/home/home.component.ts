@@ -92,14 +92,14 @@ export class HomeComponent implements AfterViewInit {
 
   constructor() {
 
-    this.dataSource = new MatTableDataSource(this.userLicenseStore.selectUserLicenses$());
+    this.dataSource = new MatTableDataSource(this.userLicenseStore.getUserLicenses());
 
     effect(() => {
-      this.dataSource.data = this.userLicenseStore.selectUserLicenses$();
+      this.dataSource.data = this.userLicenseStore.getUserLicenses();
     });
 
     effect(() => {
-      this.loading = this.userLicenseStore.isLoadingAnyLicense$();
+      this.loading = this.userLicenseStore.getLoadingAnyLicense();
     });
 
   }
@@ -119,7 +119,7 @@ export class HomeComponent implements AfterViewInit {
   }
 
   protected refresh() {
-    if (this.userLicenseStore.isLoadingAnyLicense$()) {
+    if (this.userLicenseStore.getLoadingAnyLicense()) {
       this.notificationService.setInfo({title: 'Loading...', message: 'The licenses are already loading.'}, true);
       return;
     }

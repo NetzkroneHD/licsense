@@ -66,14 +66,14 @@ export class LicenseLogComponent implements AfterViewInit {
 
   constructor() {
 
-    this.dataSource = new MatTableDataSource(this.userLicenseStore.selectUserLicenseLogs$());
+    this.dataSource = new MatTableDataSource(this.userLicenseStore.getUserLicenseLogs());
 
     effect(() => {
-      this.loading = this.userLicenseStore.isLoadingLogs$();
+      this.loading = this.userLicenseStore.getLoadingLogs();
     });
 
     effect(() => {
-      this.dataSource.data = this.userLicenseStore.selectUserLicenseLogs$();
+      this.dataSource.data = this.userLicenseStore.getUserLicenseLogs();
     });
 
   }

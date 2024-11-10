@@ -13,29 +13,28 @@ export class NotificationStoreService {
   private readonly toasterState = inject(NotificationStore);
   private readonly toasterService = inject(ToastrService);
 
-
   constructor() {
 
     effect(() => {
-      const message: ToasterMessage = this.toasterState.selectInfo$();
+      const message: ToasterMessage = this.toasterState.getInfo();
       if (!this.show(message)) return;
       this.toasterService.info(message.message, message.title);
     });
 
     effect(() => {
-      const message: ToasterMessage = this.toasterState.selectSuccess$();
+      const message: ToasterMessage = this.toasterState.getSuccess();
       if (!this.show(message)) return;
       this.toasterService.success(message.message, message.title);
     });
 
     effect(() => {
-      const message: ToasterMessage = this.toasterState.selectWarn$();
+      const message: ToasterMessage = this.toasterState.getWarn();
       if (!this.show(message)) return;
       this.toasterService.warning(message.message, message.title);
     });
 
     effect(() => {
-      const message: ToasterMessage = this.toasterState.selectError$();
+      const message: ToasterMessage = this.toasterState.getError();
       if (!this.show(message)) return;
       this.toasterService.error(message.message, message.title);
     });

@@ -1,23 +1,8 @@
-import {patchState, signalState} from '@ngrx/signals';
-import {computed, Injectable} from '@angular/core';
+import {Injectable, signal} from '@angular/core';
 
 export type ToasterMessage = {
   title: string | undefined,
   message: string | undefined
-}
-
-export interface ToasterState {
-  info: ToasterMessage,
-  success: ToasterMessage,
-  warn: ToasterMessage,
-  error: ToasterMessage,
-}
-
-export const initialState: ToasterState = {
-  info: {title: undefined, message: undefined},
-  success: {title: undefined, message: undefined},
-  warn: {title: undefined, message: undefined},
-  error: {title: undefined, message: undefined},
 }
 
 @Injectable({
@@ -25,43 +10,30 @@ export const initialState: ToasterState = {
 })
 export class NotificationStore {
 
-  state$ = signalState<ToasterState>(initialState);
+  private readonly info = signal<ToasterMessage | null>(null);
+  private readonly success = signal<ToasterMessage | null>(null);
+  private readonly warn = signal<ToasterMessage | null>(null);
+  private readonly error = signal<ToasterMessage | null>(null);
 
-  selectInfo$ = computed(() => this.state$.info());
-  selectSuccess$ = computed(() => this.state$.success());
-  selectWarn$ = computed(() => this.state$.warn());
-  selectError$ = computed(() => this.state$.error());
+  public readonly getInfo = this.info.asReadonly();
+  public readonly getSuccess = this.success.asReadonly();
+  public readonly getWarn = this.warn.asReadonly();
+  public readonly getError = this.error.asReadonly();
 
-  constructor() {
-
+  public setInfo(info: ToasterMessage | null) {
+    this.info.set(info);
   }
 
-  public setInfo(info: ToasterMessage) {
-    patchState(this.state$, (state) => ({
-      ...state,
-      info: info
-    }));
+  public setSuccess(success: ToasterMessage | null) {
+    this.success.set(success);
   }
 
-  public setSuccess(success: ToasterMessage) {
-    patchState(this.state$, (state) => ({
-      ...state,
-      success: success
-    }));
+  public setWarn(warn: ToasterMessage | null) {
+    this.warn.set(warn);
   }
 
-  public setWarn(warn: ToasterMessage) {
-    patchState(this.state$, (state) => ({
-      ...state,
-      warn: warn
-    }));
-  }
-
-  public setError(error: ToasterMessage) {
-    patchState(this.state$, (state) => ({
-      ...state,
-      error: error
-    }));
+  public setError(error: ToasterMessage | null) {
+    this.error.set(error)
   }
 
 }

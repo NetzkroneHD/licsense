@@ -1,5 +1,4 @@
-import {patchState, signalState} from '@ngrx/signals';
-import {computed, Injectable} from '@angular/core';
+import {Injectable, signal} from '@angular/core';
 
 export type Route = 'home' | 'license-logs' | 'auth-failed' | 'signature';
 
@@ -20,28 +19,17 @@ export function toRoute(path: string): Route {
   }
 }
 
-export const initialState: RouteState = {
-  currentRoute: 'home'
-}
-
 @Injectable({
   providedIn: 'root'
 })
 export class RouteStore {
 
-  state$ = signalState<RouteState>(initialState);
+  private readonly currentRoute = signal<Route>('home');
 
-  selectCurrentRoute$ = computed(() => this.state$.currentRoute());
-
-  constructor() {
-
-  }
+  public readonly getCurrentRoute = this.currentRoute.asReadonly();
 
   public setCurrentRoute(route: Route) {
-    patchState(this.state$, (state) => ({
-      ...state,
-      currentRoute: route
-    }));
+    this.currentRoute.set(route);
   }
 
 }

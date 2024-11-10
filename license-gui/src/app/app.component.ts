@@ -66,7 +66,7 @@ export class AppComponent implements OnInit {
   constructor() {
 
     effect(() => {
-      const route = this.routeStore.selectCurrentRoute$();
+      const route = this.routeStore.getCurrentRoute();
       this.clearToggle();
       uiItems.sidenavItems.filter(item => item.id === route).forEach(item => {
         item.selected = true;
