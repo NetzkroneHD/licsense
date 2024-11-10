@@ -38,3 +38,4 @@ build/
 /license-server/server-data/logs/
 /mvnw
 /license-oauth2-server/keycloak/themes/
+/license-server/docker-compose/

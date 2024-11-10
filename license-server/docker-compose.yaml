@@ -17,8 +17,8 @@ services:
     networks:
       - license-backend
     volumes:
-      - ./server-data/database/data:/var/lib/postgresql/data
-      - ./server-data/database/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - ./docker-compose/postgres/data/logs:/var/lib/postgresql/data
+      - ./docker-compose/postgres/init:/docker-entrypoint-initdb.d/:ro
 
   license-server:
     build:
@@ -52,8 +52,9 @@ services:
     networks:
       - license-backend
     volumes:
-      - ./server-data/logs:/logs
-      - ./server-data/key:/home/app/key
+      - ./docker-compose/license-server/logs:/logs
+      - ./docker-compose/license-server/key:/home/app/key
+
 networks:
   license-backend:
 
