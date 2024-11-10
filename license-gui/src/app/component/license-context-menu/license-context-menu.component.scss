@@ -5,7 +5,7 @@
   flex-direction: column;
   min-width: 180px;
   max-width: 280px;
-  background-color: map-get(mat.$indigo-palette, 100);
+  background-color: map-get(mat.$m2-indigo-palette, 100);
   padding: 6px 0;
 }
 
@@ -20,7 +20,7 @@
 }
 
 .context-menu .context-menu-item {
-  background-color: map-get(mat.$indigo-palette, 100);
+  background-color: map-get(mat.$m2-indigo-palette, 100);
   cursor: pointer;
   border: none;
 
@@ -51,7 +51,7 @@
 
 
 .context-menu .context-menu-item:hover {
-  background-color: map-get(mat.$indigo-palette, 200);
+  background-color: map-get(mat.$m2-indigo-palette, 200);
 }
 
 .context-menu .context-menu-item[role='menuitemradio'][aria-checked='true'] {
@@ -63,9 +63,9 @@
 }
 
 .context-menu .context-menu-item:active {
-  background-color: map-get(mat.$indigo-palette, 200);
+  background-color: map-get(mat.$m2-indigo-palette, 200);
 }
 
 .context-menu-item[aria-expanded='true'] {
-  background-color: map-get(mat.$indigo-palette, 200);
+  background-color: map-get(mat.$m2-indigo-palette, 200);
 }
