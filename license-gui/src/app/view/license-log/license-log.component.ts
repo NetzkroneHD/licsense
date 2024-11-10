@@ -93,13 +93,13 @@ export class LicenseLogComponent implements AfterViewInit {
   }
 
   refresh() {
-    const currentLicense = this.userLicenseStore.selectCurrentLicense$();
+    const currentLicense = this.userLicenseStore.getCurrentLicense();
     if(!currentLicense) return;
     this.userLicenseStoreFacade.loadLogs(currentLicense);
   }
 
   deleteHistory() {
-    const currentLicense = this.userLicenseStore.selectCurrentLicense$();
+    const currentLicense = this.userLicenseStore.getCurrentLicense();
     if(!currentLicense) return;
     this.userLicenseStoreFacade.deleteLogs(currentLicense);
   }

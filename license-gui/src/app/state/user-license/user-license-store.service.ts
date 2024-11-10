@@ -19,7 +19,7 @@ export class UserLicenseStore {
 
   public readonly getUserLicenses = this.userLicenses.asReadonly();
   public readonly getUserLicenseLogs = this.userLicenseLogs.asReadonly();
-  public readonly selectCurrentLicense$ = this.currentSelectedLicense.asReadonly();
+  public readonly getCurrentLicense = this.currentSelectedLicense.asReadonly();
 
   public readonly getLoadingLogs = this.loadingLogs.asReadonly();
   public readonly getLoadingLicenses = this.loadingLicenses.asReadonly();
