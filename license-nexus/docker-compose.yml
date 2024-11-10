@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  artifactory:
+    image: "jfrog/artifactory-oss:latest"  # Du kannst auch eine bestimmte Version wählen
+    container_name: artifactory
+    environment:
+      - DB_TYPE=postgresql
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USER=${PG_USER}
+      - DB_PASSWORD=${PG_PASSWORD}
+      - DB_NAME=${PG_DATABASE}
+    ports:
+      - "8081:8081"  # Standard-Artifactory-Port
+    volumes:
+      - artifactory_data:/var/opt/jfrog/artifactory
+    depends_on:
+      - postgres
+
+  postgres:
+    image: "postgres:latest"  # Du kannst auch eine bestimmte Version wählen
+    container_name: postgres
+    environment:
+      - POSTGRES_USER=${PG_USER}
+      - POSTGRES_PASSWORD=${PG_PASSWORD}
+      - POSTGRES_DB=${PG_DATABASE}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  artifactory_data:
+  postgres_data:

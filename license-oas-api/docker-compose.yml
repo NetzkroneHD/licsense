@@ -24,18 +24,3 @@ services:
       - ./openapi.yaml:/home/openapi.yaml
       - ./config-client-typescript-fetch.json:/home/config-client-typescript-fetch.json
     command: generate -i /home/openapi.yaml -g ${TYPE_SCRIPT_GENERATOR} -o /local/typescript -c /home/config-client-typescript-fetch.json
-
-  openapi-generator-server-rust:
-    image: openapitools/openapi-generator-cli:latest
-    depends_on:
-      openapi-generator-client-webclient:
-        condition: service_completed_successfully
-      openapi-generator-server-springboot:
-        condition: service_completed_successfully
-      openapi-generator-client-typescript-fetch:
-        condition: service_completed_successfully
-    volumes:
-      - ./target/rust:/local/rust
-      - ./openapi.yaml:/home/openapi.yaml
-      - ./config-server-rust.json:/home/config-server-rust.json
-    command: generate -i /home/openapi.yaml -g ${RUST_GENERATOR} -o /local/rust -c /home/config-server-rust.json

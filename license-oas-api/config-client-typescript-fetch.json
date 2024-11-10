@@ -1,6 +1,7 @@
 {
 
   "npmName": "@license/license-api-client-typescript-fetch",
+  "npmRepository": "http://localhost:9081/repository/npm-private/",
   "modelNameSuffix": "Dto",
   "generatorName": "typescript-fetch",
   "npmVersion": "1.0.0",
