@@ -25,7 +25,7 @@ const authCodeFlowConfig: AuthConfig = {
 }
 
 export const apiConfig: Configuration = new Configuration({
-  basePath: "http://host.docker.internal:8080/api/v1".replace(/\/+$/, "")
+  basePath: window.location.origin+"/license/api/v1".replace(/\/+$/, ""),
 });
 
 export const environment = {
@@ -34,6 +34,6 @@ export const environment = {
   authConfig: authCodeFlowConfig,
   apiConfig: apiConfig,
   momentDateAdapter: momentDateAdapter,
-  accountSettingsUrl: new URL('http://host.docker.internal:8082/realms/license/account'),
+  accountSettingsUrl: new URL('http://localhost:8082/realms/license/account'),
   userSettingsKey: 'license.userSettings'
 };

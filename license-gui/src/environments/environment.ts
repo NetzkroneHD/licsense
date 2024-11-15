@@ -16,11 +16,11 @@ const momentDateAdapter: MatDateFormats = {
 }
 
 const authCodeFlowConfig: AuthConfig = {
-  issuer: 'http://localhost:8082/realms/license',
+  issuer: 'http://localhost/auth/realms/license',
   redirectUri: window.location.origin,
   postLogoutRedirectUri: window.location.origin+'/loggedOut',
   clientId: 'license-client',
-  dummyClientSecret: '7CHdYlPpft8Pnqfg3t90tnmJNqIIM3hi',
+  dummyClientSecret: 'SE75mgzFoI4ju8ANIxYbLUXlzLjg5V43',
   responseType: 'code',
   scope: 'openid',
   requireHttps: false,
@@ -28,7 +28,7 @@ const authCodeFlowConfig: AuthConfig = {
 }
 
 export const apiConfig: Configuration = new Configuration({
-  basePath: "http://host.docker.internal:8080/license/api/v1".replace(/\/+$/, ""),
+  basePath: window.location.origin+"/license/api/v1".replace(/\/+$/, ""),
 });
 
 export const environment = {
@@ -37,6 +37,6 @@ export const environment = {
   authConfig: authCodeFlowConfig,
   apiConfig: apiConfig,
   momentDateAdapter: momentDateAdapter,
-  accountSettingsUrl: new URL('http://host.docker.internal:8082/realms/license/account'),
+  accountSettingsUrl: new URL(authCodeFlowConfig.issuer+'/account'),
   userSettingsKey: 'license.userSettings'
 };

@@ -1,15 +1,8 @@
 import {Component, effect, inject, OnInit, ViewChild} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {environment} from '../environments/environment';
-import {MatButton, MatIconButton} from '@angular/material/button';
+import {MatIconButton} from '@angular/material/button';
 import {MatToolbar} from '@angular/material/toolbar';
-import {
-  MatDrawer,
-  MatDrawerContainer,
-  MatSidenav,
-  MatSidenavContainer,
-  MatSidenavContent
-} from '@angular/material/sidenav';
 import {MatIcon} from '@angular/material/icon';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
 import {LicenseDropdownMenuComponent} from './component/license-dropdown-menu/license-dropdown-menu.component';
@@ -22,19 +15,14 @@ import {RouteStoreFacade} from './state/route/route.service';
 import {RouteStore, toRoute} from './state/route/route-store.service';
 import {LoginService} from './service/login.service';
 import {uiItems} from '../environments/ui-items';
+import {UserSettingsStore} from './state/user-settings/user-settings-store.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
     MatToolbar,
-    MatSidenavContainer,
-    MatSidenav,
-    MatSidenavContent,
     RouterOutlet,
-    MatDrawerContainer,
-    MatButton,
-    MatDrawer,
     MatIconButton,
     MatIcon,
     LicenseDropdownMenuComponent,
@@ -58,6 +46,7 @@ export class AppComponent implements OnInit {
   @ViewChild('sidenav') sidenav!: LicenseSidenavComponent;
 
   private readonly userSettingsFacade = inject(UserSettingsStoreFacade);
+  private readonly userSettingsStore = inject(UserSettingsStore);
   private readonly routeStoreService = inject(RouteStoreFacade);
   private readonly routeStore = inject(RouteStore);
   private readonly translateService = inject(TranslateService);
@@ -73,7 +62,8 @@ export class AppComponent implements OnInit {
       });
     });
 
-    this.translateService.store.onLangChange.subscribe(() => {
+    effect(() => {
+      this.userSettingsStore.getUserLanguage();
       uiItems.sidenavItems.forEach(item => {
         item.description = this.translateService.instant('sidenavItems.' + item.id);
       });

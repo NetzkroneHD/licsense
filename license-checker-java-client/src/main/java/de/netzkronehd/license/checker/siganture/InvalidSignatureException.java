@@ -11,8 +11,10 @@ public class InvalidSignatureException extends Exception {
     private final GeneralSecurityException generalSecurityException;
 
     public InvalidSignatureException(GeneralSecurityException generalSecurityException) {
+        super(generalSecurityException);
         this.generalSecurityException = generalSecurityException;
     }
+
 
     public GeneralSecurityException getGeneralSecurityException() {
         return generalSecurityException;

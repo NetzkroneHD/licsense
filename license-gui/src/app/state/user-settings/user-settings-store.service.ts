@@ -7,7 +7,7 @@ import {ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot} from '@angul
 })
 export class UserSettingsStore {
 
-  private readonly language = signal<string>('');
+  private readonly language = signal<string>('en');
   private readonly authFailed = signal<boolean>(false);
 
   public readonly getUserLanguage = this.language.asReadonly();
@@ -17,6 +17,7 @@ export class UserSettingsStore {
 
     effect(() => {
       const lang = this.language();
+      console.log("lang:", lang)
       if(lang !== '') return;
       localStorage.setItem(environment.userSettingsKey, JSON.stringify(lang));
     });
