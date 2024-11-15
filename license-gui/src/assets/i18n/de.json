@@ -95,5 +95,13 @@
       "edit": "Bearbeiten",
       "delete": "Löschen"
     }
+  },
+  "paginator": {
+    "firstPageLabel": "Erste Seite",
+    "itemsPerPageLabel": "Einträge pro Seite",
+    "lastPageLabel": "Letzte Seite",
+    "nextPageLabel": "Nächste Seite",
+    "previousPageLabel": "Vorherige Seite",
+    "rangeSeparatorLabel": "von"
   }
 }

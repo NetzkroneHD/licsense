@@ -1,4 +1,4 @@
-import {ApplicationConfig} from '@angular/core';
+import {ApplicationConfig, importProvidersFrom} from '@angular/core';
 import {provideRouter} from '@angular/router';
 
 import {routes} from './app.routes';
@@ -14,6 +14,8 @@ import {provideToastr} from 'ngx-toastr';
 import {PublisherApiAdapter} from './api/service/adapter/publisher-api-adapter.service';
 import {LicenseApiAdapter} from './api/service/adapter/license-api-adapter.service';
 import {LicenseCheckApiAdapter} from './api/service/adapter/license-check-api-adapter.service';
+import {TranslatedMatPaginatorIntl} from '../assets/i18n/translated-mat-paginator-intl.service';
+import {MatPaginatorIntl} from '@angular/material/paginator';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
@@ -33,14 +35,17 @@ export const appConfig: ApplicationConfig = {
       enableHtml: true,
       positionClass: 'toast-bottom-right',
     }),
-    TranslateModule.forRoot({
-      defaultLanguage: 'en',
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }).providers!,
+    importProvidersFrom([
+      TranslateModule.forRoot({
+        defaultLanguage: 'en',
+        loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
+        }
+      }),
+    ]),
+    {provide: MatPaginatorIntl, useClass: TranslatedMatPaginatorIntl},
     {
       provide: LicenseApi,
       useValue: new LicenseApiAdapter()

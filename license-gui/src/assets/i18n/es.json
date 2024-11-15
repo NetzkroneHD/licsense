@@ -95,5 +95,13 @@
       "edit": "Editar",
       "delete": "Eliminar"
     }
+  },
+  "paginator": {
+    "firstPageLabel": "Primera página",
+    "itemsPerPageLabel": "Elementos por página",
+    "lastPageLabel": "Última página",
+    "nextPageLabel": "Página siguiente",
+    "previousPageLabel": "Página anterior",
+    "rangeSeparatorLabel": "de"
   }
 }
