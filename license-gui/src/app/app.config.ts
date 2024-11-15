@@ -11,6 +11,9 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {LicenseApi, LicenseCheckApi, PublisherApi} from '@license/license-api-client-typescript-fetch';
 import {environment} from '../environments/environment';
 import {provideToastr} from 'ngx-toastr';
+import {PublisherApiAdapter} from './api/service/adapter/publisher-api-adapter.service';
+import {LicenseApiAdapter} from './api/service/adapter/license-api-adapter.service';
+import {LicenseCheckApiAdapter} from './api/service/adapter/license-check-api-adapter.service';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
@@ -40,15 +43,15 @@ export const appConfig: ApplicationConfig = {
     }).providers!,
     {
       provide: LicenseApi,
-      useValue: new LicenseApi(environment.apiConfig)
+      useValue: new LicenseApiAdapter()
     },
     {
       provide: LicenseCheckApi,
-      useValue: new LicenseCheckApi(environment.apiConfig),
+      useValue: new LicenseCheckApiAdapter(),
     },
     {
       provide: PublisherApi,
-      useValue: new PublisherApi(environment.apiConfig)
+      useValue: new PublisherApiAdapter()
     }
   ]
 };

@@ -18,10 +18,11 @@ import {environment} from '../../../../environments/environment';
 })
 export class LicenseApiAdapter extends LicenseApi {
 
-  private readonly licenseApi: LicenseApi = inject(LicenseApi);
+  private readonly licenseApi: LicenseApi = new LicenseApi(environment.apiConfig);
 
   constructor() {
     super(environment.apiConfig);
+
   }
 
   public override createLicenseRaw(requestParameters: CreateLicenseRequest, initOverrides?: RequestInit | InitOverrideFunction): Promise<ApiResponse<LicenseDto>> {

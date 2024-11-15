@@ -19,8 +19,15 @@ export class NotificationStoreService {
       const message: ToasterMessage | undefined = this.toasterState.getMessage();
       if (!message) return;
       if (!this.canShow(message)) return;
-
-      this.toasterService.info(message.message, message.title);
+      if (message.type === 'SUCCESS') {
+        this.toasterService.success(message.message, message.title);
+      } else if (message.type === 'INFO') {
+        this.toasterService.info(message.message, message.title);
+      } else if (message.type === 'WARN') {
+        this.toasterService.warning(message.message, message.title);
+      } else if(message.type === 'ERROR') {
+        this.toasterService.error(message.message, message.title);
+      }
     });
 
   }

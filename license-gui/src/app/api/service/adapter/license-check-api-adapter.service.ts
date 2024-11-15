@@ -13,7 +13,7 @@ import {environment} from '../../../../environments/environment';
 })
 export class LicenseCheckApiAdapter extends LicenseCheckApi {
 
-  private readonly licenseCheckApi: LicenseCheckApi = inject(LicenseCheckApi);
+  private readonly licenseCheckApi: LicenseCheckApi = new LicenseCheckApi(environment.apiConfig);
 
   constructor() {
     super(environment.apiConfig)

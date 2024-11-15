@@ -13,7 +13,7 @@ import {environment} from '../../../../environments/environment';
 })
 export class PublisherApiAdapter extends PublisherApi {
 
-  private readonly publisherApi: PublisherApi = inject(PublisherApi);
+  private readonly publisherApi: PublisherApi = new PublisherApi(environment.apiConfig);
 
   constructor() {
     super(environment.apiConfig);
@@ -21,10 +21,12 @@ export class PublisherApiAdapter extends PublisherApi {
 
 
   public override getLicensesFromPublisherRaw(requestParameters: GetLicensesFromPublisherRequest, initOverrides?: RequestInit | InitOverrideFunction): Promise<ApiResponse<Array<LicenseDto>>> {
+    console.log("gettling licenses from publisher", environment.apiConfig);
     return this.publisherApi.getLicensesFromPublisherRaw(requestParameters, initOverrides);
   }
 
   public override getLicensesFromPublisher(requestParameters: GetLicensesFromPublisherRequest, initOverrides?: RequestInit | InitOverrideFunction): Promise<Array<LicenseDto>> {
+    console.log("gettling licenses from publisher", environment.apiConfig);
     return this.publisherApi.getLicensesFromPublisher(requestParameters, initOverrides);
   }
 }

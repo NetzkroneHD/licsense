@@ -4,9 +4,6 @@ info:
   description: License-API
   version: 1.0.0
 
-servers:
-  - url: 'http://localhost:8080/license/api/v1'
-
 paths:
   /publisher/{publisher}/license:
     get:

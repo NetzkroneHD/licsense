@@ -25,7 +25,7 @@ const authCodeFlowConfig: AuthConfig = {
 }
 
 export const apiConfig: Configuration = new Configuration({
-  basePath: window.location.origin+"/license/api/v1".replace(/\/+$/, ""),
+  basePath: "http://localhost:4200/license/api/v1".replace(/\/+$/, ""),
 });
 
 export const environment = {

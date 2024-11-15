@@ -37,12 +37,6 @@ export class AppComponent implements OnInit {
 
   protected readonly title = environment.title;
 
-  protected readonly dropdownMenu: LicenseDropdownMenuItem[] = [
-    {id: 'en', title: 'EN', disabled: false},
-    {id: 'de', title: 'DE', disabled: false},
-    {id: 'es', title: 'ES', disabled: false}
-  ]
-
   @ViewChild('sidenav') sidenav!: LicenseSidenavComponent;
 
   private readonly userSettingsFacade = inject(UserSettingsStoreFacade);
