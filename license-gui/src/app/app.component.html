@@ -1,33 +1,34 @@
 <mat-toolbar color="primary" class="license-toolbar">
-  <button mat-icon-button (click)="toggleSidenav()">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <span class="mouse-hover">{{ title }}</span>
-  <span class="spacer"></span>
-  <license-dropdown-menu [items]="uiItems.changeLanguageDropdownMenu" (itemClick$)="onChangeLanguage($event)">
-    <ng-template let-menu="menu">
-      <button mat-icon-button [matMenuTriggerFor]="menu">
-        <mat-icon>language</mat-icon>
-      </button>
-    </ng-template>
-  </license-dropdown-menu>
+    <button mat-icon-button (click)="toggleSidenav()">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <span class="mouse-hover">{{ title }}</span>
+    <span class="spacer"></span>
+    <license-dropdown-menu [items]="uiItems.changeLanguageDropdownMenu"
+                           (itemClick$)="onChangeLanguage($event)">
+        <ng-template let-menu="menu">
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>language</mat-icon>
+            </button>
+        </ng-template>
+    </license-dropdown-menu>
 
-  <license-dropdown-menu [items]="uiItems.logoutDropdownMenu" (itemClick$)="onLogoutClicked($event)">
-    <ng-template let-menu="menu">
-      <button mat-icon-button [matMenuTriggerFor]="menu">
-        <mat-icon>logout</mat-icon>
-      </button>
-    </ng-template>
-  </license-dropdown-menu>
+    <license-dropdown-menu [items]="uiItems.logoutDropdownMenu" (itemClick$)="onLogoutClicked($event)">
+        <ng-template let-menu="menu">
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>logout</mat-icon>
+            </button>
+        </ng-template>
+    </license-dropdown-menu>
 
 
 </mat-toolbar>
 
 <license-sidenav #sidenav [items]="uiItems.sidenavItems" (listItemClicked)="sidenavItemClick($event)"
                  class="license-sidenav">
-  <div class="license-sidenav-content">
-    <div style="display: block; height: 15px; width: 15px; margin-left: 15px"></div>
-    <router-outlet style="display: block; margin-top: 1px; margin-left: 15px"></router-outlet>
-  </div>
+    <div class="license-sidenav-content">
+        <div style="display: block; height: 15px; width: 15px; margin-left: 15px"></div>
+        <router-outlet style="display: block; margin-top: 1px; margin-left: 15px"></router-outlet>
+    </div>
 </license-sidenav>
 

@@ -1,107 +1,110 @@
 {
-  "Enter a date": "Datum angeben",
-  "Enter a date range": "Zeitraum angeben",
-  "Start Date": "Von",
-  "End Date": "Bis",
-  "Create": "Erstellen",
-  "Apply": "Übernehmen",
-  "Save": "Speichern",
-  "Cancel": "Abbrechen",
-  "Choose": "Auswählen",
-  "logout": "Abmelden",
-  "Retrieve Publisher Data": "Benutzerdaten laden",
-  "ID": "ID",
-  "License": "Lizenz",
-  "IP": "IP",
-  "Date": "Datum",
-  "Request Result": "Anfrage Ergebnis",
-  "Successfully created a license.": "Lizenz wurde erstellt.",
-  "Error while creating license.": "Fehler beim Erstellen der Lizenz.",
-  "Successfully updated a license.": "Lizenz wurde aktualisiert.",
-  "Error while updating license.": "Fehler beim Aktualisieren der Lizenz.",
-  "Successfully deleted a license.": "Lizenz wurde gelöscht.",
-  "Error while deleting license.": "Fehler beim Löschen der Lizenz.",
-  "Successfully loaded logs.": "Logs erfolgreich geladen.",
-  "Error while loading logs.": "Fehler beim Laden der Logs.",
-  "Successfully deleted logs.": "Logs wurden gelöscht.",
-  "Error while deleting logs.": "Fehler beim Löschen der Logs.",
-  "Successfully loaded licenses.": "Lizenzen wurden geladen.",
-  "Error while loading licenses.": "Fehler beim Laden der Lizenzen.",
-  "No changes have been made.": "Es wurden keine Änderungen vorgenommen.",
-  "Error: {{error}}": "{{error}}",
-  "Filter": "Filter",
-  "Refresh": "Daten aktualisieren",
-  "Loading...": "Lade...",
-  "The licenses are already loading.": "Die Lizenzen werden bereits geladen.",
-  "Publisher": "Ersteller",
-  "Notes": "Notizen",
-  "Valid": "Gültig",
-  "Valid Until": "Gültig bis",
-  "List-Mode": "List-Modus",
-  "IP-Addresses": "IP-Adressen",
-  "Create a license.": "LIZENZ ERSTELLEN",
-  "Edit a license.": "LIZENZ BEARBEITEN",
-  "Generated value": "Generierter Wert",
-  "Validity": "Gültigkeit",
-  "Open Logs": "Logs öffnen",
-  "Edit": "Bearbeiten",
-  "Delete": "Löschen",
-  "Create License": "Lizenz erstellen",
-  "Confirm Delete": "Löschen bestätigen",
-  "New IP-Address separated by comma": "Neue IP-Adresse getrennt durch ein Komma",
-  "Authentication failed": "Authentifizierung fehlgeschlagen",
-  "Authentication failed. Retry to continue.": "Authentifizierung fehlgeschlagen. Versuche es erneut, um fortzufahren.",
-  "Retry": "Erneut versuchen",
-  "Delete logs": "Logs löschen",
-  "deleteLicense": {
-    "text": "Bist du dir sicher, dass du die Lizenz {{licenseKey}} löschen möchtest?"
-  },
-  "signature": {
-    "general": "Generelle Info",
-    "text": "Die Verwendung des öffentlichen Schlüssels ist entscheidend für die Überprüfung der Authentizität einer API-Antwort. Sollte der öffentliche Schlüssel die Signatur nicht entschlüsseln können, wird das Vertrauen in die Integrität der API-Antwort beeinträchtigt.",
-    "explanation": {
-      "title": "Erklärung der Public/Private Key-Verschlüsselung:",
-      "text": "Public/private key encryption, bekannt als asymmetrische Kryptographie, umfasst ein Paar kryptografischer Schlüssel: einen öffentlichen Schlüssel und einen privaten Schlüssel."
+    "Copied license key to clipboard.": "Lizenzschlüssel in die Zwischenablage kopiert.",
+    "Edit License": "Lizenz bearbeiten",
+    "Delete License": "Lizenz löschen",
+    "Enter a date": "Datum angeben",
+    "Enter a date range": "Zeitraum angeben",
+    "Start Date": "Von",
+    "End Date": "Bis",
+    "Create": "Erstellen",
+    "Apply": "Übernehmen",
+    "Save": "Speichern",
+    "Cancel": "Abbrechen",
+    "Choose": "Auswählen",
+    "logout": "Abmelden",
+    "Retrieve Publisher Data": "Benutzerdaten laden",
+    "ID": "ID",
+    "License": "Lizenz",
+    "IP": "IP",
+    "Date": "Datum",
+    "Request Result": "Anfrage Ergebnis",
+    "Successfully created a license.": "Lizenz wurde erstellt.",
+    "Error while creating license.": "Fehler beim Erstellen der Lizenz.",
+    "Successfully updated a license.": "Lizenz wurde aktualisiert.",
+    "Error while updating license.": "Fehler beim Aktualisieren der Lizenz.",
+    "Successfully deleted a license.": "Lizenz wurde gelöscht.",
+    "Error while deleting license.": "Fehler beim Löschen der Lizenz.",
+    "Successfully loaded logs.": "Logs erfolgreich geladen.",
+    "Error while loading logs.": "Fehler beim Laden der Logs.",
+    "Successfully deleted logs.": "Logs wurden gelöscht.",
+    "Error while deleting logs.": "Fehler beim Löschen der Logs.",
+    "Successfully loaded licenses.": "Lizenzen wurden geladen.",
+    "Error while loading licenses.": "Fehler beim Laden der Lizenzen.",
+    "No changes have been made.": "Es wurden keine Änderungen vorgenommen.",
+    "Error: {{error}}": "{{error}}",
+    "Filter": "Filter",
+    "Refresh": "Daten aktualisieren",
+    "Loading...": "Lade...",
+    "The licenses are already loading.": "Die Lizenzen werden bereits geladen.",
+    "Publisher": "Ersteller",
+    "Notes": "Notizen",
+    "Valid": "Gültig",
+    "Valid Until": "Gültig bis",
+    "List-Mode": "List-Modus",
+    "IP-Addresses": "IP-Adressen",
+    "Create a license.": "LIZENZ ERSTELLEN",
+    "Edit a license.": "LIZENZ BEARBEITEN",
+    "Generated value": "Generierter Wert",
+    "Validity": "Gültigkeit",
+    "Open Logs": "Logs öffnen",
+    "Edit": "Bearbeiten",
+    "Delete": "Löschen",
+    "Create License": "Lizenz erstellen",
+    "Confirm Delete": "Löschen bestätigen",
+    "New IP-Address separated by comma": "Neue IP-Adresse getrennt durch ein Komma",
+    "Authentication failed": "Authentifizierung fehlgeschlagen",
+    "Authentication failed. Retry to continue.": "Authentifizierung fehlgeschlagen. Versuche es erneut, um fortzufahren.",
+    "Retry": "Erneut versuchen",
+    "Delete logs": "Logs löschen",
+    "deleteLicense": {
+        "text": "Bist du dir sicher, dass du die Lizenz {{licenseKey}} löschen möchtest?"
     },
-    "public-key": {
-      "name": "Öffentlicher Schlüssel",
-      "text": "Dieser Schlüssel wird offen geteilt und von Entitäten genutzt, die sichere Kommunikation mit dem Inhaber des entsprechenden privaten Schlüssels suchen. Er dient dazu, Daten zu verschlüsseln oder digitale Signaturen zu überprüfen."
+    "signature": {
+        "general": "Generelle Info",
+        "text": "Die Verwendung des öffentlichen Schlüssels ist entscheidend für die Überprüfung der Authentizität einer API-Antwort. Sollte der öffentliche Schlüssel die Signatur nicht entschlüsseln können, wird das Vertrauen in die Integrität der API-Antwort beeinträchtigt.",
+        "explanation": {
+            "title": "Erklärung der Public/Private Key-Verschlüsselung:",
+            "text": "Public/private key encryption, bekannt als asymmetrische Kryptographie, umfasst ein Paar kryptografischer Schlüssel: einen öffentlichen Schlüssel und einen privaten Schlüssel."
+        },
+        "public-key": {
+            "name": "Öffentlicher Schlüssel",
+            "text": "Dieser Schlüssel wird offen geteilt und von Entitäten genutzt, die sichere Kommunikation mit dem Inhaber des entsprechenden privaten Schlüssels suchen. Er dient dazu, Daten zu verschlüsseln oder digitale Signaturen zu überprüfen."
+        },
+        "private-key": {
+            "name": "Privater Schlüssel",
+            "text": "Von seinem Besitzer vertraulich gehalten, ist dieser Schlüssel unerlässlich zum Entschlüsseln von mit dem entsprechenden öffentlichen Schlüssel verschlüsselten Daten oder zum Erzeugen digitaler Signaturen."
+        },
+        "verifying": "Beim sicheren Übertragen von Informationen oder Überprüfen der Authentizität einer Nachricht:",
+        "encryption": {
+            "name": "Verschlüsselung",
+            "text": "Der Sender verschlüsselt die Nachricht mit dem öffentlichen Schlüssel des Empfängers. Dies stellt sicher, dass nur der beabsichtigte Empfänger, der im Besitz des entsprechenden privaten Schlüssels ist, die Nachricht entschlüsseln und darauf zugreifen kann."
+        },
+        "signature-verification": {
+            "name": "Signaturüberprüfung",
+            "text": "Nach Erhalt einer Nachricht mit einer digitalen Signatur verwendet der Empfänger den öffentlichen Schlüssel des Senders, um deren Authentizität zu überprüfen. Erfolgreiche Überprüfung bestätigt, dass die Nachricht seit ihrer Unterzeichnung durch den Sender unverändert geblieben ist."
+        },
+        "end": "Öffentliche-/Private-Schlüssel-Verschlüsselung gewährleistet Vertraulichkeit, Integrität und Authentizität in der Kommunikation. Sie stellt sicher, dass nur autorisierte Empfänger mit Zugriff auf den privaten Schlüssel Nachrichten entschlüsseln können, während nur der legitime Absender, der den privaten Schlüssel besitzt, gültige digitale Signaturen erzeugen kann.",
+        "download": "Öffentlichen Schlüssel herunterladen"
     },
-    "private-key": {
-      "name": "Privater Schlüssel",
-      "text": "Von seinem Besitzer vertraulich gehalten, ist dieser Schlüssel unerlässlich zum Entschlüsseln von mit dem entsprechenden öffentlichen Schlüssel verschlüsselten Daten oder zum Erzeugen digitaler Signaturen."
+    "sidenavItems": {
+        "home": "Startseite",
+        "license-logs": "Logs",
+        "signature": "Signatur",
+        "settings": "Account Einstellungen"
     },
-    "verifying": "Beim sicheren Übertragen von Informationen oder Überprüfen der Authentizität einer Nachricht:",
-    "encryption": {
-      "name": "Verschlüsselung",
-      "text": "Der Sender verschlüsselt die Nachricht mit dem öffentlichen Schlüssel des Empfängers. Dies stellt sicher, dass nur der beabsichtigte Empfänger, der im Besitz des entsprechenden privaten Schlüssels ist, die Nachricht entschlüsseln und darauf zugreifen kann."
+    "home": {
+        "contextMenuItems": {
+            "open": "Logs öffnen",
+            "edit": "Bearbeiten",
+            "delete": "Löschen"
+        }
     },
-    "signature-verification": {
-      "name": "Signaturüberprüfung",
-      "text": "Nach Erhalt einer Nachricht mit einer digitalen Signatur verwendet der Empfänger den öffentlichen Schlüssel des Senders, um deren Authentizität zu überprüfen. Erfolgreiche Überprüfung bestätigt, dass die Nachricht seit ihrer Unterzeichnung durch den Sender unverändert geblieben ist."
-    },
-    "end": "Öffentliche-/Private-Schlüssel-Verschlüsselung gewährleistet Vertraulichkeit, Integrität und Authentizität in der Kommunikation. Sie stellt sicher, dass nur autorisierte Empfänger mit Zugriff auf den privaten Schlüssel Nachrichten entschlüsseln können, während nur der legitime Absender, der den privaten Schlüssel besitzt, gültige digitale Signaturen erzeugen kann.",
-    "download": "Öffentlichen Schlüssel herunterladen"
-  },
-  "sidenavItems": {
-    "home": "Startseite",
-    "license-logs": "Logs",
-    "signature": "Signatur",
-    "settings": "Account Einstellungen"
-  },
-  "home": {
-    "contextMenuItems": {
-      "open": "Logs öffnen",
-      "edit": "Bearbeiten",
-      "delete": "Löschen"
+    "paginator": {
+        "firstPageLabel": "Erste Seite",
+        "itemsPerPageLabel": "Einträge pro Seite",
+        "lastPageLabel": "Letzte Seite",
+        "nextPageLabel": "Nächste Seite",
+        "previousPageLabel": "Vorherige Seite",
+        "rangeSeparatorLabel": "von"
     }
-  },
-  "paginator": {
-    "firstPageLabel": "Erste Seite",
-    "itemsPerPageLabel": "Einträge pro Seite",
-    "lastPageLabel": "Letzte Seite",
-    "nextPageLabel": "Nächste Seite",
-    "previousPageLabel": "Vorherige Seite",
-    "rangeSeparatorLabel": "von"
-  }
 }

@@ -15,7 +15,7 @@ export class UserLicenseStore {
 
   private readonly userLicenses = signal<LicenseDto[]>([]);
   private readonly userLicenseLogs = signal<LicenseLogDto[]>([]);
-  private readonly currentSelectedLicense = signal<string | null>(null);
+  private readonly currentSelectedLicense = signal<string>('');
 
   public readonly getUserLicenses = this.userLicenses.asReadonly();
   public readonly getUserLicenseLogs = this.userLicenseLogs.asReadonly();

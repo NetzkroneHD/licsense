@@ -1,0 +1,24 @@
+<button mat-icon-button (click)="refresh()" [matTooltip]="('Refresh' | translate) "
+        [disabled]="disabled()">
+    <mat-icon>refresh</mat-icon>
+</button>
+
+<button mat-icon-button (click)="createLicense()" [matTooltip]="('Create License' | translate)"
+        [disabled]="disabled()">
+    <mat-icon>add_circle</mat-icon>
+</button>
+
+<button mat-icon-button (click)="openLogs()" [matTooltip]="('Open Logs' | translate)"
+        [disabled]="editingDisabled()">
+    <mat-icon>open_in_new</mat-icon>
+</button>
+
+<button mat-icon-button (click)="editLicense()" [matTooltip]="('Edit License' | translate)"
+        [disabled]="editingDisabled()">
+    <mat-icon>edit</mat-icon>
+</button>
+
+<button mat-icon-button (click)="deleteLicense()" [matTooltip]="('Delete License' | translate)"
+        [disabled]="editingDisabled()">
+    <mat-icon>delete</mat-icon>
+</button>
