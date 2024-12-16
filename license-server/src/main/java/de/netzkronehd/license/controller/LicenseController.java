@@ -36,10 +36,9 @@ public class LicenseController implements LicenseApi {
         if (!model.isAdmin()) return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
 
         try {
-            licenseDto.setPublisher(model.getSub());
             return ResponseEntity.ok(licenseMapper.map(licenseCheckService.createLicense(licenseMapper.map(licenseDto), model.getSub())));
         } catch (Exception ex) {
-            log.info("Error while creating license '{}': {}", licenseDto, ex.toString());
+            log.error("Error while creating license '{}'", licenseDto, ex);
             return ResponseEntity.badRequest().build();
         }
     }

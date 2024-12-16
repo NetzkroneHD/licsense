@@ -8,6 +8,8 @@ import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
 import java.util.Collection;
 
+import static de.netzkronehd.license.config.SecurityConfig.ROLE_ADMIN;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,7 +24,7 @@ public class OAuth2Model {
     }
 
     public boolean isAdmin() {
-        return hasRole("ROLE_ADMIN");
+        return hasRole(ROLE_ADMIN);
     }
 
 }

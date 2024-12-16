@@ -19,6 +19,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @AllArgsConstructor(onConstructor_ = {@Autowired})
 public class SecurityConfig {
 
+    public static final String ROLE_ADMIN = "ROLE_ADMIN";
+
     private final LicenseConfig licenseConfig;
     private final DefaultUserDetailsService defaultUserDetailsService;
 
@@ -32,22 +34,22 @@ public class SecurityConfig {
                         ).permitAll()
                         .requestMatchers(HttpMethod.GET,
                                 "/api/v1/logs**"
-                        ).hasAnyAuthority("ROLE_ADMIN")
+                        ).hasAnyAuthority(ROLE_ADMIN)
                         .requestMatchers(HttpMethod.GET,
                                 "/api/v1/publisher**"
                         ).authenticated()
                         .requestMatchers(HttpMethod.POST,
                                 "/api/v1/license**",
                                 "/api/v1/logs**"
-                        ).hasAnyAuthority("ROLE_ADMIN")
+                        ).hasAnyAuthority(ROLE_ADMIN)
                         .requestMatchers(HttpMethod.PUT,
                                 "/api/v1/license**",
                                 "/api/v1/logs**"
-                        ).hasAnyAuthority("ROLE_ADMIN")
+                        ).hasAnyAuthority(ROLE_ADMIN)
                         .requestMatchers(HttpMethod.DELETE,
                                 "/api/v1/license**",
                                 "/api/v1/logs**"
-                        ).hasAnyAuthority("ROLE_ADMIN")
+                        ).hasAnyAuthority(ROLE_ADMIN)
                         .anyRequest().permitAll()
                 )
                 .userDetailsService(defaultUserDetailsService)
