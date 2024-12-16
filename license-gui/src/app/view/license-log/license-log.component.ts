@@ -3,11 +3,11 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort, MatSortHeader} from '@angular/material/sort';
 import {
     MatCell,
-    MatCellDef, MatColumnDef, MatHeaderCell, MatHeaderCellDef,
+    MatColumnDef,
+    MatHeaderCell,
     MatHeaderRow,
-    MatHeaderRowDef,
     MatRow,
-    MatRowDef, MatTable,
+    MatTable,
     MatTableDataSource
 } from '@angular/material/table';
 import {UserLicenseStore} from '../../state/user-license/user-license-store.service';
@@ -25,15 +25,11 @@ import {LicenseDialogService} from '../../component/license-dialog/license-dialo
 @Component({
     selector: 'license-license-log',
     imports: [
-        MatRowDef,
         MatRow,
-        MatHeaderRowDef,
         MatHeaderRow,
         MatCell,
-        MatCellDef,
         TranslateModule,
         MatSortHeader,
-        MatHeaderCellDef,
         MatHeaderCell,
         MatColumnDef,
         MatFormField,
@@ -53,14 +49,12 @@ import {LicenseDialogService} from '../../component/license-dialog/license-dialo
 })
 export class LicenseLogComponent implements AfterViewInit {
 
+    @ViewChild(MatPaginator) paginator!: MatPaginator;
+    @ViewChild(MatSort) sort!: MatSort;
     protected loading = false;
     protected displayedColumns = ['id', 'license', 'ip', 'dateTime', 'listBehaviorResult'];
     protected dataSource;
     protected filterValue: any;
-
-    @ViewChild(MatPaginator) paginator!: MatPaginator;
-    @ViewChild(MatSort) sort!: MatSort;
-
     protected readonly userLicenseStore = inject(UserLicenseStore);
     private readonly userLicenseStoreFacade = inject(UserLicenseStoreFacade);
     private readonly dialogService = inject(LicenseDialogService);
@@ -110,7 +104,7 @@ export class LicenseLogComponent implements AfterViewInit {
             cancelCaption: this.translateService.instant('Cancel'),
             discardWithEscape: true
         }).subscribe(value => {
-            if(!value) return;
+            if (!value) return;
             this.userLicenseStoreFacade.deleteLogs(currentLicense);
         });
 

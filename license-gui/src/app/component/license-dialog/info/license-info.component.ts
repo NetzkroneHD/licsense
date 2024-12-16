@@ -16,23 +16,23 @@ import {CdkDrag, CdkDragHandle} from '@angular/cdk/drag-drop';
 })
 export class LicenseInfoComponent {
 
-  title = '';
-  message = '';
-  confirmCaption = '';
+    protected title = '';
+    protected message = '';
+    protected confirmCaption = '';
 
-  constructor(@Inject(MAT_DIALOG_DATA) private data: LicenseInfoDialogData,
-              public readonly dialogRef: MatDialogRef<LicenseInfoDialogData>
-  ) {
-    this.title = data.title;
-    this.message = data.message;
-    this.confirmCaption = data.confirmCaption;
-  }
-
-  @HostListener('window:keyup.escape')
-  protected keyEventEscape(): void {
-    if (this.data.discardWithEscape === true) {
-      this.dialogRef.close(false);
+    constructor(@Inject(MAT_DIALOG_DATA) private data: LicenseInfoDialogData,
+                public readonly dialogRef: MatDialogRef<LicenseInfoDialogData>
+    ) {
+        this.title = data.title;
+        this.message = data.message;
+        this.confirmCaption = data.confirmCaption;
     }
-  }
+
+    @HostListener('window:keyup.escape')
+    protected keyEventEscape(): void {
+        if (this.data.discardWithEscape === true) {
+            this.dialogRef.close(false);
+        }
+    }
 
 }

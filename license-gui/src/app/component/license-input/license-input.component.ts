@@ -24,33 +24,32 @@ import {FormBuilder, FormControl, ReactiveFormsModule} from '@angular/forms';
 })
 export class LicenseInputComponent implements OnInit {
 
-  @Input({required: true}) input!: LicenseInput;
+    @Input({required: true}) input!: LicenseInput;
 
-  @Output() onClearButtonClick$: EventEmitter<LicenseInput> = new EventEmitter<LicenseInput>();
-  @Output() onValueChange$: EventEmitter<Event> = new EventEmitter<Event>();
+    @Output() onClearButtonClick$: EventEmitter<LicenseInput> = new EventEmitter<LicenseInput>();
+    @Output() onValueChange$: EventEmitter<Event> = new EventEmitter<Event>();
 
-  private _formControl!: FormControl<string | null>;
+    constructor(private formBuilder: FormBuilder) {
 
-  constructor(private formBuilder: FormBuilder) {
+    }
 
-  }
+    private _formControl!: FormControl<string | null>;
 
-  ngOnInit() {
-    this._formControl = this.formBuilder.control(this.input.input, this.input.validators);
-    this._formControl.markAllAsTouched();
-  }
+    get formControl(): FormControl<string | null> {
+        return this._formControl;
+    }
 
-  protected onClearClick() {
-    this._formControl.reset();
-    this.onClearButtonClick$.emit(this.input);
-  }
+    ngOnInit() {
+        this._formControl = this.formBuilder.control(this.input.input, this.input.validators);
+        this._formControl.markAllAsTouched();
+    }
 
+    protected onClearClick() {
+        this._formControl.reset();
+        this.onClearButtonClick$.emit(this.input);
+    }
 
-  get formControl(): FormControl<string | null> {
-    return this._formControl;
-  }
-
-  protected onValueChange(event: Event) {
-    this.onValueChange$.emit(event);
-  }
+    protected onValueChange(event: Event) {
+        this.onValueChange$.emit(event);
+    }
 }

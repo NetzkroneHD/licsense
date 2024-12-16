@@ -1,21 +1,21 @@
-<mat-toolbar color="primary" class="license-toolbar">
-    <button mat-icon-button (click)="toggleSidenav()">
+<mat-toolbar class="license-toolbar" color="primary">
+    <button (click)="toggleSidenav()" mat-icon-button>
         <mat-icon>menu</mat-icon>
     </button>
     <span class="mouse-hover">{{ title }}</span>
     <span class="spacer"></span>
-    <license-dropdown-menu [items]="uiItems.changeLanguageDropdownMenu"
-                           (itemClick$)="onChangeLanguage($event)">
+    <license-dropdown-menu (itemClick$)="onChangeLanguage($event)"
+                           [items]="uiItems.changeLanguageDropdownMenu">
         <ng-template let-menu="menu">
-            <button mat-icon-button [matMenuTriggerFor]="menu">
+            <button [matMenuTriggerFor]="menu" mat-icon-button>
                 <mat-icon>language</mat-icon>
             </button>
         </ng-template>
     </license-dropdown-menu>
 
-    <license-dropdown-menu [items]="uiItems.logoutDropdownMenu" (itemClick$)="onLogoutClicked($event)">
+    <license-dropdown-menu (itemClick$)="onLogoutClicked($event)" [items]="uiItems.logoutDropdownMenu">
         <ng-template let-menu="menu">
-            <button mat-icon-button [matMenuTriggerFor]="menu">
+            <button [matMenuTriggerFor]="menu" mat-icon-button>
                 <mat-icon>logout</mat-icon>
             </button>
         </ng-template>
@@ -24,7 +24,7 @@
 
 </mat-toolbar>
 
-<license-sidenav #sidenav [items]="uiItems.sidenavItems" (listItemClicked)="sidenavItemClick($event)"
+<license-sidenav #sidenav (listItemClicked)="sidenavItemClick($event)" [items]="uiItems.sidenavItems"
                  class="license-sidenav">
     <div class="license-sidenav-content">
         <div style="display: block; height: 15px; width: 15px; margin-left: 15px"></div>

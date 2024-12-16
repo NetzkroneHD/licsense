@@ -3,14 +3,10 @@ import {UserLicenseStoreFacade} from '../../state/user-license/user-license-stor
 import {UserLicenseStore} from '../../state/user-license/user-license-store.service';
 import {
     MatCell,
-    MatCellDef,
     MatColumnDef,
     MatHeaderCell,
-    MatHeaderCellDef,
     MatHeaderRow,
-    MatHeaderRowDef,
     MatRow,
-    MatRowDef,
     MatTable,
     MatTableDataSource
 } from '@angular/material/table';
@@ -45,14 +41,10 @@ import {NotificationStoreService} from '../../state/notification/notification.se
         MatSort,
         MatColumnDef,
         MatHeaderCell,
-        MatHeaderCellDef,
         MatSortHeader,
         MatCell,
-        MatCellDef,
         MatHeaderRow,
         MatRow,
-        MatRowDef,
-        MatHeaderRowDef,
         MatLabel,
         LicenseToolbarComponent
     ],
@@ -61,19 +53,17 @@ import {NotificationStoreService} from '../../state/notification/notification.se
 })
 export class HomeComponent implements AfterViewInit {
 
+    @ViewChild(MatPaginator) paginator!: MatPaginator;
+    @ViewChild(MatSort) sort!: MatSort;
     protected loading = false;
     protected displayedColumns = ['licenseKey', 'publisher', 'notes', 'valid', 'validUntil', 'listMode', 'ipAddresses'];
     protected dataSource;
     protected filterValue: any;
-
     protected selectedLicense: { previous: LicenseDto | null; current: LicenseDto | null } = {
         previous: null,
         current: null
     };
-
-    @ViewChild(MatPaginator) paginator!: MatPaginator;
-    @ViewChild(MatSort) sort!: MatSort;
-
+    protected readonly String = String;
     private readonly userLicenseStoreFacade = inject(UserLicenseStoreFacade);
     private readonly userLicenseStore = inject(UserLicenseStore);
     private readonly routeStoreService = inject(RouteStoreFacade);
@@ -140,6 +130,4 @@ export class HomeComponent implements AfterViewInit {
             type: 'INFO'
         }, true);
     }
-
-    protected readonly String = String;
 }

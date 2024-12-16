@@ -21,7 +21,7 @@ public class LicenseService {
 
     public LicenseModel getLicense(String license) {
         Objects.requireNonNull(license);
-        if(license.trim().isEmpty()) throw new IllegalStateException("License can not be empty.");
+        if (license.trim().isEmpty()) throw new IllegalStateException("License can not be empty.");
         return this.licenseRepository.findById(license).orElseThrow();
     }
 

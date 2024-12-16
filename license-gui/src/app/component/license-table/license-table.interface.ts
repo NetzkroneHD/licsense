@@ -1,9 +1,9 @@
 export interface LicenseTable {
 
-  columnDefinitions: string[]
+    columnDefinitions: string[]
 
-  paginator?: {
-    pageSizeOptions: number[]
-  }
+    paginator?: {
+        pageSizeOptions: number[]
+    }
 
 }

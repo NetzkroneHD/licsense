@@ -19,7 +19,7 @@ public class PublisherService {
 
     public List<LicenseModel> getLicenses(String publisher) {
         Objects.requireNonNull(publisher);
-        if(publisher.trim().isEmpty()) throw new IllegalStateException("Publisher can not be empty.");
+        if (publisher.trim().isEmpty()) throw new IllegalStateException("Publisher can not be empty.");
         return licenseRepository.findAllByPublisher(publisher);
     }
 

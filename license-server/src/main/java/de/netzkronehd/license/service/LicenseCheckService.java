@@ -38,14 +38,14 @@ public class LicenseCheckService {
 
     public LicenseModel getLicense(OAuth2Model model, String licenseKey) throws PermissionException {
         final LicenseModel license = licenseService.getLicense(licenseKey);
-        if(!license.getPublisher().equals(model.getSub())) {
+        if (!license.getPublisher().equals(model.getSub())) {
             throw new PermissionException();
         }
         return license;
     }
 
     public List<LicenseModel> getLicenses(OAuth2Model model, String publisher) throws PermissionException {
-        if(!model.getSub().equalsIgnoreCase(publisher)) {
+        if (!model.getSub().equalsIgnoreCase(publisher)) {
             throw new PermissionException();
         }
         return publisherService.getLicenses(publisher);
@@ -115,7 +115,8 @@ public class LicenseCheckService {
     }
 
     private void checkPublisher(String publisher) {
-        if(!StringUtils.hasText(publisher)) throw new IllegalStateException("Publisher can not be an empty string '"+publisher+"'");
+        if (!StringUtils.hasText(publisher))
+            throw new IllegalStateException("Publisher can not be an empty string '" + publisher + "'");
     }
 
     private void checkIfPublisherIsEqual(String publisher, LicenseModel licenseModel) throws PermissionException {

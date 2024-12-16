@@ -14,9 +14,9 @@ import {TranslateModule} from '@ngx-translate/core';
 })
 export class SignatureComponent {
 
-  private readonly fileService = inject(FileService);
+    private readonly fileService = inject(FileService);
 
-  protected downloadKey() {
-    this.fileService.downloadPublicKey();
-  }
+    protected downloadKey() {
+        this.fileService.downloadPublicKey();
+    }
 }

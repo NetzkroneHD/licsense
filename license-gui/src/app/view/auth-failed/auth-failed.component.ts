@@ -14,10 +14,10 @@ import {TranslateModule} from '@ngx-translate/core';
 })
 export class AuthFailedComponent {
 
-  private readonly loginService = inject(LoginService);
+    private readonly loginService = inject(LoginService);
 
-  protected retry() {
-    this.loginService.login();
-  }
+    protected retry() {
+        this.loginService.login();
+    }
 
 }

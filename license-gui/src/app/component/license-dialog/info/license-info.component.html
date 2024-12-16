@@ -1,16 +1,18 @@
 <ng-container>
-  <div class="dialog" [cdkTrapFocus]="true">
-    <div mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle class="license-drag-area">{{ title || 'TITLE' }}</div>
+    <div [cdkTrapFocus]="true" class="dialog">
+        <div cdkDrag cdkDragHandle cdkDragRootElement=".cdk-overlay-pane" class="license-drag-area"
+             mat-dialog-title>{{ title || 'TITLE' }}
+        </div>
 
-    <mat-dialog-content>
-      {{ message || 'MESSAGE' }}
-    </mat-dialog-content>
+        <mat-dialog-content>
+            {{ message || 'MESSAGE' }}
+        </mat-dialog-content>
 
-    <mat-dialog-actions align="end">
+        <mat-dialog-actions align="end">
 
-      <button mat-raised-button [mat-dialog-close]="true" class="accept-button" color="primary">
-        <div>{{ confirmCaption || 'confirmCaption' }}</div>
-      </button>
-    </mat-dialog-actions>
-  </div>
+            <button [mat-dialog-close]="true" class="accept-button" color="primary" mat-raised-button>
+                <div>{{ confirmCaption || 'confirmCaption' }}</div>
+            </button>
+        </mat-dialog-actions>
+    </div>
 </ng-container>

@@ -1,21 +1,21 @@
 import {Injectable, signal} from '@angular/core';
 
 export type ToasterMessage = {
-  title: string | undefined,
-  message: string | undefined
-  type: 'INFO' | 'SUCCESS' | 'WARN' | 'ERROR'
+    title: string | undefined,
+    message: string | undefined
+    type: 'INFO' | 'SUCCESS' | 'WARN' | 'ERROR'
 }
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class NotificationStore {
 
-  private readonly message = signal<ToasterMessage | undefined>(undefined);
+    private readonly message = signal<ToasterMessage | undefined>(undefined);
 
-  public readonly getMessage = this.message.asReadonly();
+    public readonly getMessage = this.message.asReadonly();
 
-  public setMessage(message: ToasterMessage | undefined) {
-    this.message.set(message);
-  }
+    public setMessage(message: ToasterMessage | undefined) {
+        this.message.set(message);
+    }
 }

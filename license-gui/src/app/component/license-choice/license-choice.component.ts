@@ -19,18 +19,18 @@ import {FormsModule} from '@angular/forms';
 })
 export class LicenseChoiceMenuComponent {
 
-  @Input({required: true}) menu!: LicenseChoiceMenu;
+    @Input({required: true}) menu!: LicenseChoiceMenu;
 
-  @Output() itemTriggered$: EventEmitter<LicenseChoiceMenuItem> = new EventEmitter<LicenseChoiceMenuItem>();
-  @Output() menuClosed$: EventEmitter<MenuCloseReason> = new EventEmitter<MenuCloseReason>();
+    @Output() itemTriggered$: EventEmitter<LicenseChoiceMenuItem> = new EventEmitter<LicenseChoiceMenuItem>();
+    @Output() menuClosed$: EventEmitter<MenuCloseReason> = new EventEmitter<MenuCloseReason>();
 
-  @ContentChild(TemplateRef) rootTriggerButton: TemplateRef<unknown> | null = null;
-  @ViewChild(MatMenu) matMenu!: MatMenu;
+    @ContentChild(TemplateRef) rootTriggerButton: TemplateRef<unknown> | null = null;
+    @ViewChild(MatMenu) matMenu!: MatMenu;
 
-  constructor() {
-  }
+    constructor() {
+    }
 
-  protected onChoiceClicked(item: LicenseChoiceMenuItem) {
-    this.itemTriggered$.emit(item)
-  }
+    protected onChoiceClicked(item: LicenseChoiceMenuItem) {
+        this.itemTriggered$.emit(item)
+    }
 }

@@ -32,8 +32,8 @@ public class OAuth2TokenSecurity {
     }
 
     public OAuth2Model getModel(Authentication authentication) {
-        if(authentication == null) return null;
-        if(!(authentication.getPrincipal() instanceof Jwt jwt)) return null;
+        if (authentication == null) return null;
+        if (!(authentication.getPrincipal() instanceof Jwt jwt)) return null;
         return new OAuth2Model(jwt.getClaimAsString("sub"),
                 (WebAuthenticationDetails) authentication.getDetails(),
                 (Collection<GrantedAuthority>) authentication.getAuthorities()

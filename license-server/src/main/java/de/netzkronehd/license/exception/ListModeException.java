@@ -10,7 +10,7 @@ public class ListModeException extends Exception {
     private final String address;
 
     public ListModeException(ListMode listMode, String address) {
-        super("The address '"+address+"' does not meet the requirement of the list-mode '"+listMode+"'.");
+        super("The address '" + address + "' does not meet the requirement of the list-mode '" + listMode + "'.");
         this.listMode = listMode;
         this.address = address;
     }

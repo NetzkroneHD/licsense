@@ -24,6 +24,9 @@ import {LicenseDialogService} from '../license-dialog/license-dialog.service';
 })
 export class LicenseToolbarComponent {
 
+    public readonly selectedLicense = input<LicenseDto | null>(null);
+    public readonly disabled = input(false);
+    public readonly editingDisabled = computed(() => this.disabled() || !this.selectedLicense());
     private readonly licenseEditService = inject(LicenseEditService);
     private readonly userLicenseStoreFacade = inject(UserLicenseStoreFacade);
     private readonly userLicenseStore = inject(UserLicenseStore);
@@ -31,10 +34,6 @@ export class LicenseToolbarComponent {
     private readonly routeStoreFacade = inject(RouteStoreFacade);
     private readonly translateService = inject(TranslateService);
     private readonly dialogService = inject(LicenseDialogService);
-
-    public readonly selectedLicense = input<LicenseDto | null>(null);
-    public readonly disabled = input(false);
-    public readonly editingDisabled = computed(() => this.disabled() || !this.selectedLicense());
 
     protected createLicense() {
         this.licenseEditService.create().subscribe(createAction => {

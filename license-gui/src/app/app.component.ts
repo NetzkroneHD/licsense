@@ -38,10 +38,9 @@ import {UserSettingsStore} from './state/user-settings/user-settings-store.servi
 })
 export class AppComponent implements OnInit {
 
-    protected readonly title = environment.title;
-
     @ViewChild('sidenav') sidenav!: LicenseSidenavComponent;
-
+    protected readonly title = environment.title;
+    protected readonly uiItems = uiItems;
     private readonly userSettingsFacade = inject(UserSettingsStoreFacade);
     private readonly userSettingsStore = inject(UserSettingsStore);
     private readonly routeStoreService = inject(RouteStoreFacade);
@@ -104,6 +103,4 @@ export class AppComponent implements OnInit {
     private clearToggle() {
         uiItems.sidenavItems.forEach(value => value.selected = false);
     }
-
-    protected readonly uiItems = uiItems;
 }

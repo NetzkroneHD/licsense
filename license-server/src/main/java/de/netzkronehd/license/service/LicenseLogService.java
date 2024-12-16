@@ -56,7 +56,7 @@ public class LicenseLogService {
     }
 
     private void checkIdIsGreaterThanZero(int id) {
-        if(id < 0) throw new IllegalStateException("Id can not be smaller than 0. ("+id+" < 0)");
+        if (id < 0) throw new IllegalStateException("Id can not be smaller than 0. (" + id + " < 0)");
     }
 
 

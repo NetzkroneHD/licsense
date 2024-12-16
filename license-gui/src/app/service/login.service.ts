@@ -8,65 +8,69 @@ import {TokenService} from '../api/service/token.service';
 import {NotificationStoreService} from '../state/notification/notification.service';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class LoginService {
 
-  constructor(private readonly oAuthService: OAuthService,
-              private readonly userLicenseStoreFacade: UserLicenseStoreFacade,
-              private readonly routeStoreFacade: RouteStoreFacade,
-              private readonly userSettingsStoreFacade: UserSettingsStoreFacade,
-              private readonly tokenService: TokenService,
-              private readonly notificationFacade: NotificationStoreService) {
+    constructor(private readonly oAuthService: OAuthService,
+                private readonly userLicenseStoreFacade: UserLicenseStoreFacade,
+                private readonly routeStoreFacade: RouteStoreFacade,
+                private readonly userSettingsStoreFacade: UserSettingsStoreFacade,
+                private readonly tokenService: TokenService,
+                private readonly notificationFacade: NotificationStoreService) {
 
-  }
-
-  public login() {
-    this.oAuthService.configure(environment.authConfig);
-    this.oAuthService.loadDiscoveryDocumentAndLogin().then(() => {
-      this.onUserLoggedIn();
-      this.userLicenseStoreFacade.loadLicensesFromCurrentPublisher();
-    }).catch(() => {
-      this.authFailed()
-    });
-
-    this.oAuthService.setupAutomaticSilentRefresh();
-    this.oAuthService.events.subscribe(event => {
-      if (event.type !== 'token_refreshed') {
-        return;
-      }
-      this.tokenService.setAccessToken(this.oAuthService.getAccessToken());
-    });
-
-    if (this.oAuthService.getIdentityClaims()) {
-      this.tokenService.setAccessToken(this.oAuthService.getAccessToken());
-      this.userLicenseStoreFacade.loadLicensesFromCurrentPublisher();
-    }
-  }
-
-  private authFailed() {
-    this.userSettingsStoreFacade.authFailed();
-    this.notificationFacade.setMessage({title: 'Authentication failed', message: undefined, type: 'ERROR'}, true);
-
-    this.routeStoreFacade.setCurrentRoute('auth-failed').then();
-  }
-
-  private onUserLoggedIn() {
-    const identityClaims = this.oAuthService.getIdentityClaims();
-    if (!identityClaims) {
-      console.log("Login failed. No Claim available.");
-      return;
     }
 
-    const username = this.oAuthService.getIdentityClaims()['preferred_username'];
-    const jwt = JSON.parse(atob(this.oAuthService.getAccessToken().split('.')[1]));
-    console.log("username", username);
-    console.log("jwt", jwt);
-    console.log("roles", jwt['realm_access']['roles'])
-  }
+    public login() {
+        this.oAuthService.configure(environment.authConfig);
+        this.oAuthService.loadDiscoveryDocumentAndLogin().then(() => {
+            this.onUserLoggedIn();
+            this.userLicenseStoreFacade.loadLicensesFromCurrentPublisher();
+        }).catch(() => {
+            this.authFailed()
+        });
 
-  logout() {
-    this.oAuthService.logOut();
-  }
+        this.oAuthService.setupAutomaticSilentRefresh();
+        this.oAuthService.events.subscribe(event => {
+            if (event.type !== 'token_refreshed') {
+                return;
+            }
+            this.tokenService.setAccessToken(this.oAuthService.getAccessToken());
+        });
+
+        if (this.oAuthService.getIdentityClaims()) {
+            this.tokenService.setAccessToken(this.oAuthService.getAccessToken());
+            this.userLicenseStoreFacade.loadLicensesFromCurrentPublisher();
+        }
+    }
+
+    logout() {
+        this.oAuthService.logOut();
+    }
+
+    private authFailed() {
+        this.userSettingsStoreFacade.authFailed();
+        this.notificationFacade.setMessage({
+            title: 'Authentication failed',
+            message: undefined,
+            type: 'ERROR'
+        }, true);
+
+        this.routeStoreFacade.setCurrentRoute('auth-failed').then();
+    }
+
+    private onUserLoggedIn() {
+        const identityClaims = this.oAuthService.getIdentityClaims();
+        if (!identityClaims) {
+            console.log("Login failed. No Claim available.");
+            return;
+        }
+
+        const username = this.oAuthService.getIdentityClaims()['preferred_username'];
+        const jwt = JSON.parse(atob(this.oAuthService.getAccessToken().split('.')[1]));
+        console.log("username", username);
+        console.log("jwt", jwt);
+        console.log("roles", jwt['realm_access']['roles'])
+    }
 }
 

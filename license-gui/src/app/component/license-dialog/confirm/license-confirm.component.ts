@@ -14,26 +14,26 @@ import {CdkDrag, CdkDragHandle} from '@angular/cdk/drag-drop';
 })
 export class LicenseConfirmComponent {
 
-  title = '';
-  message = '';
-  cancelCaption = '';
-  confirmCaption = '';
+    protected title = '';
+    protected message = '';
+    protected cancelCaption = '';
+    protected confirmCaption = '';
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) private data: LicenseConfirmDialogData,
-    public readonly dialogRef: MatDialogRef<LicenseConfirmDialogData>
-  ) {
-    this.title = data.title;
-    this.message = data.message;
-    this.cancelCaption = data.cancelCaption;
-    this.confirmCaption = data.confirmCaption;
-  }
-
-  @HostListener('window:keyup.escape')
-  protected keyEventEscape(): void {
-    if (this.data.discardWithEscape === true) {
-      this.dialogRef.close(false);
+    constructor(
+        @Inject(MAT_DIALOG_DATA) private data: LicenseConfirmDialogData,
+        public readonly dialogRef: MatDialogRef<LicenseConfirmDialogData>
+    ) {
+        this.title = data.title;
+        this.message = data.message;
+        this.cancelCaption = data.cancelCaption;
+        this.confirmCaption = data.confirmCaption;
     }
-  }
+
+    @HostListener('window:keyup.escape')
+    protected keyEventEscape(): void {
+        if (this.data.discardWithEscape === true) {
+            this.dialogRef.close(false);
+        }
+    }
 
 }

@@ -1,13 +1,13 @@
 import {
-  AfterViewChecked,
-  Component,
-  ContentChild,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  Output,
-  TemplateRef,
-  ViewChild
+    AfterViewChecked,
+    Component,
+    ContentChild,
+    EventEmitter,
+    Input,
+    OnDestroy,
+    Output,
+    TemplateRef,
+    ViewChild
 } from '@angular/core';
 import {NgForOf, NgIf, NgTemplateOutlet} from '@angular/common';
 import {MatMenuModule, MatMenuTrigger, MenuCloseReason} from '@angular/material/menu';
@@ -30,47 +30,47 @@ import {MatIconModule} from '@angular/material/icon';
 })
 export class LicenseDropdownMenuComponent implements AfterViewChecked, OnDestroy {
 
-  @Input({required: true}) items: LicenseDropdownMenuItem[] = [];
-  @Input() trigger!: LicenseDropdownMenuItem;
-  @Input() isRootNode = true;
+    @Input({required: true}) items: LicenseDropdownMenuItem[] = [];
+    @Input() trigger!: LicenseDropdownMenuItem;
+    @Input() isRootNode = true;
 
-  @Output() readonly itemClick$ = new EventEmitter<LicenseDropdownMenuItem>();
-  @Output() readonly menuClosed$ = new EventEmitter<MenuCloseReason>();
+    @Output() readonly itemClick$ = new EventEmitter<LicenseDropdownMenuItem>();
+    @Output() readonly menuClosed$ = new EventEmitter<MenuCloseReason>();
 
-  @ViewChild(MatMenuTrigger) menuTrigger!: MatMenuTrigger;
+    @ViewChild(MatMenuTrigger) menuTrigger!: MatMenuTrigger;
 
-  @ViewChild(LicenseDropdownMenuComponent) subMenu!: LicenseDropdownMenuComponent;
+    @ViewChild(LicenseDropdownMenuComponent) subMenu!: LicenseDropdownMenuComponent;
 
-  @ContentChild(TemplateRef) rootTriggerButton: TemplateRef<unknown> | null = null;
+    @ContentChild(TemplateRef) rootTriggerButton: TemplateRef<unknown> | null = null;
 
-  constructor() {
-  }
-
-  ngAfterViewChecked() {
-    if (this.subMenu) {
-      this.subMenu.itemClick$.subscribe((id) => this.itemClick$.emit(id));
+    constructor() {
     }
-  }
 
-  ngOnDestroy() {
-    if (this.subMenu) {
-      this.subMenu.itemClick$.unsubscribe();
+    ngAfterViewChecked() {
+        if (this.subMenu) {
+            this.subMenu.itemClick$.subscribe((id) => this.itemClick$.emit(id));
+        }
     }
-  }
 
-  open() {
-    this.menuTrigger.openMenu();
-  }
+    ngOnDestroy() {
+        if (this.subMenu) {
+            this.subMenu.itemClick$.unsubscribe();
+        }
+    }
 
-  close() {
-    this.menuTrigger.closeMenu();
-  }
+    open() {
+        this.menuTrigger.openMenu();
+    }
 
-  protected hasChildren(item: LicenseDropdownMenuItem) {
-    return item.entries && item.entries.length > 0;
-  }
+    close() {
+        this.menuTrigger.closeMenu();
+    }
 
-  protected onItemClick(item: LicenseDropdownMenuItem) {
-    this.itemClick$.emit(item);
-  }
+    protected hasChildren(item: LicenseDropdownMenuItem) {
+        return item.entries && item.entries.length > 0;
+    }
+
+    protected onItemClick(item: LicenseDropdownMenuItem) {
+        this.itemClick$.emit(item);
+    }
 }

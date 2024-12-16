@@ -1,31 +1,32 @@
-<div [cdkContextMenuTriggerFor]="menu" (cdkContextMenuOpened)="onOpened()" (cdkContextMenuClosed)="onClosed()">
-  <ng-content></ng-content>
+<div (cdkContextMenuClosed)="onClosed()" (cdkContextMenuOpened)="onOpened()"
+     [cdkContextMenuTriggerFor]="menu">
+    <ng-content></ng-content>
 </div>
 
 <ng-template #menu>
-  <div class="context-menu" cdkMenu *ngIf="isAllowedToOpen">
-    <ng-container *ngFor="let item of items">
-      <ng-container *ngIf="hasChildren(item); else leafNode">
-        <button class="context-menu-item" cdkMenuItem
-                [attr.disabled]="(!item.disabled ? null:item.disabled)"
-                (click)="onItemClick(item)"
-                [cdkMenuTriggerFor]="subMenu"
-                *ngIf="menuComponent.menu as subMenu">
-          <mat-icon class="icon" *ngIf="item.icon">{{ item.icon }}</mat-icon>
-          {{ item.title }}
-          <span>&#10148;</span>
-        </button>
+    <div *ngIf="isAllowedToOpen" cdkMenu class="context-menu">
+        <ng-container *ngFor="let item of items">
+            <ng-container *ngIf="hasChildren(item); else leafNode">
+                <button (click)="onItemClick(item)" *ngIf="menuComponent.menu as subMenu"
+                        [attr.disabled]="(!item.disabled ? null:item.disabled)"
+                        [cdkMenuTriggerFor]="subMenu"
+                        cdkMenuItem
+                        class="context-menu-item">
+                    <mat-icon *ngIf="item.icon" class="icon">{{ item.icon }}</mat-icon>
+                    {{ item.title }}
+                    <span>&#10148;</span>
+                </button>
 
-        <license-context-menu #menuComponent [items]="item.entries!"></license-context-menu>
-      </ng-container>
-      <ng-template #leafNode>
-        <button class="context-menu-item" cdkMenuItem
-                (click)="onItemClick(item)"
-                [attr.disabled]="(!item.disabled ? null:item.disabled)">
-          <mat-icon class="icon" *ngIf="item.icon">{{ item.icon }}</mat-icon>
-          {{ item.title }}
-        </button>
-      </ng-template>
-    </ng-container>
-  </div>
+                <license-context-menu #menuComponent [items]="item.entries!"></license-context-menu>
+            </ng-container>
+            <ng-template #leafNode>
+                <button (click)="onItemClick(item)" [attr.disabled]="(!item.disabled ? null:item.disabled)"
+                        cdkMenuItem
+                        class="context-menu-item">
+                    <mat-icon *ngIf="item.icon" class="icon">{{ item.icon }}</mat-icon>
+                    {{ item.title }}
+                </button>
+            </ng-template>
+        </ng-container>
+    </div>
 </ng-template>

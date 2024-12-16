@@ -3,9 +3,9 @@
     <div style="display: flex">
         <mat-form-field class="license-form-field">
             <mat-label>{{ 'Filter' | translate }}</mat-label>
-            <input matInput [(ngModel)]="filterValue" (ngModelChange)="applyFilter()">
+            <input (ngModelChange)="applyFilter()" [(ngModel)]="filterValue" matInput>
             @if (filterValue) {
-                <button matSuffix mat-icon-button aria-label="Clear" (click)=".clearFilter()">
+                <button matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter()">
                     <mat-icon>close</mat-icon>
                 </button>
             }
@@ -21,41 +21,41 @@
     <mat-paginator [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons style="user-select: none">
 
     </mat-paginator>
-    <table mat-table matSort [dataSource]="dataSource" class="license-table">
+    <table [dataSource]="dataSource" class="license-table" mat-table matSort>
 
         <ng-container matColumnDef="licenseKey">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header
-                class="license-table-header">{{ 'License' | translate }}
+            <th *matHeaderCellDef class="license-table-header" mat-header-cell
+                mat-sort-header>{{ 'License' | translate }}
             </th>
-            <td mat-cell *matCellDef="let row" (contextmenu)="copyToClipboard($event, row)"
-                [class.license-selected]="row === selectedLicense.current">{{ row.licenseKey }}
+            <td (contextmenu)="copyToClipboard($event, row)" *matCellDef="let row" [class.license-selected]="row === selectedLicense.current"
+                mat-cell>{{ row.licenseKey }}
             </td>
         </ng-container>
 
         <ng-container matColumnDef="publisher">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header
-                class="license-table-header">{{ 'Publisher' | translate }}
+            <th *matHeaderCellDef class="license-table-header" mat-header-cell
+                mat-sort-header>{{ 'Publisher' | translate }}
             </th>
-            <td mat-cell *matCellDef="let row" (contextmenu)="copyToClipboard($event, row)"
-                [class.license-selected]="row === selectedLicense.current">{{ row.publisher }}
+            <td (contextmenu)="copyToClipboard($event, row)" *matCellDef="let row" [class.license-selected]="row === selectedLicense.current"
+                mat-cell>{{ row.publisher }}
             </td>
         </ng-container>
 
         <ng-container matColumnDef="notes">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header
-                class="license-table-header">{{ 'Notes' | translate }}
+            <th *matHeaderCellDef class="license-table-header" mat-header-cell
+                mat-sort-header>{{ 'Notes' | translate }}
             </th>
-            <td mat-cell *matCellDef="let row" (contextmenu)="copyToClipboard($event, row)"
-                [class.license-selected]="row === selectedLicense.current">{{ getShortedString(row.notes) }}
+            <td (contextmenu)="copyToClipboard($event, row)" *matCellDef="let row" [class.license-selected]="row === selectedLicense.current"
+                mat-cell>{{ getShortedString(row.notes) }}
             </td>
         </ng-container>
 
         <ng-container matColumnDef="valid">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header
-                class="license-table-header">{{ 'Valid' | translate }}
+            <th *matHeaderCellDef class="license-table-header" mat-header-cell
+                mat-sort-header>{{ 'Valid' | translate }}
             </th>
-            <td mat-cell *matCellDef="let row" (contextmenu)="copyToClipboard($event, row)"
-                [class.license-selected]="row === selectedLicense.current">
+            <td (contextmenu)="copyToClipboard($event, row)" *matCellDef="let row" [class.license-selected]="row === selectedLicense.current"
+                mat-cell>
                 @if (row.valid) {
                     <mat-icon class="license-green-icon">check_circle</mat-icon>
                 } @else {
@@ -66,40 +66,40 @@
         </ng-container>
 
         <ng-container matColumnDef="validUntil">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header
-                class="license-table-header">{{ 'Valid Until' | translate }}
+            <th *matHeaderCellDef class="license-table-header" mat-header-cell
+                mat-sort-header>{{ 'Valid Until' | translate }}
             </th>
-            <td mat-cell *matCellDef="let row"
-                (contextmenu)="copyToClipboard($event, row)"
-                [class.license-selected]="row === selectedLicense.current">{{ row.validUntil.toLocaleString() }}
+            <td (contextmenu)="copyToClipboard($event, row)" *matCellDef="let row"
+                [class.license-selected]="row === selectedLicense.current"
+                mat-cell>{{ row.validUntil.toLocaleString() }}
             </td>
         </ng-container>
 
         <ng-container matColumnDef="listMode">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header
-                class="license-table-header">{{ 'List-Mode' | translate }}
+            <th *matHeaderCellDef class="license-table-header" mat-header-cell
+                mat-sort-header>{{ 'List-Mode' | translate }}
             </th>
-            <td mat-cell *matCellDef="let row" (contextmenu)="copyToClipboard($event, row)"
-                [class.license-selected]="row === selectedLicense.current">{{ row.listMode }}
+            <td (contextmenu)="copyToClipboard($event, row)" *matCellDef="let row" [class.license-selected]="row === selectedLicense.current"
+                mat-cell>{{ row.listMode }}
             </td>
         </ng-container>
 
         <ng-container matColumnDef="ipAddresses">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header
-                class="license-table-header">{{ 'IP-Addresses' | translate }}
+            <th *matHeaderCellDef class="license-table-header" mat-header-cell
+                mat-sort-header>{{ 'IP-Addresses' | translate }}
             </th>
-            <td mat-cell *matCellDef="let row" (contextmenu)="copyToClipboard($event, row)"
-                [class.license-selected]="row === selectedLicense.current">{{ getShortedString(String(row.ipAddresses)) }}
+            <td (contextmenu)="copyToClipboard($event, row)" *matCellDef="let row" [class.license-selected]="row === selectedLicense.current"
+                mat-cell>{{ getShortedString(String(row.ipAddresses)) }}
             </td>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-        <tr mat-row
-            class="license-table-row"
-            [class.license-table-row-clicked]="selectedLicense.current === row"
-            *matRowDef="let row; columns: displayedColumns;"
+        <tr *matHeaderRowDef="displayedColumns; sticky: true" mat-header-row></tr>
+        <tr (click)="onRowClick(row)"
             (dblclick)="onRowDoubleClick(row)"
-            (click)="onRowClick(row)"
+            *matRowDef="let row; columns: displayedColumns;"
+            [class.license-table-row-clicked]="selectedLicense.current === row"
+            class="license-table-row"
+            mat-row
         ></tr>
 
     </table>

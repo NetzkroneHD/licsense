@@ -1,9 +1,9 @@
 <mat-form-field class="license-form-field">
-  <mat-label>{{ datePicker.label }}</mat-label>
-  <input matInput [matDatepicker]="picker" [formControl]="dateFormControl">
-  @if (datePicker.hint) {
-    <mat-hint>{{ datePicker.hint }}</mat-hint>
-  }
-  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-datepicker #picker></mat-datepicker>
+    <mat-label>{{ datePicker.label }}</mat-label>
+    <input [formControl]="dateFormControl" [matDatepicker]="picker" matInput>
+    @if (datePicker.hint) {
+        <mat-hint>{{ datePicker.hint }}</mat-hint>
+    }
+    <mat-datepicker-toggle [for]="picker" matIconSuffix></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
 </mat-form-field>

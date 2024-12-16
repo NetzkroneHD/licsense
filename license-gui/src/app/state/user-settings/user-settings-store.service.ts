@@ -9,11 +9,10 @@ import {LicenseDto} from '@license/license-api-client-typescript-fetch';
 export class UserSettingsStore {
 
     private readonly language = signal<string>('en');
-    private readonly authFailed = signal<boolean>(false);
-    private readonly selectedLicense = signal<undefined | LicenseDto>(undefined);
-
     public readonly getUserLanguage = this.language.asReadonly();
+    private readonly authFailed = signal<boolean>(false);
     public readonly getAuthFailed = this.authFailed.asReadonly();
+    private readonly selectedLicense = signal<undefined | LicenseDto>(undefined);
     public readonly getSelectedLicense = this.selectedLicense.asReadonly();
 
     constructor() {

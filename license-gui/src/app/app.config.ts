@@ -18,45 +18,45 @@ import {TranslatedMatPaginatorIntl} from '../assets/i18n/translated-mat-paginato
 import {MatPaginatorIntl} from '@angular/material/paginator';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
-  return new TranslateHttpLoader(http);
+    return new TranslateHttpLoader(http);
 }
 
 export const appConfig: ApplicationConfig = {
-  providers: [
-    provideRouter(routes),
-    provideAnimationsAsync(),
-    provideHttpClient(),
-    provideOAuthClient(),
-    provideMomentDateAdapter(environment.momentDateAdapter),
-    provideToastr({
-      closeButton: true,
-      progressBar: true,
-      preventDuplicates: true,
-      enableHtml: true,
-      positionClass: 'toast-bottom-right',
-    }),
-    importProvidersFrom([
-      TranslateModule.forRoot({
-        defaultLanguage: 'en',
-        loader: {
-          provide: TranslateLoader,
-          useFactory: HttpLoaderFactory,
-          deps: [HttpClient]
+    providers: [
+        provideRouter(routes),
+        provideAnimationsAsync(),
+        provideHttpClient(),
+        provideOAuthClient(),
+        provideMomentDateAdapter(environment.momentDateAdapter),
+        provideToastr({
+            closeButton: true,
+            progressBar: true,
+            preventDuplicates: true,
+            enableHtml: true,
+            positionClass: 'toast-bottom-right',
+        }),
+        importProvidersFrom([
+            TranslateModule.forRoot({
+                defaultLanguage: 'en',
+                loader: {
+                    provide: TranslateLoader,
+                    useFactory: HttpLoaderFactory,
+                    deps: [HttpClient]
+                }
+            }),
+        ]),
+        {provide: MatPaginatorIntl, useClass: TranslatedMatPaginatorIntl},
+        {
+            provide: LicenseApi,
+            useValue: new LicenseApiAdapter()
+        },
+        {
+            provide: LicenseCheckApi,
+            useValue: new LicenseCheckApiAdapter(),
+        },
+        {
+            provide: PublisherApi,
+            useValue: new PublisherApiAdapter()
         }
-      }),
-    ]),
-    {provide: MatPaginatorIntl, useClass: TranslatedMatPaginatorIntl},
-    {
-      provide: LicenseApi,
-      useValue: new LicenseApiAdapter()
-    },
-    {
-      provide: LicenseCheckApi,
-      useValue: new LicenseCheckApiAdapter(),
-    },
-    {
-      provide: PublisherApi,
-      useValue: new PublisherApiAdapter()
-    }
-  ]
+    ]
 };

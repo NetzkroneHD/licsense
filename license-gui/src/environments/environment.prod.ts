@@ -4,36 +4,36 @@ import {AuthConfig} from 'angular-oauth2-oidc';
 import {MatDateFormats} from '@angular/material/core';
 
 const momentDateAdapter: MatDateFormats = {
-  parse: {
-    dateInput: 'DD.MM.YYYY',
-  },
-  display: {
-    dateInput: 'DD.MM.YYYY',
-    monthYearLabel: 'MMM YYYY',
-    dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'MMMM-YYYY',
-  }
+    parse: {
+        dateInput: 'DD.MM.YYYY',
+    },
+    display: {
+        dateInput: 'DD.MM.YYYY',
+        monthYearLabel: 'MMM YYYY',
+        dateA11yLabel: 'LL',
+        monthYearA11yLabel: 'MMMM-YYYY',
+    }
 }
 
 const authCodeFlowConfig: AuthConfig = {
-  issuer: 'http://localhost:8082/realms/license',
-  requireHttps: false,
-  redirectUri: window.location.origin,
-  clientId: 'license-client',
-  responseType: 'code',
-  scope: 'openid',
+    issuer: 'http://localhost:8082/realms/license',
+    requireHttps: false,
+    redirectUri: window.location.origin,
+    clientId: 'license-client',
+    responseType: 'code',
+    scope: 'openid',
 }
 
 export const apiConfig: Configuration = new Configuration({
-  basePath: "http://localhost:4200/license/api/v1".replace(/\/+$/, ""),
+    basePath: "http://localhost:4200/license/api/v1".replace(/\/+$/, ""),
 });
 
 export const environment = {
-  title: 'License Client (' + pkg.version + ')',
-  production: true,
-  authConfig: authCodeFlowConfig,
-  apiConfig: apiConfig,
-  momentDateAdapter: momentDateAdapter,
-  accountSettingsUrl: new URL('http://localhost:8082/realms/license/account'),
-  userSettingsKey: 'license.userSettings'
+    title: 'License Client (' + pkg.version + ')',
+    production: true,
+    authConfig: authCodeFlowConfig,
+    apiConfig: apiConfig,
+    momentDateAdapter: momentDateAdapter,
+    accountSettingsUrl: new URL('http://localhost:8082/realms/license/account'),
+    userSettingsKey: 'license.userSettings'
 };

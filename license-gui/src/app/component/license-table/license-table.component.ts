@@ -17,6 +17,6 @@ import {MatSort} from '@angular/material/sort';
 })
 export class LicenseTableComponent {
 
-  @Input() loading = false;
+    @Input() loading = false;
 
 }

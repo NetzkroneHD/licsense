@@ -16,17 +16,17 @@ import java.util.Map;
 @Slf4j
 public class LicenseSystemApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(LicenseSystemApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(LicenseSystemApplication.class, args);
+    }
 
-	@EventListener
-	public void handleContextRefresh(ContextRefreshedEvent event) {
-		final ApplicationContext applicationContext = event.getApplicationContext();
-		final RequestMappingHandlerMapping requestMappingHandlerMapping = applicationContext.getBean("requestMappingHandlerMapping", RequestMappingHandlerMapping.class);
-		final Map<RequestMappingInfo, HandlerMethod> map = requestMappingHandlerMapping.getHandlerMethods();
+    @EventListener
+    public void handleContextRefresh(ContextRefreshedEvent event) {
+        final ApplicationContext applicationContext = event.getApplicationContext();
+        final RequestMappingHandlerMapping requestMappingHandlerMapping = applicationContext.getBean("requestMappingHandlerMapping", RequestMappingHandlerMapping.class);
+        final Map<RequestMappingInfo, HandlerMethod> map = requestMappingHandlerMapping.getHandlerMethods();
 
-		map.forEach((key, value) -> log.info("{} {}", key, value));
-	}
+        map.forEach((key, value) -> log.info("{} {}", key, value));
+    }
 
 }
