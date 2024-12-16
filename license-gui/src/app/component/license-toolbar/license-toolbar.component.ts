@@ -13,7 +13,6 @@ import {LicenseDialogService} from '../license-dialog/license-dialog.service';
 
 @Component({
     selector: 'license-toolbar',
-    standalone: true,
     imports: [
         MatIconButton,
         MatIcon,

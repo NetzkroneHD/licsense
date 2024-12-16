@@ -7,17 +7,15 @@ import {MatCheckbox} from '@angular/material/checkbox';
 import {FormsModule} from '@angular/forms';
 
 @Component({
-  selector: 'license-choice',
-  standalone: true,
-  imports: [
-    NgTemplateOutlet,
-    MatMenu,
-    MatCheckbox,
-    FormsModule
-
-  ],
-  templateUrl: './license-choice.component.html',
-  styleUrl: './license-choice.component.scss'
+    selector: 'license-choice',
+    imports: [
+        NgTemplateOutlet,
+        MatMenu,
+        MatCheckbox,
+        FormsModule
+    ],
+    templateUrl: './license-choice.component.html',
+    styleUrl: './license-choice.component.scss'
 })
 export class LicenseChoiceMenuComponent {
 

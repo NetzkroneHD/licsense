@@ -7,21 +7,20 @@ import {LicenseInput} from './license-input.interface';
 import {FormBuilder, FormControl, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
-  selector: 'license-input',
-  standalone: true,
-  imports: [
-    MatFormField,
-    MatInput,
-    MatHint,
-    MatIconButton,
-    MatIcon,
-    ReactiveFormsModule,
-    MatLabel,
-    MatError,
-    MatSuffix
-  ],
-  templateUrl: './license-input.component.html',
-  styleUrl: './license-input.component.scss'
+    selector: 'license-input',
+    imports: [
+        MatFormField,
+        MatInput,
+        MatHint,
+        MatIconButton,
+        MatIcon,
+        ReactiveFormsModule,
+        MatLabel,
+        MatError,
+        MatSuffix
+    ],
+    templateUrl: './license-input.component.html',
+    styleUrl: './license-input.component.scss'
 })
 export class LicenseInputComponent implements OnInit {
 

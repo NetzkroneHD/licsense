@@ -11,23 +11,22 @@ import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {LicenseDateSinglePicker} from './license-date-picker.interface';
 
 @Component({
-  selector: 'license-date-single-picker',
-  standalone: true,
-  imports: [
-    MatFormField,
-    MatInput,
-    MatDatepickerInput,
-    ReactiveFormsModule,
-    MatDatepickerToggle,
-    MatDatepicker,
-    MatHint,
-    MatLabel,
-    MatFormFieldModule,
-    MatInputModule,
-    MatDatepickerModule
-  ],
-  templateUrl: './license-date-single-picker.component.html',
-  styleUrl: './license-date-single-picker.component.scss'
+    selector: 'license-date-single-picker',
+    imports: [
+        MatFormField,
+        MatInput,
+        MatDatepickerInput,
+        ReactiveFormsModule,
+        MatDatepickerToggle,
+        MatDatepicker,
+        MatHint,
+        MatLabel,
+        MatFormFieldModule,
+        MatInputModule,
+        MatDatepickerModule
+    ],
+    templateUrl: './license-date-single-picker.component.html',
+    styleUrl: './license-date-single-picker.component.scss'
 })
 export class LicenseDateSinglePickerComponent {
 

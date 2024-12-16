@@ -7,11 +7,10 @@ import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {LicenseDatePicker} from './license-date-picker.interface';
 
 @Component({
-  selector: 'license-date-picker',
-  standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatDatepickerModule, MatButtonModule, ReactiveFormsModule],
-  templateUrl: './license-date-picker.component.html',
-  styleUrl: './license-date-picker.component.scss'
+    selector: 'license-date-picker',
+    imports: [MatFormFieldModule, MatInputModule, MatDatepickerModule, MatButtonModule, ReactiveFormsModule],
+    templateUrl: './license-date-picker.component.html',
+    styleUrl: './license-date-picker.component.scss'
 })
 export class LicenseDatePickerComponent {
 

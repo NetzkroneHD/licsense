@@ -5,16 +5,15 @@ import {MatTable} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
 
 @Component({
-  selector: 'license-table',
-  standalone: true,
-  imports: [
-    MatProgressBar,
-    MatPaginator,
-    MatTable,
-    MatSort
-  ],
-  templateUrl: './license-table.component.html',
-  styleUrl: './license-table.component.scss',
+    selector: 'license-table',
+    imports: [
+        MatProgressBar,
+        MatPaginator,
+        MatTable,
+        MatSort
+    ],
+    templateUrl: './license-table.component.html',
+    styleUrl: './license-table.component.scss'
 })
 export class LicenseTableComponent {
 

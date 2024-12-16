@@ -16,18 +16,17 @@ import {LicenseDropdownMenuItem} from './license-dropdown-menu-item.interface';
 import {MatIconModule} from '@angular/material/icon';
 
 @Component({
-  selector: 'license-dropdown-menu',
-  standalone: true,
-  templateUrl: './license-dropdown-menu.component.html',
-  styleUrls: ['./license-dropdown-menu.component.scss'],
-  imports: [
-    NgForOf,
-    NgIf,
-    MatMenuModule,
-    MatButtonModule,
-    NgTemplateOutlet,
-    MatIconModule
-  ]
+    selector: 'license-dropdown-menu',
+    templateUrl: './license-dropdown-menu.component.html',
+    styleUrls: ['./license-dropdown-menu.component.scss'],
+    imports: [
+        NgForOf,
+        NgIf,
+        MatMenuModule,
+        MatButtonModule,
+        NgTemplateOutlet,
+        MatIconModule
+    ]
 })
 export class LicenseDropdownMenuComponent implements AfterViewChecked, OnDestroy {
 

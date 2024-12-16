@@ -31,37 +31,36 @@ import {
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 
 @Component({
-  selector: 'license-edit',
-  standalone: true,
-  imports: [
-    MatButton,
-    MatDialogActions,
-    MatDialogContent,
-    MatDialogTitle,
-    CdkTrapFocus,
-    MatDialogClose,
-    MatFormField,
-    MatIcon,
-    MatIconButton,
-    MatInput,
-    MatLabel,
-    ReactiveFormsModule,
-    TranslateModule,
-    FormsModule,
-    MatHint,
-    MatSlideToggle,
-    LicenseDateSinglePickerComponent,
-    CdkDrag,
-    CdkDragHandle,
-    MatRadioGroup,
-    MatRadioButton,
-    MatChipGrid,
-    MatChipRow,
-    MatChipInput,
-    MatChipRemove
-  ],
-  templateUrl: './license-edit.component.html',
-  styleUrl: './license-edit.component.scss'
+    selector: 'license-edit',
+    imports: [
+        MatButton,
+        MatDialogActions,
+        MatDialogContent,
+        MatDialogTitle,
+        CdkTrapFocus,
+        MatDialogClose,
+        MatFormField,
+        MatIcon,
+        MatIconButton,
+        MatInput,
+        MatLabel,
+        ReactiveFormsModule,
+        TranslateModule,
+        FormsModule,
+        MatHint,
+        MatSlideToggle,
+        LicenseDateSinglePickerComponent,
+        CdkDrag,
+        CdkDragHandle,
+        MatRadioGroup,
+        MatRadioButton,
+        MatChipGrid,
+        MatChipRow,
+        MatChipInput,
+        MatChipRemove
+    ],
+    templateUrl: './license-edit.component.html',
+    styleUrl: './license-edit.component.scss'
 })
 export class LicenseEditComponent implements AfterViewInit {
 

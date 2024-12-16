@@ -6,12 +6,11 @@ import {LicenseConfirmDialogData} from './license-confirm.interface';
 import {CdkDrag, CdkDragHandle} from '@angular/cdk/drag-drop';
 
 @Component({
-  selector: 'license-dialog-confirm',
-  standalone: true,
+    selector: 'license-dialog-confirm',
     imports: [MatDialogModule, MatButtonModule, A11yModule, CdkDrag, CdkDragHandle],
-  templateUrl: './license-confirm.component.html',
-  styleUrls: ['./license-confirm.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    templateUrl: './license-confirm.component.html',
+    styleUrls: ['./license-confirm.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LicenseConfirmComponent {
 

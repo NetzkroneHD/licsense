@@ -4,14 +4,13 @@ import {FileService} from '../../service/file.service';
 import {TranslateModule} from '@ngx-translate/core';
 
 @Component({
-  selector: 'license-signature',
-  standalone: true,
-  imports: [
-    MatButton,
-    TranslateModule
-  ],
-  templateUrl: './signature.component.html',
-  styleUrl: './signature.component.scss'
+    selector: 'license-signature',
+    imports: [
+        MatButton,
+        TranslateModule
+    ],
+    templateUrl: './signature.component.html',
+    styleUrl: './signature.component.scss'
 })
 export class SignatureComponent {
 

@@ -11,27 +11,26 @@ import {MatTooltip} from '@angular/material/tooltip';
 import {MatBadge} from '@angular/material/badge';
 
 @Component({
-  selector: 'license-sidenav',
-  standalone: true,
-  imports: [
-    MatSidenav,
-    MatSidenavContainer,
-    MatNavList,
-    MatListItem,
-    MatIcon,
-    MatIconButton,
-    CdkDropList,
-    CdkDragHandle,
-    LicenseSidenavGroupMapperPipe,
-    KeyValuePipe,
-    CdkDrag,
-    MatTooltip,
-    NgForOf,
-    MatBadge,
-    MatSidenavContent
-  ],
-  templateUrl: './license-sidenav.component.html',
-  styleUrl: './license-sidenav.component.scss'
+    selector: 'license-sidenav',
+    imports: [
+        MatSidenav,
+        MatSidenavContainer,
+        MatNavList,
+        MatListItem,
+        MatIcon,
+        MatIconButton,
+        CdkDropList,
+        CdkDragHandle,
+        LicenseSidenavGroupMapperPipe,
+        KeyValuePipe,
+        CdkDrag,
+        MatTooltip,
+        NgForOf,
+        MatBadge,
+        MatSidenavContent
+    ],
+    templateUrl: './license-sidenav.component.html',
+    styleUrl: './license-sidenav.component.scss'
 })
 export class LicenseSidenavComponent {
 

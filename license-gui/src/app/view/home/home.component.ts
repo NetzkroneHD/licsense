@@ -31,7 +31,6 @@ import {NotificationStoreService} from '../../state/notification/notification.se
 
 @Component({
     selector: 'license-home',
-    standalone: true,
     imports: [
         MatFormField,
         MatInput,

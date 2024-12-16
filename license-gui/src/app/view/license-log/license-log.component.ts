@@ -24,7 +24,6 @@ import {LicenseDialogService} from '../../component/license-dialog/license-dialo
 
 @Component({
     selector: 'license-license-log',
-    standalone: true,
     imports: [
         MatRowDef,
         MatRow,

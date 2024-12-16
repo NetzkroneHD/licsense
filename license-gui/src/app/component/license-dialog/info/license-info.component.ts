@@ -8,12 +8,11 @@ import {A11yModule} from '@angular/cdk/a11y';
 import {CdkDrag, CdkDragHandle} from '@angular/cdk/drag-drop';
 
 @Component({
-  selector: 'license-dialog-info',
-  standalone: true,
+    selector: 'license-dialog-info',
     imports: [MatIconModule, MatDialogModule, MatButtonModule, A11yModule, CdkDrag, CdkDragHandle],
-  templateUrl: './license-info.component.html',
-  styleUrls: ['./license-info.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    templateUrl: './license-info.component.html',
+    styleUrls: ['./license-info.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LicenseInfoComponent {
 

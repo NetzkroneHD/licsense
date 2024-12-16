@@ -18,20 +18,19 @@ import {uiItems} from '../environments/ui-items';
 import {UserSettingsStore} from './state/user-settings/user-settings-store.service';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [
-    MatToolbar,
-    RouterOutlet,
-    MatIconButton,
-    MatIcon,
-    LicenseDropdownMenuComponent,
-    MatMenuTrigger,
-    TranslateModule,
-    LicenseSidenavComponent
-  ],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+    selector: 'app-root',
+    imports: [
+        MatToolbar,
+        RouterOutlet,
+        MatIconButton,
+        MatIcon,
+        LicenseDropdownMenuComponent,
+        MatMenuTrigger,
+        TranslateModule,
+        LicenseSidenavComponent
+    ],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
 

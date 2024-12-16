@@ -23,23 +23,22 @@ import {NgForOf, NgIf, NgTemplateOutlet} from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
 
 @Component({
-  selector: 'license-context-menu',
-  standalone: true,
-  templateUrl: './license-context-menu.component.html',
-  styleUrls: ['./license-context-menu.component.scss'],
-  imports: [
-    CdkMenu,
-    CdkMenuItem,
-    CdkContextMenuTrigger,
-    NgForOf,
-    NgIf,
-    NgTemplateOutlet,
-    CdkMenuTrigger,
-    CdkMenuGroup,
-    CdkMenuItemCheckbox,
-    CdkMenuItemRadio,
-    MatIconModule
-  ]
+    selector: 'license-context-menu',
+    templateUrl: './license-context-menu.component.html',
+    styleUrls: ['./license-context-menu.component.scss'],
+    imports: [
+        CdkMenu,
+        CdkMenuItem,
+        CdkContextMenuTrigger,
+        NgForOf,
+        NgIf,
+        NgTemplateOutlet,
+        CdkMenuTrigger,
+        CdkMenuGroup,
+        CdkMenuItemCheckbox,
+        CdkMenuItemRadio,
+        MatIconModule
+    ]
 })
 export class LicenseContextMenuComponent implements AfterViewChecked, OnDestroy {
 
