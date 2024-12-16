@@ -3,6 +3,7 @@ package de.netzkronehd.license.controller;
 import de.netzkronehd.license.api.server.springboot.api.CheckApi;
 import de.netzkronehd.license.api.server.springboot.models.LicenseCheckResultDto;
 import de.netzkronehd.license.exception.ListModeException;
+import de.netzkronehd.license.exception.NoKeyModelException;
 import de.netzkronehd.license.exception.RateLimitExceededException;
 import de.netzkronehd.license.mapper.LicenseMapper;
 import de.netzkronehd.license.service.LicenseCheckService;
@@ -44,6 +45,8 @@ public class CheckController implements CheckApi {
             return ResponseEntity.internalServerError().build();
         } catch (RateLimitExceededException e) {
             return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build();
+        } catch (NoKeyModelException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
     }
 }

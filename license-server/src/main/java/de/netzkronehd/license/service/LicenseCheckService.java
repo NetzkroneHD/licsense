@@ -2,12 +2,10 @@ package de.netzkronehd.license.service;
 
 import de.netzkronehd.license.config.LicenseConfig;
 import de.netzkronehd.license.exception.ListModeException;
+import de.netzkronehd.license.exception.NoKeyModelException;
 import de.netzkronehd.license.exception.PermissionException;
 import de.netzkronehd.license.listmode.behavior.ListBehaviorResult;
-import de.netzkronehd.license.model.LicenseCheckResult;
-import de.netzkronehd.license.model.LicenseLogModel;
-import de.netzkronehd.license.model.LicenseModel;
-import de.netzkronehd.license.model.OAuth2Model;
+import de.netzkronehd.license.model.*;
 import de.netzkronehd.license.utils.Utils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.security.GeneralSecurityException;
+import java.security.spec.InvalidKeySpecException;
 import java.time.OffsetDateTime;
 import java.util.List;
 
@@ -51,7 +50,7 @@ public class LicenseCheckService {
         return publisherService.getLicenses(publisher);
     }
 
-    public LicenseCheckResult checkLicense(String ip, String licenseKey) throws ListModeException, GeneralSecurityException {
+    public LicenseCheckResult checkLicense(String ip, String licenseKey) throws ListModeException, GeneralSecurityException, NoKeyModelException {
         final LicenseModel license = licenseService.getLicense(licenseKey);
         final LicenseLogModel licenseLog = new LicenseLogModel();
         licenseLog.setIp(ip);
@@ -72,8 +71,14 @@ public class LicenseCheckService {
             this.licenseService.save(license);
         }
         log.info("Checked license '{}' by '{}'.", licenseKey, ip);
-        return new LicenseCheckResult(licenseKey, license.getPublisher(), license.getNotes(), license.isValid(), license.getValidUntil(), keyService.encrypt(Utils.getRandomString(licenseConfig.getSignatureLength())));
+        return new LicenseCheckResult(licenseKey, license.getPublisher(), license.getNotes(), license.isValid(), license.getValidUntil(), generateSignature(license.getPublisher()));
     }
+
+    private String generateSignature(String owner) throws GeneralSecurityException, NoKeyModelException {
+        final LicenseKeyModel licenseKeyModel = keyService.getLicenseKeyModel(owner);
+        return keyService.encrypt(Utils.getRandomString(licenseConfig.getSignatureLength()), keyService.loadPrivateKey(licenseKeyModel.getPrivateKey()));
+    }
+
 
     public LicenseModel updateLicense(String license, String publisher, LicenseModel update) throws PermissionException {
         checkPublisher(publisher);

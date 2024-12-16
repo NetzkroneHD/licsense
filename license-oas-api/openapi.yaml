@@ -5,6 +5,59 @@ info:
   version: 1.0.0
 
 paths:
+  /key:
+    get:
+      security:
+        - bearerAuth: [ ]
+        - OAuth2:
+            - key:read
+      operationId: getKeys
+      tags:
+        - Key
+      description: Gets all keys
+      responses:
+        200:
+          $ref: '#/components/responses/LicenseKeyModelsResponse'
+    post:
+      security:
+        - bearerAuth: [ ]
+        - OAuth2:
+            - key:write
+      operationId: generateKey
+      parameters:
+        - name: keySize
+          in: query
+          description: Size of the key
+          required: false
+          schema:
+            type: integer
+            default: 2048
+      tags:
+        - Key
+      description: Generates a new key
+      responses:
+        200:
+          description: Key generated
+  /key/{owner}:
+    get:
+      description: Get a key of an owner
+      security:
+        - bearerAuth: [ ]
+        - OAuth2:
+            - key:read
+      operationId: getKey
+      parameters:
+        - name: owner
+          in: path
+          description: Owner of the key
+          required: true
+          schema:
+            type: string
+      tags:
+        - Key
+      responses:
+        200:
+          $ref: '#/components/responses/LicenseKeyModelResponse'
   /publisher/{publisher}/license:
     get:
       security:
@@ -158,6 +211,8 @@ paths:
 security:
   - bearerAuth: [ ]
   - OAuth2:
+      - key:read
+      - key:write
       - publisher:read
       - publisher:write
       - logs:read
@@ -175,6 +230,20 @@ components:
           schema:
             $ref: '#/components/schemas/License'
   responses:
+    LicenseKeyModelsResponse:
+      description: License Key response
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/LicenseKey'
+    LicenseKeyModelResponse:
+      description: License Key response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LicenseKey'
     LicenseCheckResponse:
       description: License invalid
       content:
@@ -243,6 +312,23 @@ components:
     ListBehaviorResult:
       type: string
       enum: [ ALLOW, DISALLOW ]
+    LicenseKey:
+      description: Key of the license
+      type: object
+      required:
+        - owner
+        - privateKey
+        - publicKey
+      properties:
+        owner:
+          description: Owner of the key
+          type: string
+        privateKey:
+          description: Private key
+          type: string
+        publicKey:
+          description: Public key
+          type: string
     License:
       description: License
       type: object

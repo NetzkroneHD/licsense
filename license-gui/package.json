@@ -21,7 +21,7 @@
         "@angular/platform-browser": "^19.0.4",
         "@angular/platform-browser-dynamic": "^19.0.4",
         "@angular/router": "^19.0.4",
-        "@license/license-api-client-typescript-fetch": "file:..\\license-oas-api\\target\\typescript\\license-license-api-client-typescript-fetch-1.0.0.tgz",
+        "@license/license-api-client-typescript-fetch": "file:../license-oas-api/target/typescript/license-license-api-client-typescript-fetch-1.0.0.tgz",
         "@ngx-translate/core": "^15.0.0",
         "@ngx-translate/http-loader": "^8.0.0",
         "angular-oauth2-oidc": "^17.0.2",
@@ -32,10 +32,10 @@
         "zone.js": "~0.15.0"
     },
     "devDependencies": {
-        "@rollup/rollup-linux-x64-gnu": "^4.25.0",
         "@angular-devkit/build-angular": "^19.0.5",
         "@angular/cli": "^19.0.5",
         "@angular/compiler-cli": "^19.0.4",
+        "@rollup/rollup-linux-x64-gnu": "^4.25.0",
         "@types/jasmine": "~5.1.0",
         "jasmine-core": "~5.1.0",
         "karma": "~6.4.0",
