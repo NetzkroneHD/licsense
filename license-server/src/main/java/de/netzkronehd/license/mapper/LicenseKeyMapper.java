@@ -13,14 +13,9 @@ import java.util.List;
 @AllArgsConstructor(onConstructor_ = {@Autowired})
 public class LicenseKeyMapper {
 
-    public LicenseKeyModel map(LicenseKeyDto dto) {
-        return new LicenseKeyModel(dto.getOwner(), dto.getPrivateKey(), dto.getPublicKey());
-    }
-
     public LicenseKeyDto map(LicenseKeyModel model) {
         return new LicenseKeyDto()
                 .owner(model.getOwner())
-                .privateKey(model.getPrivateKey())
                 .publicKey(model.getPublicKey());
     }
 

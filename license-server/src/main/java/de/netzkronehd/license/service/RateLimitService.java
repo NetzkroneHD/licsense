@@ -21,16 +21,13 @@ public class RateLimitService {
     @Getter
     private final Cache<String, Long> ipCache;
 
-    private final Timer timer;
-
     @Autowired
     public RateLimitService(LicenseConfig licenseConfig) {
         this.licenseConfig = licenseConfig;
         this.ipCache = CacheBuilder.newBuilder()
                 .expireAfterWrite(Duration.ofMinutes(licenseConfig.getRateLimitCacheExpiration()))
                 .build();
-        timer = new Timer();
-        timer.schedule(new TimerTask() {
+        new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
                 ipCache.cleanUp();
@@ -39,6 +36,10 @@ public class RateLimitService {
     }
 
     public void checkRateLimit(String ip, String method) throws RateLimitExceededException {
+        checkRateLimit(ip, method, licenseConfig.getRateLimit());
+    }
+
+    public void checkRateLimit(String ip, String method, int rateLimit) throws RateLimitExceededException {
         final String key = ip + "-" + method;
         long count;
         try {
@@ -47,7 +48,7 @@ public class RateLimitService {
             count = 1;
         }
         ipCache.put(key, count);
-        if (count > licenseConfig.getRateLimit()) {
+        if (count > rateLimit) {
             throw new RateLimitExceededException("Rate limit exceeded (" + count + "/" + licenseConfig.getRateLimit() + ")");
         }
     }

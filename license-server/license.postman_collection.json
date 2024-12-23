@@ -7,23 +7,452 @@
 	},
 	"item": [
 		{
-			"name": "create license",
+			"name": "license",
+			"item": [
+				{
+					"name": "createLicense",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"licenseKey\": \"r35139uui9wIpQT68U8bxp1tGryDR35Yv9dRtAItlNgHe91dLh\",\r\n    \"publisher\": \"{{publisher}}\",\r\n    \"notes\": \"\",\r\n    \"valid\": true,\r\n    \"validUntil\": \"2029-02-13T19:45:49.334577Z\",\r\n    \"listMode\": \"BLACKLIST\",\r\n    \"ipAddresses\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/license",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"license"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getLicense",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/license/:license",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"license",
+								":license"
+							],
+							"variable": [
+								{
+									"key": "license",
+									"value": "{{license}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getLicenses",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/publisher/:publisher/license",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"publisher",
+								":publisher",
+								"license"
+							],
+							"variable": [
+								{
+									"key": "publisher",
+									"value": "{{publisher}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "checkLicense",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/check/:license",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"check",
+								":license"
+							],
+							"variable": [
+								{
+									"key": "license",
+									"value": "{{license}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateLicense",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"licenseKey\": \"xAEX7zANo13lQfIA3ZKYyfZuaT3ZjdWMOlW7cdumhgtULlN07K\",\r\n    \"publisher\": \"{{publisher}}\",\r\n    \"notes\": \"\",\r\n    \"valid\": true,\r\n    \"validUntil\": \"2029-02-13T19:45:49.334577Z\",\r\n    \"listMode\": \"BLACKLIST\",\r\n    \"ipAddresses\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/license/:license",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"license",
+								":license"
+							],
+							"variable": [
+								{
+									"key": "license",
+									"value": "{{license}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteLicense",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/license/:license",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"license",
+								":license"
+							],
+							"variable": [
+								{
+									"key": "license",
+									"value": "{{license}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "logs",
+			"item": [
+				{
+					"name": "getLogs",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/logs/:license",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"logs",
+								":license"
+							],
+							"variable": [
+								{
+									"key": "license",
+									"value": "{{license}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteLogs",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/logs/:license",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"logs",
+								":license"
+							],
+							"variable": [
+								{
+									"key": "license",
+									"value": "{{license}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "key",
+			"item": [
+				{
+					"name": "generateKey",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"licenseKey\": \"r35139uui9wIpQT68U8bxp1tGryDR35Yv9dRtAItlNgHe91dLh\",\r\n    \"publisher\": \"c0b2963b-2594-4466-aed2-f158d71c6010\",\r\n    \"notes\": \"\",\r\n    \"valid\": true,\r\n    \"validUntil\": \"2029-02-13T19:45:49.334577Z\",\r\n    \"listMode\": \"WHITELIST\",\r\n    \"ipAddresses\": [\"172.22.0.1\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/key?keySize=5120",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"key"
+							],
+							"query": [
+								{
+									"key": "keySize",
+									"value": "5120"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getKey",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"licenseKey\": \"r35139uui9wIpQT68U8bxp1tGryDR35Yv9dRtAItlNgHe91dLh\",\r\n    \"publisher\": \"c0b2963b-2594-4466-aed2-f158d71c6010\",\r\n    \"notes\": \"\",\r\n    \"valid\": true,\r\n    \"validUntil\": \"2029-02-13T19:45:49.334577Z\",\r\n    \"listMode\": \"WHITELIST\",\r\n    \"ipAddresses\": [\"172.22.0.1\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/key/{{publisher}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"key",
+								"{{publisher}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteKey",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"licenseKey\": \"r35139uui9wIpQT68U8bxp1tGryDR35Yv9dRtAItlNgHe91dLh\",\r\n    \"publisher\": \"c0b2963b-2594-4466-aed2-f158d71c6010\",\r\n    \"notes\": \"\",\r\n    \"valid\": true,\r\n    \"validUntil\": \"2029-02-13T19:45:49.334577Z\",\r\n    \"listMode\": \"WHITELIST\",\r\n    \"ipAddresses\": [\"172.22.0.1\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/key/{{publisher}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"key",
+								"{{publisher}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "health",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
-				"method": "POST",
+				"method": "GET",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"licenseKey\": \"string\",\n  \"publisher\": \"string\",\n  \"notes\": \"string\",\n  \"valid\": true,\n  \"validUntil\": \"2023-12-09T19:28:55.430Z\"\n}",
+					"raw": "{\r\n  \"licenseKey\": \"string\",\r\n  \"publisher\": \"me\",\r\n  \"notes\": \"\",\r\n  \"valid\": true,\r\n  \"validUntil\": \"2023-12-15T12:10:18.067Z\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -31,170 +460,15 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/api/v1/license",
+					"raw": "{{host}}/api/v1/actuator/health",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
 						"api",
 						"v1",
-						"license"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "get license",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{host}}/api/v1/license/:license",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"license",
-						":license"
-					],
-					"variable": [
-						{
-							"key": "license",
-							"value": "asdfasdf",
-							"description": "The license to get"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "update license",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"licenseKey\": \"string\",\n  \"publisher\": \"string\",\n  \"notes\": \"string\",\n  \"valid\": true,\n  \"validUntil\": \"2023-12-09T19:28:55.430Z\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{host}}/api/v1/license/:license",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"license",
-						":license"
-					],
-					"variable": [
-						{
-							"key": "license",
-							"value": "asdfasdf",
-							"description": "The license to update"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "delete license",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "{{host}}/api/v1/license/:license",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"license",
-						":license"
-					],
-					"variable": [
-						{
-							"key": "license",
-							"value": "asdfasdf",
-							"description": "The license to get"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "get logs",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{host}}/api/v1/logs/:license",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"logs",
-						":license"
-					],
-					"variable": [
-						{
-							"key": "license",
-							"value": "asdfasdf"
-						}
+						"actuator",
+						"health"
 					]
 				}
 			},
@@ -206,27 +480,27 @@
 		"oauth2": [
 			{
 				"key": "clientSecret",
-				"value": "7CHdYlPpft8Pnqfg3t90tnmJNqIIM3hi",
+				"value": "SE75mgzFoI4ju8ANIxYbLUXlzLjg5V43",
+				"type": "string"
+			},
+			{
+				"key": "tokenName",
+				"value": "license",
+				"type": "string"
+			},
+			{
+				"key": "accessTokenUrl",
+				"value": "{{access_token_url}}",
+				"type": "string"
+			},
+			{
+				"key": "authUrl",
+				"value": "{{auth_url}}",
 				"type": "string"
 			},
 			{
 				"key": "clientId",
 				"value": "license-client",
-				"type": "string"
-			},
-			{
-				"key": "authUrl",
-				"value": "http://localhost:8082/realms/license/protocol/openid-connect/auth",
-				"type": "string"
-			},
-			{
-				"key": "accessTokenUrl",
-				"value": "http://localhost:8082/realms/license/protocol/openid-connect/token",
-				"type": "string"
-			},
-			{
-				"key": "tokenName",
-				"value": "spring-demo",
 				"type": "string"
 			},
 			{
@@ -273,13 +547,33 @@
 	],
 	"variable": [
 		{
+			"key": "access_token_url",
+			"value": "http://localhost/auth/realms/license/protocol/openid-connect/token",
+			"type": "string"
+		},
+		{
 			"key": "host",
-			"value": "http://localhost:8080",
+			"value": "http://localhost:8080/license",
+			"type": "string"
+		},
+		{
+			"key": "auth_url",
+			"value": "http://localhost:8082/realms/spring-realm/protocol/openid-connect/auth",
 			"type": "string"
 		},
 		{
 			"key": "token",
-			"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJja3Vyb2planY5U240cGxoRURzUTAta3U4bkV1eU5kY0VBczBGQ0FIelFvIn0.eyJleHAiOjE3MDIxMjgwMDksImlhdCI6MTcwMjEyNzcwOSwiYXV0aF90aW1lIjoxNzAyMTI3NzA4LCJqdGkiOiIyMmVjYzRhNi02MzY0LTRkYzEtYTQ5YS00NTgwYTk5MWY0NGMiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODIvcmVhbG1zL2xpY2Vuc2UiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiYzBiMjk2M2ItMjU5NC00NDY2LWFlZDItZjE1OGQ3MWM2MDEwIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoibGljZW5zZS1jbGllbnQiLCJzZXNzaW9uX3N0YXRlIjoiYjcxNWVhZGUtYjlmNC00NWZhLWFjNWItMTk2ZmYyODJmOTdkIiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyIqIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsIlJPTEVfQURNSU4iLCJkZWZhdWx0LXJvbGVzLWxpY2Vuc2UiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoib3BlbmlkIGVtYWlsIHByb2ZpbGUiLCJzaWQiOiJiNzE1ZWFkZS1iOWY0LTQ1ZmEtYWM1Yi0xOTZmZjI4MmY5N2QiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsInByZWZlcnJlZF91c2VybmFtZSI6ImxpY2Vuc2UtcmVnaXN0ZXIifQ.il9nKlnKPMHCgLvvAtkF6x9CdLjBb6acOymvqcBwelrdV71nN2_eww_99QiuQ_1fZrIj2H2ELvPmNbymSz8VkFQZVC7xq9WAaA86lC8Fx8Ya6VrtziWKTSCdsEhOd_UajuJihQPcmcOZn6kIHdkFY6_UZHgVFrdrHpqmSNiTP7kooTbGg3QcBc387-8PwPneybVBIX9kss9e8sSoJOnxmOGHONodAXQ2Kc5YeJasfldbUNibUfIGc-_m97CeSmAI6nypRp5PeYWo5UUeJyeSq--eixtmttqTSz_zzULDXMdor7X-_HA2mZOnCve58SaoxDvU9v4uLmZxZQBLhAQXQw",
+			"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJja3Vyb2planY5U240cGxoRURzUTAta3U4bkV1eU5kY0VBczBGQ0FIelFvIn0.eyJleHAiOjE3MDgxMjQ0MDksImlhdCI6MTcwODEyMjYwOSwiYXV0aF90aW1lIjoxNzA4MTIwOTM5LCJqdGkiOiJhYzNmZTY2Mi0zMzY5LTRhMzgtOTQzNy03YTgwOTI2YWVhOTQiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODIvcmVhbG1zL2xpY2Vuc2UiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiYzBiMjk2M2ItMjU5NC00NDY2LWFlZDItZjE1OGQ3MWM2MDEwIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoibGljZW5zZS1jbGllbnQiLCJzZXNzaW9uX3N0YXRlIjoiZmI2N2U1MjQtYmJiZC00ZjYxLTllYTktMjA4YjcyOGQzNGI5IiwiYWNyIjoiMCIsImFsbG93ZWQtb3JpZ2lucyI6WyIqIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsIlJPTEVfQURNSU4iLCJkZWZhdWx0LXJvbGVzLWxpY2Vuc2UiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoib3BlbmlkIGVtYWlsIHByb2ZpbGUiLCJzaWQiOiJmYjY3ZTUyNC1iYmJkLTRmNjEtOWVhOS0yMDhiNzI4ZDM0YjkiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsInByZWZlcnJlZF91c2VybmFtZSI6ImxpY2Vuc2UtcmVnaXN0ZXIifQ.gd6S4gAA6zu7ckb31KMyOah--foDQftMJmwGoqCR11Frt36Avx7l7mKdM8U-ZbH0EUOvzonRISLfd7cvmcwcsoEbnprJ_Af0GPQ6hkCBPECkrsCRSpj-So-VnDRLwn0Yxr1SLrGcQdZslpZoFwVsRCEpm7ywbvx2zXsPxYbaVUMsI_CELhfzJg7iTIIgOwIMdttKCctRjSdmLfKQeUAnDwnrHawfhlxDicz4XZBd8wwbwbC8MqonmWWzfUCdoFovuB1D5rCzrS8Y3ieHFc83fscAGwJFON7BGrDBFolJYiRT90YyN8xXT-s3ie6qTXtLj_jyemRZcQA56d_aY16jAA",
+			"type": "string"
+		},
+		{
+			"key": "publisher",
+			"value": "3c35b9fc-3b1c-45b1-a6f3-ea1e1e181179",
+			"type": "string"
+		},
+		{
+			"key": "license",
+			"value": "2sPgUmid2M37Wc8ASiU7tbLL61xzbYBxyrYqZB3k5zGJxWv8py",
 			"type": "string"
 		}
 	]

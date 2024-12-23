@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.security.GeneralSecurityException;
-import java.security.spec.InvalidKeySpecException;
 import java.time.OffsetDateTime;
 import java.util.List;
 
@@ -28,6 +27,7 @@ public class LicenseCheckService {
     private final PublisherService publisherService;
     private final LicenseConfig licenseConfig;
     private final KeyService keyService;
+    private final KeyGeneratorService keyGeneratorService;
 
     public LicenseModel createLicense(LicenseModel license, String publisher) {
         checkPublisher(publisher);
@@ -75,10 +75,9 @@ public class LicenseCheckService {
     }
 
     private String generateSignature(String owner) throws GeneralSecurityException, NoKeyModelException {
-        final LicenseKeyModel licenseKeyModel = keyService.getLicenseKeyModel(owner);
+        final LicenseKeyModel licenseKeyModel = keyGeneratorService.getLicenseKeyModel(owner);
         return keyService.encrypt(Utils.getRandomString(licenseConfig.getSignatureLength()), keyService.loadPrivateKey(licenseKeyModel.getPrivateKey()));
     }
-
 
     public LicenseModel updateLicense(String license, String publisher, LicenseModel update) throws PermissionException {
         checkPublisher(publisher);

@@ -1,6 +1,6 @@
 {
     "/license/api/v1": {
-        "target": "http://localhost:8080",
+        "target": "http://localhost:8080/license/api/v1",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true

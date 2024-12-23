@@ -1,5 +1,7 @@
 package de.netzkronehd.license.service;
 
+import de.netzkronehd.license.exception.NoKeyModelException;
+import de.netzkronehd.license.exception.PermissionException;
 import de.netzkronehd.license.model.LicenseKeyModel;
 import de.netzkronehd.license.repository.LicenseKeyRepository;
 import lombok.AllArgsConstructor;
@@ -20,6 +22,7 @@ public class KeyGeneratorService {
     private final LicenseKeyRepository licenseKeyRepository;
 
     public LicenseKeyModel generatePrivateKey(String owner, int keySize) throws NoSuchAlgorithmException {
+        forceDeleteKey(owner);
         final KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
         keyPairGenerator.initialize(keySize);
 
@@ -29,6 +32,22 @@ public class KeyGeneratorService {
         final LicenseKeyModel licenseKeyModel = new LicenseKeyModel(owner, pkcs8PrivateKey, x509PublicKey);
 
         return licenseKeyRepository.save(licenseKeyModel);
+    }
+
+    public LicenseKeyModel getLicenseKeyModel(String owner) throws NoKeyModelException {
+        return licenseKeyRepository.findById(owner).orElseThrow(NoKeyModelException::new);
+    }
+
+    public void deleteKey(String owner) throws NoKeyModelException, PermissionException {
+        final LicenseKeyModel licenseKeyModel = getLicenseKeyModel(owner);
+        if(!licenseKeyModel.getOwner().equals(owner)) {
+            throw new PermissionException();
+        }
+        licenseKeyRepository.delete(licenseKeyModel);
+    }
+
+    public void forceDeleteKey(String owner) {
+        licenseKeyRepository.deleteById(owner);
     }
 
     private String generatePublicKey(PublicKey publicKey) {

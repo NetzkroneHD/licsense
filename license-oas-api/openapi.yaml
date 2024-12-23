@@ -6,18 +6,6 @@ info:
 
 paths:
   /key:
-    get:
-      security:
-        - bearerAuth: [ ]
-        - OAuth2:
-            - key:read
-      operationId: getKeys
-      tags:
-        - Key
-      description: Gets all keys
-      responses:
-        200:
-          $ref: '#/components/responses/LicenseKeyModelsResponse'
     post:
       security:
         - bearerAuth: [ ]
@@ -32,12 +20,13 @@ paths:
           schema:
             type: integer
             default: 2048
+            maximum: 5120
       tags:
         - Key
       description: Generates a new key
       responses:
         200:
-          description: Key generated
+          $ref: '#/components/responses/LicenseKeyModelResponse'
   /key/{owner}:
     get:
       description: Get a key of an owner
@@ -47,17 +36,26 @@ paths:
             - key:read
       operationId: getKey
       parameters:
-        - name: owner
-          in: path
-          description: Owner of the key
-          required: true
-          schema:
-            type: string
+        - $ref: '#/components/parameters/Owner'
       tags:
         - Key
       responses:
         200:
           $ref: '#/components/responses/LicenseKeyModelResponse'
+    delete:
+      description: Deletes a key of an owner
+      security:
+        - bearerAuth: [ ]
+        - OAuth2:
+            - key:write
+      operationId: deleteKey
+      parameters:
+        - $ref: '#/components/parameters/Owner'
+      tags:
+        - Key
+      responses:
+        200:
+          description: Key deleted
   /publisher/{publisher}/license:
     get:
       security:
@@ -280,6 +278,13 @@ components:
       required: true
       schema:
         type: string
+    Owner:
+      name: owner
+      in: path
+      description: Owner of the key
+      required: true
+      schema:
+        type: string
     PublisherUUID:
       name: publisher
       in: path
@@ -317,14 +322,10 @@ components:
       type: object
       required:
         - owner
-        - privateKey
         - publicKey
       properties:
         owner:
           description: Owner of the key
-          type: string
-        privateKey:
-          description: Private key
           type: string
         publicKey:
           description: Public key

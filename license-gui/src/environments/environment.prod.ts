@@ -16,13 +16,16 @@ const momentDateAdapter: MatDateFormats = {
 }
 
 const authCodeFlowConfig: AuthConfig = {
-    issuer: 'http://localhost:8082/realms/license',
-    requireHttps: false,
+    issuer: 'http://localhost/auth/realms/license',
     redirectUri: window.location.origin,
+    postLogoutRedirectUri: window.location.origin + '/loggedOut',
     clientId: 'license-client',
+    dummyClientSecret: 'SE75mgzFoI4ju8ANIxYbLUXlzLjg5V43',
     responseType: 'code',
     scope: 'openid',
+    requireHttps: false
 }
+
 
 export const apiConfig: Configuration = new Configuration({
     basePath: "http://localhost:4200/license/api/v1".replace(/\/+$/, ""),
