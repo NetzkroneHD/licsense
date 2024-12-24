@@ -19,7 +19,6 @@ export class PublisherApiAdapter extends PublisherApi {
         super(environment.apiConfig);
     }
 
-
     public override getLicensesFromPublisherRaw(requestParameters: GetLicensesFromPublisherRequest, initOverrides?: RequestInit | InitOverrideFunction): Promise<ApiResponse<Array<LicenseDto>>> {
         console.log("gettling licenses from publisher", environment.apiConfig);
         return this.publisherApi.getLicensesFromPublisherRaw(requestParameters, initOverrides);

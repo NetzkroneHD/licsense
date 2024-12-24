@@ -8,7 +8,12 @@ import {provideOAuthClient} from 'angular-oauth2-oidc';
 import {provideMomentDateAdapter} from '@angular/material-moment-adapter';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import {LicenseApi, LicenseCheckApi, PublisherApi} from '@license/license-api-client-typescript-fetch';
+import {
+    KeyApi,
+    LicenseApi,
+    LicenseCheckApi,
+    PublisherApi
+} from '@license/license-api-client-typescript-fetch';
 import {environment} from '../environments/environment';
 import {provideToastr} from 'ngx-toastr';
 import {PublisherApiAdapter} from './api/service/adapter/publisher-api-adapter.service';
@@ -16,6 +21,7 @@ import {LicenseApiAdapter} from './api/service/adapter/license-api-adapter.servi
 import {LicenseCheckApiAdapter} from './api/service/adapter/license-check-api-adapter.service';
 import {TranslatedMatPaginatorIntl} from '../assets/i18n/translated-mat-paginator-intl.service';
 import {MatPaginatorIntl} from '@angular/material/paginator';
+import {KeyApiAdapter} from './api/service/adapter/key-api-adapter.service';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     return new TranslateHttpLoader(http);
@@ -57,6 +63,10 @@ export const appConfig: ApplicationConfig = {
         {
             provide: PublisherApi,
             useValue: new PublisherApiAdapter()
+        },
+        {
+            provide: KeyApi,
+            useValue: new KeyApiAdapter()
         }
     ]
 };

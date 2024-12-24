@@ -2,11 +2,11 @@ import {AfterViewInit, Component, effect, inject, ViewChild} from '@angular/core
 import {UserLicenseStoreFacade} from '../../state/user-license/user-license-store-facade.service';
 import {UserLicenseStore} from '../../state/user-license/user-license-store.service';
 import {
-    MatCell,
+    MatCell, MatCellDef,
     MatColumnDef,
-    MatHeaderCell,
-    MatHeaderRow,
-    MatRow,
+    MatHeaderCell, MatHeaderCellDef,
+    MatHeaderRow, MatHeaderRowDef,
+    MatRow, MatRowDef,
     MatTable,
     MatTableDataSource
 } from '@angular/material/table';
@@ -46,7 +46,11 @@ import {NotificationStoreService} from '../../state/notification/notification.se
         MatHeaderRow,
         MatRow,
         MatLabel,
-        LicenseToolbarComponent
+        LicenseToolbarComponent,
+        MatHeaderCellDef,
+        MatCellDef,
+        MatHeaderRowDef,
+        MatRowDef
     ],
     templateUrl: './home.component.html',
     styleUrl: './home.component.scss'

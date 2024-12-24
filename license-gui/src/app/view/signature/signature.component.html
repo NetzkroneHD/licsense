@@ -37,5 +37,6 @@
 <p style="margin-left:0; margin-right:0; text-align:start">{{ 'signature.end' | translate }}</p>
 
 <br>
-<button (click)="downloadKey()" color="primary" mat-raised-button>{{ 'signature.download' | translate }}
-</button>
+<button (click)="generateKey()" [disabled]="generateDisabled()" color="primary" mat-raised-button>{{ 'signature.generate' | translate }}</button>
+<span style="padding-right: 10px"></span>
+<button (click)="downloadKey()" [disabled]="downloadDisabled()" color="primary" mat-raised-button>{{ 'signature.download' | translate }}</button>

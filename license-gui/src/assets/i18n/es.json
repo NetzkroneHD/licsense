@@ -30,8 +30,11 @@
     "Error while deleting logs.": "Error al eliminar los registros.",
     "Successfully loaded licenses.": "Licencias cargadas exitosamente.",
     "Error while loading licenses.": "Error al cargar las licencias.",
+    "Successfully generated a key.": "Clave generada exitosamente.",
     "No changes have been made.": "No se han hecho cambios.",
     "Error: {{error}}": "Error: {{error}}",
+    "Error while loading public key.": "Error al cargar la clave pública.",
+    "Error while generating key.": "Error al generar la clave.",
     "Filter": "Filtrar",
     "Refresh": "Actualizar",
     "Loading...": "Cargando...",
@@ -84,7 +87,8 @@
             "text": "Al recibir un mensaje con una firma digital, el destinatario utiliza la clave pública del remitente para verificar su autenticidad. La verificación exitosa confirma que el mensaje no ha sido alterado desde su firma por el remitente."
         },
         "end": "La encriptación de clave pública/privada garantiza confidencialidad, integridad y autenticidad en la comunicación. Asegura que solo los destinatarios autorizados con acceso a la clave privada puedan descifrar mensajes, mientras que solo el remitente legítimo, que posee la clave privada, pueda producir firmas digitales válidas.",
-        "download": "Descargar Clave Pública"
+        "download": "Descargar Clave Pública",
+        "generate": "Generar Clave Pública"
     },
     "sidenavItems": {
         "home": "Inicio",
@@ -97,6 +101,14 @@
             "open": "Abrir registros",
             "edit": "Editar",
             "delete": "Eliminar"
+        }
+    },
+    "dialog": {
+        "generateKey": {
+            "title": "Generar par de claves pública/privada",
+            "message": "¿Realmente desea generar una nueva clave?\nEsto sobrescribirá la clave actual y, por lo tanto, invalidará todas las licencias.",
+            "confirm": "Generar",
+            "cancel": "Cancelar"
         }
     },
     "paginator": {

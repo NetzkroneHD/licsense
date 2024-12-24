@@ -30,8 +30,11 @@
     "Error while deleting logs.": "Fehler beim Löschen der Logs.",
     "Successfully loaded licenses.": "Lizenzen wurden geladen.",
     "Error while loading licenses.": "Fehler beim Laden der Lizenzen.",
+    "Successfully generated a key.": "Schlüssel wurde generiert.",
     "No changes have been made.": "Es wurden keine Änderungen vorgenommen.",
     "Error: {{error}}": "{{error}}",
+    "Error while loading public key.": "Fehler beim Laden des öffentlichen Schlüssels.",
+    "Error while generating key.": "Fehler beim Generieren des Schlüssels.",
     "Filter": "Filter",
     "Refresh": "Daten aktualisieren",
     "Loading...": "Lade...",
@@ -84,7 +87,8 @@
             "text": "Nach Erhalt einer Nachricht mit einer digitalen Signatur verwendet der Empfänger den öffentlichen Schlüssel des Senders, um deren Authentizität zu überprüfen. Erfolgreiche Überprüfung bestätigt, dass die Nachricht seit ihrer Unterzeichnung durch den Sender unverändert geblieben ist."
         },
         "end": "Öffentliche-/Private-Schlüssel-Verschlüsselung gewährleistet Vertraulichkeit, Integrität und Authentizität in der Kommunikation. Sie stellt sicher, dass nur autorisierte Empfänger mit Zugriff auf den privaten Schlüssel Nachrichten entschlüsseln können, während nur der legitime Absender, der den privaten Schlüssel besitzt, gültige digitale Signaturen erzeugen kann.",
-        "download": "Öffentlichen Schlüssel herunterladen"
+        "download": "Öffentlichen Schlüssel herunterladen",
+        "generate": "Schlüsselpaar generieren"
     },
     "sidenavItems": {
         "home": "Startseite",
@@ -97,6 +101,14 @@
             "open": "Logs öffnen",
             "edit": "Bearbeiten",
             "delete": "Löschen"
+        }
+    },
+    "dialog": {
+        "generateKey": {
+            "title": "Öffentlichen/Privaten Schlüssel generieren",
+            "message": "Möchten Du wirklich einen neuen Schlüssel generieren?\nDadurch wird der aktuelle Schlüssel überschrieben und alle Lizenzen werden ungültig.",
+            "confirm": "Generieren",
+            "cancel": "Abbrechen"
         }
     },
     "paginator": {

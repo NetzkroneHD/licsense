@@ -23,7 +23,6 @@ export class LicenseApiAdapter extends LicenseApi {
 
     constructor() {
         super(environment.apiConfig);
-
     }
 
     public override createLicenseRaw(requestParameters: CreateLicenseRequest, initOverrides?: RequestInit | InitOverrideFunction): Promise<ApiResponse<LicenseDto>> {

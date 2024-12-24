@@ -30,8 +30,11 @@
     "Error while deleting logs.": "Error while deleting logs.",
     "Successfully loaded licenses.": "Successfully loaded licenses.",
     "Error while loading licenses.": "Error while loading licenses.",
+    "Successfully generated a key.": "Successfully generated a key.",
     "No changes have been made.": "No changes have been made.",
     "Error: {{error}}": "{{error}}",
+    "Error while loading public key.": "Error while loading public key.",
+    "Error while generating key.": "Error while generating key.",
     "Filter": "Filter",
     "Refresh": "Refresh",
     "Loading...": "Loading...",
@@ -84,7 +87,8 @@
             "text": "Upon receiving a message with a digital signature, the recipient employs the sender's public key to verify its authenticity. Successful verification confirms that the message remains unaltered since its signing by the sender."
         },
         "end": "Public/private key encryption guarantees confidentiality, integrity, and authenticity in communication. It ensures that only authorized recipients with access to the private key can decipher messages, while only the legitimate sender, holding the private key, can produce valid digital signatures.",
-        "download": "Download Public Key"
+        "download": "Download Public Key",
+        "generate": "Generate Public/Private Key Pair"
     },
     "sidenavItems": {
         "home": "Home",
@@ -97,6 +101,14 @@
             "open": "Open logs",
             "edit": "Edit",
             "delete": "Delete"
+        }
+    },
+    "dialog": {
+        "generateKey": {
+            "title": "Generate Public/Private Key Pair",
+            "message": "Do you really want to generate a new key?\nThis will overwrite the current key and therefore will make all licenses invalid.",
+            "confirm": "Generate",
+            "cancel": "Cancel"
         }
     },
     "paginator": {

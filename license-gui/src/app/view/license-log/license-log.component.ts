@@ -2,11 +2,11 @@ import {AfterViewInit, Component, effect, inject, ViewChild} from '@angular/core
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort, MatSortHeader} from '@angular/material/sort';
 import {
-    MatCell,
+    MatCell, MatCellDef,
     MatColumnDef,
-    MatHeaderCell,
-    MatHeaderRow,
-    MatRow,
+    MatHeaderCell, MatHeaderCellDef,
+    MatHeaderRow, MatHeaderRowDef,
+    MatRow, MatRowDef,
     MatTable,
     MatTableDataSource
 } from '@angular/material/table';
@@ -42,7 +42,11 @@ import {LicenseDialogService} from '../../component/license-dialog/license-dialo
         MatPaginator,
         MatTable,
         MatSort,
-        MatLabel
+        MatLabel,
+        MatHeaderCellDef,
+        MatCellDef,
+        MatHeaderRowDef,
+        MatRowDef
     ],
     templateUrl: './license-log.component.html',
     styleUrl: './license-log.component.scss'
@@ -99,7 +103,7 @@ export class LicenseLogComponent implements AfterViewInit {
         if (!currentLicense) return;
         this.dialogService.confirm({
             title: this.translateService.instant('Confirm Delete'),
-            message: this.translateService.instant('deleteLicenseLogs.text').replace('{{licenseKey}}', currentLicense),
+            message: this.translateService.instant('deleteLicenseLogs.text', {licenseKey: currentLicense}),
             confirmCaption: this.translateService.instant('Delete'),
             cancelCaption: this.translateService.instant('Cancel'),
             discardWithEscape: true
