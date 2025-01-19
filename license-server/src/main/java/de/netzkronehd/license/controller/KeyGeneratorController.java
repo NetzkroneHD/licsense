@@ -1,6 +1,7 @@
 package de.netzkronehd.license.controller;
 
 import de.netzkronehd.license.api.server.springboot.api.KeyApi;
+import de.netzkronehd.license.api.server.springboot.models.GenerateKeyRequestDto;
 import de.netzkronehd.license.api.server.springboot.models.LicenseKeyDto;
 import de.netzkronehd.license.exception.NoKeyModelException;
 import de.netzkronehd.license.exception.PermissionException;
@@ -36,14 +37,14 @@ public class KeyGeneratorController implements KeyApi {
     private HttpServletRequest request;
 
     @Override
-    public ResponseEntity<LicenseKeyDto> generateKey(Integer keySize) {
+    public ResponseEntity<LicenseKeyDto> generateKey(GenerateKeyRequestDto generateKeyRequestDto) {
         final OAuth2Model model = tokenSecurity.getModel(SecurityContextHolder.getContext().getAuthentication());
         if (model == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         if (!model.isAdmin()) return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
 
         try {
             rateLimitService.checkRateLimit(request.getRemoteAddr(), "KeyGeneratorController#generateKey", 1);
-            return ResponseEntity.ok(licenseKeyMapper.map(keyGeneratorService.generatePrivateKey(model.getSub(), keySize)));
+            return ResponseEntity.ok(licenseKeyMapper.map(keyGeneratorService.generatePrivateKey(model.getSub(), generateKeyRequestDto.getKeySize())));
         } catch (NoSuchAlgorithmException e) {
             log.error("Error while generating key", e);
             return ResponseEntity.internalServerError().build();
