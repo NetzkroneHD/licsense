@@ -9,6 +9,7 @@ import {provideMomentDateAdapter} from '@angular/material-moment-adapter';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {
+    Configuration,
     KeyApi,
     LicenseApi,
     LicenseCheckApi,
@@ -52,6 +53,10 @@ export const appConfig: ApplicationConfig = {
             }),
         ]),
         {provide: MatPaginatorIntl, useClass: TranslatedMatPaginatorIntl},
+        {
+            provide: Configuration,
+            useValue: environment.apiConfig
+        },
         {
             provide: LicenseApi,
             useValue: new LicenseApiAdapter()

@@ -20,12 +20,10 @@ export class PublisherApiAdapter extends PublisherApi {
     }
 
     public override getLicensesFromPublisherRaw(requestParameters: GetLicensesFromPublisherRequest, initOverrides?: RequestInit | InitOverrideFunction): Promise<ApiResponse<Array<LicenseDto>>> {
-        console.log("gettling licenses from publisher", environment.apiConfig);
         return this.publisherApi.getLicensesFromPublisherRaw(requestParameters, initOverrides);
     }
 
     public override getLicensesFromPublisher(requestParameters: GetLicensesFromPublisherRequest, initOverrides?: RequestInit | InitOverrideFunction): Promise<Array<LicenseDto>> {
-        console.log("gettling licenses from publisher", environment.apiConfig);
         return this.publisherApi.getLicensesFromPublisher(requestParameters, initOverrides);
     }
 }
