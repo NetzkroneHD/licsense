@@ -1,9 +1,9 @@
 {
 
-  "npmName": "@license/license-api-client-typescript-fetch",
+  "npmName": "@license/license-api-client-typescript-angular",
   "npmRepository": "http://localhost:9081/repository/npm-private/",
   "modelNameSuffix": "Dto",
-  "generatorName": "typescript-fetch",
+  "generatorName": "typescript-angular",
   "npmVersion": "1.0.0",
   "disallowAdditionalPropertiesIfNotPresent": false
 

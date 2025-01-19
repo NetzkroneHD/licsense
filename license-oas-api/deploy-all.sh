@@ -9,6 +9,10 @@ cd "$dir"
 cd "$dir"
 echo "Finished deploy-client-typescript-fetch"
 
+./deploy-client-typescript-angular.sh
+cd "$dir"
+echo "Finished deploy-client-typescript-angular"
+
 ./deploy-client-webclient.sh
 cd "$dir"
 echo "Finished deploy-client-webclient"

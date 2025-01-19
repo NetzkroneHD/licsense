@@ -12,15 +12,8 @@ paths:
         - OAuth2:
             - key:write
       operationId: generateKey
-      parameters:
-        - name: keySize
-          in: query
-          description: Size of the key
-          required: false
-          schema:
-            type: integer
-            default: 2048
-            maximum: 5120
+      requestBody:
+        $ref: '#/components/requestBodies/KeyBody'
       tags:
         - Key
       description: Generates a new key
@@ -220,6 +213,17 @@ security:
 
 components:
   requestBodies:
+    KeyBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              keySize:
+                type: integer
+                default: 2048
+                maximum: 5120
     LicenseBody:
       required: true
       description: License body
