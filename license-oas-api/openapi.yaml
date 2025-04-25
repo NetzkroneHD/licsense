@@ -4,6 +4,10 @@ info:
   description: License-API
   version: 1.0.0
 
+servers:
+  - url: http://localhost:4200/license/api/v1
+    description: localhost
+
 paths:
   /key:
     post:
