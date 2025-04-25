@@ -39,6 +39,7 @@ export class KeyFacade {
         this.keyState.setLoadingGenerateKey(true);
         this.keyApiService.generateKey().then(keyModel => {
             this.keyState.setPublicKey(keyModel.publicKey);
+
             this.notificationFacade.setMessage({
                 title: undefined,
                 message: 'Successfully generated a key.',

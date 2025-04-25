@@ -3,8 +3,8 @@
     <div style="display: flex">
         <mat-form-field class="license-form-field">
             <mat-label>{{ 'Filter' | translate }}</mat-label>
-            <input (ngModelChange)="applyFilter()" [(ngModel)]="filterValue" matInput>
-            @if (filterValue) {
+            <input [value]="filterValue()" (keyup)="onUpdateFilter($event)" matInput>
+            @if (filterValue()) {
                 <button matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter()">
                     <mat-icon>close</mat-icon>
                 </button>

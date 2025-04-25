@@ -1,12 +1,16 @@
-import {AfterViewInit, Component, effect, inject, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, effect, inject, signal, ViewChild} from '@angular/core';
 import {UserLicenseFacade} from '../../state/user-license/user-license-facade.service';
 import {UserLicenseState} from '../../state/user-license/user-license-state.service';
 import {
-    MatCell, MatCellDef,
+    MatCell,
+    MatCellDef,
     MatColumnDef,
-    MatHeaderCell, MatHeaderCellDef,
-    MatHeaderRow, MatHeaderRowDef,
-    MatRow, MatRowDef,
+    MatHeaderCell,
+    MatHeaderCellDef,
+    MatHeaderRow,
+    MatHeaderRowDef,
+    MatRow,
+    MatRowDef,
     MatTable,
     MatTableDataSource
 } from '@angular/material/table';
@@ -62,7 +66,7 @@ export class HomeComponent implements AfterViewInit {
     protected loading = false;
     protected displayedColumns = ['licenseKey', 'publisher', 'notes', 'valid', 'validUntil', 'listMode', 'ipAddresses'];
     protected dataSource;
-    protected filterValue: any;
+    protected filterValue = signal<string>('');
     protected selectedLicense: { previous: LicenseDto | null; current: LicenseDto | null } = {
         previous: null,
         current: null
@@ -94,11 +98,12 @@ export class HomeComponent implements AfterViewInit {
     }
 
     protected applyFilter() {
-        this.dataSource.filter = this.filterValue.trim().toLowerCase();
+        console.log(`filter: '${this.filterValue()}'`);
+        this.dataSource.filter = this.filterValue().trim().toLowerCase();
     }
 
     protected clearFilter() {
-        this.filterValue = '';
+        this.filterValue.set('');
         this.applyFilter();
     }
 
@@ -133,5 +138,10 @@ export class HomeComponent implements AfterViewInit {
             message: 'Copied license key to clipboard.',
             type: 'INFO'
         }, true);
+    }
+
+    protected onUpdateFilter(e: Event) {
+        this.filterValue.set((e.target as HTMLInputElement).value);
+        this.applyFilter();
     }
 }

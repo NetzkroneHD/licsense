@@ -19,6 +19,7 @@ export class KeyState {
 
     public setLoadingPublicKey(loading: boolean) {
         this.loadingPublicKey.set(loading);
+        console.log("setLoadingPublicKey", loading);
     }
 
     public setLoadingGenerateKey(loading: boolean) {

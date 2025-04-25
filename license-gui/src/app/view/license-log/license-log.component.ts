@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, effect, inject, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, effect, inject, signal, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort, MatSortHeader} from '@angular/material/sort';
 import {
@@ -58,7 +58,7 @@ export class LicenseLogComponent implements AfterViewInit {
     protected loading = false;
     protected displayedColumns = ['id', 'license', 'ip', 'dateTime', 'listBehaviorResult'];
     protected dataSource;
-    protected filterValue: string = '';
+    protected filterValue = signal('');
     protected readonly userLicenseState = inject(UserLicenseState);
     private readonly userLicenseFacade = inject(UserLicenseFacade);
     private readonly dialogService = inject(LicenseDialogService);
@@ -84,11 +84,11 @@ export class LicenseLogComponent implements AfterViewInit {
     }
 
     protected applyFilter() {
-        this.dataSource.filter = this.filterValue.trim().toLowerCase();
+        this.dataSource.filter = this.filterValue().trim().toLowerCase();
     }
 
     protected clearFilter() {
-        this.filterValue = '';
+        this.filterValue.set('');
         this.applyFilter();
     }
 
@@ -112,5 +112,10 @@ export class LicenseLogComponent implements AfterViewInit {
             this.userLicenseFacade.deleteLogs(currentLicense);
         });
 
+    }
+
+    protected onUpdateFilter(e: Event) {
+        this.filterValue.set((e.target as HTMLInputElement).value);
+        this.applyFilter();
     }
 }

@@ -29,7 +29,7 @@ export class SignatureComponent {
 
     protected readonly generateDisabled = computed(() => this.keyState.getLoadingGenerateKey());
     protected readonly downloadDisabled = computed(() => {
-        return this.downloading() || !this.keyState.getLoadingPublicKey() || !this.keyState.getPublicKey();
+        return this.downloading() || this.keyState.getLoadingPublicKey() || !this.keyState.getPublicKey() || this.keyState.getLoadingGenerateKey();
     });
 
     protected generateKey() {

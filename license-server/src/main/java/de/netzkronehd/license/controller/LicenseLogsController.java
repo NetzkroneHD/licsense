@@ -35,7 +35,7 @@ public class LicenseLogsController implements LogsApi {
         if (!model.isAdmin()) return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
 
         try {
-            return ResponseEntity.ok(licenseLogMapper.map(checkService.getLogs(license, model.getSub())));
+            return ResponseEntity.ok(licenseLogMapper.map(checkService.getLogs(license, model.getSub())).reversed());
         } catch (NoSuchElementException ex) {
             return ResponseEntity.notFound().build();
         } catch (PermissionException e) {
