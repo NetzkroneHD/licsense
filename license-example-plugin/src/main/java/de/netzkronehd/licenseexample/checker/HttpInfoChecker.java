@@ -2,14 +2,14 @@ package de.netzkronehd.licenseexample.checker;
 
 import de.netzkronehd.license.checker.LicenseChecker;
 import de.netzkronehd.license.checker.siganture.SignatureChecker;
-import de.netzkronehd.licenseexample.LicensePlugin;
+import de.netzkronehd.licenseexample.LicensePluginByKeyFile;
 import org.springframework.http.HttpStatus;
 
 public class HttpInfoChecker extends Checker {
 
     private final LicenseChecker licenseChecker;
 
-    public HttpInfoChecker(LicensePlugin licensePlugin, String basePath, SignatureChecker signatureChecker) {
+    public HttpInfoChecker(LicensePluginByKeyFile licensePlugin, String basePath, SignatureChecker signatureChecker) {
         super(licensePlugin, basePath, signatureChecker);
         licenseChecker = new LicenseChecker(basePath, null, signatureChecker);
     }

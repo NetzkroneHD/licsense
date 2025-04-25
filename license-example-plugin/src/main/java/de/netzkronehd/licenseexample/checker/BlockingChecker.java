@@ -3,11 +3,11 @@ package de.netzkronehd.licenseexample.checker;
 import de.netzkronehd.license.checker.LicenseCheckedStatus;
 import de.netzkronehd.license.checker.LicenseChecker;
 import de.netzkronehd.license.checker.siganture.SignatureChecker;
-import de.netzkronehd.licenseexample.LicensePlugin;
+import de.netzkronehd.licenseexample.LicensePluginByKeyFile;
 
 public class BlockingChecker extends Checker {
 
-    public BlockingChecker(LicensePlugin licensePlugin, String basePath, SignatureChecker signatureChecker) {
+    public BlockingChecker(LicensePluginByKeyFile licensePlugin, String basePath, SignatureChecker signatureChecker) {
         super(licensePlugin, basePath, signatureChecker);
     }
 

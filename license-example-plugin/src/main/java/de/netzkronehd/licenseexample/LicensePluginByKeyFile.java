@@ -9,13 +9,13 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
-public final class LicensePlugin extends JavaPlugin {
+public final class LicensePluginByKeyFile extends JavaPlugin {
 
     @Override
     public void onEnable() {
 
         final File publicKeyFile = new File(getDataFolder().getAbsolutePath(), "license-key-public.der");
-        final String key = getConfig().getString("license-key");
+        final String key = getConfig().getString("license.key");
 
         final ScheduledChecker scheduledChecker;
         try {

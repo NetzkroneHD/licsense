@@ -4,7 +4,7 @@ import java.security.GeneralSecurityException;
 
 /**
  * This exception is thrown when the signature check has failed or the signature is invalid.
- * Therefore, the API calls can not be trusted.
+ * Therefore, the API calls cannot be trusted.
  */
 public class InvalidSignatureException extends Exception {
 
