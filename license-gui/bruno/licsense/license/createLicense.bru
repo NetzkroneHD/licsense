@@ -1,0 +1,29 @@
+meta {
+  name: createLicense
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{HOST}}/license
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{OAUTH_TOKEN}}
+}
+
+body:json {
+  {
+    "licenseKey": "string",
+    "publisher": "string",
+    "notes": "Notes",
+    "valid": true,
+    "validUntil": "2026-04-25T14:15:02.591Z",
+    "listMode": "BLACKLIST",
+    "ipAddresses": [
+      "192.168.0.11"
+    ]
+  }
+}

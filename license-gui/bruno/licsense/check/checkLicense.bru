@@ -1,0 +1,15 @@
+meta {
+  name: checkLicense
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{HOST}}/check/:licenseKey
+  body: none
+  auth: none
+}
+
+params:path {
+  licenseKey: u8eqv3vqwZoBHH4H9XQB2L7K0EUeS3bOEEI703UR6RlZ97uL08
+}

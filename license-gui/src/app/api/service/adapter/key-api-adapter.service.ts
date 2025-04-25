@@ -33,7 +33,7 @@ export class KeyApiAdapter extends KeyApi {
         return this.keyApi.generateKeyRaw(requestParameters, initOverrides);
     }
 
-    public override generateKey(requestParameters?: GenerateKeyRequest, initOverrides?: RequestInit | InitOverrideFunction): Promise<LicenseKeyDto> {
+    public override generateKey(requestParameters: GenerateKeyRequest, initOverrides?: RequestInit | InitOverrideFunction): Promise<LicenseKeyDto> {
         return this.keyApi.generateKey(requestParameters, initOverrides);
     }
 

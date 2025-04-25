@@ -1,0 +1,29 @@
+auth {
+  mode: oauth2
+}
+
+auth:oauth2 {
+  grant_type: authorization_code
+  callback_url: http://localhost:4200
+  authorization_url: http://localhost/auth/realms/license/protocol/openid-connect/auth
+  access_token_url: http://localhost/auth/realms/license/protocol/openid-connect/token
+  client_id: license-client
+  client_secret: 
+  scope: openid
+  state: State
+  pkce: false
+}
+
+vars:pre-request {
+  HOST: http://localhost:8080/license/api/v1
+}
+
+vars:post-response {
+  : 
+}
+
+script:post-response {
+  if(req.getAuthMode() == 'oauth2' && res.body.access_token) {
+      bru.setVar('OAUTH_TOKEN', res.body.access_token);
+  }
+}

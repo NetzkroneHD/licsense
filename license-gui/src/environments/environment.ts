@@ -20,7 +20,6 @@ const authCodeFlowConfig: AuthConfig = {
     redirectUri: window.location.origin,
     postLogoutRedirectUri: window.location.origin + '/loggedOut',
     clientId: 'license-client',
-    dummyClientSecret: 'SE75mgzFoI4ju8ANIxYbLUXlzLjg5V43',
     responseType: 'code',
     scope: 'openid',
     requireHttps: false,

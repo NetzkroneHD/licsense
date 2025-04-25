@@ -12,8 +12,8 @@ export class KeyApiService {
     constructor() {
     }
 
-    public generateKey(): Promise<LicenseKeyDto> {
-        return this.keyApi.generateKey();
+    public generateKey(keySize: number = 2028): Promise<LicenseKeyDto> {
+        return this.keyApi.generateKey({generateKeyRequestDto: {keySize: keySize}});
     }
 
     public getKey(owner: string): Promise<LicenseKeyDto> {

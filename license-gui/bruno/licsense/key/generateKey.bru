@@ -1,0 +1,21 @@
+meta {
+  name: generateKey
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{HOST}}/key
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{OAUTH_TOKEN}}
+}
+
+body:json {
+  {
+    "keySize": 2048
+  }
+}
