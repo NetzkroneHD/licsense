@@ -5,10 +5,10 @@ import {TranslateModule, TranslateService} from '@ngx-translate/core';
 import {MatTooltip} from '@angular/material/tooltip';
 import {LicenseDto} from '@license/license-api-client-typescript-fetch';
 import {LicenseEditService} from '../license-edit/license-edit.service';
-import {UserLicenseStoreFacade} from '../../state/user-license/user-license-store-facade.service';
-import {UserLicenseStore} from '../../state/user-license/user-license-store.service';
-import {NotificationStoreService} from '../../state/notification/notification.service';
-import {RouteStoreFacade} from '../../state/route/route.service';
+import {UserLicenseFacade} from '../../state/user-license/user-license-facade.service';
+import {UserLicenseState} from '../../state/user-license/user-license-state.service';
+import {NotificationFacade} from '../../state/notification/notification-facade.service';
+import {RouteFacade} from '../../state/route/route-facade.service';
 import {LicenseDialogService} from '../license-dialog/license-dialog.service';
 
 @Component({
@@ -27,11 +27,12 @@ export class LicenseToolbarComponent {
     public readonly selectedLicense = input<LicenseDto | null>(null);
     public readonly disabled = input(false);
     public readonly editingDisabled = computed(() => this.disabled() || !this.selectedLicense());
+
     private readonly licenseEditService = inject(LicenseEditService);
-    private readonly userLicenseStoreFacade = inject(UserLicenseStoreFacade);
-    private readonly userLicenseStore = inject(UserLicenseStore);
-    private readonly notificationService = inject(NotificationStoreService);
-    private readonly routeStoreFacade = inject(RouteStoreFacade);
+    private readonly userLicenseFacade = inject(UserLicenseFacade);
+    private readonly userLicenseState = inject(UserLicenseState);
+    private readonly notificationFacade = inject(NotificationFacade);
+    private readonly routeFacade = inject(RouteFacade);
     private readonly translateService = inject(TranslateService);
     private readonly dialogService = inject(LicenseDialogService);
 
@@ -47,24 +48,24 @@ export class LicenseToolbarComponent {
                 listMode: createAction.licenseEdit.listMode,
                 ipAddresses: createAction.licenseEdit.ipAddresses
             };
-            this.userLicenseStoreFacade.createLicense(licenseToCreate);
+            this.userLicenseFacade.createLicense(licenseToCreate);
         });
     }
 
     protected refresh() {
-        if (this.userLicenseStore.getLoadingAnyLicense()) {
-            this.notificationService.setMessage({
+        if (this.userLicenseState.getLoadingAnyLicense()) {
+            this.notificationFacade.setMessage({
                 title: 'Loading...',
                 message: 'The licenses are already loading.',
                 type: 'INFO'
             }, true);
             return;
         }
-        this.userLicenseStoreFacade.loadLicensesFromCurrentPublisher();
+        this.userLicenseFacade.loadLicensesFromCurrentPublisher();
     }
 
     protected openLogs() {
-        this.routeStoreFacade.navigateToLicenseLogs();
+        this.routeFacade.navigateToLicenseLogs();
     }
 
     protected editLicense() {
@@ -83,7 +84,7 @@ export class LicenseToolbarComponent {
             };
 
             if (JSON.stringify(license) === JSON.stringify(licenseToEdit)) {
-                this.notificationService.setMessage({
+                this.notificationFacade.setMessage({
                     title: undefined,
                     message: 'No changes have been made.',
                     type: 'INFO'
@@ -91,7 +92,7 @@ export class LicenseToolbarComponent {
                 return;
             }
 
-            this.userLicenseStoreFacade.updateLicense(license.licenseKey, licenseToEdit);
+            this.userLicenseFacade.updateLicense(license.licenseKey, licenseToEdit);
         });
     }
 
@@ -109,7 +110,7 @@ export class LicenseToolbarComponent {
             }
         ).subscribe(value => {
             if (!value) return;
-            this.userLicenseStoreFacade.deleteLicense(license.licenseKey);
+            this.userLicenseFacade.deleteLicense(license.licenseKey);
         });
     }
 }

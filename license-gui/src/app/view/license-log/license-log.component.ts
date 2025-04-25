@@ -10,8 +10,8 @@ import {
     MatTable,
     MatTableDataSource
 } from '@angular/material/table';
-import {UserLicenseStore} from '../../state/user-license/user-license-store.service';
-import {UserLicenseStoreFacade} from '../../state/user-license/user-license-store-facade.service';
+import {UserLicenseState} from '../../state/user-license/user-license-state.service';
+import {UserLicenseFacade} from '../../state/user-license/user-license-facade.service';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
 import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
@@ -58,22 +58,22 @@ export class LicenseLogComponent implements AfterViewInit {
     protected loading = false;
     protected displayedColumns = ['id', 'license', 'ip', 'dateTime', 'listBehaviorResult'];
     protected dataSource;
-    protected filterValue: any;
-    protected readonly userLicenseStore = inject(UserLicenseStore);
-    private readonly userLicenseStoreFacade = inject(UserLicenseStoreFacade);
+    protected filterValue: string = '';
+    protected readonly userLicenseState = inject(UserLicenseState);
+    private readonly userLicenseFacade = inject(UserLicenseFacade);
     private readonly dialogService = inject(LicenseDialogService);
     private readonly translateService = inject(TranslateService);
 
     constructor() {
 
-        this.dataSource = new MatTableDataSource(this.userLicenseStore.getUserLicenseLogs());
+        this.dataSource = new MatTableDataSource(this.userLicenseState.getUserLicenseLogs());
 
         effect(() => {
-            this.loading = this.userLicenseStore.getLoadingLogs();
+            this.loading = this.userLicenseState.getLoadingLogs();
         });
 
         effect(() => {
-            this.dataSource.data = this.userLicenseStore.getUserLicenseLogs();
+            this.dataSource.data = this.userLicenseState.getUserLicenseLogs();
         });
 
     }
@@ -93,13 +93,13 @@ export class LicenseLogComponent implements AfterViewInit {
     }
 
     protected refresh() {
-        const currentLicense = this.userLicenseStore.getCurrentLicense();
+        const currentLicense = this.userLicenseState.getCurrentLicense();
         if (!currentLicense) return;
-        this.userLicenseStoreFacade.loadLogs(currentLicense);
+        this.userLicenseFacade.loadLogs(currentLicense);
     }
 
     protected deleteHistory() {
-        const currentLicense = this.userLicenseStore.getCurrentLicense();
+        const currentLicense = this.userLicenseState.getCurrentLicense();
         if (!currentLicense) return;
         this.dialogService.confirm({
             title: this.translateService.instant('Confirm Delete'),
@@ -109,7 +109,7 @@ export class LicenseLogComponent implements AfterViewInit {
             discardWithEscape: true
         }).subscribe(value => {
             if (!value) return;
-            this.userLicenseStoreFacade.deleteLogs(currentLicense);
+            this.userLicenseFacade.deleteLogs(currentLicense);
         });
 
     }

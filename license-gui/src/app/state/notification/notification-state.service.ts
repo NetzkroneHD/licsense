@@ -9,7 +9,7 @@ export type ToasterMessage = {
 @Injectable({
     providedIn: 'root'
 })
-export class NotificationStore {
+export class NotificationState {
 
     private readonly message = signal<ToasterMessage | undefined>(undefined);
 

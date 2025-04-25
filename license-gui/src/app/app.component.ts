@@ -12,14 +12,14 @@ import {MatMenuTrigger} from '@angular/material/menu';
 import {
     LicenseDropdownMenuItem
 } from './component/license-dropdown-menu/license-dropdown-menu-item.interface';
-import {UserSettingsStoreFacade} from './state/user-settings/user-settings-store-facade.service';
+import {UserSettingsFacade} from './state/user-settings/user-settings-facade.service';
 import {LicenseSidenavComponent} from './component/license-sidenav/license-sidenav.component';
 import {LicenseSidenavItem} from './component/license-sidenav/license-sidenav-item.interface';
-import {RouteStoreFacade} from './state/route/route.service';
-import {RouteStore, toRoute} from './state/route/route-store.service';
+import {RouteFacade} from './state/route/route-facade.service';
+import {RouteState, toRoute} from './state/route/route-state.service';
 import {LoginService} from './service/login.service';
 import {uiItems} from '../environments/ui-items';
-import {UserSettingsStore} from './state/user-settings/user-settings-store.service';
+import {UserSettingsState} from './state/user-settings/user-settings-state.service';
 
 @Component({
     selector: 'app-root',
@@ -41,17 +41,17 @@ export class AppComponent implements OnInit {
     @ViewChild('sidenav') sidenav!: LicenseSidenavComponent;
     protected readonly title = environment.title;
     protected readonly uiItems = uiItems;
-    private readonly userSettingsFacade = inject(UserSettingsStoreFacade);
-    private readonly userSettingsStore = inject(UserSettingsStore);
-    private readonly routeStoreService = inject(RouteStoreFacade);
-    private readonly routeStore = inject(RouteStore);
+    private readonly userSettingsFacade = inject(UserSettingsFacade);
+    private readonly userSettingsState = inject(UserSettingsState);
+    private readonly routeFacade = inject(RouteFacade);
+    private readonly routeState = inject(RouteState);
     private readonly translateService = inject(TranslateService);
     private readonly loginService = inject(LoginService);
 
     constructor() {
 
         effect(() => {
-            const route = this.routeStore.getCurrentRoute();
+            const route = this.routeState.getCurrentRoute();
             this.clearToggle();
             uiItems.sidenavItems.filter(item => item.id === route).forEach(item => {
                 item.selected = true;
@@ -59,7 +59,7 @@ export class AppComponent implements OnInit {
         });
 
         effect(() => {
-            this.userSettingsStore.getUserLanguage();
+            this.userSettingsState.getUserLanguage();
             uiItems.sidenavItems.forEach(item => {
                 item.description = this.translateService.instant('sidenavItems.' + item.id);
             });
@@ -97,7 +97,7 @@ export class AppComponent implements OnInit {
         }
         this.clearToggle();
         item.selected = true;
-        this.routeStoreService.setCurrentRoute(toRoute(item.id));
+        this.routeFacade.setCurrentRoute(toRoute(item.id));
     }
 
     private clearToggle() {

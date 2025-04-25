@@ -10,11 +10,11 @@
                 </button>
             }
         </mat-form-field>
-        <button (click)="refresh()" [disabled]="(userLicenseStore.getLoadingLogs())" [matTooltip]="('Refresh' | translate) "
+        <button (click)="refresh()" [disabled]="(userLicenseState.getLoadingLogs())" [matTooltip]="('Refresh' | translate) "
                 mat-icon-button>
             <mat-icon>refresh</mat-icon>
         </button>
-        <button (click)="deleteHistory()" [disabled]="(userLicenseStore.getUserLicenseLogs().length === 0 || userLicenseStore.getLoadingLogs())" [matTooltip]="('Delete logs' | translate) "
+        <button (click)="deleteHistory()" [disabled]="(userLicenseState.getUserLicenseLogs().length === 0 || userLicenseState.getLoadingLogs())" [matTooltip]="('Delete logs' | translate) "
                 mat-icon-button>
             <mat-icon>delete_history</mat-icon>
         </button>

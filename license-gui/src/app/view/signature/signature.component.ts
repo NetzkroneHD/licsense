@@ -2,9 +2,9 @@ import {Component, computed, inject, signal} from '@angular/core';
 import {MatButton} from '@angular/material/button';
 import {FileService} from '../../service/file.service';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
-import {KeyStoreService} from '../../state/signature/key-store.service';
-import {NotificationStoreService} from '../../state/notification/notification.service';
-import {KeyStoreFacadeService} from '../../state/signature/key-store-facade.service';
+import {KeyState} from '../../state/signature/key-state.service';
+import {NotificationFacade} from '../../state/notification/notification-facade.service';
+import {KeyFacade} from '../../state/signature/key-facade.service';
 import {LicenseDialogService} from '../../component/license-dialog/license-dialog.service';
 
 @Component({
@@ -18,18 +18,18 @@ import {LicenseDialogService} from '../../component/license-dialog/license-dialo
 })
 export class SignatureComponent {
 
-    private readonly keyStoreService = inject(KeyStoreService);
-    private readonly keyStoreFacadeService = inject(KeyStoreFacadeService);
+    private readonly keyState = inject(KeyState);
+    private readonly keyFacade = inject(KeyFacade);
     private readonly fileService = inject(FileService);
-    private readonly notificationStoreService = inject(NotificationStoreService);
+    private readonly notificationFacade = inject(NotificationFacade);
     private readonly translateService = inject(TranslateService);
     private readonly dialogService = inject(LicenseDialogService);
 
     private readonly downloading = signal(false);
 
-    protected readonly generateDisabled = computed(() => this.keyStoreService.getLoadingGenerateKey());
+    protected readonly generateDisabled = computed(() => this.keyState.getLoadingGenerateKey());
     protected readonly downloadDisabled = computed(() => {
-        return this.downloading() || !this.keyStoreService.getLoadingPublicKey() || !this.keyStoreService.getPublicKey();
+        return this.downloading() || !this.keyState.getLoadingPublicKey() || !this.keyState.getPublicKey();
     });
 
     protected generateKey() {
@@ -46,7 +46,7 @@ export class SignatureComponent {
             if(!generate) {
                 return;
             }
-            this.keyStoreFacadeService.generateKey();
+            this.keyFacade.generateKey();
         });
 
     }
@@ -56,9 +56,9 @@ export class SignatureComponent {
             return;
         }
         this.downloading.set(true);
-        const publicKey = this.keyStoreService.getPublicKey();
+        const publicKey = this.keyState.getPublicKey();
         if(!publicKey) {
-            this.notificationStoreService.setMessage({
+            this.notificationFacade.setMessage({
                 title: this.translateService.instant('Error while downloading public key.'),
                 message: this.translateService.instant('Error: {{error}}', {error: 'Public key is not available.'}),
                 type: 'ERROR'

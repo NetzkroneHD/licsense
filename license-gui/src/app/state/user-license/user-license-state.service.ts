@@ -5,24 +5,25 @@ import {LicenseDto} from '@license/license-api-client-typescript-fetch';
 @Injectable({
     providedIn: 'root'
 })
-export class UserLicenseStore {
+export class UserLicenseState {
+
+    private readonly loadingLogs = signal(0);
+    private readonly loadingLicenses = signal(0);
+    private readonly loadingCreate = signal(false);
+    private readonly loadingUpdate = signal(0);
+    private readonly loadingDelete = signal(0);
+    private readonly userLicenses = signal<LicenseDto[]>([]);
+    private readonly userLicenseLogs = signal<LicenseLogDto[]>([]);
+    private readonly currentSelectedLicense = signal<string>('');
 
     public readonly getLoadingAnyLicense = computed(() => this.getLoadingLicenses() || this.getLoadingCreate() || this.getLoadingUpdate() || this.getLoadingDelete());
-    private readonly loadingLogs = signal(0);
     public readonly getLoadingLogs = computed(() => this.loadingLogs() !== 0);
-    private readonly loadingLicenses = signal(0);
     public readonly getLoadingLicenses = computed(() => this.loadingLicenses() !== 0);
-    private readonly loadingCreate = signal(false);
     public readonly getLoadingCreate = this.loadingCreate.asReadonly();
-    private readonly loadingUpdate = signal(0);
     public readonly getLoadingUpdate = computed(() => this.loadingUpdate() !== 0);
-    private readonly loadingDelete = signal(0);
     public readonly getLoadingDelete = computed(() => this.loadingDelete() !== 0);
-    private readonly userLicenses = signal<LicenseDto[]>([]);
     public readonly getUserLicenses = this.userLicenses.asReadonly();
-    private readonly userLicenseLogs = signal<LicenseLogDto[]>([]);
     public readonly getUserLicenseLogs = this.userLicenseLogs.asReadonly();
-    private readonly currentSelectedLicense = signal<string>('');
     public readonly getCurrentLicense = this.currentSelectedLicense.asReadonly();
 
     public setCurrentLicense(license: string) {

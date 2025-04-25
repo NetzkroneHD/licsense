@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, effect, inject, ViewChild} from '@angular/core';
-import {UserLicenseStoreFacade} from '../../state/user-license/user-license-store-facade.service';
-import {UserLicenseStore} from '../../state/user-license/user-license-store.service';
+import {UserLicenseFacade} from '../../state/user-license/user-license-facade.service';
+import {UserLicenseState} from '../../state/user-license/user-license-state.service';
 import {
     MatCell, MatCellDef,
     MatColumnDef,
@@ -20,10 +20,10 @@ import {FormsModule} from '@angular/forms';
 import {MatIconButton} from '@angular/material/button';
 import {MatIcon, MatIconModule} from '@angular/material/icon';
 import {MatProgressBar} from '@angular/material/progress-bar';
-import {RouteStoreFacade} from '../../state/route/route.service';
+import {RouteFacade} from '../../state/route/route-facade.service';
 import {LicenseToolbarComponent} from '../../component/license-toolbar/license-toolbar.component';
 import {Clipboard} from '@angular/cdk/clipboard';
-import {NotificationStoreService} from '../../state/notification/notification.service';
+import {NotificationFacade} from '../../state/notification/notification-facade.service';
 
 @Component({
     selector: 'license-home',
@@ -68,22 +68,22 @@ export class HomeComponent implements AfterViewInit {
         current: null
     };
     protected readonly String = String;
-    private readonly userLicenseStoreFacade = inject(UserLicenseStoreFacade);
-    private readonly userLicenseStore = inject(UserLicenseStore);
-    private readonly routeStoreService = inject(RouteStoreFacade);
-    private readonly notificationService = inject(NotificationStoreService);
+    private readonly userLicenseFacade = inject(UserLicenseFacade);
+    private readonly userLicenseState = inject(UserLicenseState);
+    private readonly routeFacade = inject(RouteFacade);
+    private readonly notificationFacade = inject(NotificationFacade);
     private readonly clipboard = inject(Clipboard);
 
     constructor() {
 
-        this.dataSource = new MatTableDataSource(this.userLicenseStore.getUserLicenses());
+        this.dataSource = new MatTableDataSource(this.userLicenseState.getUserLicenses());
 
         effect(() => {
-            this.dataSource.data = this.userLicenseStore.getUserLicenses();
+            this.dataSource.data = this.userLicenseState.getUserLicenses();
         });
 
         effect(() => {
-            this.loading = this.userLicenseStore.getLoadingAnyLicense();
+            this.loading = this.userLicenseState.getLoadingAnyLicense();
         });
 
     }
@@ -115,20 +115,20 @@ export class HomeComponent implements AfterViewInit {
             this.selectedLicense = {previous: this.selectedLicense.current, current: null};
         } else {
             this.selectedLicense = {previous: this.selectedLicense.current, current: row};
-            this.userLicenseStoreFacade.setCurrentSelectedLicense(row.licenseKey);
+            this.userLicenseFacade.setCurrentSelectedLicense(row.licenseKey);
         }
     }
 
     protected onRowDoubleClick(row: LicenseDto) {
         this.selectedLicense = {previous: this.selectedLicense.current, current: row};
-        this.userLicenseStoreFacade.setCurrentSelectedLicense(row.licenseKey);
-        this.routeStoreService.navigateToLicenseLogs();
+        this.userLicenseFacade.setCurrentSelectedLicense(row.licenseKey);
+        this.routeFacade.navigateToLicenseLogs();
     }
 
     protected copyToClipboard(event: MouseEvent, license: LicenseDto) {
         event.preventDefault();
         if (!this.clipboard.copy(license.licenseKey)) return;
-        this.notificationService.setMessage({
+        this.notificationFacade.setMessage({
             title: undefined,
             message: 'Copied license key to clipboard.',
             type: 'INFO'

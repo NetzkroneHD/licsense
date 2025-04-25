@@ -3,7 +3,7 @@ import {Injectable, signal} from '@angular/core';
 @Injectable({
     providedIn: 'root'
 })
-export class KeyStoreService {
+export class KeyState {
 
     private readonly publicKey = signal<string | undefined>(undefined);
     private readonly loadingPublicKey = signal(false);

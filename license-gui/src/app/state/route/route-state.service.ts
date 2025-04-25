@@ -2,10 +2,6 @@ import {Injectable, signal} from '@angular/core';
 
 export type Route = 'home' | 'license-logs' | 'auth-failed' | 'signature';
 
-export interface RouteState {
-    currentRoute: Route,
-}
-
 export function toRoute(path: string): Route {
     const cleanedPath = path.replace(/^\//, '');
     switch (cleanedPath) {
@@ -22,7 +18,7 @@ export function toRoute(path: string): Route {
 @Injectable({
     providedIn: 'root'
 })
-export class RouteStore {
+export class RouteState {
 
     private readonly currentRoute = signal<Route>('home');
 

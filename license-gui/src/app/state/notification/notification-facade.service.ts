@@ -1,5 +1,5 @@
 import {effect, inject, Injectable} from '@angular/core';
-import {NotificationStore, ToasterMessage} from './notification-store.service';
+import {NotificationState, ToasterMessage} from './notification-state.service';
 import {TranslateService} from '@ngx-translate/core';
 import {ToastrService} from 'ngx-toastr';
 
@@ -7,16 +7,16 @@ import {ToastrService} from 'ngx-toastr';
 @Injectable({
     providedIn: 'root'
 })
-export class NotificationStoreService {
+export class NotificationFacade {
 
     private readonly translateService = inject(TranslateService);
-    private readonly toasterState = inject(NotificationStore);
+    private readonly notificationState = inject(NotificationState);
     private readonly toasterService = inject(ToastrService);
 
     constructor() {
 
         effect(() => {
-            const message: ToasterMessage | undefined = this.toasterState.getMessage();
+            const message: ToasterMessage | undefined = this.notificationState.getMessage();
             if (!message) return;
             if (!this.canShow(message)) return;
             if (message.type === 'SUCCESS') {
@@ -42,8 +42,8 @@ export class NotificationStoreService {
             if (info.message) {
                 message = this.translateService.instant(info.message);
             }
-            this.toasterState.setMessage({title: title, message: message, type: info.type});
-        } else this.toasterState.setMessage(info);
+            this.notificationState.setMessage({title: title, message: message, type: info.type});
+        } else this.notificationState.setMessage(info);
     }
 
     private canShow(message: ToasterMessage): boolean {

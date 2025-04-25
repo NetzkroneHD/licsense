@@ -1,11 +1,11 @@
 import {OAuthService} from 'angular-oauth2-oidc';
 import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
-import {UserLicenseStoreFacade} from '../state/user-license/user-license-store-facade.service';
-import {RouteStoreFacade} from '../state/route/route.service';
-import {UserSettingsStoreFacade} from '../state/user-settings/user-settings-store-facade.service';
+import {UserLicenseFacade} from '../state/user-license/user-license-facade.service';
+import {RouteFacade} from '../state/route/route-facade.service';
+import {UserSettingsFacade} from '../state/user-settings/user-settings-facade.service';
 import {TokenService} from '../api/service/token.service';
-import {NotificationStoreService} from '../state/notification/notification.service';
+import {NotificationFacade} from '../state/notification/notification-facade.service';
 
 @Injectable({
     providedIn: 'root'
@@ -13,11 +13,11 @@ import {NotificationStoreService} from '../state/notification/notification.servi
 export class LoginService {
 
     constructor(private readonly oAuthService: OAuthService,
-                private readonly userLicenseStoreFacade: UserLicenseStoreFacade,
-                private readonly routeStoreFacade: RouteStoreFacade,
-                private readonly userSettingsStoreFacade: UserSettingsStoreFacade,
+                private readonly userLicenseFacade: UserLicenseFacade,
+                private readonly routeFacade: RouteFacade,
+                private readonly userSettingsFacade: UserSettingsFacade,
                 private readonly tokenService: TokenService,
-                private readonly notificationFacade: NotificationStoreService) {
+                private readonly notificationFacade: NotificationFacade) {
 
     }
 
@@ -25,7 +25,7 @@ export class LoginService {
         this.oAuthService.configure(environment.authConfig);
         this.oAuthService.loadDiscoveryDocumentAndLogin().then(() => {
             this.onUserLoggedIn();
-            this.userLicenseStoreFacade.loadLicensesFromCurrentPublisher();
+            this.userLicenseFacade.loadLicensesFromCurrentPublisher();
         }).catch(() => {
             this.authFailed()
         });
@@ -40,7 +40,7 @@ export class LoginService {
 
         if (this.oAuthService.getIdentityClaims()) {
             this.tokenService.setAccessToken(this.oAuthService.getAccessToken());
-            this.userLicenseStoreFacade.loadLicensesFromCurrentPublisher();
+            this.userLicenseFacade.loadLicensesFromCurrentPublisher();
         }
     }
 
@@ -49,14 +49,14 @@ export class LoginService {
     }
 
     private authFailed() {
-        this.userSettingsStoreFacade.authFailed();
+        this.userSettingsFacade.authFailed();
         this.notificationFacade.setMessage({
             title: 'Authentication failed',
             message: undefined,
             type: 'ERROR'
         }, true);
 
-        this.routeStoreFacade.setCurrentRoute('auth-failed').then();
+        this.routeFacade.setCurrentRoute('auth-failed').then();
     }
 
     private onUserLoggedIn() {
