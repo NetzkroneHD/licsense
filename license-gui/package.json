@@ -22,7 +22,6 @@
         "@angular/platform-browser": "^19.0.4",
         "@angular/platform-browser-dynamic": "^19.0.4",
         "@angular/router": "^19.0.4",
-        "@license/license-api-client-typescript-angular": "file:../license-oas-api/target/typescript-angular/license-license-api-client-typescript-angular-1.0.0.tgz",
         "@license/license-api-client-typescript-fetch": "file:../license-oas-api/target/typescript/license-license-api-client-typescript-fetch-1.0.0.tgz",
         "@ngx-translate/core": "^15.0.0",
         "@ngx-translate/http-loader": "^8.0.0",

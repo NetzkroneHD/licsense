@@ -23,11 +23,3 @@ services:
       - ./openapi.yaml:/home/openapi.yaml
       - ./config-client-typescript-fetch.json:/home/config-client-typescript-fetch.json
     command: generate -i /home/openapi.yaml -g ${TYPE_SCRIPT_GENERATOR} -o /local/typescript -c /home/config-client-typescript-fetch.json
-
-  openapi-generator-client-typescript-angular:
-    image: openapitools/openapi-generator-cli:latest
-    volumes:
-      - ./target/typescript-angular:/local/typescript-angular
-      - ./openapi.yaml:/home/openapi.yaml
-      - ./config-client-typescript-angular.json:/home/config-client-typescript-angular.json
-    command: generate -i /home/openapi.yaml -g ${ANGULAR_GENERATOR} -o /local/typescript-angular -c /home/config-client-typescript-angular.json
