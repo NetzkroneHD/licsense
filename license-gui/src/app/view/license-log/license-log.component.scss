@@ -1,4 +1,5 @@
 @use '@angular/material' as mat;
+@use 'sass:map';
 
 :host {
     width: 95%;
@@ -19,5 +20,5 @@
 }
 
 .license-table-row:hover {
-    background-color: map-get(mat.$m2-indigo-palette, 50);
+    background-color: map.get(mat.$m2-indigo-palette, 50);
 }

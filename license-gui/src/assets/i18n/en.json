@@ -60,7 +60,7 @@
     "Retry": "Retry",
     "Delete logs": "Delete logs",
     "deleteLicense": {
-        "text": "Are you sure to delete the license {{licenseKey}}?"
+        "text": "Are you sure to delete the license <i>{{licenseKey}}</i>?"
     },
     "signature": {
         "general": "General Info",

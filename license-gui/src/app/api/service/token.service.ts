@@ -13,6 +13,7 @@ export class TokenService {
     public setAccessToken(token: string) {
         environment.apiConfig.config = new Configuration({
             ...environment.apiConfig,
+            basePath: environment.apiConfig.basePath,
             accessToken: token
         });
     }

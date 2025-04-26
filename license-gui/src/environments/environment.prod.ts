@@ -28,7 +28,7 @@ const authCodeFlowConfig: AuthConfig = {
 
 
 export const apiConfig: Configuration = new Configuration({
-    basePath: "http://localhost:4200/license/api/v1".replace(/\/+$/, ""),
+    basePath: "http://localhost:4200/license/api/v2",
 });
 
 export const environment = {
@@ -37,6 +37,6 @@ export const environment = {
     authConfig: authCodeFlowConfig,
     apiConfig: apiConfig,
     momentDateAdapter: momentDateAdapter,
-    accountSettingsUrl: new URL('http://localhost:8082/realms/license/account'),
+    accountSettingsUrl: new URL(authCodeFlowConfig.issuer + '/account'),
     userSettingsKey: 'license.userSettings'
 };

@@ -1,14 +1,13 @@
 import {inject, Injectable} from '@angular/core';
 import {ApiResponse, LicenseApi, LicenseDto} from '@license/license-api-client-typescript-fetch';
 import type {LicenseLogDto} from '@license/license-api-client-typescript-fetch/src/models';
-import {LicenseApiAdapter} from './adapter/license-api-adapter.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class LicenseApiService {
 
-    private readonly licenseApi: LicenseApi = inject(LicenseApiAdapter);
+    private readonly licenseApi: LicenseApi = inject(LicenseApi);
 
     constructor() {
 

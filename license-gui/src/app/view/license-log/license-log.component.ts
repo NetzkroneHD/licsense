@@ -103,7 +103,7 @@ export class LicenseLogComponent implements AfterViewInit {
         if (!currentLicense) return;
         this.dialogService.confirm({
             title: this.translateService.instant('Confirm Delete'),
-            message: this.translateService.instant('deleteLicenseLogs.text', {licenseKey: currentLicense}),
+            message: this.translateService.instant('deleteLicense.text', {licenseKey: currentLicense}),
             confirmCaption: this.translateService.instant('Delete'),
             cancelCaption: this.translateService.instant('Cancel'),
             discardWithEscape: true
