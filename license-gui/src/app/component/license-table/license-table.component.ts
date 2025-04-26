@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, input} from '@angular/core';
 import {MatProgressBar} from '@angular/material/progress-bar';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTable} from '@angular/material/table';
@@ -17,6 +17,6 @@ import {MatSort} from '@angular/material/sort';
 })
 export class LicenseTableComponent {
 
-    @Input() loading = false;
+    public readonly loading = input<boolean>(false);
 
 }

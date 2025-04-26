@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, input, OnInit, Output} from '@angular/core';
 import {MatError, MatFormField, MatHint, MatLabel, MatSuffix} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
 import {MatIconButton} from '@angular/material/button';
@@ -24,9 +24,9 @@ import {FormBuilder, FormControl, ReactiveFormsModule} from '@angular/forms';
 })
 export class LicenseInputComponent implements OnInit {
 
-    @Input({required: true}) input!: LicenseInput;
+    public readonly input = input.required<LicenseInput>()
 
-    @Output() onClearButtonClick$: EventEmitter<LicenseInput> = new EventEmitter<LicenseInput>();
+    @Output() onClearButtonClick: EventEmitter<LicenseInput> = new EventEmitter<LicenseInput>();
     @Output() onValueChange$: EventEmitter<Event> = new EventEmitter<Event>();
 
     constructor(private formBuilder: FormBuilder) {
@@ -40,13 +40,13 @@ export class LicenseInputComponent implements OnInit {
     }
 
     ngOnInit() {
-        this._formControl = this.formBuilder.control(this.input.input, this.input.validators);
+        this._formControl = this.formBuilder.control(this.input().input, this.input().validators);
         this._formControl.markAllAsTouched();
     }
 
     protected onClearClick() {
         this._formControl.reset();
-        this.onClearButtonClick$.emit(this.input);
+        this.onClearButtonClick.emit(this.input());
     }
 
     protected onValueChange(event: Event) {

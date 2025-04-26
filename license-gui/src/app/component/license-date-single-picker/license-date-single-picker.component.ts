@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, input} from '@angular/core';
 import {MatFormField, MatFormFieldModule, MatHint, MatLabel} from '@angular/material/form-field';
 import {MatInput, MatInputModule} from '@angular/material/input';
 import {
@@ -30,8 +30,8 @@ import {LicenseDateSinglePicker} from './license-date-picker.interface';
 })
 export class LicenseDateSinglePickerComponent {
 
-    @Input({required: true}) datePicker!: LicenseDateSinglePicker;
-    @Input({required: true}) dateFormControl!: FormControl<Date | null>;
+    public readonly datePicker = input.required<LicenseDateSinglePicker>();
+    public readonly dateFormControl = input.required<FormControl<Date | null>>();
 
     constructor() {
 

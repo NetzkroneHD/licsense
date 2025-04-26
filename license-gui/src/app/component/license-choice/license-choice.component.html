@@ -2,8 +2,8 @@
 
 </ng-container>
 
-<mat-menu #choice (closed)="menuClosed$.emit($event)">
-    @for (item of menu.items; track item) {
+<mat-menu #choice (closed)="menuClosed.emit($event)">
+    @for (item of menu().items; track item) {
         <mat-checkbox class="choice-item"
                       [(ngModel)]="item.activated"
                       (click)="$event.stopPropagation()"
