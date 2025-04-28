@@ -1,24 +1,24 @@
-<button (click)="refresh()" [disabled]="disabled()" [matTooltip]="('Refresh' | translate) "
+<button class="license-toolbar-item" (click)="refresh()" [disabled]="disabled()" [matTooltip]="('Refresh' | translate) "
         mat-icon-button>
     <mat-icon>refresh</mat-icon>
 </button>
 
-<button (click)="createLicense()" [disabled]="disabled()" [matTooltip]="('Create License' | translate)"
+<button class="license-toolbar-item" (click)="createLicense()" [disabled]="disabled()" [matTooltip]="('Create License' | translate)"
         mat-icon-button>
     <mat-icon>add_circle</mat-icon>
 </button>
 
-<button (click)="openLogs()" [disabled]="editingDisabled()" [matTooltip]="('Open Logs' | translate)"
+<button class="license-toolbar-item" (click)="openLogs()" [disabled]="editingDisabled()" [matTooltip]="('Open Logs' | translate)"
         mat-icon-button>
     <mat-icon>open_in_new</mat-icon>
 </button>
 
-<button (click)="editLicense()" [disabled]="editingDisabled()" [matTooltip]="('Edit License' | translate)"
+<button class="license-toolbar-item" (click)="editLicense()" [disabled]="editingDisabled()" [matTooltip]="('Edit License' | translate)"
         mat-icon-button>
     <mat-icon>edit</mat-icon>
 </button>
 
-<button (click)="deleteLicense()" [disabled]="editingDisabled()" [matTooltip]="('Delete License' | translate)"
+<button class="license-toolbar-item" (click)="deleteLicense()" [disabled]="editingDisabled()" [matTooltip]="('Delete License' | translate)"
         mat-icon-button>
     <mat-icon>delete</mat-icon>
 </button>
