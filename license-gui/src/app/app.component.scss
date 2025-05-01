@@ -1,11 +1,13 @@
 @use '@angular/material' as mat;
 @use 'sass:map' as map;
+@use '../styles' as styles;
 
 .license-toolbar {
     position: sticky;
     top: 0;
     z-index: 1000;
     background-color: map.get(mat.$azure-palette, 90);
+    //background-color: map.get(styles.$light-theme, 'color-primary');
 }
 
 .spacer {

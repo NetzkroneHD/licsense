@@ -10,6 +10,7 @@ import {OAuthService} from 'angular-oauth2-oidc';
 export class TokenService {
 
     private readonly oAuthService: OAuthService = inject(OAuthService);
+    private decodedJwt: Record<string, any> = {};
 
     constructor() {
     }
@@ -20,30 +21,23 @@ export class TokenService {
             basePath: environment.apiConfig.basePath,
             accessToken: token
         });
+        this.decodedJwt = jwtDecode(token);
     }
 
     public getSub(): string {
+        console.log('getRoles', this.getRoles())
         return this.oAuthService.getIdentityClaims()['sub'];
     }
 
-
     public getRoles(): string[] {
-        const accessToken = this.oAuthService.getAccessToken();
-        if(!accessToken) return [];
-
-        const decodedToken: Record<string, any> = jwtDecode(accessToken);
-        if (decodedToken['realm_access'] && decodedToken['realm_access']['roles']) {
-            return decodedToken['realm_access']['roles'];
+        if (this.decodedJwt['realm_access'] && this.decodedJwt['realm_access']['roles']) {
+            return this.decodedJwt['realm_access']['roles'];
         }
         return [];
     }
 
     public isAdmin(): boolean {
-        const roles = this.oAuthService.getCustomTokenResponseProperty('realm_access')['roles'];
-        if (roles === undefined) {
-            return false;
-        }
-        return roles.includes('ROLE_ADMIN');
+        return this.getRoles().includes('ROLE_ADMIN');
     }
 
 
