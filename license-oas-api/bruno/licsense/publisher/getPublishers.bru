@@ -1,0 +1,15 @@
+meta {
+  name: getPublishers
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{HOST}}/publisher
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{OAUTH_TOKEN}}
+}
