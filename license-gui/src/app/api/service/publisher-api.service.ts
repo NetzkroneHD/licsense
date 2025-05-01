@@ -1,6 +1,5 @@
 import {inject, Injectable} from '@angular/core';
 import {ApiResponse, LicenseDto, PublisherApi} from '@license/license-api-client-typescript-fetch';
-import {OAuthService} from 'angular-oauth2-oidc';
 
 @Injectable({
     providedIn: 'root'
@@ -8,13 +7,8 @@ import {OAuthService} from 'angular-oauth2-oidc';
 export class PublisherApiService {
 
     private readonly publisherApi: PublisherApi = inject(PublisherApi);
-    private readonly oAuthService: OAuthService = inject(OAuthService);
 
     constructor() {
-    }
-
-    public getCurrentPublisher(): string {
-        return this.oAuthService.getIdentityClaims()['sub'];
     }
 
     public getLicensesFromPublisher(publisher: string): Promise<LicenseDto[]> {
@@ -23,6 +17,10 @@ export class PublisherApiService {
 
     public getLicensesFromPublisherRaw(publisher: string): Promise<ApiResponse<Array<LicenseDto>>> {
         return this.publisherApi.getLicensesFromPublisherRaw({publisher: publisher});
+    }
+
+    public getPublishers(): Promise<string[]> {
+        return this.publisherApi.getPublishers();
     }
 
 }

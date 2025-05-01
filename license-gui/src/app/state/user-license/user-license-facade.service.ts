@@ -6,6 +6,7 @@ import {PublisherApiService} from '../../api/service/publisher-api.service';
 import {TranslateService} from '@ngx-translate/core';
 import {LicenseApiService} from '../../api/service/license-api.service';
 import {NotificationFacade} from '../notification/notification-facade.service';
+import {TokenService} from '../../api/service/token.service';
 
 
 @Injectable({
@@ -16,6 +17,7 @@ export class UserLicenseFacade {
     private readonly licenseState = inject(UserLicenseState);
     private readonly licenseApiService = inject(LicenseApiService);
     private readonly publisherApiService = inject(PublisherApiService);
+    private readonly tokenService = inject(TokenService);
     private readonly translateService = inject(TranslateService);
     private readonly notificationFacade = inject(NotificationFacade);
 
@@ -129,7 +131,7 @@ export class UserLicenseFacade {
     }
 
     public loadLicensesFromCurrentPublisher() {
-        this.loadLicenses(this.publisherApiService.getCurrentPublisher());
+        this.loadLicenses(this.tokenService.getSub());
     }
 
     public loadLicenses(publisher: string) {

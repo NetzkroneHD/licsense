@@ -1,22 +1,20 @@
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {LicenseDto} from '@license/license-api-client-typescript-fetch';
 import {LicenseEditComponent} from './license-edit.component';
 import {LicenseEdit, LicenseEditAction} from './license-edit.interface';
-import {PublisherApiService} from '../../api/service/publisher-api.service';
 import {TranslateService} from '@ngx-translate/core';
 import {Observable} from 'rxjs';
+import {TokenService} from '../../api/service/token.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class LicenseEditService {
 
-    constructor(private readonly dialog: MatDialog,
-                private readonly publisherApiService: PublisherApiService,
-                private readonly translateService: TranslateService) {
-
-    }
+    private readonly dialog: MatDialog = inject(MatDialog);
+    private readonly translateService: TranslateService = inject(TranslateService);
+    private readonly tokenService: TokenService = inject(TokenService);
 
     public edit(license: LicenseDto): Observable<LicenseEditAction> {
         const licenseEdit: LicenseEdit = {
@@ -49,7 +47,7 @@ export class LicenseEditService {
     public create(): Observable<LicenseEditAction> {
         const licenseEdit: LicenseEdit = {
             licenseKey: '',
-            publisher: this.publisherApiService.getCurrentPublisher(),
+            publisher: this.tokenService.getSub(),
             notes: '',
             valid: true,
             validUntil: new Date(),

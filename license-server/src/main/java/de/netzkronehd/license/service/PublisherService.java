@@ -17,6 +17,10 @@ public class PublisherService {
 
     private final LicenseRepository licenseRepository;
 
+    public List<String> getPublishers() {
+        return licenseRepository.findAllDistinctPublisher();
+    }
+
     public List<LicenseModel> getLicenses(String publisher) {
         Objects.requireNonNull(publisher);
         if (publisher.trim().isEmpty()) throw new IllegalStateException("Publisher can not be empty.");

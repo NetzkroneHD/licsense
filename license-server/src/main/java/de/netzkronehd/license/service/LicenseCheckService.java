@@ -16,6 +16,7 @@ import org.springframework.util.StringUtils;
 import java.security.GeneralSecurityException;
 import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @AllArgsConstructor(onConstructor_ = {@Autowired})
@@ -37,17 +38,17 @@ public class LicenseCheckService {
 
     public LicenseModel getLicense(OAuth2Model model, String licenseKey) throws PermissionException {
         final LicenseModel license = licenseService.getLicense(licenseKey);
-        if (!license.getPublisher().equals(model.getSub())) {
-            throw new PermissionException();
-        }
+        checkIfIsAdminOrPublisherIsEqualOr(model, license);
         return license;
     }
 
     public List<LicenseModel> getLicenses(OAuth2Model model, String publisher) throws PermissionException {
-        if (!model.getSub().equalsIgnoreCase(publisher)) {
-            throw new PermissionException();
-        }
+        checkIfIsAdminOrPublisherIsEqualOr(model, publisher);
         return publisherService.getLicenses(publisher);
+    }
+
+    public List<String> getPublishers() {
+        return publisherService.getPublishers();
     }
 
     public LicenseCheckResult checkLicense(String ip, String licenseKey) throws ListModeException, GeneralSecurityException, NoKeyModelException {
@@ -79,41 +80,34 @@ public class LicenseCheckService {
         return keyService.encrypt(Utils.getRandomString(licenseConfig.getSignatureLength()), keyService.loadPrivateKey(licenseKeyModel.getPrivateKey()));
     }
 
-    public LicenseModel updateLicense(String license, String publisher, LicenseModel update) throws PermissionException {
-        checkPublisher(publisher);
-
+    public LicenseModel updateLicense(String license, OAuth2Model updater, LicenseModel update) throws PermissionException {
         final LicenseModel licenseToUpdate = this.licenseService.getLicense(license);
-        checkIfPublisherIsEqual(publisher, licenseToUpdate);
-        update.setPublisher(publisher);
+        checkIfIsAdminOrPublisherIsEqualOr(updater, licenseToUpdate);
+        update.setPublisher(licenseToUpdate.getPublisher());
         update.setLicense(license);
 
         return this.licenseService.updateLicense(license, update);
     }
 
-    public List<LicenseLogModel> getLogs(String license, String publisher) throws PermissionException {
-        checkPublisher(publisher);
-
+    public List<LicenseLogModel> getLogs(String license, OAuth2Model publisher) throws PermissionException {
         final LicenseModel licenseModel = this.licenseService.getLicense(license);
-        checkIfPublisherIsEqual(publisher, licenseModel);
+        checkIfIsAdminOrPublisherIsEqualOr(publisher, licenseModel);
 
         return this.logService.getLogs(license);
     }
 
-    public void deleteLicense(String license, String publisher) throws PermissionException {
-        checkPublisher(publisher);
-
+    public void deleteLicense(String license, OAuth2Model deleter) throws PermissionException {
         final LicenseModel licenseModel = this.licenseService.getLicense(license);
-        checkIfPublisherIsEqual(publisher, licenseModel);
+        checkIfIsAdminOrPublisherIsEqualOr(deleter, licenseModel);
         this.licenseService.deleteLicense(license);
 
         this.logService.deleteLogs(license);
     }
 
-    public void deleteLogs(String license, String publisher) throws PermissionException {
-        checkPublisher(publisher);
+    public void deleteLogs(String license, OAuth2Model deleter) throws PermissionException {
 
         final LicenseModel licenseModel = this.licenseService.getLicense(license);
-        checkIfPublisherIsEqual(publisher, licenseModel);
+        checkIfIsAdminOrPublisherIsEqualOr(deleter, licenseModel);
 
         this.logService.deleteLogs(license);
     }
@@ -123,7 +117,13 @@ public class LicenseCheckService {
             throw new IllegalStateException("Publisher can not be an empty string '" + publisher + "'");
     }
 
-    private void checkIfPublisherIsEqual(String publisher, LicenseModel licenseModel) throws PermissionException {
-        if (publisher != null && !licenseModel.getPublisher().equals(publisher)) throw new PermissionException();
+    private void checkIfIsAdminOrPublisherIsEqualOr(OAuth2Model publisher, LicenseModel licenseModel) throws PermissionException {
+        if (publisher.isAdmin()) return;
+        if (!licenseModel.getPublisher().equals(publisher.getSub())) throw new PermissionException();
+    }
+
+    private void checkIfIsAdminOrPublisherIsEqualOr(OAuth2Model model, String publisher) throws PermissionException {
+        if (model.isAdmin()) return;
+        if(!Objects.equals(model.getSub(), publisher)) throw new PermissionException();
     }
 }

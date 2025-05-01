@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.FORBIDDEN;
+import static org.springframework.http.ResponseEntity.*;
+
 @RestController
 @AllArgsConstructor(onConstructor_ = {@Autowired})
 @Slf4j
@@ -29,16 +32,25 @@ public class PublisherController implements PublisherApi {
     private final LicenseMapper licenseMapper;
 
     @Override
+    public ResponseEntity<List<String>> getPublishers() {
+        final OAuth2Model model = tokenSecurity.getModel(SecurityContextHolder.getContext().getAuthentication());
+        if (model == null) return status(HttpStatus.UNAUTHORIZED).build();
+        if(!model.isAdmin()) return status(FORBIDDEN).build();
+        return ok(licenseCheckService.getPublishers());
+    }
+
+    @Override
     public ResponseEntity<List<LicenseDto>> getLicensesFromPublisher(String publisher) {
         final OAuth2Model model = tokenSecurity.getModel(SecurityContextHolder.getContext().getAuthentication());
-        if (model == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        if (model == null) return status(HttpStatus.UNAUTHORIZED).build();
+        if(!model.hasAccess()) return status(FORBIDDEN).build();
 
         try {
-            return ResponseEntity.ok(licenseMapper.map(licenseCheckService.getLicenses(model, publisher)));
+            return ok(licenseMapper.map(licenseCheckService.getLicenses(model, publisher)));
         } catch (PermissionException e) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+            return status(FORBIDDEN).build();
         } catch (IllegalStateException | NullPointerException ex) {
-            return ResponseEntity.badRequest().build();
+            return badRequest().build();
         }
     }
 }

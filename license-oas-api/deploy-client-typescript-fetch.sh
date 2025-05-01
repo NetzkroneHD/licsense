@@ -1,8 +1,7 @@
 #!/bin/bash
 
-cd ./target/typescript
+cd ./target/typescript || exit
 
 npm install
 npm run build
 npm pack
-npm publish --access public --registry=http://localhost:9081/repository/npm-private/

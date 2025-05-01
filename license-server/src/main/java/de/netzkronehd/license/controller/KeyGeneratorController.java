@@ -15,13 +15,16 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.Objects;
+
+import static org.springframework.http.HttpStatus.*;
+import static org.springframework.http.ResponseEntity.*;
 
 @RestController
 @AllArgsConstructor(onConstructor_ = {@Autowired})
@@ -39,46 +42,48 @@ public class KeyGeneratorController implements KeyApi {
     @Override
     public ResponseEntity<LicenseKeyDto> generateKey(GenerateKeyRequestDto generateKeyRequestDto) {
         final OAuth2Model model = tokenSecurity.getModel(SecurityContextHolder.getContext().getAuthentication());
-        if (model == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        if (!model.isAdmin()) return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        if (model == null) return status(UNAUTHORIZED).build();
+        if (!model.hasAccess()) return status(FORBIDDEN).build();
 
         try {
             rateLimitService.checkRateLimit(request.getRemoteAddr(), "KeyGeneratorController#generateKey", 1);
-            return ResponseEntity.ok(licenseKeyMapper.map(keyGeneratorService.generatePrivateKey(model.getSub(), generateKeyRequestDto.getKeySize())));
+            return ok(licenseKeyMapper.map(keyGeneratorService.generatePrivateKey(model.getSub(), generateKeyRequestDto.getKeySize())));
         } catch (NoSuchAlgorithmException e) {
             log.error("Error while generating key", e);
-            return ResponseEntity.internalServerError().build();
+            return internalServerError().build();
         } catch (RateLimitExceededException e) {
-            return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build();
+            return status(TOO_MANY_REQUESTS).build();
         }
     }
 
     @Override
     public ResponseEntity<LicenseKeyDto> getKey(String owner) {
         final OAuth2Model model = tokenSecurity.getModel(SecurityContextHolder.getContext().getAuthentication());
-        if (model == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        if (!model.isAdmin()) return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        if (model == null) return status(UNAUTHORIZED).build();
+        if (!model.hasAccess()) return status(FORBIDDEN).build();
+        if(Objects.equals(owner, model.getSub()) && !model.isAdmin()) return status(FORBIDDEN).build();
 
         try {
-            return ResponseEntity.ok(licenseKeyMapper.map(keyGeneratorService.getLicenseKeyModel(owner)));
+            return ok(licenseKeyMapper.map(keyGeneratorService.getLicenseKeyModel(owner)));
         } catch (NoKeyModelException e) {
-            return ResponseEntity.notFound().build();
+            return notFound().build();
         }
     }
 
     @Override
     public ResponseEntity<Void> deleteKey(String owner) {
         final OAuth2Model model = tokenSecurity.getModel(SecurityContextHolder.getContext().getAuthentication());
-        if (model == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        if (!model.isAdmin()) return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        if (model == null) return status(UNAUTHORIZED).build();
+        if (!model.hasAccess()) return status(FORBIDDEN).build();
+        if(Objects.equals(owner, model.getSub()) && !model.isAdmin()) return status(FORBIDDEN).build();
 
         try {
             keyGeneratorService.deleteKey(owner);
-            return ResponseEntity.ok().build();
+            return ok().build();
         } catch (NoKeyModelException e) {
-            return ResponseEntity.notFound().build();
+            return notFound().build();
         } catch (PermissionException e) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+            return status(FORBIDDEN).build();
         }
     }
 }

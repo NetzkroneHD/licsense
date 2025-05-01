@@ -2,6 +2,7 @@
 
 dir=$(pwd)
 
+chmod +x ./chown-fix.sh
 ./chown-fix.sh
 cd "$dir" || exit
 

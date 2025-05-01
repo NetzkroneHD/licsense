@@ -11,13 +11,16 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.NoSuchElementException;
+
+import static org.springframework.http.HttpStatus.FORBIDDEN;
+import static org.springframework.http.HttpStatus.UNAUTHORIZED;
+import static org.springframework.http.ResponseEntity.*;
 
 @RestController
 @AllArgsConstructor(onConstructor_ = {@Autowired})
@@ -32,63 +35,63 @@ public class LicenseController implements LicenseApi {
     @Override
     public ResponseEntity<LicenseDto> createLicense(@Valid LicenseDto licenseDto) {
         final OAuth2Model model = tokenSecurity.getModel(SecurityContextHolder.getContext().getAuthentication());
-        if (model == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        if (!model.isAdmin()) return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        if (model == null) return status(UNAUTHORIZED).build();
+        if (!model.hasAccess()) return status(FORBIDDEN).build();
 
         try {
-            return ResponseEntity.ok(licenseMapper.map(licenseCheckService.createLicense(licenseMapper.map(licenseDto), model.getSub())));
+            return ok(licenseMapper.map(licenseCheckService.createLicense(licenseMapper.map(licenseDto), model.getSub())));
         } catch (Exception ex) {
             log.error("Error while creating license '{}'", licenseDto, ex);
-            return ResponseEntity.badRequest().build();
+            return badRequest().build();
         }
     }
 
     @Override
     public ResponseEntity<Void> deleteLicense(String license) {
         final OAuth2Model model = tokenSecurity.getModel(SecurityContextHolder.getContext().getAuthentication());
-        if (model == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        if (!model.isAdmin()) return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        if (model == null) return status(UNAUTHORIZED).build();
+        if (!model.hasAccess()) return status(FORBIDDEN).build();
 
         try {
-            licenseCheckService.deleteLicense(license, model.getSub());
-            return ResponseEntity.ok().build();
+            licenseCheckService.deleteLicense(license, model);
+            return ok().build();
         } catch (PermissionException ex) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+            return status(FORBIDDEN).build();
         } catch (IllegalStateException ex) {
-            return ResponseEntity.badRequest().build();
+            return badRequest().build();
         } catch (NoSuchElementException ex) {
-            return ResponseEntity.notFound().build();
+            return notFound().build();
         }
     }
 
     @Override
     public ResponseEntity<LicenseDto> updateLicense(String license, @Valid LicenseDto licenseDto) {
         final OAuth2Model model = tokenSecurity.getModel(SecurityContextHolder.getContext().getAuthentication());
-        if (model == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        if (!model.isAdmin()) return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        if (model == null) return status(UNAUTHORIZED).build();
+        if (!model.hasAccess()) return status(FORBIDDEN).build();
 
         try {
-            return ResponseEntity.ok(licenseMapper.map(licenseCheckService.updateLicense(license, model.getSub(), licenseMapper.map(licenseDto))));
+            return ok(licenseMapper.map(licenseCheckService.updateLicense(license, model, licenseMapper.map(licenseDto))));
         } catch (PermissionException ex) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+            return status(FORBIDDEN).build();
         } catch (IllegalStateException ex) {
-            return ResponseEntity.badRequest().build();
+            return badRequest().build();
         } catch (NoSuchElementException ex) {
-            return ResponseEntity.notFound().build();
+            return notFound().build();
         }
     }
 
     @Override
     public ResponseEntity<LicenseDto> getLicense(String license) {
         final OAuth2Model model = tokenSecurity.getModel(SecurityContextHolder.getContext().getAuthentication());
-        if (model == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        if (model == null) return status(UNAUTHORIZED).build();
 
         try {
-            return ResponseEntity.ok(this.licenseMapper.map(this.licenseCheckService.getLicense(model, license)));
+            return ok(this.licenseMapper.map(this.licenseCheckService.getLicense(model, license)));
         } catch (PermissionException ex) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+            return status(FORBIDDEN).build();
         } catch (NoSuchElementException ex) {
-            return ResponseEntity.notFound().build();
+            return notFound().build();
         }
     }
 
