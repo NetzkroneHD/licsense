@@ -1,4 +1,4 @@
-import {Component, effect, inject, OnInit, ViewChild} from '@angular/core';
+import {Component, effect, inject, OnInit, signal, ViewChild} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {environment} from '../environments/environment';
 import {MatIconButton} from '@angular/material/button';
@@ -20,6 +20,7 @@ import {RouteState, toRoute} from './state/route/route-state.service';
 import {LoginService} from './service/login.service';
 import {uiItems} from '../environments/ui-items';
 import {UserSettingsState} from './state/user-settings/user-settings-state.service';
+import {Theme} from './service/theme.service';
 
 @Component({
     selector: 'app-root',
@@ -41,12 +42,15 @@ export class AppComponent implements OnInit {
     @ViewChild('sidenav') sidenav!: LicenseSidenavComponent;
     protected readonly title = environment.title;
     protected readonly uiItems = uiItems;
+
     private readonly userSettingsFacade = inject(UserSettingsFacade);
     private readonly userSettingsState = inject(UserSettingsState);
     private readonly routeFacade = inject(RouteFacade);
     private readonly routeState = inject(RouteState);
     private readonly translateService = inject(TranslateService);
     private readonly loginService = inject(LoginService);
+
+    protected readonly themeIcon = signal<string>('light_mode');
 
     constructor() {
 
@@ -102,5 +106,16 @@ export class AppComponent implements OnInit {
 
     private clearToggle() {
         uiItems.sidenavItems.forEach(value => value.selected = false);
+    }
+
+    public onChangeTheme() {
+        const currentTheme: Theme = this.userSettingsState.getTheme();
+        if (currentTheme === 'light-theme') {
+            this.userSettingsFacade.setTheme('dark-theme');
+            this.themeIcon.set('dark_mode');
+        } else {
+            this.userSettingsFacade.setTheme('light-theme');
+            this.themeIcon.set('light_mode');
+        }
     }
 }

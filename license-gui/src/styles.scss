@@ -17,10 +17,25 @@ $dark-theme: mat.define-theme((
     )
 ));
 
+@mixin light-theme {
+  @include mat.all-component-themes($light-theme);
+}
+
+@mixin dark-theme {
+  @include mat.all-component-themes($dark-theme);
+}
+
+html.light-theme {
+  @include light-theme;
+}
+
+html.dark-theme {
+  @include dark-theme;
+}
+
 
 html, body {
     height: 100%;
-    @include mat.all-component-themes($dark-theme);
 }
 
 body {

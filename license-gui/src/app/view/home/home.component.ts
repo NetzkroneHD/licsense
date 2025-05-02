@@ -98,7 +98,6 @@ export class HomeComponent implements AfterViewInit {
     }
 
     protected applyFilter() {
-        console.log(`filter: '${this.filterValue()}'`);
         this.dataSource.filter = this.filterValue().trim().toLowerCase();
     }
 

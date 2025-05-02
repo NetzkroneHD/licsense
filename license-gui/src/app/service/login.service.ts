@@ -62,15 +62,9 @@ export class LoginService {
     private onUserLoggedIn() {
         const identityClaims = this.oAuthService.getIdentityClaims();
         if (!identityClaims) {
-            console.log("Login failed. No Claim available.");
+            console.error("Login failed. No Claim available.");
             return;
         }
-
-        const username = this.oAuthService.getIdentityClaims()['preferred_username'];
-        const jwt = JSON.parse(atob(this.oAuthService.getAccessToken().split('.')[1]));
-        console.log("username", username);
-        console.log("jwt", jwt);
-        console.log("roles", jwt['realm_access']['roles'])
     }
 }
 

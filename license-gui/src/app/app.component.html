@@ -4,6 +4,11 @@
     </button>
     <span class="mouse-hover">{{ title }}</span>
     <span class="spacer"></span>
+
+    <button mat-icon-button (click)="onChangeTheme()">
+        <mat-icon>{{this.themeIcon()}}</mat-icon>
+    </button>
+
     <license-dropdown-menu (itemClick$)="onChangeLanguage($event)"
                            [items]="uiItems.changeLanguageDropdownMenu">
         <ng-template let-menu="menu">

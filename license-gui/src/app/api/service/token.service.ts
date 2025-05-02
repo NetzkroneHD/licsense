@@ -25,7 +25,6 @@ export class TokenService {
     }
 
     public getSub(): string {
-        console.log('getRoles', this.getRoles())
         return this.oAuthService.getIdentityClaims()['sub'];
     }
 
