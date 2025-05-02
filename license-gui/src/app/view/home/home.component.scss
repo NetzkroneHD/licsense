@@ -7,7 +7,7 @@
 
 .license-table {
     margin-bottom: 1%;
-    background-color: #FAFAFA;
+    //background-color: #FAFAFA;
 }
 
 .license-form-field {
@@ -21,11 +21,11 @@
 }
 
 .license-table-row:hover {
-    background-color: map.get(mat.$azure-palette, 95);
+    //background-color: map.get(mat.$azure-palette, 95);
 }
 
 .license-selected {
-    color: map.get(mat.$azure-palette, 40);
+    //color: map.get(mat.$azure-palette, 40);
 }
 
 .license-green-icon {

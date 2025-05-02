@@ -1,4 +1,5 @@
 @use '@angular/material' as mat;
+@use 'sass:map';
 
 .item-block {
     width: 90%;
@@ -39,15 +40,15 @@
 
 .activeItem {
     box-sizing: content-box;
-    box-shadow: 0 0 0 2px map-get(mat.$azure-palette, 40) inset;
+    box-shadow: 0 0 0 2px map.get(mat.$azure-palette, 40) inset;
 
     mat-icon {
-        color: map-get(mat.$azure-palette, 40);
+        color: map.get(mat.$azure-palette, 40);
     }
 }
 
 .mat-sidenav {
-    background-color: map-get(mat.$azure-palette, 100);
+    background-color: map.get(mat.$azure-palette, 100);
     width: 60px;
 }
 
@@ -70,7 +71,7 @@
 }
 
 .dragPreview.activeItem { // für active items
-    //box-shadow: 0 0 0 2px map-get(mat.$azure-palette, 95) inset;
+    box-shadow: 0 0 0 2px map.get(mat.$azure-palette, 95) inset;
 }
 
 .cdk-drag-placeholder {
