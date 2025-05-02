@@ -7,6 +7,7 @@
 
 .license-table {
     margin-bottom: 1%;
+    background-color: var(--mat-sys-surface-container-lowest);
 }
 
 .license-form-field {
@@ -20,7 +21,7 @@
 }
 
 .license-table-row:hover {
-    //background-color: map.get(mat.$azure-palette, 95);
+    background: var(--mat-sys-primary-container);
 }
 
 .license-log-toolbar-item {
