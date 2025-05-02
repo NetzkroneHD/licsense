@@ -40,15 +40,15 @@
 
 .activeItem {
     box-sizing: content-box;
-    box-shadow: 0 0 0 2px map.get(mat.$azure-palette, 40) inset;
+    box-shadow: 0 0 0 2px var(--mat-sys-primary) inset;
 
     mat-icon {
-        color: map.get(mat.$azure-palette, 40);
+        color: var(--mat-sys-primary);
     }
 }
 
 .mat-sidenav {
-    background-color: map.get(mat.$azure-palette, 100);
+    background-color: var(--mat-sys-background);
     width: 60px;
 }
 
@@ -71,7 +71,7 @@
 }
 
 .dragPreview.activeItem { // für active items
-    box-shadow: 0 0 0 2px map.get(mat.$azure-palette, 95) inset;
+    box-shadow: 0 0 0 2px var(--mat-sys-inverse-on-surface) inset;
 }
 
 .cdk-drag-placeholder {
