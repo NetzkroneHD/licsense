@@ -5,7 +5,7 @@ import {LicenseEditComponent} from './license-edit.component';
 import {LicenseEdit, LicenseEditAction} from './license-edit.interface';
 import {TranslateService} from '@ngx-translate/core';
 import {Observable} from 'rxjs';
-import {TokenService} from '../../api/service/token.service';
+import {TokenState} from '../../state/token/token-state.service';
 
 @Injectable({
     providedIn: 'root'
@@ -14,7 +14,7 @@ export class LicenseEditService {
 
     private readonly dialog: MatDialog = inject(MatDialog);
     private readonly translateService: TranslateService = inject(TranslateService);
-    private readonly tokenService: TokenService = inject(TokenService);
+    private readonly tokenState: TokenState = inject(TokenState);
 
     public edit(license: LicenseDto): Observable<LicenseEditAction> {
         const licenseEdit: LicenseEdit = {
@@ -47,7 +47,7 @@ export class LicenseEditService {
     public create(): Observable<LicenseEditAction> {
         const licenseEdit: LicenseEdit = {
             licenseKey: '',
-            publisher: this.tokenService.getSub(),
+            publisher: this.tokenState.getSub(),
             notes: '',
             valid: true,
             validUntil: new Date(),

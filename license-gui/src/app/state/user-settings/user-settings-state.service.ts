@@ -3,6 +3,7 @@ import {environment} from '../../../environments/environment';
 import {ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot} from '@angular/router';
 import {LicenseDto} from '@license/license-api-client-typescript-fetch';
 import {Theme} from '../../service/theme.service';
+import {TokenFacade} from '../token/token-facade.service';
 
 @Injectable({
     providedIn: 'root'
@@ -62,4 +63,12 @@ export const canEnterRoutes: CanActivateFn = (
     settingsStore = inject(UserSettingsState)
 ) => {
     return !settingsStore.getAuthFailed();
+}
+
+export const canEnterAdminRoutes: CanActivateFn = (
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot,
+    tokenFacade = inject(TokenFacade)
+) => {
+    return tokenFacade.isAdmin();
 }

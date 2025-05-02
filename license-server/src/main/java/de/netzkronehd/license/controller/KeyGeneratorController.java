@@ -61,7 +61,11 @@ public class KeyGeneratorController implements KeyApi {
         final OAuth2Model model = tokenSecurity.getModel(SecurityContextHolder.getContext().getAuthentication());
         if (model == null) return status(UNAUTHORIZED).build();
         if (!model.hasAccess()) return status(FORBIDDEN).build();
-        if(Objects.equals(owner, model.getSub()) && !model.isAdmin()) return status(FORBIDDEN).build();
+        if (!Objects.equals(owner, model.getSub()) && !model.isAdmin()) {
+            log.info("{} tried to access key of {}", model.getSub(), owner);
+            return status(FORBIDDEN).build();
+        }
+
 
         try {
             return ok(licenseKeyMapper.map(keyGeneratorService.getLicenseKeyModel(owner)));
@@ -75,7 +79,10 @@ public class KeyGeneratorController implements KeyApi {
         final OAuth2Model model = tokenSecurity.getModel(SecurityContextHolder.getContext().getAuthentication());
         if (model == null) return status(UNAUTHORIZED).build();
         if (!model.hasAccess()) return status(FORBIDDEN).build();
-        if(Objects.equals(owner, model.getSub()) && !model.isAdmin()) return status(FORBIDDEN).build();
+        if (!Objects.equals(owner, model.getSub()) && !model.isAdmin()) {
+            log.info("{} tried to delete key of {}", model.getSub(), owner);
+            return status(FORBIDDEN).build();
+        }
 
         try {
             keyGeneratorService.deleteKey(owner);

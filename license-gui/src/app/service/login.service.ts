@@ -1,25 +1,23 @@
 import {OAuthService} from 'angular-oauth2-oidc';
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
 import {UserLicenseFacade} from '../state/user-license/user-license-facade.service';
 import {RouteFacade} from '../state/route/route-facade.service';
 import {UserSettingsFacade} from '../state/user-settings/user-settings-facade.service';
-import {TokenService} from '../api/service/token.service';
 import {NotificationFacade} from '../state/notification/notification-facade.service';
+import {TokenFacade} from '../state/token/token-facade.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class LoginService {
 
-    constructor(private readonly oAuthService: OAuthService,
-                private readonly userLicenseFacade: UserLicenseFacade,
-                private readonly routeFacade: RouteFacade,
-                private readonly userSettingsFacade: UserSettingsFacade,
-                private readonly tokenService: TokenService,
-                private readonly notificationFacade: NotificationFacade) {
-
-    }
+    private readonly oAuthService: OAuthService = inject(OAuthService);
+    private readonly userLicenseFacade: UserLicenseFacade = inject(UserLicenseFacade);
+    private readonly routeFacade: RouteFacade = inject(RouteFacade);
+    private readonly userSettingsFacade: UserSettingsFacade = inject(UserSettingsFacade);
+    private readonly notificationFacade: NotificationFacade = inject(NotificationFacade);
+    private readonly tokenFacade: TokenFacade = inject(TokenFacade);
 
     public login() {
         this.oAuthService.configure(environment.authConfig);
@@ -35,16 +33,16 @@ export class LoginService {
             if (event.type !== 'token_refreshed') {
                 return;
             }
-            this.tokenService.setAccessToken(this.oAuthService.getAccessToken());
+            this.tokenFacade.setAccessToken(this.oAuthService.getAccessToken());
         });
 
         if (this.oAuthService.getIdentityClaims()) {
-            this.tokenService.setAccessToken(this.oAuthService.getAccessToken());
+            this.tokenFacade.setAccessToken(this.oAuthService.getAccessToken())
             this.userLicenseFacade.loadLicensesFromCurrentPublisher();
         }
     }
 
-    logout() {
+    public logout() {
         this.oAuthService.logOut();
     }
 

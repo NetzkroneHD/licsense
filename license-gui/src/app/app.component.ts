@@ -21,6 +21,7 @@ import {LoginService} from './service/login.service';
 import {uiItems} from '../environments/ui-items';
 import {UserSettingsState} from './state/user-settings/user-settings-state.service';
 import {Theme} from './service/theme.service';
+import {TokenFacade} from './state/token/token-facade.service';
 
 @Component({
     selector: 'app-root',
@@ -45,6 +46,7 @@ export class AppComponent implements OnInit {
 
     private readonly userSettingsFacade = inject(UserSettingsFacade);
     private readonly userSettingsState = inject(UserSettingsState);
+    private readonly tokenFacade = inject(TokenFacade);
     private readonly routeFacade = inject(RouteFacade);
     private readonly routeState = inject(RouteState);
     private readonly translateService = inject(TranslateService);

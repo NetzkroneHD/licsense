@@ -44,6 +44,16 @@ const sidenavItems: LicenseSidenavItem[] = [
         hasCustomOrder: false
     },
     {
+        id: 'admin',
+        icon: {name: 'admin_panel_settings', size: 32},
+        description: 'Admin',
+        selected: false,
+        activity: {count: 0},
+        disabled: {reason: '', state: false},
+        group: 'last',
+        hasCustomOrder: false
+    },
+    {
         id: 'settings',
         icon: {name: 'account_circle', size: 32},
         description: 'Account Settings',
