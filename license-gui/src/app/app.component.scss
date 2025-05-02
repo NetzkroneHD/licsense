@@ -5,8 +5,6 @@
     position: sticky;
     top: 0;
     z-index: 1000;
-    //background-color: map.get(mat.$azure-palette, 90);
-    //background-color: map.get(styles.$light-theme, 'color-primary');
     color: var(--mat-sys-primary);
     background: var(--mat-sys-primary-container);
 }
