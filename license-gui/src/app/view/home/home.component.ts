@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, effect, inject, signal, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, computed, effect, inject, signal, ViewChild} from '@angular/core';
 import {UserLicenseFacade} from '../../state/user-license/user-license-facade.service';
 import {UserLicenseState} from '../../state/user-license/user-license-state.service';
 import {
@@ -21,7 +21,7 @@ import {TranslateModule} from '@ngx-translate/core';
 import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
 import {FormsModule} from '@angular/forms';
-import {MatIconButton} from '@angular/material/button';
+import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatIcon, MatIconModule} from '@angular/material/icon';
 import {MatProgressBar} from '@angular/material/progress-bar';
 import {RouteFacade} from '../../state/route/route-facade.service';
@@ -54,7 +54,8 @@ import {NotificationFacade} from '../../state/notification/notification-facade.s
         MatHeaderCellDef,
         MatCellDef,
         MatHeaderRowDef,
-        MatRowDef
+        MatRowDef,
+        MatButton
     ],
     templateUrl: './home.component.html',
     styleUrl: './home.component.scss'
@@ -63,14 +64,15 @@ export class HomeComponent implements AfterViewInit {
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
-    protected loading = false;
     protected displayedColumns = ['licenseKey', 'publisher', 'notes', 'valid', 'validUntil', 'listMode', 'ipAddresses'];
     protected dataSource;
-    protected filterValue = signal<string>('');
+    protected readonly loading = computed<boolean>(() => this.userLicenseState.getLoadingAnyLicense());
+    protected readonly filterValue = signal<string>('');
     protected selectedLicense: { previous: LicenseDto | null; current: LicenseDto | null } = {
         previous: null,
         current: null
     };
+    protected showTestToaster = true;
     protected readonly String = String;
     private readonly userLicenseFacade = inject(UserLicenseFacade);
     private readonly userLicenseState = inject(UserLicenseState);
@@ -79,17 +81,10 @@ export class HomeComponent implements AfterViewInit {
     private readonly clipboard = inject(Clipboard);
 
     constructor() {
-
         this.dataSource = new MatTableDataSource(this.userLicenseState.getUserLicenses());
-
         effect(() => {
             this.dataSource.data = this.userLicenseState.getUserLicenses();
         });
-
-        effect(() => {
-            this.loading = this.userLicenseState.getLoadingAnyLicense();
-        });
-
     }
 
     ngAfterViewInit() {
@@ -142,5 +137,34 @@ export class HomeComponent implements AfterViewInit {
     protected onUpdateFilter(e: Event) {
         this.filterValue.set((e.target as HTMLInputElement).value);
         this.applyFilter();
+    }
+
+    protected testToastr() {
+        this.notificationFacade.setMessage({
+            title: 'Test1',
+            message: 'Test message1',
+            type: 'SUCCESS'
+        });
+        setTimeout(() => {
+            this.notificationFacade.setMessage({
+                title: 'Test2',
+                message: 'Test message2',
+                type: 'INFO'
+            });
+        }, 400);
+        setTimeout(() => {
+            this.notificationFacade.setMessage({
+                title: 'Test3',
+                message: 'Test message3',
+                type: 'WARN'
+            });
+        }, 600);
+        setTimeout(() => {
+            this.notificationFacade.setMessage({
+                title: 'Test4',
+                message: 'Test message4',
+                type: 'ERROR'
+            });
+        }, 800);
     }
 }
