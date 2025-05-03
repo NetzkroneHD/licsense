@@ -4,7 +4,6 @@ import de.netzkronehd.license.api.server.springboot.api.KeyApi;
 import de.netzkronehd.license.api.server.springboot.models.GenerateKeyRequestDto;
 import de.netzkronehd.license.api.server.springboot.models.LicenseKeyDto;
 import de.netzkronehd.license.exception.NoKeyModelException;
-import de.netzkronehd.license.exception.PermissionException;
 import de.netzkronehd.license.exception.RateLimitExceededException;
 import de.netzkronehd.license.mapper.LicenseKeyMapper;
 import de.netzkronehd.license.model.OAuth2Model;
@@ -89,8 +88,6 @@ public class KeyGeneratorController implements KeyApi {
             return ok().build();
         } catch (NoKeyModelException e) {
             return notFound().build();
-        } catch (PermissionException e) {
-            return status(FORBIDDEN).build();
         }
     }
 }

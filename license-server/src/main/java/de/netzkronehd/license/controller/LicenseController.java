@@ -2,7 +2,6 @@ package de.netzkronehd.license.controller;
 
 import de.netzkronehd.license.api.server.springboot.api.LicenseApi;
 import de.netzkronehd.license.api.server.springboot.models.LicenseDto;
-import de.netzkronehd.license.exception.PermissionException;
 import de.netzkronehd.license.mapper.LicenseMapper;
 import de.netzkronehd.license.model.OAuth2Model;
 import de.netzkronehd.license.security.OAuth2TokenSecurity;
@@ -15,8 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.NoSuchElementException;
 
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
@@ -55,12 +52,8 @@ public class LicenseController implements LicenseApi {
         try {
             licenseCheckService.deleteLicense(license, model);
             return ok().build();
-        } catch (PermissionException ex) {
-            return status(FORBIDDEN).build();
         } catch (IllegalStateException ex) {
             return badRequest().build();
-        } catch (NoSuchElementException ex) {
-            return notFound().build();
         }
     }
 
@@ -72,12 +65,8 @@ public class LicenseController implements LicenseApi {
 
         try {
             return ok(licenseMapper.map(licenseCheckService.updateLicense(license, model, licenseMapper.map(licenseDto))));
-        } catch (PermissionException ex) {
-            return status(FORBIDDEN).build();
         } catch (IllegalStateException ex) {
             return badRequest().build();
-        } catch (NoSuchElementException ex) {
-            return notFound().build();
         }
     }
 
@@ -86,13 +75,7 @@ public class LicenseController implements LicenseApi {
         final OAuth2Model model = tokenSecurity.getModel(SecurityContextHolder.getContext().getAuthentication());
         if (model == null) return status(UNAUTHORIZED).build();
 
-        try {
-            return ok(this.licenseMapper.map(this.licenseCheckService.getLicense(model, license)));
-        } catch (PermissionException ex) {
-            return status(FORBIDDEN).build();
-        } catch (NoSuchElementException ex) {
-            return notFound().build();
-        }
+        return ok(this.licenseMapper.map(this.licenseCheckService.getLicense(model, license)));
     }
 
 }

@@ -3,7 +3,6 @@ package de.netzkronehd.license.controller;
 
 import de.netzkronehd.license.api.server.springboot.api.LogsApi;
 import de.netzkronehd.license.api.server.springboot.models.LicenseLogDto;
-import de.netzkronehd.license.exception.PermissionException;
 import de.netzkronehd.license.mapper.LicenseLogMapper;
 import de.netzkronehd.license.model.OAuth2Model;
 import de.netzkronehd.license.security.OAuth2TokenSecurity;
@@ -16,11 +15,11 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
-import static org.springframework.http.ResponseEntity.*;
+import static org.springframework.http.ResponseEntity.ok;
+import static org.springframework.http.ResponseEntity.status;
 
 @RestController
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
@@ -37,13 +36,7 @@ public class LicenseLogsController implements LogsApi {
         if (model == null) return status(UNAUTHORIZED).build();
         if (!model.hasAccess()) return status(FORBIDDEN).build();
 
-        try {
-            return ok(licenseLogMapper.map(checkService.getLogs(license, model)).reversed());
-        } catch (NoSuchElementException ex) {
-            return notFound().build();
-        } catch (PermissionException e) {
-            return status(FORBIDDEN).build();
-        }
+        return ok(licenseLogMapper.map(checkService.getLogs(license, model)).reversed());
     }
 
     @Override
@@ -52,13 +45,7 @@ public class LicenseLogsController implements LogsApi {
         if (model == null) return status(UNAUTHORIZED).build();
         if (!model.hasAccess()) return status(FORBIDDEN).build();
 
-        try {
-            this.checkService.deleteLogs(license, model);
-            return ok().build();
-        } catch (NoSuchElementException ex) {
-            return notFound().build();
-        } catch (PermissionException e) {
-            return status(FORBIDDEN).build();
-        }
+        this.checkService.deleteLogs(license, model);
+        return ok().build();
     }
 }
