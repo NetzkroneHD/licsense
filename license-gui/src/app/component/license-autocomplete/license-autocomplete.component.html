@@ -1,0 +1,15 @@
+<form>
+    <mat-form-field class="license-autocomplete-form">
+        <mat-label>{{ this.label() }}</mat-label>
+        <input type="text"
+               placeholder="{{this.placeholder()}}"
+               matInput
+               [formControl]="formControl()"
+               [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
+            @for (option of filteredOptions(); track option) {
+                <mat-option [value]="option">{{ option }}</mat-option>
+            }
+        </mat-autocomplete>
+    </mat-form-field>
+</form>
