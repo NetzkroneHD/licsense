@@ -72,7 +72,7 @@ export class HomeComponent implements AfterViewInit {
         previous: null,
         current: null
     };
-    protected showTestToaster = true;
+    protected showTestToaster = false;
     protected readonly String = String;
     private readonly userLicenseFacade = inject(UserLicenseFacade);
     private readonly userLicenseState = inject(UserLicenseState);
