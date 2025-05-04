@@ -8,12 +8,13 @@ import {
     canEnterAuthFailed,
     canEnterRoutes
 } from './state/user-settings/user-settings-state.service';
+import {AdminComponent} from './view/admin/admin.component';
 
 export const routes: Routes = [
     {path: 'home', component: HomeComponent, canActivate: [canEnterRoutes]},
     {path: 'auth-failed', component: AuthFailedComponent, canActivate: [canEnterAuthFailed]},
     {path: 'license-logs', component: LicenseLogComponent, canActivate: [canEnterRoutes]},
     {path: 'signature', component: SignatureComponent, canActivate: [canEnterRoutes]},
-    {path: 'admin', component: SignatureComponent, canActivate: [canEnterAdminRoutes]},
+    {path: 'admin', component: AdminComponent, canActivate: [canEnterAdminRoutes]},
     {path: '**', redirectTo: 'home', pathMatch: 'full'}
 ];

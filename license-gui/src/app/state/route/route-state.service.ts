@@ -6,6 +6,7 @@ export function toRoute(path: string): Route {
     const cleanedPath = path.replace(/^\//, '');
     switch (cleanedPath) {
         case 'home':
+        case 'admin':
         case 'license-logs':
         case 'signature':
         case 'auth-failed':
