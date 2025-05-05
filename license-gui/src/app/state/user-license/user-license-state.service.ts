@@ -15,6 +15,7 @@ export class UserLicenseState {
     private readonly userLicenses = signal<LicenseDto[]>([]);
     private readonly userLicenseLogs = signal<LicenseLogDto[]>([]);
     private readonly currentSelectedLicense = signal<string>('');
+    private readonly selectedPublisher = signal<string>('');
 
     public readonly getLoadingAnyLicense = computed(() => this.getLoadingLicenses() || this.getLoadingCreate() || this.getLoadingUpdate() || this.getLoadingDelete());
     public readonly getLoadingLogs = computed(() => this.loadingLogs() !== 0);
@@ -25,6 +26,7 @@ export class UserLicenseState {
     public readonly getUserLicenses = this.userLicenses.asReadonly();
     public readonly getUserLicenseLogs = this.userLicenseLogs.asReadonly();
     public readonly getCurrentLicense = this.currentSelectedLicense.asReadonly();
+    public readonly getSelectedPublisher = this.selectedPublisher.asReadonly();
 
     public setCurrentLicense(license: string) {
         this.currentSelectedLicense.set(license);
@@ -93,5 +95,9 @@ export class UserLicenseState {
         this.userLicenses.update(value => {
             return value.filter(licenseEntry => licenseEntry.licenseKey !== licenseKey);
         });
+    }
+
+    public setSelectedPublisher(publisher: string) {
+        this.selectedPublisher.set(publisher);
     }
 }

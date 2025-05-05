@@ -21,7 +21,7 @@ import {LoginService} from './service/login.service';
 import {uiItems} from '../environments/ui-items';
 import {UserSettingsState} from './state/user-settings/user-settings-state.service';
 import {Theme} from './service/theme.service';
-import {TokenFacade} from './state/token/token-facade.service';
+import {TokenState} from './state/token/token-state.service';
 
 @Component({
     selector: 'app-root',
@@ -44,9 +44,9 @@ export class AppComponent implements OnInit {
     protected readonly title = environment.title;
     protected readonly uiItems = uiItems;
 
+    protected readonly tokenState = inject(TokenState);
     private readonly userSettingsFacade = inject(UserSettingsFacade);
     private readonly userSettingsState = inject(UserSettingsState);
-    private readonly tokenFacade = inject(TokenFacade);
     private readonly routeFacade = inject(RouteFacade);
     private readonly routeState = inject(RouteState);
     private readonly translateService = inject(TranslateService);
@@ -59,14 +59,14 @@ export class AppComponent implements OnInit {
         effect(() => {
             const route = this.routeState.getCurrentRoute();
             this.clearToggle();
-            uiItems.sidenavItems.filter(item => item.id === route).forEach(item => {
+            uiItems.sidenavItems(this.tokenState.getIsAdmin()).filter(item => item.id === route).forEach(item => {
                 item.selected = true;
             });
         });
 
         effect(() => {
             this.userSettingsState.getUserLanguage();
-            uiItems.sidenavItems.forEach(item => {
+            uiItems.sidenavItems(this.tokenState.getIsAdmin()).forEach(item => {
                 item.description = this.translateService.instant('sidenavItems.' + item.id);
             });
             uiItems.homeContextMenuItems.forEach(item => {
@@ -107,7 +107,7 @@ export class AppComponent implements OnInit {
     }
 
     private clearToggle() {
-        uiItems.sidenavItems.forEach(value => value.selected = false);
+        uiItems.sidenavItems(this.tokenState.getIsAdmin()).forEach(value => value.selected = false);
     }
 
     public onChangeTheme() {

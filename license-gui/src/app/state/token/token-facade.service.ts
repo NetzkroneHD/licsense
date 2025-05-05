@@ -20,15 +20,9 @@ export class TokenFacade {
             basePath: environment.apiConfig.basePath,
             accessToken: token
         });
-        this.tokenState.setAccessToken(token)
-    }
+        this.tokenState.setAccessToken(token);
 
-    public isAdmin(): boolean {
-        return this.tokenState.getRoles().includes('ROLE_ADMIN');
-    }
 
-    public isUser(): boolean {
-        return this.tokenState.getRoles().includes('ROLE_USER');
     }
 
 

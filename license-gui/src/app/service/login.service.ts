@@ -6,6 +6,7 @@ import {RouteFacade} from '../state/route/route-facade.service';
 import {UserSettingsFacade} from '../state/user-settings/user-settings-facade.service';
 import {NotificationFacade} from '../state/notification/notification-facade.service';
 import {TokenFacade} from '../state/token/token-facade.service';
+import {TokenState} from '../state/token/token-state.service';
 
 @Injectable({
     providedIn: 'root'
@@ -18,11 +19,13 @@ export class LoginService {
     private readonly userSettingsFacade: UserSettingsFacade = inject(UserSettingsFacade);
     private readonly notificationFacade: NotificationFacade = inject(NotificationFacade);
     private readonly tokenFacade: TokenFacade = inject(TokenFacade);
+    private readonly tokenState: TokenState = inject(TokenState);
 
     public login() {
         this.oAuthService.configure(environment.authConfig);
         this.oAuthService.loadDiscoveryDocumentAndLogin().then(() => {
             this.onUserLoggedIn();
+            this.userLicenseFacade.setSelectedPublisher(this.tokenState.getSub());
             this.userLicenseFacade.loadLicensesFromCurrentPublisher();
         }).catch(() => {
             this.authFailed()
@@ -38,6 +41,7 @@ export class LoginService {
 
         if (this.oAuthService.getIdentityClaims()) {
             this.tokenFacade.setAccessToken(this.oAuthService.getAccessToken())
+            this.userLicenseFacade.setSelectedPublisher(this.tokenState.getSub());
             this.userLicenseFacade.loadLicensesFromCurrentPublisher();
         }
     }

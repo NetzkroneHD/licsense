@@ -1,4 +1,4 @@
-import {inject, Injectable, signal} from '@angular/core';
+import {computed, inject, Injectable, signal} from '@angular/core';
 import {OAuthService} from 'angular-oauth2-oidc';
 import {jwtDecode} from 'jwt-decode';
 
@@ -17,6 +17,8 @@ export class TokenState {
     public readonly getAccessToken = this.accessToken.asReadonly();
     public readonly getDecodedToken = this.decodedToken.asReadonly();
     public readonly getRoles = this.roles.asReadonly();
+    public readonly getIsAdmin = computed(() => this.roles().includes('ROLE_ADMIN'));
+    public readonly getIsUser = computed(() => this.roles().includes('ROLE_USER'));
 
     constructor() {
     }
@@ -29,7 +31,6 @@ export class TokenState {
         if (decodedToken['realm_access'] && decodedToken['realm_access']['roles']) {
             this.roles.set(decodedToken['realm_access']['roles']);
         } else this.roles.set([]);
-
     }
 
     public getSub(): string {

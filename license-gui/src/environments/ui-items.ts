@@ -12,48 +12,51 @@ const homeContextMenuItems: LicenseContextMenuItem[] = [
     {id: 'delete', title: 'Delete', icon: 'delete', disabled: false,}
 ];
 
-const sidenavItems: LicenseSidenavItem[] = [
-    {
-        id: 'home',
-        icon: {name: 'home', size: 32},
-        description: 'Home',
-        selected: true,
-        activity: {count: 0},
-        disabled: {reason: '', state: false},
-        group: 'first',
-        hasCustomOrder: false
-    },
-    {
-        id: 'license-logs',
-        icon: {name: 'description', size: 32},
-        description: 'Logs',
-        selected: false,
-        activity: {count: 0},
-        disabled: {reason: '', state: false},
-        group: 'first',
-        hasCustomOrder: false
-    },
-    {
-        id: 'signature',
-        icon: {name: 'key', size: 32},
-        description: 'Signature',
-        selected: false,
-        activity: {count: 0},
-        disabled: {reason: '', state: false},
-        group: 'first',
-        hasCustomOrder: false
-    },
-    {
-        id: 'admin',
-        icon: {name: 'admin_panel_settings', size: 32},
-        description: 'Admin',
-        selected: false,
-        activity: {count: 0},
-        disabled: {reason: '', state: false},
-        group: 'last',
-        hasCustomOrder: false
-    },
-    {
+const sidenavItems = (admin: boolean): LicenseSidenavItem[] => {
+    const items: LicenseSidenavItem[] = [
+        {
+            id: 'home',
+            icon: {name: 'home', size: 32},
+            description: 'Home',
+            selected: true,
+            activity: {count: 0},
+            disabled: {reason: '', state: false},
+            group: 'first',
+            hasCustomOrder: false
+        },
+        {
+            id: 'license-logs',
+            icon: {name: 'description', size: 32},
+            description: 'Logs',
+            selected: false,
+            activity: {count: 0},
+            disabled: {reason: '', state: false},
+            group: 'first',
+            hasCustomOrder: false
+        },
+        {
+            id: 'signature',
+            icon: {name: 'key', size: 32},
+            description: 'Signature',
+            selected: false,
+            activity: {count: 0},
+            disabled: {reason: '', state: false},
+            group: 'first',
+            hasCustomOrder: false
+        }];
+    if (admin) {
+        items.push({
+            id: 'admin',
+            icon: {name: 'admin_panel_settings', size: 32},
+            description: 'Admin',
+            selected: false,
+            activity: {count: 0},
+            disabled: {reason: '', state: false},
+            group: 'last',
+            hasCustomOrder: false
+        });
+    }
+    items.push({
         id: 'settings',
         icon: {name: 'account_circle', size: 32},
         description: 'Account Settings',
@@ -62,8 +65,9 @@ const sidenavItems: LicenseSidenavItem[] = [
         disabled: {reason: '', state: false},
         group: 'last',
         hasCustomOrder: false
-    },
-];
+    });
+    return items;
+}
 
 const changeLanguageDropdownMenu: LicenseDropdownMenuItem[] = [
     {id: 'en', title: 'EN', disabled: false},

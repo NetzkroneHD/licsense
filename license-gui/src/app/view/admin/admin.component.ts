@@ -52,12 +52,12 @@ export class AdminComponent {
 
     protected reset() {
         this.formControl.setValue(this.tokenState.getSub());
-        this.userLicenseFacade.loadLicenses(this.tokenState.getSub());
+        this.userLicenseFacade.setSelectedPublisher(this.tokenState.getSub());
         this.notificationFacade.setMessage({
-                title: undefined,
-                message: `Selected own publisher`,
-                type: 'INFO'
-            });
+            title: undefined,
+            message: `Selected own publisher`,
+            type: 'INFO'
+        });
     }
 
     protected onOptionSelected(event: MatAutocompleteSelectedEvent) {
@@ -67,7 +67,7 @@ export class AdminComponent {
                 message: `Selected publisher: ${event.option.value}`,
                 type: 'INFO'
             });
-            this.userLicenseFacade.loadLicenses(event.option.value);
+            this.userLicenseFacade.setSelectedPublisher(event.option.value);
         }
     }
 }
