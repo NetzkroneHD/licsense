@@ -53,21 +53,28 @@ export class AppComponent implements OnInit {
     private readonly loginService = inject(LoginService);
 
     protected readonly themeIcon = signal<string>('light_mode');
+    protected readonly sidenavItems = signal<LicenseSidenavItem[]>(uiItems.sidenavItems);
 
     constructor() {
 
         effect(() => {
             const route = this.routeState.getCurrentRoute();
             this.clearToggle();
-            uiItems.sidenavItems(this.tokenState.getIsAdmin()).filter(item => item.id === route).forEach(item => {
+            this.sidenavItems().filter(item => item.id === route).forEach(item => {
                 item.selected = true;
             });
         });
 
         effect(() => {
-            this.userSettingsState.getUserLanguage();
-            uiItems.sidenavItems(this.tokenState.getIsAdmin()).forEach(item => {
-                item.description = this.translateService.instant('sidenavItems.' + item.id);
+            if(!this.userSettingsState.getUserLanguage()) return;
+            this.sidenavItems.update(sidenavItems => {
+                return sidenavItems.map(item => {
+                    const translatedItem: LicenseSidenavItem = {
+                        ...item,
+                        description: this.translateService.instant('sidenavItems.' + item.id),
+                    }
+                    return translatedItem;
+                });
             });
             uiItems.homeContextMenuItems.forEach(item => {
                 item.title = this.translateService.instant('home.contextMenuItems.' + item.id);
@@ -107,7 +114,12 @@ export class AppComponent implements OnInit {
     }
 
     private clearToggle() {
-        uiItems.sidenavItems(this.tokenState.getIsAdmin()).forEach(value => value.selected = false);
+        this.sidenavItems.update(value => {
+            return value.map(item => {
+                item.selected = false;
+                return item;
+            });
+        })
     }
 
     public onChangeTheme() {
