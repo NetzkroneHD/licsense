@@ -4,12 +4,18 @@
         <input type="text"
                placeholder="{{this.placeholder()}}"
                matInput
-               [formControl]="formControl()"
+               [formControl]="this.formControl()"
                [matAutocomplete]="auto">
-        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
-            @for (option of filteredOptions(); track option) {
+        @if (this.formControl().value) {
+            <button matSuffix mat-icon-button aria-label="Clear" (click)="this.onClear()">
+                <mat-icon>close</mat-icon>
+            </button>
+        }
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="this.onOptionSelected($event)">
+            @for (option of this.filteredOptions(); track option) {
                 <mat-option [value]="option">{{ option }}</mat-option>
             }
         </mat-autocomplete>
+
     </mat-form-field>
 </form>

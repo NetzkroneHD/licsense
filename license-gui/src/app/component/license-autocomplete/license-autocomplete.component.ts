@@ -1,5 +1,5 @@
 import {Component, effect, input, OnInit, output, signal} from '@angular/core';
-import {MatFormField, MatLabel} from '@angular/material/form-field';
+import {MatFormField, MatLabel, MatSuffix} from '@angular/material/form-field';
 import {
     MatAutocomplete,
     MatAutocompleteSelectedEvent,
@@ -8,6 +8,8 @@ import {
 } from '@angular/material/autocomplete';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {MatInput} from '@angular/material/input';
+import {MatIcon} from '@angular/material/icon';
+import {MatIconButton} from '@angular/material/button';
 
 @Component({
     selector: 'license-autocomplete',
@@ -18,7 +20,10 @@ import {MatInput} from '@angular/material/input';
         MatAutocomplete,
         MatOption,
         MatLabel,
-        MatInput
+        MatInput,
+        MatIcon,
+        MatIconButton,
+        MatSuffix
     ],
     templateUrl: './license-autocomplete.component.html',
     styleUrl: './license-autocomplete.component.scss'
@@ -53,5 +58,9 @@ export class LicenseAutocompleteComponent implements OnInit {
 
     protected onOptionSelected(event: MatAutocompleteSelectedEvent) {
         this.optionSelected.emit(event);
+    }
+
+    protected onClear() {
+        this.formControl().setValue('');
     }
 }
