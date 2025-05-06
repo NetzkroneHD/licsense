@@ -1,4 +1,4 @@
-import {Component, computed, inject, signal} from '@angular/core';
+import {AfterViewInit, Component, computed, inject, signal} from '@angular/core';
 import {MatButton} from '@angular/material/button';
 import {FileService} from '../../service/file.service';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
@@ -16,7 +16,7 @@ import {LicenseDialogService} from '../../component/license-dialog/license-dialo
     templateUrl: './signature.component.html',
     styleUrl: './signature.component.scss'
 })
-export class SignatureComponent {
+export class SignatureComponent implements AfterViewInit {
 
     private readonly keyState = inject(KeyState);
     private readonly keyFacade = inject(KeyFacade);
@@ -31,6 +31,10 @@ export class SignatureComponent {
     protected readonly downloadDisabled = computed(() => {
         return this.downloading() || this.keyState.getLoadingPublicKey() || !this.keyState.getPublicKey() || this.keyState.getLoadingGenerateKey();
     });
+
+    public ngAfterViewInit() {
+        this.keyFacade.loadPublicKey();
+    }
 
     protected generateKey() {
         if(this.generateDisabled()) {

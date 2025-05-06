@@ -3,7 +3,7 @@ import {NotificationFacade} from '../notification/notification-facade.service';
 import {KeyApiService} from '../../api/service/key-api.service';
 import {KeyState} from './key-state.service';
 import {TranslateService} from '@ngx-translate/core';
-import {TokenState} from '../token/token-state.service';
+import {UserLicenseState} from '../user-license/user-license-state.service';
 
 @Injectable({
     providedIn: 'root'
@@ -12,17 +12,16 @@ export class KeyFacade {
 
     private readonly keyState = inject(KeyState)
     private readonly keyApiService = inject(KeyApiService);
-    private readonly tokenState = inject(TokenState);
+    private readonly userLicenseState = inject(UserLicenseState);
     private readonly notificationFacade = inject(NotificationFacade);
     private readonly translateService = inject(TranslateService);
 
     constructor() {
-        this.loadPublicKey();
     }
 
     public loadPublicKey() {
         this.keyState.setLoadingPublicKey(true);
-        this.keyApiService.getKey(this.tokenState.getSub()).then(keyModel => {
+        this.keyApiService.getKey(this.userLicenseState.getSelectedPublisher()).then(keyModel => {
             this.keyState.setPublicKey(keyModel.publicKey);
         }).catch(reason => {
             this.notificationFacade.setMessage({
