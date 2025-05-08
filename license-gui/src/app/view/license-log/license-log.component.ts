@@ -102,10 +102,10 @@ export class LicenseLogComponent implements AfterViewInit {
         const currentLicense = this.userLicenseState.getCurrentLicense();
         if (!currentLicense) return;
         this.dialogService.confirm({
-            title: this.translateService.instant('view.license-log.delete-license.title'),
-            message: this.translateService.instant('view.license-log.delete-license.message', {licenseKey: currentLicense}),
-            confirmCaption: this.translateService.instant('view.license-log.delete-license.confirm'),
-            cancelCaption: this.translateService.instant('view.license-log.delete-license.cancel'),
+            title: this.translateService.instant('view.license-log.delete-logs.title'),
+            message: this.translateService.instant('view.license-log.delete-logs.message', {licenseKey: currentLicense}),
+            confirmCaption: this.translateService.instant('view.license-log.delete-logs.confirm'),
+            cancelCaption: this.translateService.instant('view.license-log.delete-logs.cancel'),
             discardWithEscape: true
         }).subscribe(value => {
             if (!value) return;

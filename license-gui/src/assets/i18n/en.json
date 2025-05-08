@@ -1,66 +1,145 @@
 {
-    "Copied license key to clipboard.": "Copied license key to clipboard.",
-    "Edit License": "Edit License",
-    "Delete License": "Delete License",
-    "Enter a date": "Enter a date",
-    "Enter a date range": "Enter a date range",
-    "Start Date": "Start Date",
-    "End Date": "End Date",
-    "Create": "Create",
-    "Apply": "Apply",
-    "Save": "Save",
-    "Cancel": "Cancel",
-    "Choose": "Choose",
-    "logout": "Logout",
-    "Retrieve Publisher Data": "Retrieve Publisher Data",
-    "ID": "ID",
-    "License": "License",
-    "IP": "IP",
-    "Date": "Date",
-    "Request Result": "Request Result",
-    "Successfully created a license.": "Successfully created a license.",
-    "Error while creating license.": "Error while creating license.",
-    "Successfully updated a license.": "Successfully updated a license.",
-    "Error while updating license.": "Error while updating license.",
-    "Successfully deleted a license.": "Successfully deleted a license.",
-    "Error while deleting license.": "Error while deleting license.",
-    "Successfully loaded logs.": "Successfully loaded logs.",
-    "Error while loading logs.": "Error while loading logs.",
-    "Successfully deleted logs.": "Successfully deleted logs.",
-    "Error while deleting logs.": "Error while deleting logs.",
-    "Successfully loaded licenses.": "Successfully loaded licenses.",
-    "Error while loading licenses.": "Error while loading licenses.",
-    "Successfully generated a key.": "Successfully generated a key.",
-    "No changes have been made.": "No changes have been made.",
-    "Error: {{error}}": "{{error}}",
-    "Error while loading public key.": "Error while loading public key.",
-    "Error while generating key.": "Error while generating key.",
-    "Filter": "Filter",
-    "Refresh": "Refresh",
-    "Loading...": "Loading...",
-    "The licenses are already loading.": "The licenses are already loading.",
-    "Publisher": "Publisher",
-    "Notes": "Notes",
-    "Valid": "Valid",
-    "Valid Until": "Valid Until",
-    "List-Mode": "List-Mode",
-    "IP-Addresses": "IP-Addresses",
-    "Create a license.": "CREATE LICENSE",
-    "Edit a license.": "EDIT LICENSE",
-    "Generated value": "Generated value",
-    "Validity": "Validity",
-    "Open Logs": "Open logs",
-    "Edit": "Edit",
-    "Delete": "Delete",
-    "Create License": "Create License",
-    "Confirm Delete": "Confirm Delete",
-    "New IP address separated by comma": "New IP address separated by comma",
-    "Authentication failed": "Authentication failed",
-    "Authentication failed. Retry to continue.": "Authentication failed. Retry to continue.",
-    "Retry": "Retry",
-    "Delete logs": "Delete logs",
-    "deleteLicense": {
-        "text": "Are you sure to delete the license <i>{{licenseKey}}</i>?"
+    "view": {
+        "admin": {
+            "reset-publisher": "Selected own publisher.",
+            "selected-publisher": "Selected publisher: {{publisher}}",
+            "select-a-publisher": {
+                "placeholder": "Publisher-ID",
+                "label": "Select a publisher"
+            },
+            "refresh": "Refresh",
+            "undo": "Undo"
+        },
+        "home": {
+            "filter": "Filter",
+            "copy-to-clipboard": "Copied license key to clipboard.",
+            "table": {
+                "header": {
+                    "license": "License",
+                    "publisher": "Publisher",
+                    "notes": "Notes",
+                    "valid": "Valid",
+                    "valid-until": "Valid Until",
+                    "list-mode": "List-Mode",
+                    "ip-addresses": "IP-Addresses"
+                }
+            }
+        },
+        "license-log": {
+            "filter": "Filter",
+            "tooltip": {
+                "delete-logs": "Delete logs",
+                "refresh": "Refresh"
+            },
+            "table": {
+                "header": {
+                    "id": "ID",
+                    "license": "License",
+                    "ip": "IP",
+                    "date": "Date",
+                    "request-result": "Request Result"
+                }
+            },
+            "delete-logs": {
+                "title": "Delete Logs",
+                "message": "Are you sure to delete the logs of the license <i>{{licenseKey}}</i>?",
+                "confirm": "Delete",
+                "cancel": "Cancel"
+            }
+        }
+    },
+    "state": {
+        "publisher": {
+            "load-publishers": {
+                "success": "Successfully loaded publishers.",
+                "error": {
+                    "title": "Error while loading publishers.",
+                    "message": "Error: {{reason}}"
+                }
+            }
+        },
+        "key": {
+            "load-public-key": {
+                "success": "Successfully loaded public key.",
+                "error": {
+                    "title": "Error while loading public key.",
+                    "message": "Error: {{reason}}"
+                }
+            },
+            "generate-key": {
+                "success": "Successfully generated a key.",
+                "error": {
+                    "title": "Error while generating key.",
+                    "message": "Error: {{reason}}"
+                }
+            }
+        },
+        "license": {
+            "create-license": {
+                "success": "Successfully created a license.",
+                "error": {
+                    "title": "Error while creating license.",
+                    "message": "Error: {{reason}}"
+                }
+            },
+            "update-license": {
+                "success": "Successfully updated a license.",
+                "error": {
+                    "title": "Error while updating license.",
+                    "message": "Error: {{reason}}"
+                }
+            },
+            "delete-license": {
+                "success": "Successfully deleted a license.",
+                "error": {
+                    "title": "Error while deleting license.",
+                    "message": "Error: {{reason}}"
+                }
+            },
+            "load-logs": {
+                "success": "Successfully loaded logs.",
+                "error": {
+                    "title": "Error while loading logs.",
+                    "message": "Error: {{reason}}"
+                }
+            },
+            "delete-logs": {
+                "success": "Successfully deleted logs.",
+                "error": {
+                    "title": "Error while deleting logs.",
+                    "message": "Error: {{reason}}"
+                }
+            },
+            "load-licenses": {
+                "success": "Successfully loaded licenses.",
+                "error": {
+                    "title": "Error while loading licenses.",
+                    "message": "Error: {{reason}}"
+                }
+            }
+        }
+    },
+    "component": {
+        "toolbar": {
+            "already-loading": {
+                "title": "Loading...",
+                "text": "The licenses are already loading."
+            },
+            "license-not-changed": "No changes have been made.",
+            "delete-license": {
+                "title": "Delete License",
+                "message": "Are you sure to delete the license <i>{{licenseKey}}</i>?",
+                "confirm": "Delete",
+                "cancel": "Cancel"
+            },
+            "tooltip": {
+                "refresh": "Refresh",
+                "create-license": "Create License",
+                "open-logs": "Open logs",
+                "edit-license": "Edit License",
+                "delete-license": "Delete License"
+            }
+        }
     },
     "signature": {
         "general": "General Info",
@@ -95,21 +174,6 @@
         "license-logs": "Logs",
         "signature": "Signature",
         "settings": "Account Settings"
-    },
-    "home": {
-        "contextMenuItems": {
-            "open": "Open logs",
-            "edit": "Edit",
-            "delete": "Delete"
-        }
-    },
-    "dialog": {
-        "generateKey": {
-            "title": "Generate Public/Private Key Pair",
-            "message": "Do you really want to generate a new key?\nThis will overwrite the current key and therefore will make all licenses invalid.",
-            "confirm": "Generate",
-            "cancel": "Cancel"
-        }
     },
     "paginator": {
         "firstPageLabel": "First page",

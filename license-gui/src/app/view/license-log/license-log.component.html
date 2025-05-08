@@ -12,13 +12,13 @@
             }
         </mat-form-field>
         <button class="license-log-toolbar-item" (click)="refresh()"
-                [disabled]="(userLicenseState.getLoadingLogs())" [matTooltip]="('view.license-log.refresh' | translate) "
+                [disabled]="(userLicenseState.getLoadingLogs())" [matTooltip]="('view.license-log.tooltip.refresh' | translate) "
                 mat-icon-button>
             <mat-icon>refresh</mat-icon>
         </button>
         <button class="license-log-toolbar-item" (click)="deleteHistory()"
                 [disabled]="(userLicenseState.getUserLicenseLogs().length === 0 || userLicenseState.getLoadingLogs())"
-                [matTooltip]="('view.license-log.delete-logs' | translate) "
+                [matTooltip]="('view.license-log.tooltip.delete-logs' | translate) "
                 mat-icon-button>
             <mat-icon>delete_history</mat-icon>
         </button>
