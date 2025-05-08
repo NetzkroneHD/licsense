@@ -2,19 +2,23 @@
 
     <div style="display: flex">
         <mat-form-field class="license-form-field">
-            <mat-label>{{ 'Filter' | translate }}</mat-label>
+            <mat-label>{{ 'view.license-log.filter' | translate }}</mat-label>
             <input [value]="filterValue()" (keyup)="onUpdateFilter($event)" matInput>
             @if (filterValue()) {
-                <button matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter()">
+                <button matSuffix mat-icon-button aria-label="Clear"
+                        (click)="clearFilter()">
                     <mat-icon>close</mat-icon>
                 </button>
             }
         </mat-form-field>
-        <button class="license-log-toolbar-item" (click)="refresh()" [disabled]="(userLicenseState.getLoadingLogs())" [matTooltip]="('Refresh' | translate) "
+        <button class="license-log-toolbar-item" (click)="refresh()"
+                [disabled]="(userLicenseState.getLoadingLogs())" [matTooltip]="('view.license-log.refresh' | translate) "
                 mat-icon-button>
             <mat-icon>refresh</mat-icon>
         </button>
-        <button class="license-log-toolbar-item" (click)="deleteHistory()" [disabled]="(userLicenseState.getUserLicenseLogs().length === 0 || userLicenseState.getLoadingLogs())" [matTooltip]="('Delete logs' | translate) "
+        <button class="license-log-toolbar-item" (click)="deleteHistory()"
+                [disabled]="(userLicenseState.getUserLicenseLogs().length === 0 || userLicenseState.getLoadingLogs())"
+                [matTooltip]="('view.license-log.delete-logs' | translate) "
                 mat-icon-button>
             <mat-icon>delete_history</mat-icon>
         </button>
@@ -30,35 +34,35 @@
 
         <ng-container matColumnDef="id">
             <th *matHeaderCellDef class="license-table-header" mat-header-cell
-                mat-sort-header>{{ 'ID' | translate }}
+                mat-sort-header>{{ 'view.license-log.table.header.id' | translate }}
             </th>
             <td *matCellDef="let row" mat-cell>{{ row.id }}</td>
         </ng-container>
 
         <ng-container matColumnDef="license">
             <th *matHeaderCellDef class="license-table-header" mat-header-cell
-                mat-sort-header>{{ 'License' | translate }}
+                mat-sort-header>{{ 'view.license-log.table.header.license' | translate }}
             </th>
             <td *matCellDef="let row" mat-cell>{{ row.license }}</td>
         </ng-container>
 
         <ng-container matColumnDef="ip">
             <th *matHeaderCellDef class="license-table-header" mat-header-cell
-                mat-sort-header>{{ 'IP' | translate }}
+                mat-sort-header>{{ 'view.license-log.table.header.ip' | translate }}
             </th>
             <td *matCellDef="let row" mat-cell>{{ row.ip }}</td>
         </ng-container>
 
         <ng-container matColumnDef="dateTime">
             <th *matHeaderCellDef class="license-table-header" mat-header-cell
-                mat-sort-header>{{ 'Date' | translate }}
+                mat-sort-header>{{ 'view.license-log.table.header.date' | translate }}
             </th>
             <td *matCellDef="let row" mat-cell>{{ row.dateTime.toLocaleString() }}</td>
         </ng-container>
 
         <ng-container matColumnDef="listBehaviorResult">
             <th *matHeaderCellDef class="license-table-header" mat-header-cell
-                mat-sort-header>{{ 'Request Result' | translate }}
+                mat-sort-header>{{ 'view.license-log.table.header.request-result' | translate }}
             </th>
             <td *matCellDef="let row" mat-cell>{{ row.listBehaviorResult }}</td>
         </ng-container>

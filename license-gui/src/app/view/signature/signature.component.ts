@@ -63,8 +63,8 @@ export class SignatureComponent implements AfterViewInit {
         const publicKey = this.keyState.getPublicKey();
         if(!publicKey) {
             this.notificationFacade.setMessage({
-                title: this.translateService.instant('Error while downloading public key.'),
-                message: this.translateService.instant('Error: {{error}}', {error: 'Public key is not available.'}),
+                title: this.translateService.instant('view.signature.download-key.error.title'),
+                message: this.translateService.instant('view.signature.download-key.error.message', {error: 'Public key is not available.'}),
                 type: 'ERROR'
             });
             this.downloading.set(false);

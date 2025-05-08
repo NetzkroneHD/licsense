@@ -2,10 +2,11 @@
 
     <div style="display: flex">
         <mat-form-field class="license-form-field">
-            <mat-label>{{ 'Filter' | translate }}</mat-label>
+            <mat-label>{{ 'view.home.filter' | translate }}</mat-label>
             <input [value]="filterValue()" (keyup)="onUpdateFilter($event)" matInput>
             @if (filterValue()) {
-                <button matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter()">
+                <button matSuffix mat-icon-button aria-label="Clear"
+                        (click)="clearFilter()">
                     <mat-icon>close</mat-icon>
                 </button>
             }
@@ -13,7 +14,7 @@
         <license-toolbar [disabled]="loading()" [selectedLicense]="selectedLicense.current">
 
         </license-toolbar>
-        @if(this.showTestToaster) {
+        @if (this.showTestToaster) {
             <button mat-flat-button (click)="testToastr()">Test Toastr</button>
         }
     </div>
@@ -28,36 +29,40 @@
 
         <ng-container matColumnDef="licenseKey">
             <th *matHeaderCellDef class="license-table-header" mat-header-cell
-                mat-sort-header>{{ 'License' | translate }}
+                mat-sort-header>{{ 'view.home.table.header.license' | translate }}
             </th>
-            <td (contextmenu)="copyToClipboard($event, row)" *matCellDef="let row" [class.license-selected]="row === selectedLicense.current"
+            <td (contextmenu)="copyToClipboard($event, row)" *matCellDef="let row"
+                [class.license-selected]="row === selectedLicense.current"
                 mat-cell>{{ row.licenseKey }}
             </td>
         </ng-container>
 
         <ng-container matColumnDef="publisher">
             <th *matHeaderCellDef class="license-table-header" mat-header-cell
-                mat-sort-header>{{ 'Publisher' | translate }}
+                mat-sort-header>{{ 'view.home.table.header.publisher' | translate }}
             </th>
-            <td (contextmenu)="copyToClipboard($event, row)" *matCellDef="let row" [class.license-selected]="row === selectedLicense.current"
+            <td (contextmenu)="copyToClipboard($event, row)" *matCellDef="let row"
+                [class.license-selected]="row === selectedLicense.current"
                 mat-cell>{{ row.publisher }}
             </td>
         </ng-container>
 
         <ng-container matColumnDef="notes">
             <th *matHeaderCellDef class="license-table-header" mat-header-cell
-                mat-sort-header>{{ 'Notes' | translate }}
+                mat-sort-header>{{ 'view.home.table.header.notes' | translate }}
             </th>
-            <td (contextmenu)="copyToClipboard($event, row)" *matCellDef="let row" [class.license-selected]="row === selectedLicense.current"
+            <td (contextmenu)="copyToClipboard($event, row)" *matCellDef="let row"
+                [class.license-selected]="row === selectedLicense.current"
                 mat-cell>{{ getShortedString(row.notes) }}
             </td>
         </ng-container>
 
         <ng-container matColumnDef="valid">
             <th *matHeaderCellDef class="license-table-header" mat-header-cell
-                mat-sort-header>{{ 'Valid' | translate }}
+                mat-sort-header>{{ 'view.home.table.header.valid' | translate }}
             </th>
-            <td (contextmenu)="copyToClipboard($event, row)" *matCellDef="let row" [class.license-selected]="row === selectedLicense.current"
+            <td (contextmenu)="copyToClipboard($event, row)" *matCellDef="let row"
+                [class.license-selected]="row === selectedLicense.current"
                 mat-cell>
                 @if (row.valid) {
                     <mat-icon class="license-green-icon">check_circle</mat-icon>
@@ -70,7 +75,7 @@
 
         <ng-container matColumnDef="validUntil">
             <th *matHeaderCellDef class="license-table-header" mat-header-cell
-                mat-sort-header>{{ 'Valid Until' | translate }}
+                mat-sort-header>{{ 'view.home.table.header.valid-until' | translate }}
             </th>
             <td (contextmenu)="copyToClipboard($event, row)" *matCellDef="let row"
                 [class.license-selected]="row === selectedLicense.current"
@@ -80,18 +85,20 @@
 
         <ng-container matColumnDef="listMode">
             <th *matHeaderCellDef class="license-table-header" mat-header-cell
-                mat-sort-header>{{ 'List-Mode' | translate }}
+                mat-sort-header>{{ 'view.home.table.header.list-mode' | translate }}
             </th>
-            <td (contextmenu)="copyToClipboard($event, row)" *matCellDef="let row" [class.license-selected]="row === selectedLicense.current"
+            <td (contextmenu)="copyToClipboard($event, row)" *matCellDef="let row"
+                [class.license-selected]="row === selectedLicense.current"
                 mat-cell>{{ row.listMode }}
             </td>
         </ng-container>
 
         <ng-container matColumnDef="ipAddresses">
             <th *matHeaderCellDef class="license-table-header" mat-header-cell
-                mat-sort-header>{{ 'IP-Addresses' | translate }}
+                mat-sort-header>{{ 'view.home.table.header.ip-addresses' | translate }}
             </th>
-            <td (contextmenu)="copyToClipboard($event, row)" *matCellDef="let row" [class.license-selected]="row === selectedLicense.current"
+            <td (contextmenu)="copyToClipboard($event, row)" *matCellDef="let row"
+                [class.license-selected]="row === selectedLicense.current"
                 mat-cell>{{ getShortedString(String(row.ipAddresses)) }}
             </td>
         </ng-container>

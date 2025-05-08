@@ -7,7 +7,7 @@ import {
 import {FormControl} from '@angular/forms';
 import {MatProgressBar} from '@angular/material/progress-bar';
 import {MatIconButton} from '@angular/material/button';
-import {TranslateModule} from '@ngx-translate/core';
+import {TranslateModule, TranslateService} from '@ngx-translate/core';
 import {MatIcon} from '@angular/material/icon';
 import {MatTooltip} from '@angular/material/tooltip';
 import {TokenState} from '../../state/token/token-state.service';
@@ -36,6 +36,7 @@ export class AdminComponent {
     protected readonly tokenState = inject(TokenState);
     protected readonly notificationFacade = inject(NotificationFacade);
     protected readonly formControl;
+    private readonly translateService = inject(TranslateService);
 
     protected readonly options = computed<string[]>(() => {
         return this.publisherState.getPublishers();
@@ -55,16 +56,16 @@ export class AdminComponent {
         this.userLicenseFacade.setSelectedPublisher(this.tokenState.getSub());
         this.notificationFacade.setMessage({
             title: undefined,
-            message: `Selected own publisher`,
+            message: 'view.admin.reset-publisher',
             type: 'INFO'
-        });
+        }, true);
     }
 
     protected onOptionSelected(event: MatAutocompleteSelectedEvent) {
         if (event.option.value) {
             this.notificationFacade.setMessage({
                 title: undefined,
-                message: `Selected publisher: ${event.option.value}`,
+                message: this.translateService.instant('view.admin.selected-publisher', {publisher: event.option.value}),
                 type: 'INFO'
             });
             this.userLicenseFacade.setSelectedPublisher(event.option.value);

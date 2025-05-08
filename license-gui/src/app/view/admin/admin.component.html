@@ -7,8 +7,8 @@
     <license-autocomplete style="min-width: 25%"
                           [formControl]="this.formControl"
                           [options]="this.options()"
-                          [placeholder]="'placeholder'"
-                          [label]="'Select a publisher' | translate"
+                          [placeholder]="'view.admin.select-a-publisher.placeholder' | translate"
+                          [label]="'view.admin.select-a-publisher.label' | translate"
                           (optionSelected)="onOptionSelected($event)"
     />
 
@@ -17,14 +17,14 @@
             <button class="license-admin-toolbar-item"
                     (click)="refresh()"
                     [disabled]="(publisherState.getLoadingPublishers())"
-                    [matTooltip]="('Refresh' | translate) "
+                    [matTooltip]="('view.admin.refresh' | translate) "
                     mat-icon-button>
                 <mat-icon>refresh</mat-icon>
             </button>
             <button class="license-admin-toolbar-item"
                     (click)="reset()"
                     [disabled]="(publisherState.getLoadingPublishers())"
-                    [matTooltip]="('Undo' | translate) "
+                    [matTooltip]="('view.admin.undo' | translate) "
                     mat-icon-button>
                 <mat-icon>undo</mat-icon>
             </button>

@@ -25,8 +25,8 @@ export class KeyFacade {
             this.keyState.setPublicKey(keyModel.publicKey);
         }).catch(reason => {
             this.notificationFacade.setMessage({
-                title: this.translateService.instant('Error while loading public key.'),
-                message:this.translateService.instant('Error: {{error}}').replace('{{error}}', reason),
+                title: this.translateService.instant('state.key.load-public-key.error.title'),
+                message: this.translateService.instant('state.key.load-public-key.error.message', {reason: String(reason)}),
                 type: 'ERROR'
             });
         }).finally(() => {
@@ -41,13 +41,13 @@ export class KeyFacade {
 
             this.notificationFacade.setMessage({
                 title: undefined,
-                message: 'Successfully generated a key.',
+                message: 'state.key.generate-key.success',
                 type: 'INFO'
             }, true)
         }).catch(reason => {
             this.notificationFacade.setMessage({
-                title: this.translateService.instant('Error while generating key.'),
-                message: this.translateService.instant('Error: {{error}}').replace('{{error}}', reason),
+                title: this.translateService.instant('state.key.generate-key.error.title'),
+                message: this.translateService.instant('state.key.generate-key.error.message', {reason: String(reason)}),
                 type: 'ERROR'
             });
         }).finally(() => {

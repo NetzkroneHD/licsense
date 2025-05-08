@@ -47,12 +47,7 @@ export class NotificationFacade {
     }
 
     private canShow(message: ToasterMessage): boolean {
-        if (message.title) {
-            return true;
-        } else if (message.message) {
-            return true;
-        }
-        return false;
+        return (message.title !== undefined || message.message !== undefined);
     }
 
 }

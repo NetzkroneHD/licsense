@@ -53,7 +53,7 @@ export class LoginService {
     private authFailed() {
         this.userSettingsFacade.authFailed();
         this.notificationFacade.setMessage({
-            title: 'Authentication failed',
+            title: 'service.login.error.title',
             message: undefined,
             type: 'ERROR'
         }, true);

@@ -34,13 +34,13 @@ export class UserLicenseFacade {
             this.licenseState.createLicense(createdLicense);
             this.notificationFacade.setMessage({
                 title: undefined,
-                message: 'Successfully created a license.',
+                message: 'state.license.create-license.success',
                 type: 'INFO'
             }, true)
         }).catch(reason => {
             this.notificationFacade.setMessage({
-                title: this.translateService.instant('Error while creating license.'),
-                message: this.translateService.instant('Error: {{error}}').replace('{{error}}', reason),
+                title: this.translateService.instant('state.license.create-license.error.title'),
+                message: this.translateService.instant('state.license.create-license.error.message', {reason: reason}),
                 type: 'ERROR'
             });
         }).finally(() => {
@@ -54,13 +54,13 @@ export class UserLicenseFacade {
             this.licenseState.updateLicense(licenseKey, updatedLicense);
             this.notificationFacade.setMessage({
                 title: undefined,
-                message: 'Successfully updated a license.',
+                message: 'state.license.update-license.success',
                 type: 'SUCCESS'
             }, true)
         }).catch(reason => {
             this.notificationFacade.setMessage({
-                title: this.translateService.instant('Error while updating license.'),
-                message: this.translateService.instant('Error: {{error}}').replace('{{error}}', reason),
+                title: this.translateService.instant('state.license.update-license.error.title'),
+                message: this.translateService.instant('state.license.update-license.error.message', {reason: reason}),
                 type: 'ERROR'
             });
         }).finally(() => {
@@ -74,13 +74,13 @@ export class UserLicenseFacade {
             this.licenseState.deleteLicense(licenseKey);
             this.notificationFacade.setMessage({
                 title: undefined,
-                message: 'Successfully deleted a license.',
+                message: 'state.license.delete-license.success',
                 type: 'SUCCESS'
             }, true)
         }).catch(reason => {
             this.notificationFacade.setMessage({
-                title: this.translateService.instant('Error while deleting license.'),
-                message: this.translateService.instant('Error: {{error}}').replace('{{error}}', reason),
+                title: this.translateService.instant('state.license.delete-license.error.title'),
+                message: this.translateService.instant('state.license.delete-license.error.message', {reason: reason}),
                 type: 'ERROR'
             });
         }).finally(() => {
@@ -94,13 +94,13 @@ export class UserLicenseFacade {
             this.licenseState.setUserLicenseLogs(licenseLogs);
             this.notificationFacade.setMessage({
                 title: undefined,
-                message: 'Successfully loaded logs.',
+                message: 'state.license.load-logs.success',
                 type: 'SUCCESS'
             }, true)
         }).catch(reason => {
             this.notificationFacade.setMessage({
-                title: this.translateService.instant('Error while loading logs.'),
-                message: this.translateService.instant('Error: {{error}}').replace('{{error}}', reason),
+                title: this.translateService.instant('state.license.load-logs.error.title'),
+                message: this.translateService.instant('state.license.load-logs.error.message', {reason: reason}),
                 type: 'ERROR'
             });
         }).finally(() => {
@@ -114,13 +114,13 @@ export class UserLicenseFacade {
             this.licenseState.setUserLicenseLogs([]);
             this.notificationFacade.setMessage({
                 title: undefined,
-                message: 'Successfully deleted logs.',
+                message: 'state.license.delete-logs.success',
                 type: 'SUCCESS'
             }, true);
         }).catch(reason => {
             this.notificationFacade.setMessage({
-                title: this.translateService.instant('Error while deleting logs.'),
-                message: this.translateService.instant('Error: {{error}}').replace('{{error}}', reason),
+                title: this.translateService.instant('state.license.delete-logs.error.title'),
+                message: this.translateService.instant('state.license.delete-logs.error.message', {reason: reason}),
                 type: 'ERROR'
             });
         }).finally(() => {
@@ -142,13 +142,13 @@ export class UserLicenseFacade {
             this.licenseState.setUserLicenses(licenses);
             this.notificationFacade.setMessage({
                 title: undefined,
-                message: this.translateService.instant('Successfully loaded licenses.'),
+                message: this.translateService.instant('state.license.load-licenses.success'),
                 type: 'SUCCESS'
             });
         }).catch(reason => {
             this.notificationFacade.setMessage({
-                title: this.translateService.instant('Error while loading licenses.'),
-                message: this.translateService.instant('Error: {{error}}').replace('{{error}}', reason),
+                title: this.translateService.instant('state.license.load-licenses.error.title'),
+                message: this.translateService.instant('state.license.load-licenses.error.message', {reason: reason}),
                 type: 'ERROR'
             });
         }).finally(() => {

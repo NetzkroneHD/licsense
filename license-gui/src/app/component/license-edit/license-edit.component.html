@@ -6,27 +6,27 @@
 
         <mat-dialog-content>
             <mat-form-field #licenseKey class="license-form-field">
-                <mat-label>{{ 'License Key' | translate }}</mat-label>
+                <mat-label>{{ 'component.license-toolbar.license-key' | translate }}</mat-label>
                 <input [disabled]="true" [ngModel]="(String(licenseEdit.licenseKey))" matInput>
-                <mat-hint>{{ 'Generated value' | translate }}</mat-hint>
+                <mat-hint>{{ 'component.license-edit.generated-value' | translate }}</mat-hint>
             </mat-form-field>
 
             <mat-form-field #publisher class="license-form-field">
-                <mat-label>{{ 'Publisher' | translate }}</mat-label>
+                <mat-label>{{ 'component.license-toolbar.publisher' | translate }}</mat-label>
                 <input [disabled]="true" [ngModel]="(String(licenseEdit.publisher))" matInput>
-                <mat-hint>{{ 'Generated value' | translate }}</mat-hint>
+                <mat-hint>{{ 'component.license-edit.generated-value' | translate }}</mat-hint>
             </mat-form-field>
 
             <mat-form-field #notes class="license-form-field">
-                <mat-label>{{ 'Notes' | translate }}</mat-label>
+                <mat-label>{{ 'component.license-edit.notes' | translate }}</mat-label>
                 <input [(ngModel)]="licenseEdit.notes" matInput>
             </mat-form-field>
 
             <mat-slide-toggle #valid [(ngModel)]="licenseEdit.valid" class="no-select">
                 @if (licenseEdit.valid) {
-                    {{ 'Valid' | translate }}
+                    {{ 'component.license-edit.valid' | translate }}
                 } @else {
-                    {{ 'Invalid' | translate }}
+                    {{ 'component.license-edit.invalid' | translate }}
                 }
             </mat-slide-toggle>
 
@@ -34,14 +34,14 @@
 
             <license-date-single-picker #validUntil
                                         [dateFormControl]="dateFormControl"
-                                        [datePicker]="{label: 'Valid Until' | translate, hint: environment.momentDateAdapter.display.dateInput, placeholder: 'Start Date' | translate}"
+                                        [datePicker]="{label: 'component.license-edit.valid-until' | translate, hint: environment.momentDateAdapter.display.dateInput, placeholder: 'component.license-edit.start-date' | translate}"
                                         class="license-form-field"
 
             >
 
             </license-date-single-picker>
 
-            {{ 'List-Mode' | translate }}:
+            {{ 'component.license-edit.list-mode' | translate }}:
 
             <mat-radio-group [(ngModel)]="licenseEdit.listMode" aria-label="Select an option">
                 <mat-radio-button [value]="ListModeDto.Blacklist"
@@ -55,7 +55,7 @@
             <div class="license-spacer"></div>
 
             <mat-form-field #ipAddresses class="license-form-field">
-                <mat-label>{{ 'IP-Addresses' | translate }}</mat-label>
+                <mat-label>{{ 'component.license-edit.ip-addresses' | translate }}</mat-label>
                 <mat-chip-grid #chipGrid aria-label="Enter ip addresses">
                     @for (ip of licenseEdit.ipAddresses; track ip) {
                         <mat-chip-row
@@ -74,7 +74,7 @@
                            [matChipInputAddOnBlur]="true"
                            [matChipInputFor]="chipGrid"
                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                           [placeholder]="('New IP-Address separated by comma' | translate)"/>
+                           [placeholder]="('component.license-edit.new-ip-address' | translate)"/>
 
                 </mat-chip-grid>
             </mat-form-field>

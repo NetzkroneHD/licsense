@@ -129,7 +129,7 @@ export class HomeComponent implements AfterViewInit {
         if (!this.clipboard.copy(license.licenseKey)) return;
         this.notificationFacade.setMessage({
             title: undefined,
-            message: 'Copied license key to clipboard.',
+            message: 'view.home.copy-to-clipboard',
             type: 'INFO'
         }, true);
     }

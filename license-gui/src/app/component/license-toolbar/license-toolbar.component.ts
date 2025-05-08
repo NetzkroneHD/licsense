@@ -55,8 +55,8 @@ export class LicenseToolbarComponent {
     protected refresh() {
         if (this.userLicenseState.getLoadingAnyLicense()) {
             this.notificationFacade.setMessage({
-                title: 'Loading...',
-                message: 'The licenses are already loading.',
+                title: 'component.toolbar.already-loading.title',
+                message: 'component.toolbar.already-loading.text',
                 type: 'INFO'
             }, true);
             return;
@@ -86,7 +86,7 @@ export class LicenseToolbarComponent {
             if (JSON.stringify(license) === JSON.stringify(licenseToEdit)) {
                 this.notificationFacade.setMessage({
                     title: undefined,
-                    message: 'No changes have been made.',
+                    message: 'component.toolbar.license-not-changed',
                     type: 'INFO'
                 }, true);
                 return;
@@ -102,10 +102,10 @@ export class LicenseToolbarComponent {
 
         this.dialogService.confirm(
             {
-                title: this.translateService.instant('Confirm Delete'),
-                message: this.translateService.instant('deleteLicense.text').replace('{{licenseKey}}', license.licenseKey),
-                confirmCaption: this.translateService.instant('Delete'),
-                cancelCaption: this.translateService.instant('Cancel'),
+                title: this.translateService.instant('component.toolbar.delete-license.title'),
+                message: this.translateService.instant('component.toolbar.delete-license.message', {licenseKey: license.licenseKey}),
+                confirmCaption: this.translateService.instant('component.toolbar.delete-license.confirm'),
+                cancelCaption: this.translateService.instant('component.toolbar.delete-license.cancel'),
                 discardWithEscape: true
             }
         ).subscribe(value => {
