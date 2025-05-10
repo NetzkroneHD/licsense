@@ -11,6 +11,7 @@ import de.netzkronehd.license.security.OAuth2TokenSecurity;
 import de.netzkronehd.license.service.KeyGeneratorService;
 import de.netzkronehd.license.service.RateLimitService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,11 +57,32 @@ public class KeyGeneratorController implements KeyApi {
     }
 
     @Override
+    public ResponseEntity<LicenseKeyDto> generatePublisherKey(String owner, @Valid GenerateKeyRequestDto generateKeyRequestDto) {
+        final OAuth2Model model = tokenSecurity.getModel(SecurityContextHolder.getContext().getAuthentication());
+        if (model == null) return status(UNAUTHORIZED).build();
+        if (!canAccess(owner, model)) {
+            log.info("{} tried to generate key for publisher {}", model.getSub(), owner);
+            return status(FORBIDDEN).build();
+        }
+
+        try {
+            if (!model.isAdmin()) {
+                rateLimitService.checkRateLimit(request.getRemoteAddr(), "KeyGeneratorController#generateKey", 1);
+            }
+            return ok(licenseKeyMapper.map(keyGeneratorService.generatePrivateKey(owner, generateKeyRequestDto.getKeySize())));
+        } catch (NoSuchAlgorithmException e) {
+            log.error("Error while generating key", e);
+            return internalServerError().build();
+        } catch (RateLimitExceededException e) {
+            return status(TOO_MANY_REQUESTS).build();
+        }
+    }
+
+    @Override
     public ResponseEntity<LicenseKeyDto> getKey(String owner) {
         final OAuth2Model model = tokenSecurity.getModel(SecurityContextHolder.getContext().getAuthentication());
         if (model == null) return status(UNAUTHORIZED).build();
-        if (!model.hasAccess()) return status(FORBIDDEN).build();
-        if (!Objects.equals(owner, model.getSub()) && !model.isAdmin()) {
+        if (!canAccess(owner, model)) {
             log.info("{} tried to access key of {}", model.getSub(), owner);
             return status(FORBIDDEN).build();
         }
@@ -77,8 +99,7 @@ public class KeyGeneratorController implements KeyApi {
     public ResponseEntity<Void> deleteKey(String owner) {
         final OAuth2Model model = tokenSecurity.getModel(SecurityContextHolder.getContext().getAuthentication());
         if (model == null) return status(UNAUTHORIZED).build();
-        if (!model.hasAccess()) return status(FORBIDDEN).build();
-        if (!Objects.equals(owner, model.getSub()) && !model.isAdmin()) {
+        if (!canAccess(owner, model)) {
             log.info("{} tried to delete key of {}", model.getSub(), owner);
             return status(FORBIDDEN).build();
         }
@@ -89,5 +110,10 @@ public class KeyGeneratorController implements KeyApi {
         } catch (NoKeyModelException e) {
             return notFound().build();
         }
+    }
+
+    private boolean canAccess(String owner, OAuth2Model model) {
+        if(!model.hasAccess()) return false;
+        return (model.isAdmin() || Objects.equals(model.getSub(), owner));
     }
 }

@@ -29,11 +29,11 @@
 }
 
 .license-green-icon {
-    color: green;
+    color: var(--license-green-icon-color, green);
 }
 
 .license-red-icon {
-    color: red;
+    color: var(--license-red-icon-color, red);
 }
 
 .license-table-row-clicked {

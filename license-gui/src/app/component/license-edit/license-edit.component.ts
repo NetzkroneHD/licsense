@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Inject} from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {MatButton} from '@angular/material/button';
 import {
     MAT_DIALOG_DATA,
@@ -63,7 +63,7 @@ import {COMMA, ENTER} from '@angular/cdk/keycodes';
     templateUrl: './license-edit.component.html',
     styleUrl: './license-edit.component.scss'
 })
-export class LicenseEditComponent implements AfterViewInit {
+export class LicenseEditComponent {
 
     public readonly licenseEdit: LicenseEdit;
     protected readonly separatorKeysCodes = [ENTER, COMMA] as const;
@@ -86,18 +86,13 @@ export class LicenseEditComponent implements AfterViewInit {
         })
     }
 
-    ngAfterViewInit() {
-    }
-
     protected addIp(event: MatChipInputEvent): void {
         const value = (event.value || '').trim();
 
-        // Add our fruit
         if (value) {
             this.licenseEdit.ipAddresses.push(value);
         }
 
-        // Clear the input value
         event.chipInput!.clear();
     }
 
@@ -112,18 +107,13 @@ export class LicenseEditComponent implements AfterViewInit {
 
     protected editIp(ip: string, event: MatChipEditedEvent) {
         const value = event.value.trim();
-
-        // Remove fruit if it no longer has a name
         if (!value) {
             this.removeIp(ip);
             return;
         }
-
-        // Edit existing fruit
         const index = this.licenseEdit.ipAddresses.indexOf(ip);
         if (index >= 0) {
             this.licenseEdit.ipAddresses[index] = value;
         }
-
     }
 }

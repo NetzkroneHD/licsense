@@ -35,6 +35,22 @@ paths:
       responses:
         200:
           $ref: '#/components/responses/LicenseKeyModelResponse'
+    post:
+      security:
+        - bearerAuth: [ ]
+        - OAuth2:
+            - key:write
+      operationId: generatePublisherKey
+      parameters:
+        - $ref: '#/components/parameters/Owner'
+      requestBody:
+        $ref: '#/components/requestBodies/KeyBody'
+      tags:
+        - Key
+      description: Generates a new key
+      responses:
+        200:
+          $ref: '#/components/responses/LicenseKeyModelResponse'
     delete:
       description: Deletes a key of an owner
       security:

@@ -1,5 +1,9 @@
 {
     "view": {
+        "auth-failed": {
+            "title": "Authentication failed",
+            "retry": "Retry"
+        },
         "admin": {
             "reset-publisher": "Selected own publisher.",
             "selected-publisher": "Selected publisher: {{publisher}}",
@@ -120,6 +124,18 @@
         }
     },
     "component": {
+        "license-edit": {
+            "license-key": "License Key",
+            "generated-value": "Generated value",
+            "publisher": "Publisher",
+            "notes": "Notes",
+            "valid": "Valid",
+            "invalid": "Invalid",
+            "valid-until": "Valid Until",
+            "list-mode": "List-Mode",
+            "ip-addresses": "IP-Addresses",
+            "new-ip-address": "New IP-Address separated by comma"
+        },
         "toolbar": {
             "already-loading": {
                 "title": "Loading...",
