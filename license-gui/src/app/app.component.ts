@@ -1,120 +1,112 @@
-import {Component, effect, OnInit, ViewChild} from '@angular/core';
+import {Component, computed, inject, OnInit, signal, ViewChild} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {environment} from '../environments/environment';
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatToolbar} from '@angular/material/toolbar';
-import {
-  MatDrawer,
-  MatDrawerContainer,
-  MatSidenav,
-  MatSidenavContainer,
-  MatSidenavContent
-} from '@angular/material/sidenav';
 import {MatIcon} from '@angular/material/icon';
-import {TranslateModule, TranslateService} from '@ngx-translate/core';
-import {LicenseDropdownMenuComponent} from './component/license-dropdown-menu/license-dropdown-menu.component';
+import {TranslateModule} from '@ngx-translate/core';
+import {
+    LicenseDropdownMenuComponent
+} from './component/license-dropdown-menu/license-dropdown-menu.component';
 import {MatMenuTrigger} from '@angular/material/menu';
-import {LicenseDropdownMenuItem} from './component/license-dropdown-menu/license-dropdown-menu-item.interface';
-import {UserSettingsStoreFacade} from './state/user-settings/user-settings-store-facade.service';
+import {
+    LicenseDropdownMenuItem
+} from './component/license-dropdown-menu/license-dropdown-menu-item.interface';
+import {UserSettingsFacade} from './state/user-settings/user-settings-facade.service';
 import {LicenseSidenavComponent} from './component/license-sidenav/license-sidenav.component';
 import {LicenseSidenavItem} from './component/license-sidenav/license-sidenav-item.interface';
-import {RouteStoreFacade} from './state/route/route.service';
-import {RouteStore, toRoute} from './state/route/route-store.service';
+import {RouteFacade} from './state/route/route-facade.service';
+import {toRoute} from './state/route/route-state.service';
 import {LoginService} from './service/login.service';
-import {uiItems} from '../environments/ui-items';
+import {UserSettingsState} from './state/user-settings/user-settings-state.service';
+import {Theme} from './service/theme.service';
+import {ItemsFacade} from './state/items/items-facade.service';
+import {TokenState} from './state/token/token-state.service';
+import {UserLicenseState} from './state/user-license/user-license-state.service';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [
-    MatToolbar,
-    MatSidenavContainer,
-    MatSidenav,
-    MatSidenavContent,
-    RouterOutlet,
-    MatDrawerContainer,
-    MatButton,
-    MatDrawer,
-    MatIconButton,
-    MatIcon,
-    LicenseDropdownMenuComponent,
-    MatMenuTrigger,
-    TranslateModule,
-    LicenseSidenavComponent
-  ],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+    selector: 'app-root',
+    imports: [
+        MatToolbar,
+        RouterOutlet,
+        MatIconButton,
+        MatIcon,
+        LicenseDropdownMenuComponent,
+        MatMenuTrigger,
+        TranslateModule,
+        LicenseSidenavComponent,
+        MatButton,
+    ],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
 
-  protected readonly title = environment.title;
+    @ViewChild('sidenav') sidenav!: LicenseSidenavComponent;
+    protected readonly title = environment.title;
 
-  protected readonly dropdownMenu: LicenseDropdownMenuItem[] = [
-    {id: 'en', title: 'EN', disabled: false},
-    {id: 'de', title: 'DE', disabled: false},
-    {id: 'es', title: 'ES', disabled: false}
-  ]
+    protected readonly itemsFacade = inject(ItemsFacade);
+    protected readonly tokenState = inject(TokenState);
+    protected readonly userLicenseState = inject(UserLicenseState);
+    private readonly userSettingsFacade = inject(UserSettingsFacade);
+    private readonly userSettingsState = inject(UserSettingsState);
+    private readonly routeFacade = inject(RouteFacade);
+    private readonly loginService = inject(LoginService);
 
-  @ViewChild('sidenav') sidenav!: LicenseSidenavComponent;
+    protected readonly themeIcon = signal<string>('light_mode');
 
-  constructor(private readonly userSettingsFacade: UserSettingsStoreFacade,
-              private readonly routeStoreService: RouteStoreFacade,
-              private readonly routeStore: RouteStore,
-              private readonly translateService: TranslateService,
-              private readonly loginService: LoginService) {
-
-    effect(() => {
-      const route = this.routeStore.selectCurrentRoute$();
-      this.clearToggle();
-      uiItems.sidenavItems.filter(item => item.id === route).forEach(item => {
-        item.selected = true;
-      });
+    protected readonly isOwnPublisher = computed(() => {
+        const selectedPublisher = this.userLicenseState.getSelectedPublisher();
+        const ownPublisher = this.tokenState.getSub();
+        return (ownPublisher === selectedPublisher);
     });
 
-    this.translateService.store.onLangChange.subscribe(() => {
-      uiItems.sidenavItems.forEach(item => {
-        item.description = this.translateService.instant('sidenavItems.' + item.id);
-      });
-      uiItems.homeContextMenuItems.forEach(item => {
-        item.title = this.translateService.instant('home.contextMenuItems.' + item.id);
-      });
-      uiItems.logoutDropdownMenu.forEach(item => {
-        if(!item.title) return;
-        item.title = this.translateService.instant(item.id);
-      })
+    protected readonly publisherDisplay = computed(() => {
+        const ownPublisher = this.isOwnPublisher();
+        if(ownPublisher) {
+            return 'header.admin.own-publisher';
+        } else {
+            return 'header.admin.publisher';
+        }
     });
-  }
 
-  ngOnInit() {
-    this.loginService.login();
-  }
+    constructor() {
 
-  protected onChangeLanguage(item: LicenseDropdownMenuItem) {
-    this.userSettingsFacade.changeLanguage(item.id);
-  }
-
-  protected onLogoutClicked(item: LicenseDropdownMenuItem) {
-    if (item.id !== 'logout') return;
-    this.loginService.logout();
-  }
-
-  protected toggleSidenav() {
-    this.sidenav.toggle();
-  }
-
-  protected sidenavItemClick(item: LicenseSidenavItem) {
-    if (item.id === 'settings') {
-      window.open(environment.accountSettingsUrl);
-      return;
     }
-    this.clearToggle();
-    item.selected = true;
-    this.routeStoreService.setCurrentRoute(toRoute(item.id));
-  }
 
-  private clearToggle() {
-    uiItems.sidenavItems.forEach(value => value.selected = false);
-  }
+    ngOnInit() {
+        this.loginService.login();
+    }
 
-  protected readonly uiItems = uiItems;
+    protected onChangeLanguage(item: LicenseDropdownMenuItem) {
+        this.userSettingsFacade.changeLanguage(item.id);
+    }
+
+    protected onLogoutClicked(item: LicenseDropdownMenuItem) {
+        if (item.id !== 'logout') return;
+        this.loginService.logout();
+    }
+
+    protected toggleSidenav() {
+        this.sidenav.toggle();
+    }
+
+    protected sidenavItemClick(item: LicenseSidenavItem) {
+        if (item.id === 'settings') {
+            window.open(environment.accountSettingsUrl);
+            return;
+        }
+        this.routeFacade.setCurrentRoute(toRoute(item.id));
+    }
+
+    public onChangeTheme() {
+        const currentTheme: Theme = this.userSettingsState.getTheme();
+        if (currentTheme === 'light-theme') {
+            this.userSettingsFacade.setTheme('dark-theme');
+            this.themeIcon.set('dark_mode');
+        } else {
+            this.userSettingsFacade.setTheme('light-theme');
+            this.themeIcon.set('light_mode');
+        }
+    }
 }

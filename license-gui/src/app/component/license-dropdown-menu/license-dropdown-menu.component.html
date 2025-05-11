@@ -1,37 +1,37 @@
 @if (isRootNode && rootTriggerButton) {
-  <ng-container *ngTemplateOutlet="rootTriggerButton; context: {menu: menu}">
+    <ng-container *ngTemplateOutlet="rootTriggerButton; context: {menu: menu}">
 
-  </ng-container>
+    </ng-container>
 } @else {
-  <button mat-menu-item
-          [matMenuTriggerFor]="menu"
-          [disabled]="trigger.disabled"
-          (click)="onItemClick(trigger)" class="menu-item">
-    @if (trigger.icon) {
-      <mat-icon class="license-icon">{{ trigger.icon }}</mat-icon>
-    }
-    {{ trigger.title }}
-  </button>
+    <button mat-menu-item
+            [matMenuTriggerFor]="menu"
+            [disabled]="trigger.disabled"
+            (click)="onItemClick(trigger)" class="menu-item">
+        @if (trigger.icon) {
+            <mat-icon class="license-icon">{{ trigger.icon }}</mat-icon>
+        }
+        {{ trigger.title }}
+    </button>
 }
 
-<mat-menu #menu="matMenu" class="menu" (closed)="menuClosed$.emit($event)">
-  <ng-container *ngFor="let item of items">
-    <button mat-menu-item class="menu-item menu-item-root-button" [disabled]="item.disabled">
-      <license-dropdown-menu
-        [items]="item.entries!"
-        [trigger]="item"
-        [isRootNode]="false"
-        *ngIf="hasChildren(item); else menuItem">
-      </license-dropdown-menu>
-    </button>
+<mat-menu #menu="matMenu" (closed)="menuClosed$.emit($event)" class="menu">
+    <ng-container *ngFor="let item of items">
+        <button [disabled]="item.disabled" class="menu-item menu-item-root-button" mat-menu-item>
+            <license-dropdown-menu
+                *ngIf="hasChildren(item); else menuItem"
+                [isRootNode]="false"
+                [items]="item.entries!"
+                [trigger]="item">
+            </license-dropdown-menu>
+        </button>
 
-    <ng-template #menuItem>
-      <button mat-menu-item class="menu-item" (click)="onItemClick(item)" [disabled]="item.disabled">
-        @if (item.icon) {
-          <mat-icon class="license-icon">{{ trigger.icon }}</mat-icon>
-        }
-        {{ item.title }}
-      </button>
-    </ng-template>
-  </ng-container>
+        <ng-template #menuItem>
+            <button (click)="onItemClick(item)" [disabled]="item.disabled" class="menu-item" mat-menu-item>
+                @if (item.icon) {
+                    <mat-icon class="license-icon">{{ trigger.icon }}</mat-icon>
+                }
+                {{ item.title }}
+            </button>
+        </ng-template>
+    </ng-container>
 </mat-menu>

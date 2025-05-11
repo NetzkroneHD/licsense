@@ -10,29 +10,29 @@ import {LicenseInfoDialogData} from './info/license-info.interface';
 @Injectable({providedIn: 'root'})
 export class LicenseDialogService {
 
-  constructor(private dialog: MatDialog) {
-  }
+    constructor(private dialog: MatDialog) {
+    }
 
-  public confirm(data: LicenseConfirmDialogData): Observable<boolean> {
-    return this.dialog
-      .open(LicenseConfirmComponent, {
-        width: data.width,
-        disableClose: true,
-        data: data,
-        delayFocusTrap: false,
-      })
-      .afterClosed();
-  }
+    public confirm(data: LicenseConfirmDialogData): Observable<boolean> {
+        return this.dialog
+            .open(LicenseConfirmComponent, {
+                width: data.width,
+                disableClose: true,
+                data: data,
+                delayFocusTrap: false,
+            })
+            .afterClosed();
+    }
 
-  public info(data: LicenseInfoDialogData): Observable<boolean> {
-    return this.dialog
-      .open(LicenseInfoComponent, {
-        width: data.width,
-        disableClose: true,
-        data: data,
-        delayFocusTrap: false,
-      })
-      .afterClosed();
-  }
+    public info(data: LicenseInfoDialogData): Observable<boolean> {
+        return this.dialog
+            .open(LicenseInfoComponent, {
+                width: data.width,
+                disableClose: true,
+                data: data,
+                delayFocusTrap: false,
+            })
+            .afterClosed();
+    }
 
 }

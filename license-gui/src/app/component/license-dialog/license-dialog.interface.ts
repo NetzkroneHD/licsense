@@ -1,3 +1,3 @@
 export interface LicenseDialog {
-  width?: string
+    width?: string
 }

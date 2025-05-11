@@ -4,25 +4,25 @@ export type EditType = 'create' | 'edit';
 
 export interface LicenseEdit {
 
-  licenseKey: string,
-  publisher: string,
-  notes: string,
-  valid: boolean,
-  validUntil: Date,
-  listMode: ListModeDto,
-  ipAddresses: string[],
-  editType: EditType,
-  licenseReference?: LicenseDto,
+    licenseKey: string,
+    publisher: string,
+    notes: string,
+    valid: boolean,
+    validUntil: Date,
+    listMode: ListModeDto,
+    ipAddresses: string[],
+    editType: EditType,
+    licenseReference?: LicenseDto,
 
-  dialog: {
-    title: string,
-    confirmCaption: string,
-    cancelCaption: string
-  }
+    dialog: {
+        title: string,
+        confirmCaption: string,
+        cancelCaption: string
+    }
 }
 
 export interface LicenseEditAction {
-  licenseEdit: LicenseEdit,
-  confirmAction: boolean,
-  changes: boolean
+    licenseEdit: LicenseEdit,
+    confirmAction: boolean,
+    changes: boolean
 }

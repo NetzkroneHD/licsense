@@ -1,3 +1,7 @@
+@use '@angular/material' as mat;
+@use 'sass:map' as map;
+
 .license-drag-area {
-  cursor: move;
+    cursor: move;
+    color: var(--mat-sys-primary);
 }

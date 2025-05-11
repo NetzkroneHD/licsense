@@ -1,99 +1,228 @@
 {
-  "Enter a date": "Enter a date",
-  "Enter a date range": "Enter a date range",
-  "Start Date": "Start Date",
-  "End Date": "End Date",
-  "Create": "Create",
-  "Apply": "Apply",
-  "Save": "Save",
-  "Cancel": "Cancel",
-  "Choose": "Choose",
-  "logout": "Logout",
-  "Retrieve Publisher Data": "Retrieve Publisher Data",
-  "ID": "ID",
-  "License": "License",
-  "IP": "IP",
-  "Date": "Date",
-  "Request Result": "Request Result",
-  "Successfully created a license.": "Successfully created a license.",
-  "Error while creating license.": "Error while creating license.",
-  "Successfully updated a license.": "Successfully updated a license.",
-  "Error while updating license.": "Error while updating license.",
-  "Successfully deleted a license.": "Successfully deleted a license.",
-  "Error while deleting license.": "Error while deleting license.",
-  "Successfully loaded logs.": "Successfully loaded logs.",
-  "Error while loading logs.": "Error while loading logs.",
-  "Successfully deleted logs.": "Successfully deleted logs.",
-  "Error while deleting logs.": "Error while deleting logs.",
-  "Successfully loaded licenses.": "Successfully loaded licenses.",
-  "Error while loading licenses.": "Error while loading licenses.",
-  "No changes have been made.": "No changes have been made.",
-  "Error: {{error}}": "{{error}}",
-  "Filter": "Filter",
-  "Refresh": "Refresh",
-  "Loading...": "Loading...",
-  "The licenses are already loading.": "The licenses are already loading.",
-  "Publisher": "Publisher",
-  "Notes": "Notes",
-  "Valid": "Valid",
-  "Valid Until": "Valid Until",
-  "List-Mode": "List-Mode",
-  "IP-Addresses": "IP-Addresses",
-  "Create a license.": "CREATE LICENSE",
-  "Edit a license.": "EDIT LICENSE",
-  "Generated value": "Generated value",
-  "Validity": "Validity",
-  "Open Logs": "Open logs",
-  "Edit": "Edit",
-  "Delete": "Delete",
-  "Create License": "Create License",
-  "Confirm Delete": "Confirm Delete",
-  "New IP address separated by comma": "New IP address separated by comma",
-  "Authentication failed": "Authentication failed",
-  "Authentication failed. Retry to continue.": "Authentication failed. Retry to continue.",
-  "Retry": "Retry",
-  "Delete logs": "Delete logs",
-  "deleteLicense": {
-    "text": "Are you sure to delete the license {{licenseKey}}?"
-  },
-  "signature": {
-    "general": "General Info",
-    "text": "The utilization of the public key is pivotal in verifying the authenticity of an API response. Should the public key fail to decrypt the signature, trust in the integrity of the API response is compromised.",
-    "explanation": {
-      "title": "Explanation of Public/Private Key Encryption:",
-      "text": "Public/private key encryption, known as asymmetric cryptography, involves a pair of cryptographic keys: a public key and a private key."
+    "header": {
+        "admin": {
+            "publisher": "Selected publisher: {{publisher}}",
+            "own-publisher": "Selected publisher: {{publisher}} <i>(You)</i>"
+        }
     },
-    "public-key": {
-      "name": "Public Key",
-      "text": "This key is openly shared and utilized by entities seeking secure communication with the holder of the corresponding private key. It serves to encrypt data or verify digital signatures."
+    "view": {
+        "auth-failed": {
+            "title": "Authentication failed",
+            "retry": "Retry"
+        },
+        "admin": {
+            "reset-publisher": "Selected own publisher.",
+            "selected-publisher": "Selected publisher: {{publisher}}",
+            "select-a-publisher": {
+                "placeholder": "Publisher-ID",
+                "label": "Select a publisher"
+            },
+            "refresh": "Refresh",
+            "undo": "Undo"
+        },
+        "home": {
+            "filter": "Filter",
+            "copy-to-clipboard": "Copied license key to clipboard.",
+            "table": {
+                "header": {
+                    "license": "License",
+                    "publisher": "Publisher",
+                    "notes": "Notes",
+                    "valid": "Valid",
+                    "valid-until": "Valid Until",
+                    "list-mode": "List-Mode",
+                    "ip-addresses": "IP-Addresses"
+                }
+            }
+        },
+        "license-log": {
+            "filter": "Filter",
+            "tooltip": {
+                "delete-logs": "Delete logs",
+                "refresh": "Refresh"
+            },
+            "table": {
+                "header": {
+                    "id": "ID",
+                    "license": "License",
+                    "ip": "IP",
+                    "date": "Date",
+                    "request-result": "Request Result"
+                }
+            },
+            "delete-logs": {
+                "title": "Delete Logs",
+                "message": "Are you sure to delete the logs of the license <strong>{{licenseKey}}</strong>?",
+                "confirm": "Delete",
+                "cancel": "Cancel"
+            }
+        }
     },
-    "private-key": {
-      "name": "Private Key",
-      "text": "Kept confidential by its owner, this key is essential for decrypting data encrypted with the corresponding public key or generating digital signatures."
+    "state": {
+        "publisher": {
+            "load-publishers": {
+                "success": "Successfully loaded publishers.",
+                "error": {
+                    "title": "Error while loading publishers.",
+                    "message": "Error: {{reason}}"
+                }
+            }
+        },
+        "key": {
+            "load-public-key": {
+                "success": "Successfully loaded public key.",
+                "error": {
+                    "title": "Error while loading public key.",
+                    "message": "Error: {{reason}}"
+                }
+            },
+            "generate-key": {
+                "success": "Successfully generated a key.",
+                "error": {
+                    "title": "Error while generating key.",
+                    "message": "Error: {{reason}}"
+                }
+            }
+        },
+        "license": {
+            "create-license": {
+                "success": "Successfully created a license.",
+                "error": {
+                    "title": "Error while creating license.",
+                    "message": "Error: {{reason}}"
+                }
+            },
+            "update-license": {
+                "success": "Successfully updated a license.",
+                "error": {
+                    "title": "Error while updating license.",
+                    "message": "Error: {{reason}}"
+                }
+            },
+            "delete-license": {
+                "success": "Successfully deleted a license.",
+                "error": {
+                    "title": "Error while deleting license.",
+                    "message": "Error: {{reason}}"
+                }
+            },
+            "load-logs": {
+                "success": "Successfully loaded logs.",
+                "error": {
+                    "title": "Error while loading logs.",
+                    "message": "Error: {{reason}}"
+                }
+            },
+            "delete-logs": {
+                "success": "Successfully deleted logs.",
+                "error": {
+                    "title": "Error while deleting logs.",
+                    "message": "Error: {{reason}}"
+                }
+            },
+            "load-licenses": {
+                "success": "Successfully loaded licenses.",
+                "error": {
+                    "title": "Error while loading licenses.",
+                    "message": "Error: {{reason}}"
+                }
+            }
+        },
+        "items": {
+            "only-for-admins": "This feature is only available for admins.",
+            "change-language": {
+                "de": "Deutsch",
+                "en": "English",
+                "es": "Español"
+            },
+            "logout": {
+                "logout": "Logout"
+            }
+        }
     },
-    "verifying": "When securely transmitting information or verifying the authenticity of a message:",
-    "encryption": {
-      "name": "Encryption",
-      "text": "The sender encrypts the message using the recipient's public key. This ensures that only the intended recipient, possessing the corresponding private key, can decrypt and access the message."
+    "component": {
+        "license-edit": {
+            "license-key": "License Key",
+            "generated-value": "Generated value",
+            "publisher": "Publisher",
+            "notes": "Notes",
+            "valid": "Valid",
+            "invalid": "Invalid",
+            "valid-until": "Valid Until",
+            "list-mode": "List-Mode",
+            "ip-addresses": "IP-Addresses",
+            "new-ip-address": "New IP-Address separated by comma"
+        },
+        "toolbar": {
+            "already-loading": {
+                "title": "Loading...",
+                "text": "The licenses are already loading."
+            },
+            "license-not-changed": "No changes have been made.",
+            "delete-license": {
+                "title": "Delete License",
+                "message": "Are you sure to delete the license <strong>{{licenseKey}}</strong>?",
+                "confirm": "Delete",
+                "cancel": "Cancel"
+            },
+            "tooltip": {
+                "refresh": "Refresh",
+                "create-license": "Create License",
+                "open-logs": "Open logs",
+                "edit-license": "Edit License",
+                "delete-license": "Delete License"
+            }
+        }
     },
-    "signature-verification": {
-      "name": "Signature Verification",
-      "text": "Upon receiving a message with a digital signature, the recipient employs the sender's public key to verify its authenticity. Successful verification confirms that the message remains unaltered since its signing by the sender."
+    "signature": {
+        "general": "General Info",
+        "text": "The utilization of the public key is pivotal in verifying the authenticity of an API response. Should the public key fail to decrypt the signature, trust in the integrity of the API response is compromised.",
+        "explanation": {
+            "title": "Explanation of Public/Private Key Encryption:",
+            "text": "Public/private key encryption, known as asymmetric cryptography, involves a pair of cryptographic keys: a public key and a private key."
+        },
+        "public-key": {
+            "name": "Public Key",
+            "text": "This key is openly shared and utilized by entities seeking secure communication with the holder of the corresponding private key. It serves to encrypt data or verify digital signatures."
+        },
+        "private-key": {
+            "name": "Private Key",
+            "text": "Kept confidential by its owner, this key is essential for decrypting data encrypted with the corresponding public key or generating digital signatures."
+        },
+        "verifying": "When securely transmitting information or verifying the authenticity of a message:",
+        "encryption": {
+            "name": "Encryption",
+            "text": "The sender encrypts the message using the recipient's public key. This ensures that only the intended recipient, possessing the corresponding private key, can decrypt and access the message."
+        },
+        "signature-verification": {
+            "name": "Signature Verification",
+            "text": "Upon receiving a message with a digital signature, the recipient employs the sender's public key to verify its authenticity. Successful verification confirms that the message remains unaltered since its signing by the sender."
+        },
+        "end": "Public/private key encryption guarantees confidentiality, integrity, and authenticity in communication. It ensures that only authorized recipients with access to the private key can decipher messages, while only the legitimate sender, holding the private key, can produce valid digital signatures.",
+        "download": "Download Public Key",
+        "generate": "Generate Public/Private Key Pair"
     },
-    "end": "Public/private key encryption guarantees confidentiality, integrity, and authenticity in communication. It ensures that only authorized recipients with access to the private key can decipher messages, while only the legitimate sender, holding the private key, can produce valid digital signatures.",
-    "download": "Download Public Key"
-  },
-  "sidenavItems": {
-    "home": "Home",
-    "license-logs": "Logs",
-    "signature": "Signature",
-    "settings": "Account Settings"
-  },
-  "home": {
-    "contextMenuItems": {
-      "open": "Open logs",
-      "edit": "Edit",
-      "delete": "Delete"
+    "dialog": {
+        "generateKey": {
+            "title": "Generate Public/Private Key Pair",
+            "message": "Are you sure you want to generate a new key?\nThis will overwrite the current key and invalidate all licenses.",
+            "confirm": "Generate",
+            "cancel": "Cancel"
+        }
+    },
+    "sidenavItems": {
+        "home": "Home",
+        "license-logs": "Logs",
+        "signature": "Signature",
+        "admin": "Administration",
+        "settings": "Account Settings"
+    },
+    "paginator": {
+        "firstPageLabel": "First page",
+        "itemsPerPageLabel": "Items per page",
+        "lastPageLabel": "Last page",
+        "nextPageLabel": "Next page",
+        "previousPageLabel": "Previous page",
+        "rangeSeparatorLabel": "of"
     }
-  }
 }

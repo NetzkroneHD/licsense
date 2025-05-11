@@ -1,4 +1,3 @@
-version: '3'
 services:
 
   openapi-generator-server-springboot:
@@ -24,4 +23,3 @@ services:
       - ./openapi.yaml:/home/openapi.yaml
       - ./config-client-typescript-fetch.json:/home/config-client-typescript-fetch.json
     command: generate -i /home/openapi.yaml -g ${TYPE_SCRIPT_GENERATOR} -o /local/typescript -c /home/config-client-typescript-fetch.json
-

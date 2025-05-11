@@ -1,0 +1,10 @@
+<mat-slide-toggle [checked]="checked()" (change)="onChange($event)" [disabled]="disabled()">
+    @let text = this.text();
+    @if (text) {
+        @if (checked()) {
+            {{ text.checked }}
+        } @else {
+            {{ text.unchecked }}
+        }
+    }
+</mat-slide-toggle>

@@ -18,8 +18,8 @@ public enum ListMode {
         this.behavior = behavior;
     }
 
-    public ListBehaviorResult checkState(List<String> list, String toCheck) {
-        return this.behavior.checkState(list, toCheck);
+    public ListBehaviorResult checkState(List<String> ipAddresses, String toCheck) {
+        return this.behavior.checkState(ipAddresses, toCheck);
     }
 
 

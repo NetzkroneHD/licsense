@@ -2,14 +2,14 @@
 
 </ng-container>
 
-<mat-menu #choice (closed)="menuClosed$.emit($event)">
-  @for (item of menu.items; track item) {
-    <mat-checkbox class="choice-item"
-                  [(ngModel)]="item.activated"
-                  (click)="$event.stopPropagation()"
-                  [color]="item.color"
-                  (change)="onChoiceClicked(item)">
-      {{ item.value }}
-    </mat-checkbox>
-  }
+<mat-menu #choice (closed)="menuClosed.emit($event)">
+    @for (item of menu().items; track item) {
+        <mat-checkbox class="choice-item"
+                      [(ngModel)]="item.activated"
+                      (click)="$event.stopPropagation()"
+                      [color]="item.color"
+                      (change)="onChoiceClicked(item)">
+            {{ item.value }}
+        </mat-checkbox>
+    }
 </mat-menu>

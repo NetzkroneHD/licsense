@@ -1,0 +1,33 @@
+@if (publisherState.getLoadingPublishers()) {
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+} @else {
+    <div style="height: 4px"></div>
+}
+<div class="license-admin-wrapper">
+    <license-autocomplete style="min-width: 25%"
+                          [formControl]="this.formControl"
+                          [options]="this.options()"
+                          [placeholder]="'view.admin.select-a-publisher.placeholder' | translate"
+                          [label]="'view.admin.select-a-publisher.label' | translate"
+                          (optionSelected)="onOptionSelected($event)"
+    />
+
+    <div style="width: 100%">
+        <div style="display: flex">
+            <button class="license-admin-toolbar-item"
+                    (click)="refresh()"
+                    [disabled]="(publisherState.getLoadingPublishers())"
+                    [matTooltip]="('view.admin.refresh' | translate) "
+                    mat-icon-button>
+                <mat-icon>refresh</mat-icon>
+            </button>
+            <button class="license-admin-toolbar-item"
+                    (click)="reset()"
+                    [disabled]="(publisherState.getLoadingPublishers())"
+                    [matTooltip]="('view.admin.undo' | translate) "
+                    mat-icon-button>
+                <mat-icon>undo</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>

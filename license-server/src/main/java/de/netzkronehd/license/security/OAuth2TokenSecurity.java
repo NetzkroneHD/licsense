@@ -25,18 +25,20 @@ public class OAuth2TokenSecurity {
             final JwtAuthenticationToken authToken = new JwtAuthenticationToken(jwt);
             return new OAuth2Model(jwt.getClaimAsString("sub"),
                     (WebAuthenticationDetails) authToken.getDetails(),
-                    authToken.getAuthorities()
+                    authToken.getAuthorities(),
+                    jwt
             );
         }
         return null;
     }
 
     public OAuth2Model getModel(Authentication authentication) {
-        if(authentication == null) return null;
-        if(!(authentication.getPrincipal() instanceof Jwt jwt)) return null;
+        if (authentication == null) return null;
+        if (!(authentication.getPrincipal() instanceof Jwt jwt)) return null;
         return new OAuth2Model(jwt.getClaimAsString("sub"),
                 (WebAuthenticationDetails) authentication.getDetails(),
-                (Collection<GrantedAuthority>) authentication.getAuthorities()
+                (Collection<GrantedAuthority>) authentication.getAuthorities(),
+                jwt
         );
     }
 

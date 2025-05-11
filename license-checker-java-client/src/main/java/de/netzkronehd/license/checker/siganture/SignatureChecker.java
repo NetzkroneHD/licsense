@@ -26,6 +26,10 @@ public class SignatureChecker {
         this.publicKey = publicKey;
     }
 
+    public SignatureChecker(String publicKey) throws NoSuchAlgorithmException, InvalidKeySpecException {
+        this.publicKey = loadPublicKey(publicKey);
+    }
+
     public boolean isValidSignature(LicenseCheckResultDto licenseCheck) {
         try {
             decrypt(licenseCheck.getSignature());
@@ -50,11 +54,20 @@ public class SignatureChecker {
         cipher.doFinal(Base64.getDecoder().decode(encoded));
     }
 
-    private PublicKey loadPublicKey(File file) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
-        final byte[] keyBytes = Files.readAllBytes(file.toPath());
+    private PublicKey loadPublicKey(byte[] keyBytes) throws NoSuchAlgorithmException, InvalidKeySpecException {
         final X509EncodedKeySpec spec = new X509EncodedKeySpec(keyBytes);
         final KeyFactory kf = KeyFactory.getInstance("RSA");
         return kf.generatePublic(spec);
+    }
+
+    private PublicKey loadPublicKey(File file) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
+        final byte[] keyBytes = Files.readAllBytes(file.toPath());
+        return loadPublicKey(keyBytes);
+    }
+
+    private PublicKey loadPublicKey(String publicKey) throws NoSuchAlgorithmException, InvalidKeySpecException {
+        final byte[] keyBytes = Base64.getDecoder().decode(publicKey);
+        return loadPublicKey(keyBytes);
     }
 
 }

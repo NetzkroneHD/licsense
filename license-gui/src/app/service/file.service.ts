@@ -1,30 +1,25 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class FileService {
 
-  constructor(private http: HttpClient) {
-  }
+    public downloadGeneratedPublicKey(base64Key: string): void {
+        const binaryData = atob(base64Key);
+        const byteArray = new Uint8Array(binaryData.length);
 
-  public downloadFile(filename: string): void {
-    this.http.get(`assets/${filename}`, {responseType: 'blob'})
-      .subscribe((data: Blob) => {
-        const blob = new Blob([data], {type: 'application/octet-stream'});
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
-      });
-  }
+        for (let i = 0; i < binaryData.length; i++) {
+            byteArray[i] = binaryData.charCodeAt(i);
+        }
+        const blob = new Blob([byteArray], {type: 'application/x-x509-ca-cert'});
+        const link = document.createElement('a');
 
-  public downloadPublicKey(): void {
-    this.downloadFile('license-key-public.der');
-  }
+        link.href = window.URL.createObjectURL(blob);
+        link.download = `license-public-key.der`;
 
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
 }

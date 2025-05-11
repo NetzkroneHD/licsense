@@ -1,0 +1,18 @@
+@use '@angular/material' as mat;
+
+html {
+    @include mat.theme((
+        color: (
+            theme-type: light,
+            primary: mat.$azure-palette,
+            tertiary: mat.$blue-palette,
+        ),
+        typography: Roboto,
+        density: 0,
+    ));
+}
+
+:root {
+    --license-green-icon-color: #46D63A;
+    --license-red-icon-color: #FF5449;
+}

@@ -15,10 +15,6 @@ public class LicenseLogMapper {
 
     private final ListBehaviorResultMapper listBehaviorResultMapper;
 
-    public LicenseLogModel map(LicenseLogDto dto) {
-        return new LicenseLogModel(dto.getId(), dto.getLicense(), dto.getIp(), dto.getDateTime(), listBehaviorResultMapper.map(dto.getListBehaviorResult()));
-    }
-
     public LicenseLogDto map(LicenseLogModel log) {
         return new LicenseLogDto()
                 .license(log.getLicense())

@@ -1,33 +1,33 @@
 <mat-form-field>
-  <mat-label>{{ datePicker.label }}</mat-label>
+    <mat-label>{{ datePicker.label }}</mat-label>
 
-  <mat-date-range-input [rangePicker]="rangePicker" [formGroup]="dateRange">
-    <input matStartDate
-           [placeholder]="datePicker.startDate.placeholder"
-           [formControlName]="'startDate'">
-    <input matEndDate
-           [placeholder]="datePicker.endDate.placeholder"
-           [formControlName]="'endDate'">
-  </mat-date-range-input>
-  @if (datePicker.hint) {
-    <mat-hint>{{ datePicker.hint }}</mat-hint>
-  }
-  <mat-datepicker-toggle matIconSuffix [for]="rangePicker"></mat-datepicker-toggle>
+    <mat-date-range-input [formGroup]="dateRange" [rangePicker]="rangePicker">
+        <input [formControlName]="'startDate'"
+               [placeholder]="datePicker.startDate.placeholder"
+               matStartDate>
+        <input [formControlName]="'endDate'"
+               [placeholder]="datePicker.endDate.placeholder"
+               matEndDate>
+    </mat-date-range-input>
+    @if (datePicker.hint) {
+        <mat-hint>{{ datePicker.hint }}</mat-hint>
+    }
+    <mat-datepicker-toggle [for]="rangePicker" matIconSuffix></mat-datepicker-toggle>
 
-  <mat-date-range-picker #rangePicker>
-    <mat-date-range-picker-actions>
-      <button mat-button
-              matDateRangePickerCancel
-              [color]="datePicker.cancelButton.color"
-              (click)="cancelButtonClick$.emit($event)">{{ datePicker.cancelButton.text }}
-      </button>
+    <mat-date-range-picker #rangePicker>
+        <mat-date-range-picker-actions>
+            <button (click)="cancelButtonClick$.emit($event)"
+                    [color]="datePicker.cancelButton.color"
+                    mat-button
+                    matDateRangePickerCancel>{{ datePicker.cancelButton.text }}
+            </button>
 
-      <button mat-raised-button
-              matDateRangePickerApply
-              [color]="datePicker.applyButton.color"
-              (click)="applyButtonClick$.emit($event)">{{ datePicker.applyButton.text }}
-      </button>
+            <button (click)="applyButtonClick$.emit($event)"
+                    [color]="datePicker.applyButton.color"
+                    mat-raised-button
+                    matDateRangePickerApply>{{ datePicker.applyButton.text }}
+            </button>
 
-    </mat-date-range-picker-actions>
-  </mat-date-range-picker>
+        </mat-date-range-picker-actions>
+    </mat-date-range-picker>
 </mat-form-field>

@@ -1,72 +1,72 @@
 import {OAuthService} from 'angular-oauth2-oidc';
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
-import {UserLicenseStoreFacade} from '../state/user-license/user-license-store-facade.service';
-import {RouteStoreFacade} from '../state/route/route.service';
-import {UserSettingsStoreFacade} from '../state/user-settings/user-settings-store-facade.service';
-import {TokenService} from '../api/service/token.service';
-import {NotificationStoreService} from '../state/notification/notification.service';
+import {UserLicenseFacade} from '../state/user-license/user-license-facade.service';
+import {RouteFacade} from '../state/route/route-facade.service';
+import {UserSettingsFacade} from '../state/user-settings/user-settings-facade.service';
+import {NotificationFacade} from '../state/notification/notification-facade.service';
+import {TokenFacade} from '../state/token/token-facade.service';
+import {TokenState} from '../state/token/token-state.service';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class LoginService {
 
-  constructor(private readonly oAuthService: OAuthService,
-              private readonly userLicenseStoreFacade: UserLicenseStoreFacade,
-              private readonly routeStoreFacade: RouteStoreFacade,
-              private readonly userSettingsStoreFacade: UserSettingsStoreFacade,
-              private readonly tokenService: TokenService,
-              private readonly notificationFacade: NotificationStoreService) {
+    private readonly oAuthService: OAuthService = inject(OAuthService);
+    private readonly userLicenseFacade: UserLicenseFacade = inject(UserLicenseFacade);
+    private readonly routeFacade: RouteFacade = inject(RouteFacade);
+    private readonly userSettingsFacade: UserSettingsFacade = inject(UserSettingsFacade);
+    private readonly notificationFacade: NotificationFacade = inject(NotificationFacade);
+    private readonly tokenFacade: TokenFacade = inject(TokenFacade);
+    private readonly tokenState: TokenState = inject(TokenState);
 
-  }
+    public login() {
+        this.oAuthService.configure(environment.authConfig);
+        this.oAuthService.loadDiscoveryDocumentAndLogin().then(() => {
+            this.onUserLoggedIn();
+            this.userLicenseFacade.setSelectedPublisher(this.tokenState.getSub());
+            this.userLicenseFacade.loadLicensesFromCurrentPublisher();
+        }).catch(() => {
+            this.authFailed()
+        });
 
-  public login() {
-    this.oAuthService.configure(environment.authConfig);
-    this.oAuthService.loadDiscoveryDocumentAndLogin().then(() => {
-      this.onUserLoggedIn();
-      this.userLicenseStoreFacade.loadLicensesFromCurrentPublisher();
-    }).catch(() => {
-      this.authFailed()
-    });
+        this.oAuthService.setupAutomaticSilentRefresh();
+        this.oAuthService.events.subscribe(event => {
+            if (event.type !== 'token_refreshed') {
+                return;
+            }
+            this.tokenFacade.setAccessToken(this.oAuthService.getAccessToken());
+        });
 
-    this.oAuthService.setupAutomaticSilentRefresh();
-    this.oAuthService.events.subscribe(event => {
-      if (event.type !== 'token_refreshed') {
-        return;
-      }
-      this.tokenService.setAccessToken(this.oAuthService.getAccessToken());
-    });
-
-    if (this.oAuthService.getIdentityClaims()) {
-      this.tokenService.setAccessToken(this.oAuthService.getAccessToken());
-      this.userLicenseStoreFacade.loadLicensesFromCurrentPublisher();
-    }
-  }
-
-  private authFailed() {
-    this.userSettingsStoreFacade.authFailed();
-    this.notificationFacade.setError({title: 'Authentication failed', message: undefined}, true);
-
-    this.routeStoreFacade.setCurrentRoute('auth-failed').then();
-  }
-
-  private onUserLoggedIn() {
-    const identityClaims = this.oAuthService.getIdentityClaims();
-    if (!identityClaims) {
-      console.log("Login failed. No Claim available.");
-      return;
+        if (this.oAuthService.getIdentityClaims()) {
+            this.tokenFacade.setAccessToken(this.oAuthService.getAccessToken())
+            this.userLicenseFacade.setSelectedPublisher(this.tokenState.getSub());
+            this.userLicenseFacade.loadLicensesFromCurrentPublisher();
+        }
     }
 
-    const username = this.oAuthService.getIdentityClaims()['preferred_username'];
-    const jwt = JSON.parse(atob(this.oAuthService.getAccessToken().split('.')[1]));
-    console.log("username", username);
-    console.log("jwt", jwt);
-    console.log("roles", jwt['realm_access']['roles'])
-  }
+    public logout() {
+        this.oAuthService.logOut();
+    }
 
-  logout() {
-    this.oAuthService.logOut();
-  }
+    private authFailed() {
+        this.userSettingsFacade.authFailed();
+        this.notificationFacade.setMessage({
+            title: 'service.login.error.title',
+            message: undefined,
+            type: 'ERROR'
+        }, true);
+
+        this.routeFacade.setCurrentRoute('auth-failed').then();
+    }
+
+    private onUserLoggedIn() {
+        const identityClaims = this.oAuthService.getIdentityClaims();
+        if (!identityClaims) {
+            console.error("Login failed. No Claim available.");
+            return;
+        }
+    }
 }
 

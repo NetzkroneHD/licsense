@@ -1,99 +1,228 @@
 {
-  "Enter a date": "Datum angeben",
-  "Enter a date range": "Zeitraum angeben",
-  "Start Date": "Von",
-  "End Date": "Bis",
-  "Create": "Erstellen",
-  "Apply": "Übernehmen",
-  "Save": "Speichern",
-  "Cancel": "Abbrechen",
-  "Choose": "Auswählen",
-  "logout": "Abmelden",
-  "Retrieve Publisher Data": "Benutzerdaten laden",
-  "ID": "ID",
-  "License": "Lizenz",
-  "IP": "IP",
-  "Date": "Datum",
-  "Request Result": "Anfrage Ergebnis",
-  "Successfully created a license.": "Lizenz wurde erstellt.",
-  "Error while creating license.": "Fehler beim Erstellen der Lizenz.",
-  "Successfully updated a license.": "Lizenz wurde aktualisiert.",
-  "Error while updating license.": "Fehler beim Aktualisieren der Lizenz.",
-  "Successfully deleted a license.": "Lizenz wurde gelöscht.",
-  "Error while deleting license.": "Fehler beim Löschen der Lizenz.",
-  "Successfully loaded logs.": "Logs erfolgreich geladen.",
-  "Error while loading logs.": "Fehler beim Laden der Logs.",
-  "Successfully deleted logs.": "Logs wurden gelöscht.",
-  "Error while deleting logs.": "Fehler beim Löschen der Logs.",
-  "Successfully loaded licenses.": "Lizenzen wurden geladen.",
-  "Error while loading licenses.": "Fehler beim Laden der Lizenzen.",
-  "No changes have been made.": "Es wurden keine Änderungen vorgenommen.",
-  "Error: {{error}}": "{{error}}",
-  "Filter": "Filter",
-  "Refresh": "Daten aktualisieren",
-  "Loading...": "Lade...",
-  "The licenses are already loading.": "Die Lizenzen werden bereits geladen.",
-  "Publisher": "Ersteller",
-  "Notes": "Notizen",
-  "Valid": "Gültig",
-  "Valid Until": "Gültig bis",
-  "List-Mode": "List-Modus",
-  "IP-Addresses": "IP-Adressen",
-  "Create a license.": "LIZENZ ERSTELLEN",
-  "Edit a license.": "LIZENZ BEARBEITEN",
-  "Generated value": "Generierter Wert",
-  "Validity": "Gültigkeit",
-  "Open Logs": "Logs öffnen",
-  "Edit": "Bearbeiten",
-  "Delete": "Löschen",
-  "Create License": "Lizenz erstellen",
-  "Confirm Delete": "Löschen bestätigen",
-  "New IP-Address separated by comma": "Neue IP-Adresse getrennt durch ein Komma",
-  "Authentication failed": "Authentifizierung fehlgeschlagen",
-  "Authentication failed. Retry to continue.": "Authentifizierung fehlgeschlagen. Versuche es erneut, um fortzufahren.",
-  "Retry": "Erneut versuchen",
-  "Delete logs": "Logs löschen",
-  "deleteLicense": {
-    "text": "Bist du dir sicher, dass du die Lizenz {{licenseKey}} löschen möchtest?"
-  },
-  "signature": {
-    "general": "Generelle Info",
-    "text": "Die Verwendung des öffentlichen Schlüssels ist entscheidend für die Überprüfung der Authentizität einer API-Antwort. Sollte der öffentliche Schlüssel die Signatur nicht entschlüsseln können, wird das Vertrauen in die Integrität der API-Antwort beeinträchtigt.",
-    "explanation": {
-      "title": "Erklärung der Public/Private Key-Verschlüsselung:",
-      "text": "Public/private key encryption, bekannt als asymmetrische Kryptographie, umfasst ein Paar kryptografischer Schlüssel: einen öffentlichen Schlüssel und einen privaten Schlüssel."
+    "header": {
+        "admin": {
+            "publisher": "Ausgewählter Publisher: {{publisher}}",
+            "own-publisher": "Ausgewählter Publisher: {{publisher}} <i>(Du)</i>"
+        }
     },
-    "public-key": {
-      "name": "Öffentlicher Schlüssel",
-      "text": "Dieser Schlüssel wird offen geteilt und von Entitäten genutzt, die sichere Kommunikation mit dem Inhaber des entsprechenden privaten Schlüssels suchen. Er dient dazu, Daten zu verschlüsseln oder digitale Signaturen zu überprüfen."
+    "view": {
+        "auth-failed": {
+            "title": "Authentifizierung fehlgeschlagen",
+            "retry": "Erneut versuchen"
+        },
+        "admin": {
+            "reset-publisher": "Eigener Publisher ausgewählt.",
+            "selected-publisher": "Ausgewählter Publisher: {{publisher}}",
+            "select-a-publisher": {
+                "placeholder": "Publisher-ID",
+                "label": "Wähle einen Publisher"
+            },
+            "refresh": "Aktualisieren",
+            "undo": "Rückgängig"
+        },
+        "home": {
+            "filter": "Filter",
+            "copy-to-clipboard": "Lizenzschlüssel in die Zwischenablage kopiert.",
+            "table": {
+                "header": {
+                    "license": "Lizenz",
+                    "publisher": "Publisher",
+                    "notes": "Notizen",
+                    "valid": "Gültig",
+                    "valid-until": "Gültig bis",
+                    "list-mode": "Listenmodus",
+                    "ip-addresses": "IP-Adressen"
+                }
+            }
+        },
+        "license-log": {
+            "filter": "Filter",
+            "tooltip": {
+                "delete-logs": "Logs löschen",
+                "refresh": "Aktualisieren"
+            },
+            "table": {
+                "header": {
+                    "id": "ID",
+                    "license": "Lizenz",
+                    "ip": "IP",
+                    "date": "Datum",
+                    "request-result": "Anfrageergebnis"
+                }
+            },
+            "delete-logs": {
+                "title": "Logs löschen",
+                "message": "Bist du sicher, dass du die Logs der Lizenz <strong>{{licenseKey}}</strong> löschen möchtest?",
+                "confirm": "Löschen",
+                "cancel": "Abbrechen"
+            }
+        }
     },
-    "private-key": {
-      "name": "Privater Schlüssel",
-      "text": "Von seinem Besitzer vertraulich gehalten, ist dieser Schlüssel unerlässlich zum Entschlüsseln von mit dem entsprechenden öffentlichen Schlüssel verschlüsselten Daten oder zum Erzeugen digitaler Signaturen."
+    "state": {
+        "publisher": {
+            "load-publishers": {
+                "success": "Publisher erfolgreich geladen.",
+                "error": {
+                    "title": "Fehler beim Laden der Publisher.",
+                    "message": "Fehler: {{reason}}"
+                }
+            }
+        },
+        "key": {
+            "load-public-key": {
+                "success": "Öffentlicher Schlüssel erfolgreich geladen.",
+                "error": {
+                    "title": "Fehler beim Laden des öffentlichen Schlüssels.",
+                    "message": "Fehler: {{reason}}"
+                }
+            },
+            "generate-key": {
+                "success": "Schlüssel erfolgreich generiert.",
+                "error": {
+                    "title": "Fehler beim Generieren des Schlüssels.",
+                    "message": "Fehler: {{reason}}"
+                }
+            }
+        },
+        "license": {
+            "create-license": {
+                "success": "Lizenz erfolgreich erstellt.",
+                "error": {
+                    "title": "Fehler beim Erstellen der Lizenz.",
+                    "message": "Fehler: {{reason}}"
+                }
+            },
+            "update-license": {
+                "success": "Lizenz erfolgreich aktualisiert.",
+                "error": {
+                    "title": "Fehler beim Aktualisieren der Lizenz.",
+                    "message": "Fehler: {{reason}}"
+                }
+            },
+            "delete-license": {
+                "success": "Lizenz erfolgreich gelöscht.",
+                "error": {
+                    "title": "Fehler beim Löschen der Lizenz.",
+                    "message": "Fehler: {{reason}}"
+                }
+            },
+            "load-logs": {
+                "success": "Logs erfolgreich geladen.",
+                "error": {
+                    "title": "Fehler beim Laden der Logs.",
+                    "message": "Fehler: {{reason}}"
+                }
+            },
+            "delete-logs": {
+                "success": "Logs erfolgreich gelöscht.",
+                "error": {
+                    "title": "Fehler beim Löschen der Logs.",
+                    "message": "Fehler: {{reason}}"
+                }
+            },
+            "load-licenses": {
+                "success": "Lizenzen erfolgreich geladen.",
+                "error": {
+                    "title": "Fehler beim Laden der Lizenzen.",
+                    "message": "Fehler: {{reason}}"
+                }
+            }
+        },
+        "items": {
+            "only-for-admins": "Diese Funktion ist nur für Administratoren verfügbar.",
+            "change-language": {
+                "de": "Deutsch",
+                "en": "English",
+                "es": "Español"
+            },
+            "logout": {
+                "logout": "Abmelden"
+            }
+        }
     },
-    "verifying": "Beim sicheren Übertragen von Informationen oder Überprüfen der Authentizität einer Nachricht:",
-    "encryption": {
-      "name": "Verschlüsselung",
-      "text": "Der Sender verschlüsselt die Nachricht mit dem öffentlichen Schlüssel des Empfängers. Dies stellt sicher, dass nur der beabsichtigte Empfänger, der im Besitz des entsprechenden privaten Schlüssels ist, die Nachricht entschlüsseln und darauf zugreifen kann."
+    "component": {
+        "license-edit": {
+            "license-key": "Lizenzschlüssel",
+            "generated-value": "Generierter Wert",
+            "publisher": "Publisher",
+            "notes": "Notizen",
+            "valid": "Gültig",
+            "invalid": "Ungültig",
+            "valid-until": "Gültig bis",
+            "list-mode": "Listenmodus",
+            "ip-addresses": "IP-Adressen",
+            "new-ip-address": "Neue IP-Adresse, getrennt durch Komma"
+        },
+        "toolbar": {
+            "already-loading": {
+                "title": "Lädt...",
+                "text": "Die Lizenzen werden bereits geladen."
+            },
+            "license-not-changed": "Es wurden keine Änderungen vorgenommen.",
+            "delete-license": {
+                "title": "Lizenz löschen",
+                "message": "Bist du sicher, dass du die Lizenz <strong>{{licenseKey}}</strong> löschen möchtest?",
+                "confirm": "Löschen",
+                "cancel": "Abbrechen"
+            },
+            "tooltip": {
+                "refresh": "Aktualisieren",
+                "create-license": "Lizenz erstellen",
+                "open-logs": "Logs öffnen",
+                "edit-license": "Lizenz bearbeiten",
+                "delete-license": "Lizenz löschen"
+            }
+        }
     },
-    "signature-verification": {
-      "name": "Signaturüberprüfung",
-      "text": "Nach Erhalt einer Nachricht mit einer digitalen Signatur verwendet der Empfänger den öffentlichen Schlüssel des Senders, um deren Authentizität zu überprüfen. Erfolgreiche Überprüfung bestätigt, dass die Nachricht seit ihrer Unterzeichnung durch den Sender unverändert geblieben ist."
+    "signature": {
+        "general": "Allgemeine Informationen",
+        "text": "Die Nutzung des öffentlichen Schlüssels ist entscheidend, um die Authentizität einer API-Antwort zu überprüfen. Sollte der öffentliche Schlüssel die Signatur nicht entschlüsseln können, ist das Vertrauen in die Integrität der API-Antwort beeinträchtigt.",
+        "explanation": {
+            "title": "Erklärung der Public/Private Key-Verschlüsselung:",
+            "text": "Die Public/Private Key-Verschlüsselung, auch bekannt als asymmetrische Kryptographie, umfasst ein Paar kryptographischer Schlüssel: einen öffentlichen Schlüssel und einen privaten Schlüssel."
+        },
+        "public-key": {
+            "name": "Öffentlicher Schlüssel",
+            "text": "Dieser Schlüssel wird offen geteilt und von Entitäten genutzt, die eine sichere Kommunikation mit dem Inhaber des entsprechenden privaten Schlüssels suchen. Er dient zur Verschlüsselung von Daten oder zur Überprüfung digitaler Signaturen."
+        },
+        "private-key": {
+            "name": "Privater Schlüssel",
+            "text": "Dieser Schlüssel wird vom Besitzer vertraulich aufbewahrt und ist essenziell, um Daten zu entschlüsseln, die mit dem entsprechenden öffentlichen Schlüssel verschlüsselt wurden, oder um digitale Signaturen zu erstellen."
+        },
+        "verifying": "Beim sicheren Übertragen von Informationen oder Überprüfen der Authentizität einer Nachricht:",
+        "encryption": {
+            "name": "Verschlüsselung",
+            "text": "Der Absender verschlüsselt die Nachricht mit dem öffentlichen Schlüssel des Empfängers. Dies stellt sicher, dass nur der beabsichtigte Empfänger, der den entsprechenden privaten Schlüssel besitzt, die Nachricht entschlüsseln und darauf zugreifen kann."
+        },
+        "signature-verification": {
+            "name": "Signaturüberprüfung",
+            "text": "Beim Empfang einer Nachricht mit einer digitalen Signatur verwendet der Empfänger den öffentlichen Schlüssel des Absenders, um deren Authentizität zu überprüfen. Eine erfolgreiche Überprüfung bestätigt, dass die Nachricht seit ihrer Signierung durch den Absender unverändert geblieben ist."
+        },
+        "end": "Die Public/Private Key-Verschlüsselung garantiert Vertraulichkeit, Integrität und Authentizität in der Kommunikation. Sie stellt sicher, dass nur autorisierte Empfänger mit Zugriff auf den privaten Schlüssel Nachrichten entschlüsseln können, während nur der legitime Absender, der den privaten Schlüssel besitzt, gültige digitale Signaturen erstellen kann.",
+        "download": "Öffentlichen Schlüssel herunterladen",
+        "generate": "Public/Private Key-Paar generieren"
     },
-    "end": "Öffentliche-/Private-Schlüssel-Verschlüsselung gewährleistet Vertraulichkeit, Integrität und Authentizität in der Kommunikation. Sie stellt sicher, dass nur autorisierte Empfänger mit Zugriff auf den privaten Schlüssel Nachrichten entschlüsseln können, während nur der legitime Absender, der den privaten Schlüssel besitzt, gültige digitale Signaturen erzeugen kann.",
-    "download": "Öffentlichen Schlüssel herunterladen"
-  },
-  "sidenavItems": {
-    "home": "Startseite",
-    "license-logs": "Logs",
-    "signature": "Signatur",
-    "settings": "Account Einstellungen"
-  },
-  "home": {
-    "contextMenuItems": {
-      "open": "Logs öffnen",
-      "edit": "Bearbeiten",
-      "delete": "Löschen"
+    "dialog": {
+        "generateKey": {
+            "title": "Public/Private Key-Paar generieren",
+            "message": "Bist du sicher, dass du einen neuen Schlüssel generieren möchtest?\nDies wird den aktuellen Schlüssel überschreiben und alle Lizenzen ungültig machen.",
+            "confirm": "Generieren",
+            "cancel": "Abbrechen"
+        }
+    },
+    "sidenavItems": {
+        "home": "Startseite",
+        "license-logs": "Logs",
+        "signature": "Signatur",
+        "admin": "Administration",
+        "settings": "Kontoeinstellungen"
+    },
+    "paginator": {
+        "firstPageLabel": "Erste Seite",
+        "itemsPerPageLabel": "Elemente pro Seite",
+        "lastPageLabel": "Letzte Seite",
+        "nextPageLabel": "Nächste Seite",
+        "previousPageLabel": "Vorherige Seite",
+        "rangeSeparatorLabel": "von"
     }
-  }
 }

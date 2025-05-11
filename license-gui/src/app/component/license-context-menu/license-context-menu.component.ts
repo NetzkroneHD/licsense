@@ -1,120 +1,112 @@
 import {
-  AfterViewChecked,
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  Output,
-  TemplateRef,
-  ViewChild
+    AfterViewChecked,
+    Component,
+    EventEmitter,
+    Input,
+    OnDestroy,
+    Output,
+    TemplateRef,
+    ViewChild
 } from '@angular/core';
 import {
-  CdkContextMenuTrigger,
-  CdkMenu,
-  CdkMenuGroup,
-  CdkMenuItem,
-  CdkMenuItemCheckbox,
-  CdkMenuItemRadio,
-  CdkMenuTrigger,
-  ContextMenuCoordinates
+    CdkContextMenuTrigger,
+    CdkMenu,
+    CdkMenuItem,
+    CdkMenuTrigger,
+    ContextMenuCoordinates
 } from '@angular/cdk/menu';
 import {LicenseContextMenuItem} from './license-context-menu-item.interface';
-import {NgForOf, NgIf, NgTemplateOutlet} from '@angular/common';
+import {NgForOf, NgIf} from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
 
 @Component({
-  selector: 'license-context-menu',
-  standalone: true,
-  templateUrl: './license-context-menu.component.html',
-  styleUrls: ['./license-context-menu.component.scss'],
-  imports: [
-    CdkMenu,
-    CdkMenuItem,
-    CdkContextMenuTrigger,
-    NgForOf,
-    NgIf,
-    NgTemplateOutlet,
-    CdkMenuTrigger,
-    CdkMenuGroup,
-    CdkMenuItemCheckbox,
-    CdkMenuItemRadio,
-    MatIconModule
-  ]
+    selector: 'license-context-menu',
+    templateUrl: './license-context-menu.component.html',
+    styleUrls: ['./license-context-menu.component.scss'],
+    imports: [
+        CdkMenu,
+        CdkMenuItem,
+        CdkContextMenuTrigger,
+        NgForOf,
+        NgIf,
+        CdkMenuTrigger,
+        MatIconModule
+    ]
 })
 export class LicenseContextMenuComponent implements AfterViewChecked, OnDestroy {
 
-  @Input()
-  items: LicenseContextMenuItem[] = [];
+    @Input()
+    items: LicenseContextMenuItem[] = [];
 
-  @Input()
-  isAllowedToOpen: boolean = true;
+    @Input()
+    isAllowedToOpen: boolean = true;
 
-  @Output()
-  contextItemClickEmitter = new EventEmitter<LicenseContextMenuItem>();
+    @Output()
+    contextItemClickEmitter = new EventEmitter<LicenseContextMenuItem>();
 
-  @Output()
-  contextMenuOpened = new EventEmitter<unknown>();
+    @Output()
+    contextMenuOpened = new EventEmitter<unknown>();
 
-  @Output()
-  contextMenuClosed = new EventEmitter<unknown>();
+    @Output()
+    contextMenuClosed = new EventEmitter<unknown>();
 
-  @ViewChild('menu', {static: true})
-  menu!: TemplateRef<any>;
+    @ViewChild('menu', {static: true})
+    menu!: TemplateRef<any>;
 
-  @ViewChild(CdkContextMenuTrigger)
-  menuTrigger!: CdkContextMenuTrigger;
+    @ViewChild(CdkContextMenuTrigger)
+    menuTrigger!: CdkContextMenuTrigger;
 
-  @ViewChild('menuComponent')
-  subMenu!: LicenseContextMenuComponent;
+    @ViewChild('menuComponent')
+    subMenu!: LicenseContextMenuComponent;
 
-  isOpened: boolean = false;
+    isOpened: boolean = false;
 
-  ngAfterViewChecked() {
-    if (this.subMenu) {
-      this.subMenu.contextMenuOpened.subscribe(id => {
-        this.contextMenuOpened.emit(id);
-      });
-      this.subMenu.contextMenuClosed.subscribe(id => {
-        this.contextMenuClosed.emit(id);
-      });
-      this.subMenu.contextItemClickEmitter.subscribe(id => {
-        this.contextItemClickEmitter.emit(id);
-      });
+    ngAfterViewChecked() {
+        if (this.subMenu) {
+            this.subMenu.contextMenuOpened.subscribe(id => {
+                this.contextMenuOpened.emit(id);
+            });
+            this.subMenu.contextMenuClosed.subscribe(id => {
+                this.contextMenuClosed.emit(id);
+            });
+            this.subMenu.contextItemClickEmitter.subscribe(id => {
+                this.contextItemClickEmitter.emit(id);
+            });
+        }
+
     }
 
-  }
-
-  ngOnDestroy() {
-    if (this.subMenu) {
-      this.subMenu.contextMenuOpened.unsubscribe();
-      this.subMenu.contextMenuClosed.unsubscribe();
-      this.subMenu.contextItemClickEmitter.unsubscribe();
+    ngOnDestroy() {
+        if (this.subMenu) {
+            this.subMenu.contextMenuOpened.unsubscribe();
+            this.subMenu.contextMenuClosed.unsubscribe();
+            this.subMenu.contextItemClickEmitter.unsubscribe();
+        }
     }
-  }
 
-  protected onItemClick(item: LicenseContextMenuItem) {
-    this.contextItemClickEmitter.emit(item);
-  }
+    open(contextMenuCoordinates: ContextMenuCoordinates) {
+        this.menuTrigger.open(contextMenuCoordinates);
+    }
 
-  protected hasChildren(item: LicenseContextMenuItem) {
-    return item.entries && item.entries.length > 0;
-  }
+    close() {
+        this.menuTrigger.close();
+    }
 
-  protected onOpened() {
-    this.contextMenuOpened.emit();
-    this.isOpened = true;
-  }
+    protected onItemClick(item: LicenseContextMenuItem) {
+        this.contextItemClickEmitter.emit(item);
+    }
 
-  protected onClosed() {
-    this.contextMenuClosed.emit();
-  }
+    protected hasChildren(item: LicenseContextMenuItem) {
+        return item.entries && item.entries.length > 0;
+    }
 
-  open(contextMenuCoordinates: ContextMenuCoordinates) {
-    this.menuTrigger.open(contextMenuCoordinates);
-  }
+    protected onOpened() {
+        this.contextMenuOpened.emit();
+        this.isOpened = true;
+    }
 
-  close() {
-    this.menuTrigger.close();
-  }
+    protected onClosed() {
+        this.contextMenuClosed.emit();
+    }
 
 }

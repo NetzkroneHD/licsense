@@ -1,71 +1,71 @@
 @use '@angular/material' as mat;
 
 .context-menu {
-  display: inline-flex;
-  flex-direction: column;
-  min-width: 180px;
-  max-width: 280px;
-  background-color: map-get(mat.$indigo-palette, 100);
-  padding: 6px 0;
+    display: inline-flex;
+    flex-direction: column;
+    min-width: 180px;
+    max-width: 280px;
+    background-color: map-get(mat.$m2-indigo-palette, 100);
+    padding: 6px 0;
 }
 
 .context-menu hr {
-  width: 100%;
-  color: rgba(0, 0, 0, 0.12);
+    width: 100%;
+    color: rgba(0, 0, 0, 0.12);
 }
 
 .context-menu .context-menu-group {
-  display: inline-flex;
-  flex-direction: column;
+    display: inline-flex;
+    flex-direction: column;
 }
 
 .context-menu .context-menu-item {
-  background-color: map-get(mat.$indigo-palette, 100);
-  cursor: pointer;
-  border: none;
+    background-color: map-get(mat.$m2-indigo-palette, 100);
+    cursor: pointer;
+    border: none;
 
-  user-select: none;
-  min-width: 64px;
-  line-height: 36px;
-  padding: 0 16px;
+    user-select: none;
+    min-width: 64px;
+    line-height: 36px;
+    padding: 0 16px;
 
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  flex: 1;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex: 1;
 }
 
 
 .icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .context-menu-item > span {
-  display: flex;
-  flex-direction: row;
-  flex: 1;
-  justify-content: flex-end;
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    justify-content: flex-end;
 }
 
 
 .context-menu .context-menu-item:hover {
-  background-color: map-get(mat.$indigo-palette, 200);
+    background-color: map-get(mat.$m2-indigo-palette, 200);
 }
 
 .context-menu .context-menu-item[role='menuitemradio'][aria-checked='true'] {
-  background-color: rgb(225, 225, 225);
+    background-color: rgb(225, 225, 225);
 }
 
 .context-menu .context-menu-item[role='menuitemcheckbox'][aria-checked='true'] {
-  background-color: rgb(225, 225, 225);
+    background-color: rgb(225, 225, 225);
 }
 
 .context-menu .context-menu-item:active {
-  background-color: map-get(mat.$indigo-palette, 200);
+    background-color: map-get(mat.$m2-indigo-palette, 200);
 }
 
 .context-menu-item[aria-expanded='true'] {
-  background-color: map-get(mat.$indigo-palette, 200);
+    background-color: map-get(mat.$m2-indigo-palette, 200);
 }

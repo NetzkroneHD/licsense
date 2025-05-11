@@ -2,7 +2,7 @@ package de.netzkronehd.licenseexample.checker;
 
 import de.netzkronehd.license.checker.LicenseChecker;
 import de.netzkronehd.license.checker.siganture.SignatureChecker;
-import de.netzkronehd.licenseexample.LicensePlugin;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -13,7 +13,7 @@ public class ScheduledChecker extends Checker {
     private final LicenseChecker licenseChecker;
     private final Timer timer;
 
-    public ScheduledChecker(LicensePlugin licensePlugin, String basePath, SignatureChecker signatureChecker) {
+    public ScheduledChecker(JavaPlugin licensePlugin, String basePath, SignatureChecker signatureChecker) {
         super(licensePlugin, basePath, signatureChecker);
         this.licenseChecker = new LicenseChecker(basePath, null, signatureChecker);
         this.timer = new Timer();

@@ -7,32 +7,29 @@ import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {LicenseDatePicker} from './license-date-picker.interface';
 
 @Component({
-  selector: 'license-date-picker',
-  standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatDatepickerModule, MatButtonModule, ReactiveFormsModule],
-  templateUrl: './license-date-picker.component.html',
-  styleUrl: './license-date-picker.component.scss'
+    selector: 'license-date-picker',
+    imports: [MatFormFieldModule, MatInputModule, MatDatepickerModule, MatButtonModule, ReactiveFormsModule],
+    templateUrl: './license-date-picker.component.html',
+    styleUrl: './license-date-picker.component.scss'
 })
 export class LicenseDatePickerComponent {
 
-  private readonly _dateRange = new FormGroup({
-    startDate: new FormControl<Date | null>(null),
-    endDate: new FormControl<Date | null>(null)
-  });
+    @Output() public readonly applyButtonClick$ = new EventEmitter<MouseEvent>();
+    @Output() public readonly cancelButtonClick$ = new EventEmitter<MouseEvent>();
+    @Input({required: true}) datePicker!: LicenseDatePicker;
+    private readonly _dateRange = new FormGroup({
+        startDate: new FormControl<Date | null>(null),
+        endDate: new FormControl<Date | null>(null)
+    });
 
-  @Output() public readonly applyButtonClick$ = new EventEmitter<MouseEvent>();
-  @Output() public readonly cancelButtonClick$ = new EventEmitter<MouseEvent>();
-
-  @Input({required: true}) datePicker!: LicenseDatePicker;
-
-  constructor() {
-  }
+    constructor() {
+    }
 
 
-  @Output() get dateRange(): FormGroup<{
-    endDate: FormControl<Date | null>;
-    startDate: FormControl<Date | null>
-  }> {
-    return this._dateRange;
-  }
+    @Output() get dateRange(): FormGroup<{
+        endDate: FormControl<Date | null>;
+        startDate: FormControl<Date | null>
+    }> {
+        return this._dateRange;
+    }
 }

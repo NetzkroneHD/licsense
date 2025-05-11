@@ -1,5 +1,3 @@
-version: '3.1'
-
 services:
 
   postgres:
@@ -19,8 +17,8 @@ services:
     networks:
       - license-backend
     volumes:
-      - ./server-data/database/data:/var/lib/postgresql/data
-      - ./server-data/database/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - ./docker-compose/postgres/data/logs:/var/lib/postgresql/data
+      - ./docker-compose/postgres/init:/docker-entrypoint-initdb.d/:ro
 
   license-server:
     build:
@@ -32,13 +30,14 @@ services:
       - LICENSE_PRIVATE_KEY_FILE=license-key-private.der
       - LICENSE_SIGNATURE_LENGTH=150
       - LICENSE_ROLE_PREFIX=ROLE_
-      - LICENSE_RATE_LIMIT=30
+      - LICENSE_RATE_LIMIT=45
+      - LICENSE_RATE_LIMIT_CACHE_EXPIRATION=1
       - SERVER_SERVLET_CONTEXT_PATH=/license/api/v1
       - SERVER_FORWARD_HEADERS_STRATEGY=framework
       - MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE=health
       - LOGGING_FILE_PATH=./logs
-      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI=http://localhost:8082/realms/license
-      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI=http://host.docker.internal:8082/realms/license/protocol/openid-connect/certs
+      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI=http://localhost/auth/realms/license
+      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI=http://host.docker.internal:80/auth/realms/license/protocol/openid-connect/certs
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/${PG_DATABASE}
       - SPRING_DATASOURCE_USERNAME=${PG_USER}
       - SPRING_DATASOURCE_PASSWORD=${PG_PASSWORD}
@@ -50,11 +49,14 @@ services:
         condition: service_healthy
     ports:
       - "8080:8080"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     networks:
       - license-backend
     volumes:
-      - ./server-data/logs:/logs
-      - ./server-data/key:/home/app/key
+      - ./docker-compose/license-server/logs:/logs
+      - ./docker-compose/license-server/key:/home/app/key
+
 networks:
   license-backend:
 

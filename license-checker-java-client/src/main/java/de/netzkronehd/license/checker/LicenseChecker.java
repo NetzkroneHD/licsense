@@ -11,9 +11,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import reactor.core.publisher.Mono;
 
+import java.io.File;
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.PublicKey;
+import java.security.spec.InvalidKeySpecException;
 import java.util.Objects;
 import java.util.function.Consumer;
 
+import static de.netzkronehd.license.checker.LicenseCheckedResult.of;
+import static de.netzkronehd.license.checker.LicenseCheckedResult.ofError;
 import static de.netzkronehd.license.checker.LicenseCheckedStatus.*;
 
 public class LicenseChecker {
@@ -48,6 +55,39 @@ public class LicenseChecker {
         this.signatureChecker = signatureChecker;
     }
 
+    public LicenseChecker(String basePath, SignatureChecker signatureChecker) {
+        this(basePath, null, signatureChecker);
+    }
+
+    /**
+     * Constructs a new LicenseChecker instance with the specified base path and public key file.
+     * @param basePath The api base path for license-related API operations.
+     * @param publicKeyFile The public key file for signature verification.
+     */
+    public LicenseChecker(String basePath, File publicKeyFile) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
+        this(basePath, null, new SignatureChecker(publicKeyFile));
+    }
+
+    /**
+     * Constructs a new LicenseChecker instance with the specified base path and public key.
+     *
+     * @param basePath The api base path for license-related API operations.
+     * @param publicKey The public key for signature verification.
+     */
+    public LicenseChecker(String basePath, PublicKey publicKey) {
+        this(basePath, null, new SignatureChecker(publicKey));
+    }
+
+    /**
+     * Constructs a new LicenseChecker instance with the specified base path and public key string.
+     *
+     * @param basePath The api base path for license-related API operations.
+     * @param publicKey The public key string for signature verification.
+     */
+    public LicenseChecker(String basePath, String publicKey) throws NoSuchAlgorithmException, InvalidKeySpecException {
+        this(basePath, null, new SignatureChecker(publicKey));
+    }
+
     /**
      * Retrieves license information for the specified license key.
      *
@@ -60,9 +100,10 @@ public class LicenseChecker {
 
     /**
      * Retrieves license information for the specified license key along with HTTP information.
-     * <p><b>200</b> - License valid
-     * <p><b>403</b> - License invalid
-     * <p><b>404</b> - License not found
+     * <p><b>200</b> - License valid</p>
+     * <p><b>403</b> - License invalid</p>
+     * <p><b>404</b> - License not found</p>
+     * <p><b>409</b> - No private key present to generate signature</p>
      *
      * @param licenseKey The license key to retrieve information for.
      * @return A Mono emitting the ResponseEntity containing LicenseDto if retrieval is successful.
@@ -92,32 +133,31 @@ public class LicenseChecker {
     }
 
     /**
-     * Asynchronously checks the validity of a license and invokes the specified callback with the result.
+     * Asynchronously checks the validity of a license and invokes the specified result with the result.
      *
      * @param license The license to be validated.
-     * @param callback A consumer that will be invoked with the result of the license validation.
+     * @param result A consumer that will be invoked with the result of the license validation.
      *                 True if the license is valid; otherwise, false.
      */
-    public void isLicenseValid(String license, Consumer<LicenseCheckedStatus> callback) {
-        Objects.requireNonNull(callback);
+    public void isLicenseValid(String license, Consumer<LicenseCheckedResult> result) {
+        Objects.requireNonNull(result);
         final LicenseChecker checker = new LicenseChecker(basePath, jwtToken, signatureChecker);
         final Mono<ResponseEntity<LicenseCheckResultDto>> licenseWithHttpInfo = checker.checkLicenseWithHttpInfo(license);
         licenseWithHttpInfo.subscribe(responseEntity -> {
             if (responseEntity.getStatusCode() != HttpStatus.OK) {
-                callback.accept(INVALID);
+                result.accept(of(INVALID));
                 return;
             }
             if (responseEntity.getBody() == null) {
-                callback.accept(INVALID);
+                result.accept(of(INVALID));
                 return;
             }
             if(!signatureChecker.isValidSignature(responseEntity.getBody())) {
-                callback.accept(INVALID_SIGNATURE);
+                result.accept(of(INVALID_SIGNATURE));
                 return;
             }
-            callback.accept(ofValidity(responseEntity.getBody().getValid()));
-
-        }, throwable -> callback.accept(ERROR));
+            result.accept(of(ofValidity(responseEntity.getBody().getValid())));
+        }, throwable -> result.accept(ofError(throwable)));
     }
 
 
@@ -196,12 +236,12 @@ public class LicenseChecker {
      *
      * @param basePath The api base path for license validation.
      * @param license The license to be validated.
-     * @param callback A consumer that will be invoked with the result of the license validation.
+     * @param result A consumer that will be invoked with the result of the license validation.
      *                 True if the license is valid; otherwise, false.
      */
-    public static void isLicenseValid(String basePath, String license, SignatureChecker signatureChecker, Consumer<LicenseCheckedStatus> callback) {
+    public static void isLicenseValid(String basePath, String license, SignatureChecker signatureChecker, Consumer<LicenseCheckedResult> result) {
         final LicenseChecker checker = new LicenseChecker(basePath, null, signatureChecker);
-        checker.isLicenseValid(license, callback);
+        checker.isLicenseValid(license, result);
     }
 
 }

@@ -1,0 +1,5 @@
+# This is an example configuration file for a plugin that uses a license key.
+# See in LicensePLuginByKeyInConfig.java how to use this configuration file.
+license:
+  key: 'u8eqv3vqwZoBHH4H9XQB2L7K0EUeS3bOEEI703UR6RlZ97uL08'
+  public-key: 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsIDRQNtfrgCCPzo1bMgB3rvPn6zxEJj2s5uONkRmu2XL93QRC3SJTbL3ylB9kJwxzyulwldltSaEg60rgJu9VtxAwLoFb3ln9skeIY+qjk2+rRTaVQokfHiVGJIk8gQbpgJ11NZPAFPIyrZH2hOrIVOR5PuSPjXGvd4THZSVn0dUayZt8OmPeYcAsmIjs0S8ljDOSIjcgOSXVTYsoQn6qm375naRABBJrpmYFxQJV7L3zRRLurwwVDaAFY2tKTogcbxnhUOnJFHgrYFo3VgtVdX6Bl/Y/WeNzwFGDT+dNE8beSK1G+2RMrxHqh8p3bAoHCeiZ5UTf9a6DMUNMmZKNQIDAQAB'

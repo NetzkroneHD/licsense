@@ -27,4 +27,7 @@ public class LicenseConfig {
     @Value("${license.rate-limit}")
     private int rateLimit;
 
+    @Value("${license.rate-limit-cache-expiration}")
+    private long rateLimitCacheExpiration;
+
 }

@@ -1,0 +1,24 @@
+<button class="license-toolbar-item" (click)="refresh()" [disabled]="disabled()" [matTooltip]="('component.toolbar.tooltip.refresh' | translate) "
+        mat-icon-button>
+    <mat-icon>refresh</mat-icon>
+</button>
+
+<button class="license-toolbar-item" (click)="createLicense()" [disabled]="disabled()" [matTooltip]="('component.toolbar.tooltip.create-license' | translate)"
+        mat-icon-button>
+    <mat-icon>add_circle</mat-icon>
+</button>
+
+<button class="license-toolbar-item" (click)="openLogs()" [disabled]="editingDisabled()" [matTooltip]="('component.toolbar.tooltip.open-logs' | translate)"
+        mat-icon-button>
+    <mat-icon>open_in_new</mat-icon>
+</button>
+
+<button class="license-toolbar-item" (click)="editLicense()" [disabled]="editingDisabled()" [matTooltip]="('component.toolbar.tooltip.edit-license' | translate)"
+        mat-icon-button>
+    <mat-icon>edit</mat-icon>
+</button>
+
+<button class="license-toolbar-item" (click)="deleteLicense()" [disabled]="editingDisabled()" [matTooltip]="('component.toolbar.tooltip.delete-license' | translate)"
+        mat-icon-button>
+    <mat-icon>delete</mat-icon>
+</button>

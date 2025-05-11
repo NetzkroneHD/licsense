@@ -6,35 +6,34 @@ import {LicenseConfirmDialogData} from './license-confirm.interface';
 import {CdkDrag, CdkDragHandle} from '@angular/cdk/drag-drop';
 
 @Component({
-  selector: 'license-dialog-confirm',
-  standalone: true,
+    selector: 'license-dialog-confirm',
     imports: [MatDialogModule, MatButtonModule, A11yModule, CdkDrag, CdkDragHandle],
-  templateUrl: './license-confirm.component.html',
-  styleUrls: ['./license-confirm.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    templateUrl: './license-confirm.component.html',
+    styleUrls: ['./license-confirm.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LicenseConfirmComponent {
 
-  title = '';
-  message = '';
-  cancelCaption = '';
-  confirmCaption = '';
+    protected title = '';
+    protected message = '';
+    protected cancelCaption = '';
+    protected confirmCaption = '';
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) private data: LicenseConfirmDialogData,
-    public readonly dialogRef: MatDialogRef<LicenseConfirmDialogData>
-  ) {
-    this.title = data.title;
-    this.message = data.message;
-    this.cancelCaption = data.cancelCaption;
-    this.confirmCaption = data.confirmCaption;
-  }
-
-  @HostListener('window:keyup.escape')
-  protected keyEventEscape(): void {
-    if (this.data.discardWithEscape === true) {
-      this.dialogRef.close(false);
+    constructor(
+        @Inject(MAT_DIALOG_DATA) private data: LicenseConfirmDialogData,
+        public readonly dialogRef: MatDialogRef<LicenseConfirmDialogData>
+    ) {
+        this.title = data.title;
+        this.message = data.message;
+        this.cancelCaption = data.cancelCaption;
+        this.confirmCaption = data.confirmCaption;
     }
-  }
+
+    @HostListener('window:keyup.escape')
+    protected keyEventEscape(): void {
+        if (this.data.discardWithEscape === true) {
+            this.dialogRef.close(false);
+        }
+    }
 
 }

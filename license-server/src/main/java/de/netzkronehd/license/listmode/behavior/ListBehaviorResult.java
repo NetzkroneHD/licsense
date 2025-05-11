@@ -7,4 +7,5 @@ public enum ListBehaviorResult {
     boolean isAllowed() {
         return this.equals(DISALLOW);
     }
+
 }

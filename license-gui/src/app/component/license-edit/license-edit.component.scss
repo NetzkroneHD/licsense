@@ -1,27 +1,27 @@
 @use '@angular/material' as mat;
 
 .license-form-field {
-  display: block;
+    display: block;
 }
 
 .no-select {
-  user-select: none;
+    user-select: none;
 }
 
 .license-drag-area {
-  cursor: move;
-  background-color: map-get(mat.$indigo-palette, 500);
+    cursor: move;
+    background: var(--mat-sys-primary-container);
 }
 
 .license-text {
-  color: white;
+    color: var(--mat-sys-primary);
 }
 
 .license-spacer {
-  display: block;
-  margin-bottom: 22px;
+    display: block;
+    margin-bottom: 22px;
 }
 
 .license-radio-button {
-  cursor: pointer;
+    cursor: pointer;
 }

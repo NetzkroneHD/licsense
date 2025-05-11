@@ -4,6 +4,6 @@ import java.util.List;
 
 public abstract class ListBehavior {
 
-    public abstract ListBehaviorResult checkState(List<String> list, String toCheck);
+    public abstract ListBehaviorResult checkState(List<String> ipAddresses, String toCheck);
 
 }
