@@ -96,7 +96,7 @@ export class ItemsFacade {
                 if (!item.title) return item;
                 const translatedItem: LicenseDropdownMenuItem = {
                     ...item,
-                    title: this.translateService.instant(item.id),
+                    title: this.translateService.instant('state.items.change-language.'+item.id),
                 }
                 return translatedItem;
             })
@@ -109,7 +109,7 @@ export class ItemsFacade {
                 if (!item.title) return item;
                 const translatedItem: LicenseDropdownMenuItem = {
                     ...item,
-                    title: this.translateService.instant(item.id),
+                    title: this.translateService.instant(this.translateService.instant('state.items.logout.'+item.id)),
                 }
                 return translatedItem;
             });

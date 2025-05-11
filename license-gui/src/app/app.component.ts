@@ -55,10 +55,15 @@ export class AppComponent implements OnInit {
 
     protected readonly themeIcon = signal<string>('light_mode');
 
-    protected readonly publisherDisplay = computed(() => {
+    protected readonly isOwnPublisher = computed(() => {
         const selectedPublisher = this.userLicenseState.getSelectedPublisher();
         const ownPublisher = this.tokenState.getSub();
-        if(ownPublisher === selectedPublisher) {
+        return (ownPublisher === selectedPublisher);
+    });
+
+    protected readonly publisherDisplay = computed(() => {
+        const ownPublisher = this.isOwnPublisher();
+        if(ownPublisher) {
             return 'header.admin.own-publisher';
         } else {
             return 'header.admin.publisher';

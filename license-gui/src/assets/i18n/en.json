@@ -129,7 +129,15 @@
             }
         },
         "items": {
-            "only-for-admins": "This feature is only available for admins."
+            "only-for-admins": "This feature is only available for admins.",
+            "change-language": {
+                "de": "Deutsch",
+                "en": "English",
+                "es": "Español"
+            },
+            "logout": {
+                "logout": "Logout"
+            }
         }
     },
     "component": {

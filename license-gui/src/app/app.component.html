@@ -5,7 +5,7 @@
     <span class="mouse-hover">{{ title }}</span>
     <span class="spacer"></span>
 
-    @if(this.tokenState.getIsAdmin()) {
+    @if(this.tokenState.getIsAdmin() && !this.isOwnPublisher()) {
         <button mat-raised-button
                 [innerHTML]="(this.publisherDisplay() | translate: { publisher: this.userLicenseState.getSelectedPublisher() })"
                 style="cursor: auto">
