@@ -132,8 +132,8 @@
             "only-for-admins": "Diese Funktion ist nur für Administratoren verfügbar.",
             "change-language": {
                 "de": "Deutsch",
-                "en": "Englisch",
-                "es": "Spanisch"
+                "en": "English",
+                "es": "Español"
             },
             "logout": {
                 "logout": "Abmelden"

@@ -131,8 +131,8 @@
         "items": {
             "only-for-admins": "Esta función solo está disponible para administradores.",
             "change-language": {
-                "de": "Alemán",
-                "en": "Inglés",
+                "de": "Deutsch",
+                "en": "English",
                 "es": "Español"
             },
             "logout": {
