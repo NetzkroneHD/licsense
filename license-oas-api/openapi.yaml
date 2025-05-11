@@ -373,7 +373,7 @@ components:
           description: Owner of the key
           type: string
         publicKey:
-          description: Public key
+          description: The x-x509-ca-cert in base64
           type: string
     License:
       description: License

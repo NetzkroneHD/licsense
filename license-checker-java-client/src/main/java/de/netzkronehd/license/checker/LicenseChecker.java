@@ -11,6 +11,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import reactor.core.publisher.Mono;
 
+import java.io.File;
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.PublicKey;
+import java.security.spec.InvalidKeySpecException;
 import java.util.Objects;
 import java.util.function.Consumer;
 
@@ -48,6 +53,39 @@ public class LicenseChecker {
 
         this.licenseCheckApi = new LicenseCheckApi(this.apiClient);
         this.signatureChecker = signatureChecker;
+    }
+
+    public LicenseChecker(String basePath, SignatureChecker signatureChecker) {
+        this(basePath, null, signatureChecker);
+    }
+
+    /**
+     * Constructs a new LicenseChecker instance with the specified base path and public key file.
+     * @param basePath The api base path for license-related API operations.
+     * @param publicKeyFile The public key file for signature verification.
+     */
+    public LicenseChecker(String basePath, File publicKeyFile) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
+        this(basePath, null, new SignatureChecker(publicKeyFile));
+    }
+
+    /**
+     * Constructs a new LicenseChecker instance with the specified base path and public key.
+     *
+     * @param basePath The api base path for license-related API operations.
+     * @param publicKey The public key for signature verification.
+     */
+    public LicenseChecker(String basePath, PublicKey publicKey) {
+        this(basePath, null, new SignatureChecker(publicKey));
+    }
+
+    /**
+     * Constructs a new LicenseChecker instance with the specified base path and public key string.
+     *
+     * @param basePath The api base path for license-related API operations.
+     * @param publicKey The public key string for signature verification.
+     */
+    public LicenseChecker(String basePath, String publicKey) throws NoSuchAlgorithmException, InvalidKeySpecException {
+        this(basePath, null, new SignatureChecker(publicKey));
     }
 
     /**
