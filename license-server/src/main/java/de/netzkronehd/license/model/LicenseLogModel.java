@@ -27,8 +27,7 @@ public class LicenseLogModel {
     )
     private int id;
 
-    @ManyToOne
-    private LicenseModel license;
+    private String license;
     private String ip;
     private OffsetDateTime dateTime;
     private ListBehaviorResult listBehaviorResult;

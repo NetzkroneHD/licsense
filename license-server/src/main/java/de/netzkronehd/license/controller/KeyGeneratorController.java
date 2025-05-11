@@ -4,7 +4,6 @@ import de.netzkronehd.license.api.server.springboot.api.KeyApi;
 import de.netzkronehd.license.api.server.springboot.models.GenerateKeyRequestDto;
 import de.netzkronehd.license.api.server.springboot.models.LicenseKeyDto;
 import de.netzkronehd.license.exception.NoKeyModelException;
-import de.netzkronehd.license.exception.RateLimitExceededException;
 import de.netzkronehd.license.mapper.LicenseKeyMapper;
 import de.netzkronehd.license.model.OAuth2Model;
 import de.netzkronehd.license.security.OAuth2TokenSecurity;
@@ -23,7 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
 
-import static org.springframework.http.HttpStatus.*;
+import static org.springframework.http.HttpStatus.FORBIDDEN;
+import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 import static org.springframework.http.ResponseEntity.*;
 
 @RestController
@@ -46,13 +46,13 @@ public class KeyGeneratorController implements KeyApi {
         if (!model.hasAccess()) return status(FORBIDDEN).build();
 
         try {
-            rateLimitService.checkRateLimit(request.getRemoteAddr(), "KeyGeneratorController#generateKey", 1);
+            if (!model.isAdmin()) {
+                rateLimitService.checkRateLimit(request.getRemoteAddr(), "KeyGeneratorController#generateKey", 1);
+            }
             return ok(licenseKeyMapper.map(keyGeneratorService.generatePrivateKey(model.getSub(), generateKeyRequestDto.getKeySize())));
         } catch (NoSuchAlgorithmException e) {
             log.error("Error while generating key", e);
             return internalServerError().build();
-        } catch (RateLimitExceededException e) {
-            return status(TOO_MANY_REQUESTS).build();
         }
     }
 
@@ -67,14 +67,12 @@ public class KeyGeneratorController implements KeyApi {
 
         try {
             if (!model.isAdmin()) {
-                rateLimitService.checkRateLimit(request.getRemoteAddr(), "KeyGeneratorController#generateKey", 1);
+                rateLimitService.checkRateLimit(request.getRemoteAddr(), "KeyGeneratorController#generatePublisherKey", 1);
             }
             return ok(licenseKeyMapper.map(keyGeneratorService.generatePrivateKey(owner, generateKeyRequestDto.getKeySize())));
         } catch (NoSuchAlgorithmException e) {
             log.error("Error while generating key", e);
             return internalServerError().build();
-        } catch (RateLimitExceededException e) {
-            return status(TOO_MANY_REQUESTS).build();
         }
     }
 

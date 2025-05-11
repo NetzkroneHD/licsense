@@ -55,7 +55,7 @@ public class LicenseCheckService {
         final LicenseModel license = licenseService.getLicense(licenseKey);
         final LicenseLogModel licenseLog = new LicenseLogModel();
         licenseLog.setIp(ip);
-        licenseLog.setLicense(license);
+        licenseLog.setLicense(license.getLicense());
         licenseLog.setDateTime(OffsetDateTime.now());
 
         if (license.getListMode().checkState(license.getIpAddresses(), ip) == ListBehaviorResult.DISALLOW) {

@@ -17,7 +17,7 @@ public class LicenseLogMapper {
 
     public LicenseLogDto map(LicenseLogModel log) {
         return new LicenseLogDto()
-                .license(log.getLicense().getLicense())
+                .license(log.getLicense())
                 .id(log.getId())
                 .ip(log.getIp())
                 .dateTime(log.getDateTime())
