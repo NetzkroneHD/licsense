@@ -15,13 +15,12 @@ export class UserSettingsFacade {
 
     constructor() {
         this.translateService.onDefaultLangChange.subscribe(value => {
-            console.log("Default lang changed", value);
             this.userSettingsState.setLanguage(value.lang);
         });
         this.translateService.onLangChange.subscribe(value => {
-            console.log("Lang changed", value);
             this.userSettingsState.setLanguage(value.lang);
         });
+
 
         const userLanguage = localStorage.getItem(environment.userSettingsKey);
         if (userLanguage) {
@@ -39,6 +38,7 @@ export class UserSettingsFacade {
     }
 
     public changeLanguage(language: string) {
+        console.warn("Changing language", language);
         this.translateService.use(language);
     }
 

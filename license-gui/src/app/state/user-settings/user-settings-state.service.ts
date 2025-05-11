@@ -10,7 +10,7 @@ import {TokenState} from '../token/token-state.service';
 })
 export class UserSettingsState {
 
-    private readonly language = signal<string>('en');
+    private readonly language = signal<string>('');
     private readonly authFailed = signal<boolean>(false);
     private readonly selectedLicense = signal<undefined | LicenseDto>(undefined);
     private readonly theme = signal<Theme>('light-theme');
@@ -23,13 +23,13 @@ export class UserSettingsState {
     constructor() {
 
         effect(() => {
-            const lang = this.language();
-            if (lang !== '') return;
-            localStorage.setItem(environment.userSettingsKey, JSON.stringify(lang));
+            const lang = this.getLanguage();
+            if (!lang) return;
+            localStorage.setItem(environment.userSettingsKey, lang);
         });
 
         effect(() => {
-            const theme = this.theme();
+            const theme = this.getTheme();
             localStorage.setItem(`${environment.userSettingsKey}-theme`, theme);
         });
     }

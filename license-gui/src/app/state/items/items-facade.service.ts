@@ -28,8 +28,6 @@ export class ItemsFacade {
     constructor() {
         effect(() => {
             const lang = this.userSettingsState.getLanguage();
-            //TODO:
-            console.log('Language', lang);
             if (!lang) return;
             this.translateSidenavItems();
             this.translateChangeLanguageDropdownMenu();
@@ -61,7 +59,6 @@ export class ItemsFacade {
                     ...item,
                     description: this.translateService.instant('sidenavItems.' + item.id),
                 }
-                console.log('translated to', translatedItem);
                 return translatedItem;
             })
         }));

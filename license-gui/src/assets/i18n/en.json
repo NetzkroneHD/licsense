@@ -189,6 +189,7 @@
         "home": "Home",
         "license-logs": "Logs",
         "signature": "Signature",
+        "admin": "Administration",
         "settings": "Account Settings"
     },
     "paginator": {
