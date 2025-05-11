@@ -1,4 +1,10 @@
 {
+    "header": {
+        "admin": {
+            "publisher": "Selected publisher: {{publisher}}",
+            "own-publisher": "Selected publisher: {{publisher}} <i>(You)</i>"
+        }
+    },
     "view": {
         "auth-failed": {
             "title": "Authentication failed",
@@ -46,7 +52,7 @@
             },
             "delete-logs": {
                 "title": "Delete Logs",
-                "message": "Are you sure to delete the logs of the license <i>{{licenseKey}}</i>?",
+                "message": "Are you sure to delete the logs of the license <strong>{{licenseKey}}</strong>?",
                 "confirm": "Delete",
                 "cancel": "Cancel"
             }
@@ -121,6 +127,9 @@
                     "message": "Error: {{reason}}"
                 }
             }
+        },
+        "items": {
+            "only-for-admins": "This feature is only available for admins."
         }
     },
     "component": {
@@ -144,7 +153,7 @@
             "license-not-changed": "No changes have been made.",
             "delete-license": {
                 "title": "Delete License",
-                "message": "Are you sure to delete the license <i>{{licenseKey}}</i>?",
+                "message": "Are you sure to delete the license <strong>{{licenseKey}}</strong>?",
                 "confirm": "Delete",
                 "cancel": "Cancel"
             },
@@ -184,6 +193,14 @@
         "end": "Public/private key encryption guarantees confidentiality, integrity, and authenticity in communication. It ensures that only authorized recipients with access to the private key can decipher messages, while only the legitimate sender, holding the private key, can produce valid digital signatures.",
         "download": "Download Public Key",
         "generate": "Generate Public/Private Key Pair"
+    },
+    "dialog": {
+        "generateKey": {
+            "title": "Generate Public/Private Key Pair",
+            "message": "Are you sure you want to generate a new key?\nThis will overwrite the current key and invalidate all licenses.",
+            "confirm": "Generate",
+            "cancel": "Cancel"
+        }
     },
     "sidenavItems": {
         "home": "Home",

@@ -1,7 +1,7 @@
-import {Component, inject, OnInit, signal, ViewChild} from '@angular/core';
+import {Component, computed, inject, OnInit, signal, ViewChild} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {environment} from '../environments/environment';
-import {MatIconButton} from '@angular/material/button';
+import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatToolbar} from '@angular/material/toolbar';
 import {MatIcon} from '@angular/material/icon';
 import {TranslateModule} from '@ngx-translate/core';
@@ -21,6 +21,8 @@ import {LoginService} from './service/login.service';
 import {UserSettingsState} from './state/user-settings/user-settings-state.service';
 import {Theme} from './service/theme.service';
 import {ItemsFacade} from './state/items/items-facade.service';
+import {TokenState} from './state/token/token-state.service';
+import {UserLicenseState} from './state/user-license/user-license-state.service';
 
 @Component({
     selector: 'app-root',
@@ -32,7 +34,8 @@ import {ItemsFacade} from './state/items/items-facade.service';
         LicenseDropdownMenuComponent,
         MatMenuTrigger,
         TranslateModule,
-        LicenseSidenavComponent
+        LicenseSidenavComponent,
+        MatButton,
     ],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss'
@@ -43,12 +46,24 @@ export class AppComponent implements OnInit {
     protected readonly title = environment.title;
 
     protected readonly itemsFacade = inject(ItemsFacade);
+    protected readonly tokenState = inject(TokenState);
+    protected readonly userLicenseState = inject(UserLicenseState);
     private readonly userSettingsFacade = inject(UserSettingsFacade);
     private readonly userSettingsState = inject(UserSettingsState);
     private readonly routeFacade = inject(RouteFacade);
     private readonly loginService = inject(LoginService);
 
     protected readonly themeIcon = signal<string>('light_mode');
+
+    protected readonly publisherDisplay = computed(() => {
+        const selectedPublisher = this.userLicenseState.getSelectedPublisher();
+        const ownPublisher = this.tokenState.getSub();
+        if(ownPublisher === selectedPublisher) {
+            return 'header.admin.own-publisher';
+        } else {
+            return 'header.admin.publisher';
+        }
+    });
 
     constructor() {
 

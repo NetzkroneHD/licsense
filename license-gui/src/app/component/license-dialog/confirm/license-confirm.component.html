@@ -4,8 +4,7 @@
              mat-dialog-title>{{ title || 'TITLE' }}
         </div>
 
-        <mat-dialog-content>
-            {{ message || 'MESSAGE' }}
+        <mat-dialog-content [innerHTML]="(message || 'MESSAGE') ">
         </mat-dialog-content>
 
         <mat-dialog-actions align="end">

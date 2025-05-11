@@ -36,7 +36,7 @@ export class KeyFacade {
 
     public generateKey() {
         this.keyState.setLoadingGenerateKey(true);
-        this.keyApiService.generateKey().then(keyModel => {
+        this.keyApiService.generatePublisherKey(this.userLicenseState.getSelectedPublisher()).then(keyModel => {
             this.keyState.setPublicKey(keyModel.publicKey);
 
             this.notificationFacade.setMessage({

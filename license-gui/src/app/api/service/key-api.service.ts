@@ -15,6 +15,13 @@ export class KeyApiService {
         return this.keyApi.generateKey({generateKeyRequestDto: {keySize: keySize}});
     }
 
+    public generatePublisherKey(owner: string, keySize: number = 2028): Promise<LicenseKeyDto> {
+        return this.keyApi.generatePublisherKey({
+           owner: owner,
+            generateKeyRequestDto: {keySize: keySize}
+        });
+    }
+
     public getKey(owner: string): Promise<LicenseKeyDto> {
         return this.keyApi.getKey({owner: owner});
     }

@@ -28,3 +28,7 @@
     width: 100%;
     height: calc(100% - 64px);
 }
+
+.license-admin-header {
+    font-size: var(--license-admin-header-font-size, 15px);
+}

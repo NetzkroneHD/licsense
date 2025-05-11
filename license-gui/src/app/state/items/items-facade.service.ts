@@ -6,6 +6,7 @@ import {
     LicenseDropdownMenuItem
 } from '../../component/license-dropdown-menu/license-dropdown-menu-item.interface';
 import {RouteState} from '../route/route-state.service';
+import {TokenState} from '../token/token-state.service';
 
 
 @Injectable({
@@ -15,6 +16,7 @@ export class ItemsFacade {
 
     private readonly translateService = inject(TranslateService);
     private readonly userSettingsState = inject(UserSettingsState);
+    private readonly tokenState = inject(TokenState);
     private readonly routeState = inject(RouteState);
 
     private readonly sidenavItems = signal<LicenseSidenavItem[]>(defaultSidenavItems);
@@ -38,6 +40,30 @@ export class ItemsFacade {
             const route = this.routeState.getCurrentRoute();
             this.selectSidenavItem(route);
         });
+
+        effect(() => {
+            const isAdmin = this.tokenState.getIsAdmin();
+            const lang = this.userSettingsState.getLanguage();
+            if (!lang) return;
+            this.sidenavItems.update(items => {
+                return items.map(item => {
+                    if(item.id === 'admin') {
+                        return {
+                            ...item,
+                            disabled: {
+                                reason: this.translateService.instant('state.items.only-for-admins'),
+                                state: !isAdmin
+                            }
+                        }
+                    }
+                    return item;
+                });
+            });
+            if(isAdmin) {
+            } else {
+            }
+        });
+
     }
 
     public selectSidenavItem(id: string) {

@@ -5,6 +5,13 @@
     <span class="mouse-hover">{{ title }}</span>
     <span class="spacer"></span>
 
+    @if(this.tokenState.getIsAdmin()) {
+        <button mat-raised-button
+                [innerHTML]="(this.publisherDisplay() | translate: { publisher: this.userLicenseState.getSelectedPublisher() })"
+                style="cursor: auto">
+        </button>
+    }
+
     <button mat-icon-button (click)="onChangeTheme()">
         <mat-icon>{{this.themeIcon()}}</mat-icon>
     </button>
