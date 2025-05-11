@@ -1,16 +1,7 @@
-import {
-    LicenseContextMenuItem
-} from '../app/component/license-context-menu/license-context-menu-item.interface';
 import {LicenseSidenavItem} from '../app/component/license-sidenav/license-sidenav-item.interface';
 import {
     LicenseDropdownMenuItem
 } from '../app/component/license-dropdown-menu/license-dropdown-menu-item.interface';
-
-const homeContextMenuItems: LicenseContextMenuItem[] = [
-    {id: 'open', title: 'Open logs', icon: 'open_in_new', disabled: false},
-    {id: 'edit', title: 'Edit', icon: 'edit', disabled: false,},
-    {id: 'delete', title: 'Delete', icon: 'delete', disabled: false,}
-];
 
 const sidenavItems: LicenseSidenavItem[] = [
     {
@@ -75,7 +66,6 @@ const logoutDropdownMenu: LicenseDropdownMenuItem[] = [
 
 
 export const uiItems = {
-    homeContextMenuItems: homeContextMenuItems,
     sidenavItems: sidenavItems,
     changeLanguageDropdownMenu: changeLanguageDropdownMenu,
     logoutDropdownMenu: logoutDropdownMenu

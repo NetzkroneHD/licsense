@@ -15,7 +15,7 @@ export class UserSettingsState {
     private readonly selectedLicense = signal<undefined | LicenseDto>(undefined);
     private readonly theme = signal<Theme>('light-theme');
 
-    public readonly getUserLanguage = this.language.asReadonly();
+    public readonly getLanguage = this.language.asReadonly();
     public readonly getAuthFailed = this.authFailed.asReadonly();
     public readonly getSelectedLicense = this.selectedLicense.asReadonly();
     public readonly getTheme = this.theme.asReadonly();

@@ -10,7 +10,7 @@
     </button>
 
     <license-dropdown-menu (itemClick$)="onChangeLanguage($event)"
-                           [items]="uiItems.changeLanguageDropdownMenu">
+                           [items]="this.itemsFacade.getChangeLanguageDropdownMenu()">
         <ng-template let-menu="menu">
             <button [matMenuTriggerFor]="menu" mat-icon-button>
                 <mat-icon>language</mat-icon>
@@ -18,7 +18,7 @@
         </ng-template>
     </license-dropdown-menu>
 
-    <license-dropdown-menu (itemClick$)="onLogoutClicked($event)" [items]="uiItems.logoutDropdownMenu">
+    <license-dropdown-menu (itemClick$)="onLogoutClicked($event)" [items]="this.itemsFacade.getLogoutDropdownMenu()">
         <ng-template let-menu="menu">
             <button [matMenuTriggerFor]="menu" mat-icon-button>
                 <mat-icon>logout</mat-icon>
@@ -29,7 +29,7 @@
 
 </mat-toolbar>
 
-<license-sidenav #sidenav (listItemClicked)="this.sidenavItemClick($event)" [items]="this.sidenavItems()"
+<license-sidenav #sidenav (listItemClicked)="this.sidenavItemClick($event)" [items]="this.itemsFacade.getSidenavItems()"
                  class="license-sidenav">
     <div class="license-sidenav-content">
         <div style="display: block; height: 15px; width: 15px; margin-left: 15px"></div>
