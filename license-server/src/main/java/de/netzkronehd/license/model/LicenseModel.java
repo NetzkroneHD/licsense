@@ -34,16 +34,19 @@ public class LicenseModel {
     @Override
     public final boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null) return false;
-        Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
-        Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
-        if (thisEffectiveClass != oEffectiveClass) return false;
-        LicenseModel that = (LicenseModel) o;
-        return getLicense() != null && Objects.equals(getLicense(), that.getLicense());
+        if (!(o instanceof LicenseModel that)) return false;
+        return valid == that.valid && Objects.equals(license, that.license) && Objects.equals(publisher, that.publisher) && Objects.equals(notes, that.notes) && Objects.equals(validUntil, that.validUntil) && listMode == that.listMode && Objects.equals(ipAddresses, that.ipAddresses);
     }
 
     @Override
-    public final int hashCode() {
-        return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
+    public int hashCode() {
+        int result = Objects.hashCode(license);
+        result = 31 * result + Objects.hashCode(publisher);
+        result = 31 * result + Objects.hashCode(notes);
+        result = 31 * result + Boolean.hashCode(valid);
+        result = 31 * result + Objects.hashCode(validUntil);
+        result = 31 * result + Objects.hashCode(listMode);
+        result = 31 * result + Objects.hashCode(ipAddresses);
+        return result;
     }
 }

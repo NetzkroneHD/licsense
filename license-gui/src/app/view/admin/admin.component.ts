@@ -14,6 +14,7 @@ import {TokenState} from '../../state/token/token-state.service';
 import {UserLicenseFacade} from '../../state/user-license/user-license-facade.service';
 import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {NotificationFacade} from '../../state/notification/notification-facade.service';
+import {UserLicenseState} from '../../state/user-license/user-license-state.service';
 
 @Component({
     selector: 'license-admin',
@@ -37,6 +38,7 @@ export class AdminComponent {
     protected readonly notificationFacade = inject(NotificationFacade);
     protected readonly formControl;
     private readonly translateService = inject(TranslateService);
+    private readonly userLicenseState = inject(UserLicenseState);
 
     protected readonly options = computed<string[]>(() => {
         return this.publisherState.getPublishers();
@@ -44,7 +46,7 @@ export class AdminComponent {
 
     constructor() {
         this.publisherFacade.loadPublishers();
-        this.formControl = new FormControl<string>(this.tokenState.getSub());
+        this.formControl = new FormControl<string>(this.userLicenseState.getSelectedPublisher());
     }
 
     protected refresh() {
