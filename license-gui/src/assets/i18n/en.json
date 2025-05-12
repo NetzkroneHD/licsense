@@ -5,6 +5,12 @@
             "own-publisher": "Selected publisher: {{publisher}} <i>(You)</i>"
         }
     },
+    "service.login.error.title": "",
+    "service": {
+        "login": {
+            "error": "Authentication failed"
+        }
+    },
     "view": {
         "auth-failed": {
             "title": "Authentication failed",

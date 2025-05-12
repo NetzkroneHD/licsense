@@ -5,6 +5,11 @@
             "own-publisher": "Ausgewählter Publisher: {{publisher}} <i>(Du)</i>"
         }
     },
+    "service": {
+        "login": {
+            "error": "Authentifizierung fehlgeschlagen"
+        }
+    },
     "view": {
         "auth-failed": {
             "title": "Authentifizierung fehlgeschlagen",

@@ -5,6 +5,11 @@
             "own-publisher": "Editor seleccionado: {{publisher}} <i>(Tú)</i>"
         }
     },
+    "service": {
+        "login": {
+            "error": "Autenticación fallida"
+        }
+    },
     "view": {
         "auth-failed": {
             "title": "Autenticación fallida",
