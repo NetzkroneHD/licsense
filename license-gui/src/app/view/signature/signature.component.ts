@@ -2,13 +2,13 @@ import {AfterViewInit, Component, computed, inject, signal} from '@angular/core'
 import {MatButton} from '@angular/material/button';
 import {FileService} from '../../service/file.service';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
-import {KeyState} from '../../state/signature/key-state.service';
+import {KeyState} from '../../state/key/key-state.service';
 import {NotificationFacade} from '../../state/notification/notification-facade.service';
-import {KeyFacade} from '../../state/signature/key-facade.service';
+import {KeyFacade} from '../../state/key/key-facade.service';
 import {LicenseDialogService} from '../../component/license-dialog/license-dialog.service';
 
 @Component({
-    selector: 'license-signature',
+    selector: 'license-key',
     imports: [
         MatButton,
         TranslateModule
@@ -63,8 +63,8 @@ export class SignatureComponent implements AfterViewInit {
         const publicKey = this.keyState.getPublicKey();
         if(!publicKey) {
             this.notificationFacade.setMessage({
-                title: this.translateService.instant('view.signature.download-key.error.title'),
-                message: this.translateService.instant('view.signature.download-key.error.message', {error: 'Public key is not available.'}),
+                title: this.translateService.instant('view.key.download-key.error.title'),
+                message: this.translateService.instant('view.key.download-key.error.message', {error: 'Public key is not available.'}),
                 type: 'ERROR'
             });
             this.downloading.set(false);

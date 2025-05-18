@@ -1,42 +1,42 @@
-<h2>{{ 'signature.general' | translate }}:</h2>
+<h2>{{ 'key.general' | translate }}:</h2>
 
 <div>
-    {{ 'signature.text' | translate }}
+    {{ 'key.text' | translate }}
 </div>
 <br>
-<h2>{{ 'signature.explanation.title' | translate }}</h2>
+<h2>{{ 'key.explanation.title' | translate }}</h2>
 
-<p style="margin-left:0; margin-right:0; text-align:start">{{ 'signature.explanation.text' | translate }}</p>
+<p style="margin-left:0; margin-right:0; text-align:start">{{ 'key.explanation.text' | translate }}</p>
 
 <ul style="margin-left:0; margin-right:0">
     <li>
-        <p style="margin-left:0; margin-right:0"><strong>{{ 'signature.public-key.name' | translate }}
+        <p style="margin-left:0; margin-right:0"><strong>{{ 'key.public-key.name' | translate }}
             :</strong>
-            {{ 'signature.public-key.text' | translate }}</p>
+            {{ 'key.public-key.text' | translate }}</p>
     </li>
     <li>
-        <p style="margin-left:0; margin-right:0"><strong>{{ 'signature.private-key.name' | translate }}
-            :</strong> {{ 'signature.private-key.text' | translate }}</p>
+        <p style="margin-left:0; margin-right:0"><strong>{{ 'key.private-key.name' | translate }}
+            :</strong> {{ 'key.private-key.text' | translate }}</p>
     </li>
 </ul>
 
-<p style="margin-left:0; margin-right:0; text-align:start">{{ 'signature.verifying' | translate }}</p>
+<p style="margin-left:0; margin-right:0; text-align:start">{{ 'key.verifying' | translate }}</p>
 
 <ol style="margin-left:0; margin-right:0">
     <li>
-        <p style="margin-left:0; margin-right:0"><strong>{{ 'signature.encryption.name' | translate }}
-            :</strong> {{ 'signature.encryption.text' | translate }}</p>
+        <p style="margin-left:0; margin-right:0"><strong>{{ 'key.encryption.name' | translate }}
+            :</strong> {{ 'key.encryption.text' | translate }}</p>
     </li>
     <li>
         <p style="margin-left:0; margin-right:0">
-            <strong>{{ 'signature.signature-verification.name' | translate }}
-                :</strong> {{ 'signature.signature-verification.text' | translate }}</p>
+            <strong>{{ 'key.key-verification.name' | translate }}
+                :</strong> {{ 'key.key-verification.text' | translate }}</p>
     </li>
 </ol>
 <br>
-<p style="margin-left:0; margin-right:0; text-align:start">{{ 'signature.end' | translate }}</p>
+<p style="margin-left:0; margin-right:0; text-align:start">{{ 'key.end' | translate }}</p>
 
 <br>
-<button (click)="generateKey()" [disabled]="generateDisabled()" color="primary" mat-raised-button>{{ 'signature.generate' | translate }}</button>
+<button (click)="generateKey()" [disabled]="generateDisabled()" color="primary" mat-raised-button>{{ 'key.generate' | translate }}</button>
 <span style="padding-right: 10px"></span>
-<button (click)="downloadKey()" [disabled]="downloadDisabled()" color="primary" mat-raised-button>{{ 'signature.download' | translate }}</button>
+<button (click)="downloadKey()" [disabled]="downloadDisabled()" color="primary" mat-raised-button>{{ 'key.download' | translate }}</button>
