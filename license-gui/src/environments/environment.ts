@@ -27,7 +27,7 @@ const authCodeFlowConfig: AuthConfig = {
 }
 
 export const apiConfig: Configuration = new Configuration({
-    basePath: "http://localhost:4200/license/api/v1",
+    basePath: "http://localhost/license/api/v1",
 });
 
 export const environment = {

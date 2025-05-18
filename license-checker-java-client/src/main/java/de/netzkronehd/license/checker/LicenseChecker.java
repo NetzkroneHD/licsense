@@ -117,7 +117,7 @@ public class LicenseChecker {
      * which can lead to performance issues. Use {@link #isLicenseValid(String, Consumer)} instead.
      *
      * @param license The license to be validated.
-     * @return True if the license is valid; otherwise, false.
+     * @return The status of the license validation.
      */
     @Deprecated
     public LicenseCheckedStatus isLicenseValid(String license) {
@@ -137,7 +137,7 @@ public class LicenseChecker {
      *
      * @param license The license to be validated.
      * @param result A consumer that will be invoked with the result of the license validation.
-     *                 True if the license is valid; otherwise, false.
+     *                 The status of the license validation.
      */
     public void isLicenseValid(String license, Consumer<LicenseCheckedResult> result) {
         Objects.requireNonNull(result);
