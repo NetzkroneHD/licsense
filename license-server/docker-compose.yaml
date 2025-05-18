@@ -1,5 +1,20 @@
 services:
 
+  traefik:
+    image: traefik:v3.2
+    ports:
+      - "80:80"
+      - "8083:8080" # Traefik Dashboard
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - license-backend
+    command:
+      - --api.insecure=true
+      - --providers.docker=true
+      - --entrypoints.web.address=:80
+      - --providers.docker.defaultrule=Host(`{{ index .Labels "com.docker.compose.service" }}.docker.localhost`)
+
   postgres:
     image: postgres
     restart: unless-stopped
@@ -19,21 +34,6 @@ services:
     volumes:
       - ./docker-compose/postgres/data/logs:/var/lib/postgresql/data
       - ./docker-compose/postgres/init:/docker-entrypoint-initdb.d/:ro
-
-  traefik:
-    image: traefik:v3.2
-    ports:
-      - "80:80"
-      - "8083:8080" # Traefik Dashboard
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    networks:
-      - license-backend
-    command:
-      - --api.insecure=true
-      - --providers.docker=true
-      - --entrypoints.web.address=:80
-      - --providers.docker.defaultrule=Host(`{{ index .Labels "com.docker.compose.service" }}.docker.localhost`)
 
   keycloak:
     image: bitnami/keycloak:${KEYCLOAK_VERSION}
