@@ -38,7 +38,6 @@ export class UserSettingsFacade {
     }
 
     public changeLanguage(language: string) {
-        console.warn("Changing language", language);
         this.translateService.use(language);
     }
 

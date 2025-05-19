@@ -26,5 +26,9 @@ export class KeyApiService {
         return this.keyApi.getKey({owner: owner});
     }
 
+    public async getKeyRaw(owner: string) {
+        return await this.keyApi.getKeyRaw({owner: owner});
+    }
+
 
 }
