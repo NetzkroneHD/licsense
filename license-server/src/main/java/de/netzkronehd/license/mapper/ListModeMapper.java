@@ -2,17 +2,14 @@ package de.netzkronehd.license.mapper;
 
 import de.netzkronehd.license.api.server.springboot.models.ListModeDto;
 import de.netzkronehd.license.listmode.ListMode;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
 
-@Component
-public class ListModeMapper {
+import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
 
-    public ListMode map(ListModeDto dto) {
-        return ListMode.valueOf(dto.name());
-    }
+@Mapper(componentModel = SPRING)
+public interface ListModeMapper {
 
-    public ListModeDto map(ListMode mode) {
-        return ListModeDto.valueOf(mode.name());
-    }
+    ListMode map(ListModeDto dto);
+    ListModeDto map(ListMode mode);
 
 }

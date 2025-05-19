@@ -35,10 +35,28 @@ services:
       - ./docker-compose/postgres/data/logs:/var/lib/postgresql/data
       - ./docker-compose/postgres/init:/docker-entrypoint-initdb.d/:ro
 
+  mailhog:
+    image: mailhog/mailhog
+    restart: unless-stopped
+    logging:
+      driver: none
+    ports:
+      - "8025:8025"  # Web interface
+      - "1025:1025"  # SMTP server
+    networks:
+      - license-backend
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.mailhog.rule=PathPrefix(`/mail`)"
+      - "traefik.http.services.mailhog.loadbalancer.server.port=8025"
+
+
   keycloak:
     image: bitnami/keycloak:${KC_VERSION}
     restart: unless-stopped
     depends_on:
+      mailhog:
+        condition: service_started
       traefik:
         condition: service_started
       postgres:

@@ -2,17 +2,14 @@ package de.netzkronehd.license.mapper;
 
 import de.netzkronehd.license.api.server.springboot.models.ListBehaviorResultDto;
 import de.netzkronehd.license.listmode.behavior.ListBehaviorResult;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
 
-@Component
-public class ListBehaviorResultMapper {
+import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
 
-    public ListBehaviorResult map(ListBehaviorResultDto dto) {
-        return ListBehaviorResult.valueOf(dto.name());
-    }
+@Mapper(componentModel = SPRING)
+public interface ListBehaviorResultMapper {
 
-    public ListBehaviorResultDto map(ListBehaviorResult mode) {
-        return ListBehaviorResultDto.valueOf(mode.name());
-    }
+    ListBehaviorResult map(ListBehaviorResultDto dto);
+    ListBehaviorResultDto map(ListBehaviorResult mode);
 
 }
