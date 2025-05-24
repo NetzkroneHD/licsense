@@ -20,9 +20,6 @@ public class LicenseConfig {
     @Value("${license.role-prefix}")
     private String rolePrefix;
 
-    @Value("${license.private-key-file}")
-    private String privateKeyFile;
-
     @Value("${license.signature-length}")
     private int signatureLength;
 
@@ -35,14 +32,13 @@ public class LicenseConfig {
     @Override
     public final boolean equals(Object o) {
         if (!(o instanceof LicenseConfig that)) return false;
-        return generationMultiplier == that.generationMultiplier && signatureLength == that.signatureLength && rateLimit == that.rateLimit && rateLimitCacheExpiration == that.rateLimitCacheExpiration && Objects.equals(rolePrefix, that.rolePrefix) && Objects.equals(privateKeyFile, that.privateKeyFile);
+        return generationMultiplier == that.generationMultiplier && signatureLength == that.signatureLength && rateLimit == that.rateLimit && rateLimitCacheExpiration == that.rateLimitCacheExpiration && Objects.equals(rolePrefix, that.rolePrefix);
     }
 
     @Override
     public int hashCode() {
         int result = generationMultiplier;
         result = 31 * result + Objects.hashCode(rolePrefix);
-        result = 31 * result + Objects.hashCode(privateKeyFile);
         result = 31 * result + signatureLength;
         result = 31 * result + rateLimit;
         result = 31 * result + Long.hashCode(rateLimitCacheExpiration);

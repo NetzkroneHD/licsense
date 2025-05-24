@@ -1,10 +1,9 @@
 services:
 
   traefik:
-    image: traefik:v3.2
+    image: traefik:v3.4
     ports:
       - "80:80"
-      - "8083:8080" # Traefik Dashboard
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
@@ -27,36 +26,16 @@ services:
       interval: 1s
       timeout: 1s
       retries: 500
-    ports:
-      - "5432:5432"
     networks:
       - license-backend
     volumes:
       - ./docker-compose/postgres/data/logs:/var/lib/postgresql/data
       - ./docker-compose/postgres/init:/docker-entrypoint-initdb.d/:ro
 
-  mailhog:
-    image: mailhog/mailhog
-    restart: unless-stopped
-    logging:
-      driver: none
-    ports:
-      - "8025:8025"  # Web interface
-      - "1025:1025"  # SMTP server
-    networks:
-      - license-backend
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.mailhog.rule=PathPrefix(`/mail`)"
-      - "traefik.http.services.mailhog.loadbalancer.server.port=8025"
-
-
   keycloak:
     image: bitnami/keycloak:${KC_VERSION}
     restart: unless-stopped
     depends_on:
-      mailhog:
-        condition: service_started
       traefik:
         condition: service_started
       postgres:
@@ -70,7 +49,7 @@ services:
       KEYCLOAK_DATABASE_USER: ${PG_USER}
       KEYCLOAK_DATABASE_PASSWORD: ${PG_PASSWORD}
       PROXY_ADDRESS_FORWARDING: "true"
-      KEYCLOAK_FRONTEND_URL: http://localhost/auth
+      KEYCLOAK_FRONTEND_URL: http://license.host/auth
       HTTP_RELATIVE_PATH: /auth
       KC_HTTP_RELATIVE_PATH: /auth
     extra_hosts:
@@ -82,9 +61,6 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.keycloak.rule=PathPrefix(`/auth`)"
       - "traefik.http.services.keycloak.loadbalancer.server.port=8080"
-    ports:
-      - "8081:8080"
-      - "9090:9090"
     networks:
       - license-backend
     healthcheck:
@@ -94,10 +70,17 @@ services:
       retries: 1000
       start_period: 5s
 
+  license-gui:
+    image: license-gui:1.0
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.license-gui.rule=Host(`license.host`)"
+      - "traefik.http.services.license-gui.loadbalancer.server.port=8080"
+
+
   license-server:
-    build:
-      context: .
-      dockerfile: Dockerfile-spring
+    image: license-server:1.0
     restart: unless-stopped
     environment:
       - LICENSE_GENERATION_MULTIPLIER=50
@@ -109,21 +92,19 @@ services:
       - SERVER_FORWARD_HEADERS_STRATEGY=framework
       - MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE=health
       - LOGGING_FILE_PATH=./logs
-      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI=http://localhost/auth/realms/license
-      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI=http://host.docker.internal:80/auth/realms/license/protocol/openid-connect/certs
+      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI=http://license.host/auth/realms/license
+      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI=http://license.host/auth/realms/license/protocol/openid-connect/certs
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/${PG_DATABASE}
       - SPRING_DATASOURCE_USERNAME=${PG_USER}
       - SPRING_DATASOURCE_PASSWORD=${PG_PASSWORD}
       - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
       - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.PostgreSQLDialect
-      - SPRING_JPA_HIBERNATE_DLL_AUTO=update
+      - SPRING_JPA_HIBERNATE_DLL_AUTO=none
     depends_on:
       postgres:
         condition: service_healthy
       keycloak:
         condition: service_healthy
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     networks:
       - license-backend
     volumes:
