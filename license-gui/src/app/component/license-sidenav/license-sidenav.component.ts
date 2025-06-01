@@ -11,28 +11,27 @@ import {
     transferArrayItem
 } from '@angular/cdk/drag-drop';
 import {LicenseSidenavGroupMapperPipe} from './license-sidenav-group-mapper.pipe';
-import {KeyValuePipe, NgForOf} from '@angular/common';
+import { KeyValuePipe } from '@angular/common';
 import {MatTooltip} from '@angular/material/tooltip';
 import {MatBadge} from '@angular/material/badge';
 
 @Component({
     selector: 'license-sidenav',
     imports: [
-        MatSidenav,
-        MatSidenavContainer,
-        MatNavList,
-        MatListItem,
-        MatIcon,
-        CdkDropList,
-        CdkDragHandle,
-        LicenseSidenavGroupMapperPipe,
-        KeyValuePipe,
-        CdkDrag,
-        MatTooltip,
-        NgForOf,
-        MatBadge,
-        MatSidenavContent
-    ],
+    MatSidenav,
+    MatSidenavContainer,
+    MatNavList,
+    MatListItem,
+    MatIcon,
+    CdkDropList,
+    CdkDragHandle,
+    LicenseSidenavGroupMapperPipe,
+    KeyValuePipe,
+    CdkDrag,
+    MatTooltip,
+    MatBadge,
+    MatSidenavContent
+],
     templateUrl: './license-sidenav.component.html',
     styleUrl: './license-sidenav.component.scss'
 })

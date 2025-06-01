@@ -16,7 +16,7 @@ import {
     ContextMenuCoordinates
 } from '@angular/cdk/menu';
 import {LicenseContextMenuItem} from './license-context-menu-item.interface';
-import {NgForOf, NgIf} from '@angular/common';
+
 import {MatIconModule} from '@angular/material/icon';
 
 @Component({
@@ -24,14 +24,12 @@ import {MatIconModule} from '@angular/material/icon';
     templateUrl: './license-context-menu.component.html',
     styleUrls: ['./license-context-menu.component.scss'],
     imports: [
-        CdkMenu,
-        CdkMenuItem,
-        CdkContextMenuTrigger,
-        NgForOf,
-        NgIf,
-        CdkMenuTrigger,
-        MatIconModule
-    ]
+    CdkMenu,
+    CdkMenuItem,
+    CdkContextMenuTrigger,
+    CdkMenuTrigger,
+    MatIconModule
+]
 })
 export class LicenseContextMenuComponent implements AfterViewChecked, OnDestroy {
 

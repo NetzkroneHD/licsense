@@ -9,7 +9,7 @@ import {
     TemplateRef,
     ViewChild
 } from '@angular/core';
-import {NgForOf, NgIf, NgTemplateOutlet} from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import {MatMenuModule, MatMenuTrigger, MenuCloseReason} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import {LicenseDropdownMenuItem} from './license-dropdown-menu-item.interface';
@@ -20,13 +20,11 @@ import {MatIconModule} from '@angular/material/icon';
     templateUrl: './license-dropdown-menu.component.html',
     styleUrls: ['./license-dropdown-menu.component.scss'],
     imports: [
-        NgForOf,
-        NgIf,
-        MatMenuModule,
-        MatButtonModule,
-        NgTemplateOutlet,
-        MatIconModule
-    ]
+    MatMenuModule,
+    MatButtonModule,
+    NgTemplateOutlet,
+    MatIconModule
+]
 })
 export class LicenseDropdownMenuComponent implements AfterViewChecked, OnDestroy {
 
