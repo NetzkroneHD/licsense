@@ -21,7 +21,6 @@ export class UserSettingsFacade {
             this.userSettingsState.setLanguage(value.lang);
         });
 
-
         const userLanguage = localStorage.getItem(environment.userSettingsKey);
         if (userLanguage) {
             this.changeLanguage(userLanguage);

@@ -3,7 +3,6 @@ import {NotificationState, ToasterMessage} from './notification-state.service';
 import {TranslateService} from '@ngx-translate/core';
 import {ToastrService} from 'ngx-toastr';
 
-
 @Injectable({
     providedIn: 'root'
 })

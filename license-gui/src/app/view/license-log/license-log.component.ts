@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, effect, inject, signal, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, computed, effect, inject, signal, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort, MatSortHeader} from '@angular/material/sort';
 import {
@@ -55,7 +55,8 @@ export class LicenseLogComponent implements AfterViewInit {
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
-    protected loading = false;
+
+    protected loading = computed(() => this.userLicenseState.getLoadingLogs());
     protected displayedColumns = ['id', 'license', 'ip', 'dateTime', 'listBehaviorResult'];
     protected dataSource;
     protected filterValue = signal('');
@@ -67,10 +68,6 @@ export class LicenseLogComponent implements AfterViewInit {
     constructor() {
 
         this.dataSource = new MatTableDataSource(this.userLicenseState.getUserLicenseLogs());
-
-        effect(() => {
-            this.loading = this.userLicenseState.getLoadingLogs();
-        });
 
         effect(() => {
             this.dataSource.data = this.userLicenseState.getUserLicenseLogs();

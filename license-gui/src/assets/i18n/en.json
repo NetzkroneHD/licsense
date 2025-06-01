@@ -181,30 +181,7 @@
         }
     },
     "signature": {
-        "general": "General Info",
-        "text": "The utilization of the public key is pivotal in verifying the authenticity of an API response. Should the public key fail to decrypt the signature, trust in the integrity of the API response is compromised.",
-        "explanation": {
-            "title": "Explanation of Public/Private Key Encryption:",
-            "text": "Public/private key encryption, known as asymmetric cryptography, involves a pair of cryptographic keys: a public key and a private key."
-        },
-        "public-key": {
-            "name": "Public Key",
-            "text": "This key is openly shared and utilized by entities seeking secure communication with the holder of the corresponding private key. It serves to encrypt data or verify digital signatures."
-        },
-        "private-key": {
-            "name": "Private Key",
-            "text": "Kept confidential by its owner, this key is essential for decrypting data encrypted with the corresponding public key or generating digital signatures."
-        },
-        "verifying": "When securely transmitting information or verifying the authenticity of a message:",
-        "encryption": {
-            "name": "Encryption",
-            "text": "The sender encrypts the message using the recipient's public key. This ensures that only the intended recipient, possessing the corresponding private key, can decrypt and access the message."
-        },
-        "signature-verification": {
-            "name": "Signature Verification",
-            "text": "Upon receiving a message with a digital signature, the recipient employs the sender's public key to verify its authenticity. Successful verification confirms that the message remains unaltered since its signing by the sender."
-        },
-        "end": "Public/private key encryption guarantees confidentiality, integrity, and authenticity in communication. It ensures that only authorized recipients with access to the private key can decipher messages, while only the legitimate sender, holding the private key, can produce valid digital signatures.",
+        "page-content": "<h2>General Info:</h2><div>The utilization of the public key is pivotal in verifying the authenticity of an API response. Should the public key fail to decrypt the signature, trust in the integrity of the API response is compromised.</div><br><h2>Explanation of Public/Private Key Encryption:</h2><p style=\"margin-left:0; margin-right:0; text-align:start\">Public/private key encryption, known as asymmetric cryptography, involves a pair of cryptographic keys: a public key and a private key.</p><ul style=\"margin-left:0; margin-right:0\"><li><p style=\"margin-left:0; margin-right:0\"><strong>Public Key: </strong>This key is openly shared and utilized by entities seeking secure communication with the holder of the corresponding private key. It serves to encrypt data or verify digital signatures.</p></li><li><p style=\"margin-left:0; margin-right:0\"><strong>Private Key: </strong>Kept confidential by its owner, this key is essential for decrypting data encrypted with the corresponding public key or generating digital signatures.</p></li></ul><p style=\"margin-left:0; margin-right:0; text-align:start\">When securely transmitting information or verifying the authenticity of a message:</p><ol style=\"margin-left:0; margin-right:0\"><li><p style=\"margin-left:0; margin-right:0\"><strong>Encryption: </strong>The sender encrypts the message using the recipient's public key. This ensures that only the intended recipient, possessing the corresponding private key, can decrypt and access the message.</p></li><li><p style=\"margin-left:0; margin-right:0\"><strong>Signature Verification: </strong>Upon receiving a message with a digital signature, the recipient employs the sender's public key to verify its authenticity. Successful verification confirms that the message remains unaltered since its signing by the sender.</p></li></ol><br><p style=\"margin-left:0; margin-right:0; text-align:start\">Public/private key encryption guarantees confidentiality, integrity, and authenticity in communication. It ensures that only authorized recipients with access to the private key can decipher messages, while only the legitimate sender, holding the private key, can produce valid digital signatures.</p>",
         "download": "Download Public Key",
         "generate": "Generate Public/Private Key Pair"
     },

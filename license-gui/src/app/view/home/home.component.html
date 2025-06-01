@@ -21,6 +21,8 @@
 
     @if (loading()) {
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    } @else {
+        <div style="display: block; margin-bottom: 4px"></div>
     }
     <mat-paginator [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons style="user-select: none">
 

@@ -180,30 +180,7 @@
         }
     },
     "signature": {
-        "general": "Información general",
-        "text": "El uso de la clave pública es crucial para verificar la autenticidad de una respuesta de API. Si la clave pública no puede descifrar la firma, se compromete la confianza en la integridad de la respuesta de la API.",
-        "explanation": {
-            "title": "Explicación de la encriptación de clave pública/privada:",
-            "text": "La encriptación de clave pública/privada, conocida como criptografía asimétrica, implica un par de claves criptográficas: una clave pública y una clave privada."
-        },
-        "public-key": {
-            "name": "Clave pública",
-            "text": "Esta clave se comparte abiertamente y es utilizada por entidades que buscan comunicación segura con el titular de la clave privada correspondiente. Sirve para encriptar datos o verificar firmas digitales."
-        },
-        "private-key": {
-            "name": "Clave privada",
-            "text": "Mantenida en secreto por su propietario, esta clave es esencial para descifrar datos encriptados con la clave pública correspondiente o generar firmas digitales."
-        },
-        "verifying": "Al transmitir información de forma segura o verificar la autenticidad de un mensaje:",
-        "encryption": {
-            "name": "Encriptación",
-            "text": "El remitente encripta el mensaje usando la clave pública del destinatario. Esto garantiza que solo el destinatario previsto, que posee la clave privada correspondiente, pueda descifrar y acceder al mensaje."
-        },
-        "signature-verification": {
-            "name": "Verificación de firma",
-            "text": "Al recibir un mensaje con una firma digital, el destinatario utiliza la clave pública del remitente para verificar su autenticidad. La verificación exitosa confirma que el mensaje no ha sido alterado desde su firma por el remitente."
-        },
-        "end": "La encriptación de clave pública/privada garantiza confidencialidad, integridad y autenticidad en la comunicación. Asegura que solo los destinatarios autorizados con acceso a la clave privada puedan descifrar mensajes, mientras que solo el remitente legítimo, que posee la clave privada, pueda producir firmas digitales válidas.",
+        "page-content": "<h2>Información general:</h2><div>El uso de la clave pública es crucial para verificar la autenticidad de una respuesta de API. Si la clave pública no puede descifrar la firma, se compromete la confianza en la integridad de la respuesta de la API.</div><br><h2>Explicación de la encriptación de clave pública/privada:</h2><p style=\"margin-left:0; margin-right:0; text-align:start\">La encriptación de clave pública/privada, conocida como criptografía asimétrica, implica un par de claves criptográficas: una clave pública y una clave privada.</p><ul style=\"margin-left:0; margin-right:0\"><li><p style=\"margin-left:0; margin-right:0\"><strong>Clave pública: </strong>Esta clave se comparte abiertamente y es utilizada por entidades que buscan comunicación segura con el titular de la clave privada correspondiente. Sirve para encriptar datos o verificar firmas digitales.</p></li><li><p style=\"margin-left:0; margin-right:0\"><strong>Clave privada:</strong> Mantenida en secreto por su propietario, esta clave es esencial para descifrar datos encriptados con la clave pública correspondiente o generar firmas digitales.</p></li></ul><p style=\"margin-left:0; margin-right:0; text-align:start\">Al transmitir información de forma segura o verificar la autenticidad de un mensaje:</p><ol style=\"margin-left:0; margin-right:0\"><li><p style=\"margin-left:0; margin-right:0\"><strong>Encriptación: </strong>El remitente encripta el mensaje usando la clave pública del destinatario. Esto garantiza que solo el destinatario previsto, que posee la clave privada correspondiente, pueda descifrar y acceder al mensaje.</p></li><li><p style=\"margin-left:0; margin-right:0\"><strong>Verificación de firma: </strong>Al recibir un mensaje con una firma digital, el destinatario utiliza la clave pública del remitente para verificar su autenticidad. La verificación exitosa confirma que el mensaje no ha sido alterado desde su firma por el remitente.</p></li></ol><br><p style=\"margin-left:0; margin-right:0; text-align:start\">La encriptación de clave pública/privada garantiza confidencialidad, integridad y autenticidad en la comunicación. Asegura que solo los destinatarios autorizados con acceso a la clave privada puedan descifrar mensajes, mientras que solo el remitente legítimo, que posee la clave privada, pueda producir firmas digitales válidas.</p>",
         "download": "Descargar clave pública",
         "generate": "Generar par de claves pública/privada"
     },

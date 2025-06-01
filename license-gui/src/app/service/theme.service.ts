@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 
-
 export type Theme = 'light-theme' | 'dark-theme';
 
 @Injectable({
@@ -16,37 +15,32 @@ export class ThemeService {
         this.setStyle('theme', `${theme}.css`);
     }
 
-    /**
-     * Set the stylesheet with the specified key.
-     */
-    setStyle(key: string, href: string) {
-        getLinkElementForKey(key).setAttribute('href', href);
+    private setStyle(key: string, href: string) {
+        this.getLinkElementForKey(key).setAttribute('href', href);
     }
 
-    /**
-     * Remove the stylesheet with the specified key.
-     */
-    removeStyle(key: string) {
-        getExistingLinkElementByKey(key)?.remove();
+    private removeStyle(key: string) {
+        this.getExistingLinkElementByKey(key)?.remove();
     }
-}
 
-function getLinkElementForKey(key: string) {
-    return getExistingLinkElementByKey(key) || createLinkElementWithKey(key);
-}
+    private getLinkElementForKey(key: string): Element {
+        return this.getExistingLinkElementByKey(key) || this.createLinkElementWithKey(key);
+    }
 
-function getExistingLinkElementByKey(key: string) {
-    return document.head.querySelector(`link[rel="stylesheet"].${getClassNameForKey(key)}`);
-}
+    private getExistingLinkElementByKey(key: string): Element | null {
+        return document.head.querySelector(`link[rel="stylesheet"].${this.getClassNameForKey(key)}`);
+    }
 
-function createLinkElementWithKey(key: string) {
-    const linkEl = document.createElement('link');
-    linkEl.setAttribute('rel', 'stylesheet');
-    linkEl.classList.add(getClassNameForKey(key));
-    document.head.appendChild(linkEl);
-    return linkEl;
-}
+    private createLinkElementWithKey(key: string): HTMLLinkElement {
+        const linkEl = document.createElement('link');
+        linkEl.setAttribute('rel', 'stylesheet');
+        linkEl.classList.add(this.getClassNameForKey(key));
+        document.head.appendChild(linkEl);
+        return linkEl;
+    }
 
-function getClassNameForKey(key: string) {
-    return `style-manager-${key}`;
+    private getClassNameForKey(key: string) {
+        return `style-manager-${key}`;
+    }
+
 }
