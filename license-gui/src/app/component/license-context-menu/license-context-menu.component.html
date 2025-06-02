@@ -1,6 +1,7 @@
+@let currentItem = this.item();
 @if (isRootNode()) {
-    <button mat-button [matMenuTriggerFor]="menu">
-        @let currentItem = this.item();
+    <button mat-button [matMenuTriggerFor]="menu" (click)="emitClick(currentItem.id)" [disabled]="currentItem.disabled ? true : null">
+
         @if (currentItem.icon) {
             <mat-icon>{{ currentItem.icon }}</mat-icon>
         }
@@ -9,8 +10,7 @@
         }
     </button>
 } @else {
-    <button mat-menu-item [matMenuTriggerFor]="menu">
-        @let currentItem = this.item();
+    <button mat-menu-item [matMenuTriggerFor]="menu" (click)="emitClick(currentItem.id)" [disabled]="currentItem.disabled ? true : null">
         @if (currentItem.icon) {
             <mat-icon>{{ currentItem.icon }}</mat-icon>
         }
@@ -22,11 +22,11 @@
 
 <mat-menu #menu="matMenu">
     @for (subItem of this.item().entries; track subItem) {
-        <button mat-menu-item>
+        <button mat-menu-item (click)="emitClick(subItem.id)" [disabled]="subItem.disabled ? true : null">
             @if (subItem.entries && subItem.entries.length > 0) {
-                <license-context-menu [item]="subItem"></license-context-menu>
+                <license-context-menu [item]="subItem" (onItemClick)="this.emitClick($event)"/>
             } @else {
-                <button mat-menu-item [disabled]="subItem.disabled ? true:null">
+                <button mat-menu-item (click)="emitClick(subItem.id)" [disabled]="subItem.disabled ? true:null">
                     @if (subItem.icon) {
                         <mat-icon>{{ subItem.icon }}</mat-icon>
                     }

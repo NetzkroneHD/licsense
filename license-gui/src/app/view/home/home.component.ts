@@ -68,14 +68,16 @@ export class HomeComponent implements AfterViewInit {
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
+    @ViewChild(LicenseContextMenuComponent) licenseContextMenuComponent!: LicenseContextMenuComponent;
+
     protected displayedColumns = ['licenseKey', 'publisher', 'notes', 'valid', 'validUntil', 'listMode', 'ipAddresses'];
     protected dataSource;
     protected readonly loading = computed<boolean>(() => this.userLicenseState.getLoadingAnyLicense());
     protected readonly filterValue = signal<string>('');
-    protected selectedLicense: { previous: LicenseDto | null; current: LicenseDto | null } = {
+    protected readonly selectedLicense = signal<{ previous: LicenseDto | null; current: LicenseDto | null }>({
         previous: null,
         current: null
-    };
+    });
     protected showTestToaster = false;
     protected readonly String = String;
     private readonly userLicenseFacade = inject(UserLicenseFacade);
@@ -91,7 +93,7 @@ export class HomeComponent implements AfterViewInit {
         });
     }
 
-    ngAfterViewInit() {
+    public ngAfterViewInit() {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
     }
@@ -113,17 +115,25 @@ export class HomeComponent implements AfterViewInit {
         return firstPart + middlePart + lastPart;
     }
 
+    protected onContextMenu(row: LicenseDto, event: MouseEvent) {
+        event.preventDefault();
+        this.copyToClipboard(event, row);
+    }
+
     protected onRowClick(row: LicenseDto) {
-        if (this.selectedLicense.current === row) {
-            this.selectedLicense = {previous: this.selectedLicense.current, current: null};
+        const selectedLicense = this.selectedLicense();
+        if (selectedLicense.current === row) {
+            this.selectedLicense.set({previous: selectedLicense.current, current: null});
         } else {
-            this.selectedLicense = {previous: this.selectedLicense.current, current: row};
+            this.selectedLicense.set({previous: selectedLicense.current, current: row});
             this.userLicenseFacade.setCurrentSelectedLicense(row.licenseKey);
         }
     }
 
     protected onRowDoubleClick(row: LicenseDto) {
-        this.selectedLicense = {previous: this.selectedLicense.current, current: row};
+        this.selectedLicense.update(value => {
+            return {previous: value.current, current: row}
+        });
         this.userLicenseFacade.setCurrentSelectedLicense(row.licenseKey);
         this.routeFacade.navigateToLicenseLogs();
     }
@@ -170,5 +180,9 @@ export class HomeComponent implements AfterViewInit {
                 type: 'ERROR'
             });
         }, 800);
+    }
+
+    protected onMenuClick(itemId: string) {
+        console.log("onMenuClick", itemId);
     }
 }
