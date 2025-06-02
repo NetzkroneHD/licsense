@@ -28,6 +28,9 @@ import {RouteFacade} from '../../state/route/route-facade.service';
 import {LicenseToolbarComponent} from '../../component/license-toolbar/license-toolbar.component';
 import {Clipboard} from '@angular/cdk/clipboard';
 import {NotificationFacade} from '../../state/notification/notification-facade.service';
+import {
+    LicenseContextMenuComponent
+} from '../../component/license-context-menu/license-context-menu.component';
 
 @Component({
     selector: 'license-home',
@@ -55,7 +58,8 @@ import {NotificationFacade} from '../../state/notification/notification-facade.s
         MatCellDef,
         MatHeaderRowDef,
         MatRowDef,
-        MatButton
+        MatButton,
+        LicenseContextMenuComponent
     ],
     templateUrl: './home.component.html',
     styleUrl: './home.component.scss'

@@ -1,38 +1,40 @@
-<div (cdkContextMenuClosed)="onClosed()" (cdkContextMenuOpened)="onOpened()"
-  [cdkContextMenuTriggerFor]="menu">
-  <ng-content></ng-content>
-</div>
-
-<ng-template #menu>
-  @if (isAllowedToOpen) {
-    <div cdkMenu class="context-menu">
-      @for (item of items; track item) {
-        @if (hasChildren(item)) {
-          @if (menuComponent.menu; as subMenu) {
-            <button (click)="onItemClick(item)"
-              [attr.disabled]="(!item.disabled ? null:item.disabled)"
-              [cdkMenuTriggerFor]="subMenu"
-              cdkMenuItem
-              class="context-menu-item">
-              @if (item.icon) {
-                <mat-icon class="icon">{{ item.icon }}</mat-icon>
-              }
-              {{ item.title }}
-              <span>&#10148;</span>
-            </button>
-          }
-          <license-context-menu #menuComponent [items]="item.entries!"></license-context-menu>
-        } @else {
-          <button (click)="onItemClick(item)" [attr.disabled]="(!item.disabled ? null:item.disabled)"
-            cdkMenuItem
-            class="context-menu-item">
-            @if (item.icon) {
-              <mat-icon class="icon">{{ item.icon }}</mat-icon>
-            }
-            {{ item.title }}
-          </button>
+@if (isRootNode()) {
+    <button mat-button [matMenuTriggerFor]="menu">
+        @let currentItem = this.item();
+        @if (currentItem.icon) {
+            <mat-icon>{{ currentItem.icon }}</mat-icon>
         }
-      }
-    </div>
-  }
-</ng-template>
+        @if (currentItem.title) {
+            {{ currentItem.title }}
+        }
+    </button>
+} @else {
+    <button mat-menu-item [matMenuTriggerFor]="menu">
+        @let currentItem = this.item();
+        @if (currentItem.icon) {
+            <mat-icon>{{ currentItem.icon }}</mat-icon>
+        }
+        @if (currentItem.title) {
+            {{ currentItem.title }}
+        }
+    </button>
+}
+
+<mat-menu #menu="matMenu">
+    @for (subItem of this.item().entries; track subItem) {
+        <button mat-menu-item>
+            @if (subItem.entries && subItem.entries.length > 0) {
+                <license-context-menu [item]="subItem"></license-context-menu>
+            } @else {
+                <button mat-menu-item [disabled]="subItem.disabled ? true:null">
+                    @if (subItem.icon) {
+                        <mat-icon>{{ subItem.icon }}</mat-icon>
+                    }
+                    @if (subItem.title) {
+                        {{ subItem.title }}
+                    }
+                </button>
+            }
+        </button>
+    }
+</mat-menu>
