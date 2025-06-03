@@ -68,7 +68,7 @@ export class HomeComponent implements AfterViewInit {
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
-    @ViewChild(LicenseContextMenuComponent) licenseContextMenuComponent!: LicenseContextMenuComponent;
+    @ViewChild(LicenseContextMenuComponent) contextMenu!: LicenseContextMenuComponent;
 
     protected displayedColumns = ['licenseKey', 'publisher', 'notes', 'valid', 'validUntil', 'listMode', 'ipAddresses'];
     protected dataSource;
@@ -117,6 +117,7 @@ export class HomeComponent implements AfterViewInit {
 
     protected onContextMenu(row: LicenseDto, event: MouseEvent) {
         event.preventDefault();
+        this.contextMenu.openMenu({x: event.x, y: event.y});
         this.copyToClipboard(event, row);
     }
 

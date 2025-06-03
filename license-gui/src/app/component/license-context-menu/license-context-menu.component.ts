@@ -1,9 +1,9 @@
-import {Component, input, output, ViewChild} from '@angular/core';
+import {Component, input, model, output, ViewChild} from '@angular/core';
 
 import {MatIconModule} from '@angular/material/icon';
 import {LicenseContextMenuItem} from './license-context-menu-item.interface';
-import {MatButton} from '@angular/material/button';
-import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
+import {MatMenu, MatMenuItem, MatMenuTrigger, MenuCloseReason} from '@angular/material/menu';
+import {LicenseContextMenuPosition} from './license-context-menu-position.interface';
 
 @Component({
     selector: 'license-context-menu',
@@ -11,7 +11,6 @@ import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
     styleUrls: ['./license-context-menu.component.scss'],
     imports: [
         MatIconModule,
-        MatButton,
         MatMenuTrigger,
         MatMenuItem,
         MatMenu
@@ -21,8 +20,10 @@ export class LicenseContextMenuComponent {
 
     public readonly item = input.required<LicenseContextMenuItem>();
     public readonly isRootNode = input<boolean>(false);
+    public readonly customPosition = model<LicenseContextMenuPosition>({x: 0, y: 0});
 
     public readonly onItemClick = output<string>();
+    public readonly onClose = output<MenuCloseReason>();
 
     @ViewChild(MatMenuTrigger)
     protected matMenuTrigger: MatMenuTrigger | undefined;
@@ -31,10 +32,20 @@ export class LicenseContextMenuComponent {
         this.onItemClick.emit(itemId);
     }
 
-    public openMenu(): void {
+    public openMenu(position: LicenseContextMenuPosition): void {
         if(!this.matMenuTrigger) return;
+        this.customPosition.set(position);
         this.matMenuTrigger.openMenu();
     }
 
+    public closeMenu(): void {
+        if(!this.matMenuTrigger) return;
+        this.matMenuTrigger.closeMenu();
+    }
 
+
+    protected onMenuClosed(event: MenuCloseReason) {
+        if(!this.isRootNode()) return;
+        this.onClose.emit(event);
+    }
 }
