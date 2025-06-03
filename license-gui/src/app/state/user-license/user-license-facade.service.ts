@@ -24,7 +24,7 @@ export class UserLicenseFacade {
 
     }
 
-    public setCurrentSelectedLicense(license: string) {
+    public setCurrentSelectedLicense(license: LicenseDto) {
         this.licenseState.setCurrentLicense(license);
     }
 

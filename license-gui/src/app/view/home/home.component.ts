@@ -31,6 +31,7 @@ import {NotificationFacade} from '../../state/notification/notification-facade.s
 import {
     LicenseContextMenuComponent
 } from '../../component/license-context-menu/license-context-menu.component';
+import {LicenseFacade} from '../../state/license/license-facade.service';
 
 @Component({
     selector: 'license-home',
@@ -85,6 +86,7 @@ export class HomeComponent implements AfterViewInit {
     private readonly routeFacade = inject(RouteFacade);
     private readonly notificationFacade = inject(NotificationFacade);
     private readonly clipboard = inject(Clipboard);
+    private readonly licenseFacade = inject(LicenseFacade);
 
     constructor() {
         this.dataSource = new MatTableDataSource(this.userLicenseState.getUserLicenses());
@@ -117,8 +119,10 @@ export class HomeComponent implements AfterViewInit {
 
     protected onContextMenu(row: LicenseDto, event: MouseEvent) {
         event.preventDefault();
+        const selectedLicense = this.selectedLicense();
+        this.selectedLicense.set({previous: selectedLicense.current, current: row});
+        this.userLicenseFacade.setCurrentSelectedLicense(row);
         this.contextMenu.openMenu({x: event.x, y: event.y});
-        this.copyToClipboard(event, row);
     }
 
     protected onRowClick(row: LicenseDto) {
@@ -127,7 +131,7 @@ export class HomeComponent implements AfterViewInit {
             this.selectedLicense.set({previous: selectedLicense.current, current: null});
         } else {
             this.selectedLicense.set({previous: selectedLicense.current, current: row});
-            this.userLicenseFacade.setCurrentSelectedLicense(row.licenseKey);
+            this.userLicenseFacade.setCurrentSelectedLicense(row);
         }
     }
 
@@ -135,12 +139,11 @@ export class HomeComponent implements AfterViewInit {
         this.selectedLicense.update(value => {
             return {previous: value.current, current: row}
         });
-        this.userLicenseFacade.setCurrentSelectedLicense(row.licenseKey);
+        this.userLicenseFacade.setCurrentSelectedLicense(row);
         this.routeFacade.navigateToLicenseLogs();
     }
 
-    protected copyToClipboard(event: MouseEvent, license: LicenseDto) {
-        event.preventDefault();
+    protected copyToClipboard(license: LicenseDto) {
         if (!this.clipboard.copy(license.licenseKey)) return;
         this.notificationFacade.setMessage({
             title: undefined,
@@ -184,6 +187,27 @@ export class HomeComponent implements AfterViewInit {
     }
 
     protected onMenuClick(itemId: string) {
-        console.log("onMenuClick", itemId);
+        switch (itemId) {
+            case 'open-logs': {
+                this.licenseFacade.openLogs();
+                break;
+            }
+            case 'edit-license': {
+                this.licenseFacade.editLicense();
+                break;
+            }
+            case 'delete-license': {
+                this.licenseFacade.deleteLicense();
+                break;
+            }
+            case 'copy-license': {
+                const selectedLicense = this.userLicenseState.getCurrentLicense();
+                if(!selectedLicense) break;
+                this.copyToClipboard(selectedLicense);
+                break;
+            }
+            default:
+                break;
+        }
     }
 }

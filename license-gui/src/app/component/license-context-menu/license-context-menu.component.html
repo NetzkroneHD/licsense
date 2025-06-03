@@ -3,24 +3,27 @@
          [style]="{visibility: 'hidden', position: 'fixed', left: this.customPosition().x+'px', top: this.customPosition().y+'px'}"
     ></div>
 } @else {
-    @let currentItem = this.item();
-    <button mat-menu-item [matMenuTriggerFor]="menu" (click)="this.emitClick(currentItem.id)"
-            [disabled]="currentItem.disabled ? true : null">
-        @if (currentItem.icon) {
-            <mat-icon>{{ currentItem.icon }}</mat-icon>
-        }
-        @if (currentItem.title) {
-            {{ currentItem.title }}
-        }
-    </button>
+    @let currentItem = this.currentItem();
+    @if (currentItem) {
+        <button mat-menu-item [matMenuTriggerFor]="menu" (click)="this.emitClick(currentItem.id)"
+                [disabled]="currentItem.disabled ? true : null">
+            @if (currentItem.icon) {
+                <mat-icon>{{ currentItem.icon }}</mat-icon>
+            }
+            @if (currentItem.title) {
+                {{ currentItem.title }}
+            }
+        </button>
+    }
 }
 
 <mat-menu #menu="matMenu" (closed)="this.onMenuClosed($event)">
-    @for (subItem of this.item().entries; track subItem) {
+    @for (subItem of this.items(); track subItem) {
         <button mat-menu-item (click)="this.emitClick(subItem.id)"
                 [disabled]="subItem.disabled ? true : null">
             @if (subItem.entries && subItem.entries.length > 0) {
-                <license-context-menu [item]="subItem" (onItemClick)="this.emitClick($event)"/>
+                <license-context-menu [currentItem]="subItem" [items]="subItem.entries"
+                                      (onItemClick)="this.emitClick($event)"/>
             } @else {
                 <button mat-menu-item (click)="this.emitClick(subItem.id)"
                         [disabled]="subItem.disabled ? true:null">

@@ -14,7 +14,7 @@ export class UserLicenseState {
     private readonly loadingDelete = signal(0);
     private readonly userLicenses = signal<LicenseDto[]>([]);
     private readonly userLicenseLogs = signal<LicenseLogDto[]>([]);
-    private readonly currentSelectedLicense = signal<string>('');
+    private readonly currentSelectedLicense = signal<LicenseDto | null>(null);
     private readonly selectedPublisher = signal<string>('');
 
     public readonly getLoadingAnyLicense = computed(() => this.getLoadingLicenses() || this.getLoadingCreate() || this.getLoadingUpdate() || this.getLoadingDelete());
@@ -28,7 +28,7 @@ export class UserLicenseState {
     public readonly getCurrentLicense = this.currentSelectedLicense.asReadonly();
     public readonly getSelectedPublisher = this.selectedPublisher.asReadonly();
 
-    public setCurrentLicense(license: string) {
+    public setCurrentLicense(license: LicenseDto) {
         this.currentSelectedLicense.set(license);
     }
 

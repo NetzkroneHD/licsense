@@ -92,7 +92,7 @@ export class LicenseLogComponent implements AfterViewInit {
     protected refresh() {
         const currentLicense = this.userLicenseState.getCurrentLicense();
         if (!currentLicense) return;
-        this.userLicenseFacade.loadLogs(currentLicense);
+        this.userLicenseFacade.loadLogs(currentLicense.licenseKey);
     }
 
     protected deleteHistory() {
@@ -106,7 +106,7 @@ export class LicenseLogComponent implements AfterViewInit {
             discardWithEscape: true
         }).subscribe(value => {
             if (!value) return;
-            this.userLicenseFacade.deleteLogs(currentLicense);
+            this.userLicenseFacade.deleteLogs(currentLicense.licenseKey);
         });
 
     }

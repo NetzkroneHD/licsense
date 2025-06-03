@@ -28,7 +28,11 @@ export class RouteFacade {
     }
 
     public navigateToLicenseLogs() {
-        this.setCurrentRoute('license-logs').then(() => this.userLicenseFacade.loadLogs(this.userLicenseState.getCurrentLicense()));
+        this.setCurrentRoute('license-logs').then(() => {
+            const currentLicense = this.userLicenseState.getCurrentLicense();
+            if(!currentLicense) return;
+            this.userLicenseFacade.loadLogs(currentLicense.licenseKey);
+        });
     }
 
 

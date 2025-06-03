@@ -18,9 +18,11 @@ import {LicenseContextMenuPosition} from './license-context-menu-position.interf
 })
 export class LicenseContextMenuComponent {
 
-    public readonly item = input.required<LicenseContextMenuItem>();
+    public readonly items = input.required<LicenseContextMenuItem[]>();
     public readonly isRootNode = input<boolean>(false);
     public readonly customPosition = model<LicenseContextMenuPosition>({x: 0, y: 0});
+
+    protected readonly currentItem = input<LicenseContextMenuItem>();
 
     public readonly onItemClick = output<string>();
     public readonly onClose = output<MenuCloseReason>();
@@ -29,6 +31,7 @@ export class LicenseContextMenuComponent {
     protected matMenuTrigger: MatMenuTrigger | undefined;
 
     protected emitClick(itemId: string): void {
+        console.log("emitClick", itemId, this.isRootNode());
         this.onItemClick.emit(itemId);
     }
 
