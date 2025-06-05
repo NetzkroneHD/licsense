@@ -7,6 +7,7 @@ import de.netzkronehd.license.mapper.LicenseLogMapper;
 import de.netzkronehd.license.model.OAuth2Model;
 import de.netzkronehd.license.security.OAuth2TokenSecurity;
 import de.netzkronehd.license.service.LicenseCheckService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.FORBIDDEN;
@@ -31,12 +33,12 @@ public class LicenseLogsController implements LogsApi {
     private final OAuth2TokenSecurity tokenSecurity;
 
     @Override
-    public ResponseEntity<List<LicenseLogDto>> getLicenseLogs(String license) {
+    public ResponseEntity<List<LicenseLogDto>> getLicenseLogs(String license, @Valid OffsetDateTime dateFrom, @Valid OffsetDateTime dateTo) {
         final OAuth2Model model = tokenSecurity.getModel(SecurityContextHolder.getContext().getAuthentication());
         if (model == null) return status(UNAUTHORIZED).build();
         if (!model.hasAccess()) return status(FORBIDDEN).build();
 
-        return ok(licenseLogMapper.map(checkService.getLogs(license, model)).reversed());
+        return ok(licenseLogMapper.map(checkService.getLogs(license, model, dateFrom, dateTo)).reversed());
     }
 
     @Override

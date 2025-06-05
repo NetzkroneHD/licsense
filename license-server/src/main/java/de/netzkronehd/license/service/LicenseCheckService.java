@@ -7,6 +7,7 @@ import de.netzkronehd.license.exception.PermissionException;
 import de.netzkronehd.license.listmode.behavior.ListBehaviorResult;
 import de.netzkronehd.license.model.*;
 import de.netzkronehd.license.utils.Utils;
+import jakarta.annotation.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,10 +90,12 @@ public class LicenseCheckService {
         return this.licenseService.updateLicense(license, update);
     }
 
-    public List<LicenseLogModel> getLogs(String license, OAuth2Model publisher) throws PermissionException {
+    public List<LicenseLogModel> getLogs(String license, OAuth2Model publisher, @Nullable OffsetDateTime dateFrom, @Nullable OffsetDateTime dateTo) throws PermissionException {
         final LicenseModel licenseModel = this.licenseService.getLicense(license);
         checkIfIsAdminOrPublisherIsEqualOr(publisher, licenseModel);
-
+        if (dateFrom != null && dateTo != null) {
+            return this.logService.getLogs(license, dateFrom, dateTo);
+        }
         return this.logService.getLogs(license);
     }
 
