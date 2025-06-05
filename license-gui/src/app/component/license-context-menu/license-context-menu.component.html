@@ -19,22 +19,19 @@
 
 <mat-menu #menu="matMenu" (closed)="this.onMenuClosed($event)">
     @for (subItem of this.items(); track subItem) {
-        <button mat-menu-item (click)="this.emitClick(subItem.id)"
-                [disabled]="subItem.disabled ? true : null">
-            @if (subItem.entries && subItem.entries.length > 0) {
-                <license-context-menu [currentItem]="subItem" [items]="subItem.entries"
-                                      (onItemClick)="this.emitClick($event)"/>
-            } @else {
-                <button mat-menu-item (click)="this.emitClick(subItem.id)"
-                        [disabled]="subItem.disabled ? true:null">
-                    @if (subItem.icon) {
-                        <mat-icon>{{ subItem.icon }}</mat-icon>
-                    }
-                    @if (subItem.title) {
-                        {{ subItem.title }}
-                    }
-                </button>
-            }
-        </button>
+        @if (subItem.entries && subItem.entries.length > 0) {
+            <license-context-menu [currentItem]="subItem" [items]="subItem.entries"
+                                  (onItemClick)="this.emitClick($event)"/>
+        } @else {
+            <button mat-menu-item (click)="this.emitClick(subItem.id)"
+                    [disabled]="subItem.disabled ? true:null">
+                @if (subItem.icon) {
+                    <mat-icon>{{ subItem.icon }}</mat-icon>
+                }
+                @if (subItem.title) {
+                    {{ subItem.title }}
+                }
+            </button>
+        }
     }
 </mat-menu>

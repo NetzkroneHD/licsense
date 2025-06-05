@@ -2,18 +2,22 @@ import {AfterViewInit, Component, computed, effect, inject, signal, ViewChild} f
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort, MatSortHeader} from '@angular/material/sort';
 import {
-    MatCell, MatCellDef,
+    MatCell,
+    MatCellDef,
     MatColumnDef,
-    MatHeaderCell, MatHeaderCellDef,
-    MatHeaderRow, MatHeaderRowDef,
-    MatRow, MatRowDef,
+    MatHeaderCell,
+    MatHeaderCellDef,
+    MatHeaderRow,
+    MatHeaderRowDef,
+    MatRow,
+    MatRowDef,
     MatTable,
     MatTableDataSource
 } from '@angular/material/table';
 import {UserLicenseState} from '../../state/user-license/user-license-state.service';
 import {UserLicenseFacade} from '../../state/user-license/user-license-facade.service';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
-import {MatFormField, MatLabel} from '@angular/material/form-field';
+import {MatFormField, MatLabel, MatSuffix} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
 import {FormsModule} from '@angular/forms';
 import {MatIcon} from '@angular/material/icon';
@@ -46,7 +50,8 @@ import {LicenseDialogService} from '../../component/license-dialog/license-dialo
         MatHeaderCellDef,
         MatCellDef,
         MatHeaderRowDef,
-        MatRowDef
+        MatRowDef,
+        MatSuffix
     ],
     templateUrl: './license-log.component.html',
     styleUrl: './license-log.component.scss'

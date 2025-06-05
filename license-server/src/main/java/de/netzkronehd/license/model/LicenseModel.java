@@ -1,11 +1,11 @@
 package de.netzkronehd.license.model;
 
 import de.netzkronehd.license.listmode.ListMode;
+import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.*;
-import org.hibernate.proxy.HibernateProxy;
 
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -23,6 +23,7 @@ public class LicenseModel {
     private String license;
 
     private String publisher;
+    @Column(columnDefinition = "TEXT")
     private String notes;
     private boolean valid;
     private OffsetDateTime validUntil;

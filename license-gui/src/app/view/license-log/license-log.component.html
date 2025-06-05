@@ -3,28 +3,27 @@
     <div style="display: flex">
         <mat-form-field class="license-form-field">
             <mat-label>{{ 'view.license-log.filter' | translate }}</mat-label>
-            <input [value]="filterValue()" (keyup)="onUpdateFilter($event)" matInput>
-            @if (filterValue()) {
-                <button matSuffix mat-icon-button aria-label="Clear"
-                        (click)="clearFilter()">
+            <input [value]="this.filterValue()" (keyup)="onUpdateFilter($event)" matInput>
+            @if (this.filterValue()) {
+                <button matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter()">
                     <mat-icon>close</mat-icon>
                 </button>
             }
         </mat-form-field>
         <button class="license-log-toolbar-item" (click)="refresh()"
-                [disabled]="(userLicenseState.getLoadingLogs())" [matTooltip]="('view.license-log.tooltip.refresh' | translate) "
+                [disabled]="(this.loading())" [matTooltip]="('view.license-log.tooltip.refresh' | translate) "
                 mat-icon-button>
             <mat-icon>refresh</mat-icon>
         </button>
         <button class="license-log-toolbar-item" (click)="deleteHistory()"
-                [disabled]="(userLicenseState.getUserLicenseLogs().length === 0 || userLicenseState.getLoadingLogs())"
+                [disabled]="(this.userLicenseState.getUserLicenseLogs().length === 0 || this.userLicenseState.getLoadingLogs())"
                 [matTooltip]="('view.license-log.tooltip.delete-logs' | translate) "
                 mat-icon-button>
             <mat-icon>delete_history</mat-icon>
         </button>
     </div>
 
-    @if (loading()) {
+    @if (this.loading()) {
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     } @else {
         <div style="display: block; margin-bottom: 4px"></div>

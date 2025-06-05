@@ -31,7 +31,6 @@ export class LicenseContextMenuComponent {
     protected matMenuTrigger: MatMenuTrigger | undefined;
 
     protected emitClick(itemId: string): void {
-        console.log("emitClick", itemId, this.isRootNode());
         this.onItemClick.emit(itemId);
     }
 

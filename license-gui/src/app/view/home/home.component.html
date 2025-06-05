@@ -7,8 +7,7 @@
             <mat-label>{{ 'view.home.filter' | translate }}</mat-label>
             <input [value]="filterValue()" (keyup)="onUpdateFilter($event)" matInput>
             @if (filterValue()) {
-                <button matSuffix mat-icon-button aria-label="Clear"
-                        (click)="clearFilter()">
+                <button matSuffix mat-icon-button aria-label="Clear" (click)="this.clearFilter()">
                     <mat-icon>close</mat-icon>
                 </button>
             }
@@ -25,11 +24,10 @@
         {id: 'open-logs', disabled: false, icon: 'open_in_new', title: 'Open logs'},
         {id: 'edit-license', disabled: !current, icon: 'edit', title: 'Edit license'},
         {id: 'delete-license', disabled: !current, icon: 'delete', title: 'Delete license'},
-        {id: 'copy-license', disabled: !current, icon: 'content_copy', title: 'Copy license key'},
-    ]" (onItemClick)="this.onMenuClick($event)">
-    </license-context-menu>
+        {id: 'copy-license', disabled: !current, icon: 'content_copy', title: 'Copy license key'}
+        ]" (onItemClick)="this.onMenuClick($event)"></license-context-menu>
 
-    @if (loading()) {
+    @if (this.loading()) {
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     } @else {
         <div style="display: block; margin-bottom: 4px"></div>
@@ -111,14 +109,14 @@
             </th>
             <td *matCellDef="let row"
                 [class.license-selected]="row === current"
-                mat-cell>{{ getShortedString(String(row.ipAddresses)) }}
+                mat-cell>{{ this.getShortedString(row.ipAddresses) }}
             </td>
         </ng-container>
 
         <tr *matHeaderRowDef="displayedColumns; sticky: true" mat-header-row></tr>
-        <tr (click)="onRowClick(row)"
-            (contextmenu)="onContextMenu(row, $event)"
-            (dblclick)="onRowDoubleClick(row)"
+        <tr (click)="this.onRowClick(row)"
+            (contextmenu)="this.onContextMenu(row, $event)"
+            (dblclick)="this.onRowDoubleClick(row)"
             *matRowDef="let row; columns: displayedColumns;"
             [class.license-table-row-clicked]="row === current"
             class="license-table-row"

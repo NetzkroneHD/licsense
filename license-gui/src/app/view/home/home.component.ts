@@ -18,7 +18,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort, MatSortHeader} from '@angular/material/sort';
 import {LicenseDto} from '@license/license-api-client-typescript-fetch';
 import {TranslateModule} from '@ngx-translate/core';
-import {MatFormField, MatLabel} from '@angular/material/form-field';
+import {MatFormField, MatLabel, MatSuffix} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
 import {FormsModule} from '@angular/forms';
 import {MatButton, MatIconButton} from '@angular/material/button';
@@ -60,7 +60,8 @@ import {LicenseFacade} from '../../state/license/license-facade.service';
         MatHeaderRowDef,
         MatRowDef,
         MatButton,
-        LicenseContextMenuComponent
+        LicenseContextMenuComponent,
+        MatSuffix
     ],
     templateUrl: './home.component.html',
     styleUrl: './home.component.scss'
@@ -72,7 +73,6 @@ export class HomeComponent implements AfterViewInit {
     @ViewChild(LicenseContextMenuComponent) contextMenu!: LicenseContextMenuComponent;
 
     protected displayedColumns = ['licenseKey', 'publisher', 'notes', 'valid', 'validUntil', 'listMode', 'ipAddresses'];
-    protected dataSource;
     protected readonly loading = computed<boolean>(() => this.userLicenseState.getLoadingAnyLicense());
     protected readonly filterValue = signal<string>('');
     protected readonly selectedLicense = signal<{ previous: LicenseDto | null; current: LicenseDto | null }>({
@@ -80,13 +80,13 @@ export class HomeComponent implements AfterViewInit {
         current: null
     });
     protected showTestToaster = false;
-    protected readonly String = String;
     private readonly userLicenseFacade = inject(UserLicenseFacade);
     private readonly userLicenseState = inject(UserLicenseState);
     private readonly routeFacade = inject(RouteFacade);
     private readonly notificationFacade = inject(NotificationFacade);
     private readonly clipboard = inject(Clipboard);
     private readonly licenseFacade = inject(LicenseFacade);
+    protected dataSource;
 
     constructor() {
         this.dataSource = new MatTableDataSource(this.userLicenseState.getUserLicenses());
@@ -109,7 +109,8 @@ export class HomeComponent implements AfterViewInit {
         this.applyFilter();
     }
 
-    protected getShortedString(str: string): string {
+    protected getShortedString(text: unknown): string {
+        const str = String(text);
         if (str.length <= 40) return str;
         const firstPart = str.substring(0, 19);
         const middlePart = ".".repeat(3);
@@ -207,6 +208,7 @@ export class HomeComponent implements AfterViewInit {
                 break;
             }
             default:
+                console.error("Unknown menu item clicked:", itemId);
                 break;
         }
     }
