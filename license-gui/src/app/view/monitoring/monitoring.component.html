@@ -1,1 +1,17 @@
-<p>monitoring works!</p>
+<div style="width: 100%">
+    <div style="display: flex">
+        <mat-form-field class="license-form-field">
+            <mat-label>{{ 'view.license-log.filter' | translate }}</mat-label>
+            <input [value]="this.filterValue()" (keyup)="onUpdateFilter($event)" matInput>
+            @if (this.filterValue()) {
+                <button matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter()">
+                    <mat-icon>close</mat-icon>
+                </button>
+            }
+        </mat-form-field>
+        <button class="license-log-toolbar-item" (click)="refresh()" [matTooltip]="('view.license-log.tooltip.refresh' | translate) "
+                mat-icon-button>
+            <mat-icon>refresh</mat-icon>
+        </button>
+    </div>
+</div>

@@ -29,8 +29,8 @@ export class LicenseApiService {
         return this.licenseApi.deleteLicense({license: license});
     }
 
-    public getLicenseLogs(license: string): Promise<Array<LicenseLogDto>> {
-        return this.licenseApi.getLicenseLogs({license: license});
+    public getLicenseLogs(license: string, dateFrom?: Date, dateTo?: Date): Promise<Array<LicenseLogDto>> {
+        return this.licenseApi.getLicenseLogs({license: license, dateFrom: dateFrom, dateTo: dateTo});
     }
 
     public deleteLicenseLogs(license: string): Promise<void> {

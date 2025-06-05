@@ -61,10 +61,10 @@ export class LicenseLogComponent implements AfterViewInit {
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
 
-    protected loading = computed(() => this.userLicenseState.getLoadingLogs());
-    protected displayedColumns = ['id', 'license', 'ip', 'dateTime', 'listBehaviorResult'];
-    protected dataSource;
-    protected filterValue = signal('');
+    protected readonly loading = computed(() => this.userLicenseState.getLoadingLogs());
+    protected readonly displayedColumns = ['id', 'license', 'ip', 'dateTime', 'listBehaviorResult'];
+    protected readonly dataSource;
+    protected readonly filterValue = signal('');
     protected readonly userLicenseState = inject(UserLicenseState);
     private readonly userLicenseFacade = inject(UserLicenseFacade);
     private readonly dialogService = inject(LicenseDialogService);

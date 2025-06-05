@@ -1,0 +1,17 @@
+@use '@angular/material' as mat;
+@use 'sass:map';
+
+:host {
+    width: 95%;
+}
+
+.license-form-field {
+    display: block;
+    max-width: 25%;
+    min-width: 250px;
+}
+
+.license-log-toolbar-item {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
