@@ -14,4 +14,11 @@
             <mat-icon>refresh</mat-icon>
         </button>
     </div>
+
+    @if (this.loading()) {
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    } @else {
+        <div style="display: block; margin-bottom: 4px"></div>
+    }
+
 </div>
