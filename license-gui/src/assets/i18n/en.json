@@ -12,6 +12,16 @@
         }
     },
     "view": {
+        "monitoring": {
+            "datePicker": {
+                "label": "Select date range",
+                "startDate": "Start Date",
+                "endDate": "End Date",
+                "hint": "Hint",
+                "cancelButton": "Cancel",
+                "applyButton": "Apply"
+            }
+        },
         "auth-failed": {
             "title": "Authentication failed",
             "retry": "Retry"

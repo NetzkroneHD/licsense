@@ -1,18 +1,36 @@
 <div style="width: 100%">
     <div style="display: flex">
-        <mat-form-field class="license-form-field">
-            <mat-label>{{ 'view.license-log.filter' | translate }}</mat-label>
-            <input [value]="this.filterValue()" (keyup)="onUpdateFilter($event)" matInput>
+        <mat-form-field class="monitoring-form-field">
+            <mat-label>{{ 'view.monitoring.filter' | translate }}</mat-label>
+            <input [value]="this.filterValue()" (keyup)="this.onUpdateFilter($event)" matInput>
             @if (this.filterValue()) {
                 <button matSuffix mat-icon-button aria-label="Clear" (click)="clearFilter()">
                     <mat-icon>close</mat-icon>
                 </button>
             }
         </mat-form-field>
-        <button class="license-log-toolbar-item" (click)="refresh()" [matTooltip]="('view.license-log.tooltip.refresh' | translate) "
+        <button class="monitoring-toolbar-item" (click)="this.refresh()"
+                [matTooltip]="('view.monitoring.tooltip.refresh' | translate) "
                 mat-icon-button>
             <mat-icon>refresh</mat-icon>
         </button>
+        <license-date-picker [datePicker]="{
+            label: ('view.monitoring.datePicker.label' | translate),
+            startDate: {
+                placeholder: ('view.monitoring.datePicker.startDate' | translate)
+            },
+            endDate: {
+                placeholder: ('view.monitoring.datePicker.endDate' | translate)
+            },
+            cancelButton: {
+                text: ('view.monitoring.datePicker.cancelButton' | translate),
+                color: 'neutral'
+            },
+            applyButton: {
+                text: ('view.monitoring.datePicker.applyButton' | translate),
+                color: 'primary'
+            }
+        }"></license-date-picker>
     </div>
 
     @if (this.loading()) {
@@ -21,4 +39,41 @@
         <div style="display: block; margin-bottom: 4px"></div>
     }
 
+    <mat-paginator [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons style="user-select: none">
+
+        <table [dataSource]="dataSource" class="license-table" mat-table matSort>
+
+            <ng-container matColumnDef="ip">
+                <th *matHeaderCellDef class="license-table-header" mat-header-cell
+                    mat-sort-header>{{ 'view.monitoring.table.header.ip' | translate }}
+                </th>
+                <td *matCellDef="let row" mat-cell>{{ row.ip }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="count">
+                <th *matHeaderCellDef class="license-table-header" mat-header-cell
+                    mat-sort-header>{{ 'view.monitoring.table.header.count' | translate }}
+                </th>
+                <td *matCellDef="let row" mat-cell>{{ row.count }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="lastLog">
+                <th *matHeaderCellDef class="license-table-header" mat-header-cell
+                    mat-sort-header>{{ 'view.monitoring.table.header.lastLog' | translate }}
+                </th>
+                <td *matCellDef="let row" mat-cell>{{ row.lastLog.toLocaleString() }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="firstLog">
+                <th *matHeaderCellDef class="license-table-header" mat-header-cell
+                    mat-sort-header>{{ 'view.monitoring.table.header.firstLog' | translate }}
+                </th>
+                <td *matCellDef="let row" mat-cell>{{ row.firstLog.toLocaleString() }}</td>
+            </ng-container>
+
+            <tr *matHeaderRowDef="displayedColumns; sticky: true" mat-header-row></tr>
+            <tr *matRowDef="let row; columns: displayedColumns;" class="license-table-row" mat-row></tr>
+
+        </table>
+    </mat-paginator>
 </div>

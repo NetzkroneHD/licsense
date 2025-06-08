@@ -1,4 +1,4 @@
-import {Component, computed, inject, signal} from '@angular/core';
+import {Component, computed, effect, inject, signal} from '@angular/core';
 import {MatIconButton} from '@angular/material/button';
 import {MatFormField, MatInput, MatLabel, MatSuffix} from '@angular/material/input';
 import {TranslateModule} from '@ngx-translate/core';
@@ -11,9 +11,24 @@ import {UserLicenseState} from '../../state/user-license/user-license-state.serv
 import {
     ListBehaviorResultDto
 } from '@license/license-api-client-typescript-fetch/src/models/ListBehaviorResultDto';
+import {
+    MatCell,
+    MatCellDef,
+    MatColumnDef,
+    MatHeaderCell, MatHeaderCellDef,
+    MatHeaderRow,
+    MatHeaderRowDef,
+    MatRow,
+    MatRowDef,
+    MatTable, MatTableDataSource
+} from '@angular/material/table';
+import {MatSort, MatSortHeader} from '@angular/material/sort';
+import {IpMonitoringEntry} from '../../state/monitoring/model/monitoring-data.interface';
+import {MatPaginator} from '@angular/material/paginator';
+import {LicenseDatePickerComponent} from '../../component/license-date-picker/license-date-picker.component';
 
 @Component({
-  selector: 'license-monitoring',
+    selector: 'license-monitoring',
     imports: [
         MatFormField,
         MatIcon,
@@ -22,12 +37,25 @@ import {
         MatLabel,
         MatSuffix,
         TranslateModule,
-        MatFormField,
         MatTooltip,
         MatProgressBar,
+        MatCell,
+        MatCellDef,
+        MatColumnDef,
+        MatHeaderCell,
+        MatHeaderRow,
+        MatHeaderRowDef,
+        MatRow,
+        MatRowDef,
+        MatSort,
+        MatSortHeader,
+        MatTable,
+        MatHeaderCellDef,
+        MatPaginator,
+        LicenseDatePickerComponent,
     ],
-  templateUrl: './monitoring.component.html',
-  styleUrl: './monitoring.component.scss'
+    templateUrl: './monitoring.component.html',
+    styleUrl: './monitoring.component.scss'
 })
 export class MonitoringComponent {
 
@@ -38,9 +66,24 @@ export class MonitoringComponent {
     protected readonly filterValue = signal('');
     protected readonly loading = computed(() => this.monitoringState.getLoading());
 
+    protected readonly displayedColumns = ['ip', 'count', 'lastLog', 'firstLog'];
+    protected readonly dataSource: MatTableDataSource<IpMonitoringEntry>;
+
+    constructor() {
+
+        this.dataSource = new MatTableDataSource<IpMonitoringEntry>([]);
+
+        effect(() => {
+            const analyzedData = this.monitoringState.getAnalyzedData();
+            if(!analyzedData) return;
+            this.dataSource.data = analyzedData.ipMonitoring;
+        })
+
+    }
+
     protected refresh() {
         const license = this.userLicenseState.getCurrentLicense();
-        if(!license) return;
+        if (!license) return;
         const date = new Date();
         date.setMonth(1);
         this.monitoringFacade.analyzeLicenseLogs(license, date, new Date(), ListBehaviorResultDto.Allow);
