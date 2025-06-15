@@ -1,9 +1,9 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, input, output} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {LicenseDatePicker} from './license-date-picker.interface';
 
 @Component({
@@ -14,22 +14,10 @@ import {LicenseDatePicker} from './license-date-picker.interface';
 })
 export class LicenseDatePickerComponent {
 
-    @Output() public readonly applyButtonClick$ = new EventEmitter<MouseEvent>();
-    @Output() public readonly cancelButtonClick$ = new EventEmitter<MouseEvent>();
-    @Input({required: true}) datePicker!: LicenseDatePicker;
-    private readonly _dateRange = new FormGroup({
-        startDate: new FormControl<Date | null>(null),
-        endDate: new FormControl<Date | null>(null)
-    });
+    public readonly datePicker = input.required<LicenseDatePicker>();
+    public readonly startDateControl = input.required<FormControl<Date | null>>();
+    public readonly endDateControl = input.required<FormControl<Date | null>>();
 
-    constructor() {
-    }
-
-
-    @Output() get dateRange(): FormGroup<{
-        endDate: FormControl<Date | null>;
-        startDate: FormControl<Date | null>
-    }> {
-        return this._dateRange;
-    }
+    public readonly onApplyButtonClick = output<MouseEvent>();
+    public readonly onCancelButtonClick = output<MouseEvent>();
 }

@@ -10,10 +10,14 @@ import type {
 })
 export class MonitoringAnalyzeService {
 
-    constructor() {
+    public analyzeLogs(logs: LicenseLogDto[]) {
+        return {
+            allow: this.analyzeLicenseLogs(logs, 'ALLOW'),
+            disallow: this.analyzeLicenseLogs(logs, 'DISALLOW')
+        }
     }
 
-    public analyzeLicenseLogs(logs: LicenseLogDto[], listBehavior: ListBehaviorResultDto): IpMonitoringEntry[] {
+    private analyzeLicenseLogs(logs: LicenseLogDto[], listBehavior: ListBehaviorResultDto): IpMonitoringEntry[] {
         if(logs.length === 0) return [];
         const groupedLogs = this.groupLogsByIp(logs, listBehavior);
         return Object.entries(groupedLogs).map(([ip, logs]) => {
@@ -27,7 +31,7 @@ export class MonitoringAnalyzeService {
                 firstLog: firstLog,
                 lastLog: lastLog
             };
-        });
+        }).sort((a, b) => b.count - a.count);
     }
 
     private groupLogsByIp(logs: LicenseLogDto[], listBehavior: ListBehaviorResultDto): Record<string, LicenseLogDto[]> {

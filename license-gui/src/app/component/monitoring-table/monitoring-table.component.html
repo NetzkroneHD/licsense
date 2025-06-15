@@ -1,0 +1,43 @@
+@if (this.loading()) {
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+} @else {
+    <div style="display: block; margin-bottom: 4px"></div>
+}
+
+<mat-paginator [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons
+               style="user-select: none"></mat-paginator>
+
+<table [dataSource]="dataSource" class="monitoring-table" mat-table matSort>
+
+    <ng-container matColumnDef="ip">
+        <th *matHeaderCellDef class="monitoring-table-header" mat-header-cell
+            mat-sort-header>{{ 'view.monitoring.table.header.ip' | translate }}
+        </th>
+        <td *matCellDef="let row" mat-cell>{{ row.ip }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="count">
+        <th *matHeaderCellDef class="monitoring-table-header" mat-header-cell
+            mat-sort-header>{{ 'view.monitoring.table.header.count' | translate }}
+        </th>
+        <td *matCellDef="let row" mat-cell>{{ row.count }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="lastLog">
+        <th *matHeaderCellDef class="monitoring-table-header" mat-header-cell
+            mat-sort-header>{{ 'view.monitoring.table.header.lastLog' | translate }}
+        </th>
+        <td *matCellDef="let row" mat-cell>{{ row.lastLog.toLocaleString() }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="firstLog">
+        <th *matHeaderCellDef class="monitoring-table-header" mat-header-cell
+            mat-sort-header>{{ 'view.monitoring.table.header.firstLog' | translate }}
+        </th>
+        <td *matCellDef="let row" mat-cell>{{ row.firstLog.toLocaleString() }}</td>
+    </ng-container>
+
+    <tr *matHeaderRowDef="displayedColumns; sticky: true" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: displayedColumns;" class="monitoring-table-row" mat-row></tr>
+
+</table>

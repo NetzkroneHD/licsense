@@ -37,6 +37,10 @@ export class LicenseToolbarComponent {
         this.licenseFacade.openLogs();
     }
 
+    protected openMonitoring() {
+        this.licenseFacade.openMonitoring();
+    }
+
     protected editLicense() {
         this.licenseFacade.editLicense();
     }

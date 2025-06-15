@@ -13,6 +13,11 @@
     <mat-icon>open_in_new</mat-icon>
 </button>
 
+<button class="license-toolbar-item" (click)="openMonitoring()" [disabled]="editingDisabled()" [matTooltip]="('component.toolbar.tooltip.open-monitoring' | translate)"
+        mat-icon-button>
+    <mat-icon>query_stats</mat-icon>
+</button>
+
 <button class="license-toolbar-item" (click)="editLicense()" [disabled]="editingDisabled()" [matTooltip]="('component.toolbar.tooltip.edit-license' | translate)"
         mat-icon-button>
     <mat-icon>edit</mat-icon>

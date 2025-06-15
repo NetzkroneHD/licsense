@@ -4,7 +4,7 @@ import {PublisherState} from '../../state/publiser/publisher-state.service';
 import {
     LicenseAutocompleteComponent
 } from '../../component/license-autocomplete/license-autocomplete.component';
-import {FormControl} from '@angular/forms';
+import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {MatProgressBar} from '@angular/material/progress-bar';
 import {MatIconButton} from '@angular/material/button';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
@@ -24,7 +24,8 @@ import {UserLicenseState} from '../../state/user-license/user-license-state.serv
         MatIcon,
         MatIconButton,
         TranslateModule,
-        MatTooltip
+        MatTooltip,
+        ReactiveFormsModule
     ],
     templateUrl: './admin.component.html',
     styleUrl: './admin.component.scss'
@@ -36,17 +37,20 @@ export class AdminComponent {
     protected readonly userLicenseFacade = inject(UserLicenseFacade);
     protected readonly tokenState = inject(TokenState);
     protected readonly notificationFacade = inject(NotificationFacade);
-    protected readonly formControl;
+    protected readonly formGroup;
     private readonly translateService = inject(TranslateService);
     private readonly userLicenseState = inject(UserLicenseState);
 
     protected readonly options = computed<string[]>(() => {
         return this.publisherState.getPublishers();
+
     });
 
     constructor() {
         this.publisherFacade.loadPublishers();
-        this.formControl = new FormControl<string>(this.userLicenseState.getSelectedPublisher());
+        this.formGroup = new FormGroup({
+            publisher: new FormControl<string | null>(this.userLicenseState.getSelectedPublisher())
+        });
     }
 
     protected refresh() {
@@ -54,7 +58,8 @@ export class AdminComponent {
     }
 
     protected reset() {
-        this.formControl.setValue(this.tokenState.getSub());
+        this.formGroup.reset();
+        this.formGroup.controls.publisher.setValue(this.tokenState.getSub());
         this.userLicenseFacade.setSelectedPublisher(this.tokenState.getSub());
         this.notificationFacade.setMessage({
             title: undefined,

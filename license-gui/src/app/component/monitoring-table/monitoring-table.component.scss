@@ -1,0 +1,13 @@
+
+.monitoring-table {
+    margin-bottom: 1%;
+    background-color: var(--mat-sys-surface-container-lowest);
+}
+
+.monitoring-table-header {
+    user-select: none;
+}
+
+.monitoring-table-row:hover {
+    background: var(--mat-sys-primary-container);
+}

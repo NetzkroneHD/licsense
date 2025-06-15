@@ -20,6 +20,17 @@
                 "hint": "Hint",
                 "cancelButton": "Cancel",
                 "applyButton": "Apply"
+            },
+            "table": {
+                "header": {
+                    "ip": "IP",
+                    "count": "Count",
+                    "lastLog": "Last Log",
+                    "firstLog": "First Log"
+                }
+            },
+            "autocomplete": {
+                "label": "License key"
             }
         },
         "auth-failed": {

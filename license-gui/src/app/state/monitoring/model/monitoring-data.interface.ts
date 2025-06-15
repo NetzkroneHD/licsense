@@ -12,10 +12,10 @@ export interface IpMonitoringEntry {
 
 export interface MonitoringData {
     license: LicenseDto,
-    listBehavior: ListBehaviorResultDto,
     timespan: {
         from: Date,
         to: Date
     },
-    ipMonitoring: IpMonitoringEntry[],
+    allowed: IpMonitoringEntry[],
+    disallow: IpMonitoringEntry[]
 }
