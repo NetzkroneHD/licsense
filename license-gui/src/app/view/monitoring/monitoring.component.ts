@@ -11,6 +11,10 @@ import {MatPaginator} from '@angular/material/paginator';
 import {LicenseDatePickerComponent} from '../../component/license-date-picker/license-date-picker.component';
 import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {MonitoringTableComponent} from '../../component/monitoring-table/monitoring-table.component';
+import {SelectComponent} from '../../component/license-select/select.component';
+import {
+    ListBehaviorResultDto
+} from '@license/license-api-client-typescript-fetch/src/models/ListBehaviorResultDto';
 
 @Component({
     selector: 'license-monitoring',
@@ -22,6 +26,7 @@ import {MonitoringTableComponent} from '../../component/monitoring-table/monitor
         LicenseDatePickerComponent,
         ReactiveFormsModule,
         MonitoringTableComponent,
+        SelectComponent,
     ],
     templateUrl: './monitoring.component.html',
     styleUrl: './monitoring.component.scss'
@@ -82,5 +87,15 @@ export class MonitoringComponent {
     protected clearFilter() {
         this.filterValue.set('');
         this.applyFilter();
+    }
+
+    protected readonly ListBehaviorResultDto = ListBehaviorResultDto;
+
+    protected valueChange(value: string) {
+        if(value === 'ALLOW') {
+            this.monitoringState.setSelectedBehavior(ListBehaviorResultDto.Allow);
+        } else {
+            this.monitoringState.setSelectedBehavior(ListBehaviorResultDto.Disallow);
+        }
     }
 }

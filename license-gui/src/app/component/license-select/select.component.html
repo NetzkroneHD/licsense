@@ -1,0 +1,13 @@
+<mat-form-field>
+    <mat-label>{{ this.label() }}</mat-label>
+    <mat-select [disabled]="this.disabled()" [value]="this.value()" (selectionChange)="this.selectionChange($event)" (valueChange)="this.valueChange($event)">
+        @for (option of this.options(); track option) {
+            <mat-option [value]="option.value">
+                @if (option.icon) {
+                    <mat-icon>{{ option.icon }}</mat-icon>
+                }
+                {{ option.label }}
+            </mat-option>
+        }
+    </mat-select>
+</mat-form-field>

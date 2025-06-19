@@ -19,6 +19,15 @@
                 color: 'primary'
             }}"
         ></license-date-picker>
+        <span class="monitoring-toolbar-spacer"></span>
+        <license-select [value]="'ALLOW'"
+                        [label]="'view.monitoring.behaviorSelect.label' | translate"
+                        [options]="[
+                            {label: 'view.monitoring.behaviorSelect.allow' | translate, value: ListBehaviorResultDto.Allow},
+                            {label: 'view.monitoring.behaviorSelect.disallow' | translate, value: ListBehaviorResultDto.Disallow},
+                        ]"
+                        (onValueChange)="this.valueChange($event)"
+        ></license-select>
         <button class="monitoring-toolbar-item" (click)="this.search()"
                 [matTooltip]="('view.monitoring.tooltip.refresh' | translate) "
                 mat-icon-button>
@@ -26,7 +35,6 @@
         </button>
     </div>
 
-    <license-monitoring-table [data]="this.selectedData()" [loading]="this.loading()">
-    </license-monitoring-table>
+    <license-monitoring-table [data]="this.selectedData()" [loading]="this.loading()"></license-monitoring-table>
 
 </div>

@@ -21,6 +21,11 @@
                 "cancelButton": "Cancel",
                 "applyButton": "Apply"
             },
+            "behaviorSelect": {
+                "label": "Select behavior",
+                "allow": "Allow",
+                "disallow": "Disallow"
+            },
             "table": {
                 "header": {
                     "ip": "IP",
