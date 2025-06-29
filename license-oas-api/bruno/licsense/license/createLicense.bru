@@ -7,11 +7,7 @@ meta {
 post {
   url: {{HOST}}/license
   body: json
-  auth: bearer
-}
-
-auth:bearer {
-  token: {{OAUTH_TOKEN}}
+  auth: inherit
 }
 
 body:json {

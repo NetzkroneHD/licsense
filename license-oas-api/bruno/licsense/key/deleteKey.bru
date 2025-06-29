@@ -7,13 +7,9 @@ meta {
 delete {
   url: {{HOST}}/key/:owner
   body: none
-  auth: bearer
+  auth: inherit
 }
 
 params:path {
   owner: 4002aeea-57ed-4b4c-a693-902d232ae60d
-}
-
-auth:bearer {
-  token: {{OAUTH_TOKEN}}
 }

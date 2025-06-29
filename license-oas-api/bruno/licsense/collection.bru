@@ -7,11 +7,18 @@ auth:oauth2 {
   callback_url: http://localhost:4200
   authorization_url: http://localhost/auth/realms/license/protocol/openid-connect/auth
   access_token_url: http://localhost/auth/realms/license/protocol/openid-connect/token
+  refresh_token_url: 
   client_id: license-client
   client_secret: 
   scope: openid
   state: State
   pkce: false
+  credentials_placement: body
+  credentials_id: credentials
+  token_placement: header
+  token_header_prefix: Bearer
+  auto_fetch_token: true
+  auto_refresh_token: false
 }
 
 vars:pre-request {

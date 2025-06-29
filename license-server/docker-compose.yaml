@@ -117,6 +117,7 @@ services:
       - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
       - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.PostgreSQLDialect
       - SPRING_JPA_HIBERNATE_DLL_AUTO=update
+      - JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
     depends_on:
       postgres:
         condition: service_healthy
@@ -129,6 +130,8 @@ services:
     volumes:
       - ./docker-compose/license-server/logs:/logs
       - ./docker-compose/license-server/key:/home/app/key
+    ports:
+      - "5005:5005" # Debug port
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.license-server.rule=PathPrefix(`/license`)"
