@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -60,4 +61,10 @@ public class LicenseLogService {
     }
 
 
+    public List<LicenseLogModel> getLogs(String license, OffsetDateTime dateFrom, OffsetDateTime dateTo) {
+        if(dateFrom.isAfter(dateTo)) {
+            throw new IllegalArgumentException("dateFrom must be before dateTo");
+        }
+        return this.licenseLogRepository.findAllByLicenseAndDateTimeBetween(license, dateFrom, dateTo);
+    }
 }

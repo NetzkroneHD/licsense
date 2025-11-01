@@ -2,7 +2,9 @@ package de.netzkronehd.license.exception;
 
 import de.netzkronehd.license.listmode.ListMode;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class ListModeException extends Exception {
 

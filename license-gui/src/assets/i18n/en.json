@@ -12,6 +12,32 @@
         }
     },
     "view": {
+        "monitoring": {
+            "datePicker": {
+                "label": "Select date range",
+                "startDate": "Start Date",
+                "endDate": "End Date",
+                "hint": "Hint",
+                "cancelButton": "Cancel",
+                "applyButton": "Apply"
+            },
+            "behaviorSelect": {
+                "label": "Select behavior",
+                "allow": "Allow",
+                "disallow": "Disallow"
+            },
+            "table": {
+                "header": {
+                    "ip": "IP",
+                    "count": "Count",
+                    "lastLog": "Last Log",
+                    "firstLog": "First Log"
+                }
+            },
+            "autocomplete": {
+                "label": "License key"
+            }
+        },
         "auth-failed": {
             "title": "Authentication failed",
             "retry": "Retry"

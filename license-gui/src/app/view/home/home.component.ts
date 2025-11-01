@@ -193,6 +193,10 @@ export class HomeComponent implements AfterViewInit {
                 this.licenseFacade.openLogs();
                 break;
             }
+            case 'open-monitoring': {
+                this.licenseFacade.openMonitoring();
+                break;
+            }
             case 'edit-license': {
                 this.licenseFacade.editLicense();
                 break;

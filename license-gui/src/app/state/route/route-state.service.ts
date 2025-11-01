@@ -1,6 +1,6 @@
 import {Injectable, signal} from '@angular/core';
 
-export type Route = 'home' | 'license-logs' | 'auth-failed' | 'signature';
+export type Route = 'home' | 'license-logs' | 'auth-failed' | 'signature' | 'monitoring';
 
 export function toRoute(path: string): Route {
     const cleanedPath = path.replace(/^\//, '');
@@ -9,6 +9,7 @@ export function toRoute(path: string): Route {
         case 'admin':
         case 'license-logs':
         case 'signature':
+        case 'monitoring':
         case 'auth-failed':
             return cleanedPath as Route;
         default:

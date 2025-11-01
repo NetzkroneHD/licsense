@@ -3,9 +3,10 @@
 } @else {
     <div style="height: 4px"></div>
 }
-<div class="license-admin-wrapper">
+<div class="license-admin-wrapper" [formGroup]="this.formGroup">
     <license-autocomplete style="min-width: 25%"
-                          [formControl]="this.formControl"
+                          [formControlName]="'publisher'"
+                          [formControl]="this.formGroup.controls.publisher"
                           [options]="this.options()"
                           [placeholder]="'view.admin.select-a-publisher.placeholder' | translate"
                           [label]="'view.admin.select-a-publisher.label' | translate"

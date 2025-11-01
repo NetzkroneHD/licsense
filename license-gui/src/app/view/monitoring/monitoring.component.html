@@ -1,0 +1,40 @@
+<div style="width: 100%">
+    <div style="display: flex" [formGroup]="this.formGroup">
+        <license-date-picker [startDateControl]="this.formGroup.controls.startDate"
+                             [endDateControl]="this.formGroup.controls.endDate"
+                             [datePicker]="{
+            label: ('view.monitoring.datePicker.label' | translate),
+            startDate: {
+                placeholder: ('view.monitoring.datePicker.startDate' | translate)
+            },
+            endDate: {
+                placeholder: ('view.monitoring.datePicker.endDate' | translate)
+            },
+            cancelButton: {
+                text: ('view.monitoring.datePicker.cancelButton' | translate),
+                color: 'neutral'
+            },
+            applyButton: {
+                text: ('view.monitoring.datePicker.applyButton' | translate),
+                color: 'primary'
+            }}"
+        ></license-date-picker>
+        <span class="monitoring-toolbar-spacer"></span>
+        <license-select [value]="'ALLOW'"
+                        [label]="'view.monitoring.behaviorSelect.label' | translate"
+                        [options]="[
+                            {label: 'view.monitoring.behaviorSelect.allow' | translate, value: ListBehaviorResultDto.Allow},
+                            {label: 'view.monitoring.behaviorSelect.disallow' | translate, value: ListBehaviorResultDto.Disallow},
+                        ]"
+                        (onValueChange)="this.valueChange($event)"
+        ></license-select>
+        <button class="monitoring-toolbar-item" (click)="this.search()"
+                [matTooltip]="('view.monitoring.tooltip.refresh' | translate) "
+                mat-icon-button>
+            <mat-icon>search</mat-icon>
+        </button>
+    </div>
+
+    <license-monitoring-table [data]="this.selectedData()" [loading]="this.loading()"></license-monitoring-table>
+
+</div>

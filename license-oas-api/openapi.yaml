@@ -205,6 +205,8 @@ paths:
       description: Gets the logs
       parameters:
         - $ref: '#/components/parameters/LicenseKey'
+        - $ref: '#/components/parameters/DateFrom'
+        - $ref: '#/components/parameters/DateTo'
       responses:
         200:
           $ref: '#/components/responses/LicenseLogResponse'
@@ -323,6 +325,22 @@ components:
       required: true
       schema:
         type: string
+    DateFrom:
+      name: dateFrom
+      in: query
+      description: Inclusive start date
+      required: false
+      schema:
+        type: string
+        format: date-time
+    DateTo:
+        name: dateTo
+        in: query
+        description: inclusive end date
+        required: false
+        schema:
+            type: string
+            format: date-time
     Owner:
       name: owner
       in: path

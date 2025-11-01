@@ -7,13 +7,9 @@ meta {
 get {
   url: {{HOST}}/publisher/:publisher/license
   body: none
-  auth: bearer
+  auth: inherit
 }
 
 params:path {
   publisher: 50878e92-7931-473a-82eb-9a183c34fd67
-}
-
-auth:bearer {
-  token: {{OAUTH_TOKEN}}
 }

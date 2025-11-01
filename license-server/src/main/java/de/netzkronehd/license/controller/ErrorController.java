@@ -13,8 +13,7 @@ import java.util.NoSuchElementException;
 
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.HttpStatus.TOO_MANY_REQUESTS;
-import static org.springframework.http.ResponseEntity.notFound;
-import static org.springframework.http.ResponseEntity.status;
+import static org.springframework.http.ResponseEntity.*;
 
 @RestControllerAdvice
 @Slf4j
@@ -36,6 +35,12 @@ public class ErrorController {
     public ResponseEntity<?> handleRateLimitExceededException(RateLimitExceededException e, WebRequest request) {
         log.debug("Rate limit exceeded for request: {}", request, e);
         return status(TOO_MANY_REQUESTS).build();
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<?> handleIllegalArgumentException(RateLimitExceededException e, WebRequest request) {
+        log.debug("Illegal argument for request: {}", request, e);
+        return badRequest().build();
     }
 
 }

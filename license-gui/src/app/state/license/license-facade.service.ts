@@ -85,6 +85,10 @@ export class LicenseFacade {
         this.routeFacade.navigateToLicenseLogs();
     }
 
+    public openMonitoring() {
+        this.routeFacade.navigateToMonitoring();
+    }
+
     public deleteLicense() {
         const license: LicenseDto | null = this.userLicenseState.getCurrentLicense();
         if (!license) return;

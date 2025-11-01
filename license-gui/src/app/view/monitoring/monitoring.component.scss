@@ -1,0 +1,26 @@
+@use '@angular/material' as mat;
+@use 'sass:map';
+
+:host {
+    width: 95%;
+}
+
+.monitoring-form-field {
+    display: block;
+    max-width: 25%;
+    min-width: 250px;
+}
+
+.monitoring-toolbar-item {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.monitoring-autocomplete {
+    min-width: 35%;
+}
+
+.monitoring-toolbar-spacer {
+    display: inline-block;
+    min-width: 1%;
+}

@@ -140,6 +140,16 @@ const defaultSidenavItems: LicenseSidenavItem[] = [
         hasCustomOrder: false
     },
     {
+        id: 'monitoring',
+        icon: {name: 'query_stats', size: 32},
+        description: 'Monitoring',
+        selected: false,
+        activity: {count: 0},
+        disabled: {reason: '', state: false},
+        group: 'first',
+        hasCustomOrder: false
+    },
+    {
         id: 'signature',
         icon: {name: 'key', size: 32},
         description: 'Signature',
@@ -148,7 +158,8 @@ const defaultSidenavItems: LicenseSidenavItem[] = [
         disabled: {reason: '', state: false},
         group: 'first',
         hasCustomOrder: false
-    }, {
+    },
+    {
         id: 'admin',
         icon: {name: 'admin_panel_settings', size: 32},
         description: 'Admin',
