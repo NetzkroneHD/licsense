@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, computed, inject, OnInit, signal, ViewChild} from '@angular/core';
+import {Component, computed, inject, OnInit, signal, ViewChild} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {environment} from '../environments/environment';
 import {MatButton, MatIconButton} from '@angular/material/button';
@@ -23,7 +23,6 @@ import {Theme} from './service/theme.service';
 import {ItemsFacade} from './state/items/items-facade.service';
 import {TokenState} from './state/token/token-state.service';
 import {UserLicenseState} from './state/user-license/user-license-state.service';
-import {KeyFacade} from './state/key/key-facade.service';
 
 @Component({
     selector: 'app-root',
@@ -41,7 +40,7 @@ import {KeyFacade} from './state/key/key-facade.service';
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss'
 })
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent implements OnInit {
 
     @ViewChild('sidenav') sidenav!: LicenseSidenavComponent;
     protected readonly title = environment.title;
@@ -53,7 +52,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     private readonly userSettingsState = inject(UserSettingsState);
     private readonly routeFacade = inject(RouteFacade);
     private readonly loginService = inject(LoginService);
-    private readonly keyFacade = inject(KeyFacade)
 
     protected readonly themeIcon = signal<string>('light_mode');
 
@@ -76,10 +74,6 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     }
 
-    public ngAfterViewInit() {
-        this.keyFacade.loadPublicKey();
-    }
-    
     public ngOnInit() {
         this.loginService.login();
     }

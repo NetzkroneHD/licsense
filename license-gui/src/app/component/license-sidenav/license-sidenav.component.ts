@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, input, model, output} from '@angular/core';
 import {MatDrawerMode, MatSidenav, MatSidenavContainer, MatSidenavContent} from '@angular/material/sidenav';
 import {MatListItem, MatNavList} from '@angular/material/list';
 import {MatIcon} from '@angular/material/icon';
@@ -11,7 +11,7 @@ import {
     transferArrayItem
 } from '@angular/cdk/drag-drop';
 import {LicenseSidenavGroupMapperPipe} from './license-sidenav-group-mapper.pipe';
-import { KeyValuePipe } from '@angular/common';
+import {KeyValuePipe} from '@angular/common';
 import {MatTooltip} from '@angular/material/tooltip';
 import {MatBadge} from '@angular/material/badge';
 
@@ -37,21 +37,21 @@ import {MatBadge} from '@angular/material/badge';
 })
 export class LicenseSidenavComponent {
 
-    @Input() opened = true;
-    @Input() mode: MatDrawerMode = 'side';
-    @Input() fixedTopGap = 0;
-    @Input() fixedInViewport = true;
+    public readonly opened = model<boolean>(true);
+    public readonly mode = input<MatDrawerMode>('side');
+    public readonly fixedTopGap = input<number>(0);
+    public readonly fixedInViewport = input<boolean>(true);
 
-    @Input() items: LicenseSidenavItem[] = [];
+    public readonly items = input<LicenseSidenavItem[]>([]);
 
-    @Input() dragDropDelay = 200;
-    @Input() tooltipShowDelay = 500;
+    public readonly dragDropDelay = input<number>(200);
+    public readonly tooltipShowDelay = input<number>(500);
 
-    @Output() listItemClicked = new EventEmitter<LicenseSidenavItem>();
-    @Output() listItemsOrderChanged = new EventEmitter<LicenseSidenavItem[]>();
+    public readonly listItemClicked = output<LicenseSidenavItem>();
+    public readonly listItemsOrderChanged = output<LicenseSidenavItem[]>();
 
     public toggle() {
-        this.opened = !this.opened;
+        this.opened.update(value => !value);
     }
 
 
@@ -76,4 +76,7 @@ export class LicenseSidenavComponent {
         this.listItemsOrderChanged.emit([...event.container.data]);
     }
 
+    protected onOpened(event: boolean) {
+        this.opened.set(event);
+    }
 }
