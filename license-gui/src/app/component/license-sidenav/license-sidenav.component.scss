@@ -16,26 +16,12 @@
         width: 32px;
         height: 32px;
     }
+}
 
-    .badge {
-        position: absolute;
-        top: 11px;
-        left: 4px;
-        z-index: 2;
-        font-size: 0.9em;
-
-        .mat-badge-content {
-            z-index: 3;
-            width: auto;
-            padding-left: 3.5px;
-            padding-right: 3.5px;
-            border-radius: 13px;
-            right: unset !important;
-            background-color: #ecfde7;
-            border: 1px solid #1f5f07;
-            color: #1f5f07;
-        }
-    }
+.badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }
 
 .activeItem {

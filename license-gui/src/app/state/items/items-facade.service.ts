@@ -124,7 +124,7 @@ const defaultSidenavItems: LicenseSidenavItem[] = [
         icon: {name: 'home', size: 32},
         description: 'Home',
         selected: true,
-        activity: {count: 0},
+        activity: undefined,
         disabled: {reason: '', state: false},
         group: 'first',
         hasCustomOrder: false
@@ -134,7 +134,7 @@ const defaultSidenavItems: LicenseSidenavItem[] = [
         icon: {name: 'description', size: 32},
         description: 'Logs',
         selected: false,
-        activity: {count: 0},
+        activity: undefined,
         disabled: {reason: '', state: false},
         group: 'first',
         hasCustomOrder: false
@@ -144,7 +144,7 @@ const defaultSidenavItems: LicenseSidenavItem[] = [
         icon: {name: 'query_stats', size: 32},
         description: 'Monitoring',
         selected: false,
-        activity: {count: 0},
+        activity: undefined,
         disabled: {reason: '', state: false},
         group: 'first',
         hasCustomOrder: false
@@ -154,7 +154,7 @@ const defaultSidenavItems: LicenseSidenavItem[] = [
         icon: {name: 'key', size: 32},
         description: 'Signature',
         selected: false,
-        activity: {count: 0},
+        activity: undefined,
         disabled: {reason: '', state: false},
         group: 'first',
         hasCustomOrder: false
@@ -164,7 +164,7 @@ const defaultSidenavItems: LicenseSidenavItem[] = [
         icon: {name: 'admin_panel_settings', size: 32},
         description: 'Admin',
         selected: false,
-        activity: {count: 0},
+        activity: undefined,
         disabled: {reason: '', state: false},
         group: 'last',
         hasCustomOrder: false
@@ -174,7 +174,7 @@ const defaultSidenavItems: LicenseSidenavItem[] = [
         icon: {name: 'account_circle', size: 32},
         description: 'Account Settings',
         selected: false,
-        activity: {count: 0},
+        activity: undefined,
         disabled: {reason: '', state: false},
         group: 'last',
         hasCustomOrder: false

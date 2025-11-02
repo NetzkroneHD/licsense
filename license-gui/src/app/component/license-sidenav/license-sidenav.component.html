@@ -31,9 +31,7 @@
                     matTooltipPosition="right" [matTooltipShowDelay]="tooltipShowDelay()"
                     role="link"
                     [attr.aria-label]="item.description">
-                    <span class="badge" matBadgeOverlap="true"
-                      [matBadge]="item.activity.count > 0 ? (item.activity.count > 99 ? '99+' : item.activity.count) : undefined"
-                    matBadgeSize="small"></span>
+                    <span class="badge" matBadgeOverlap="true" [matBadge]="item.activity ? (item.activity.count > 9 ? '9+' : item.activity.count) : undefined"></span>
                     <mat-icon [style]="{'font-size':item.icon.size}">{{ item.icon.name }}
                     </mat-icon>
                   </a>
@@ -47,11 +45,8 @@
                     matTooltipPosition="right" [matTooltipShowDelay]="tooltipShowDelay()"
                     role="link"
                     [attr.aria-label]="item.description">
-                    <span class="badge" matBadgeOverlap="true"
-                      [matBadge]="item.activity.count > 0 ? (item.activity.count > 99 ? '99+' : item.activity.count) : undefined"
-                    matBadgeSize="small"></span>
-                    <mat-icon [style]="{'font-size':item.icon.size}">{{ item.icon.name }}
-                    </mat-icon>
+                    <span class="badge" matBadgeOverlap="true" [matBadge]="item.activity ? (item.activity.count > 9 ? '9+' : item.activity.count) : undefined"></span>
+                    <mat-icon [style]="{'font-size':item.icon.size}">{{ item.icon.name }}</mat-icon>
                   </a>
                 }
               }
