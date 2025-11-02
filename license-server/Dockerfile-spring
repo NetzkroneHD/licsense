@@ -1,4 +1,4 @@
-FROM eclipse-temurin:24
+FROM eclipse-temurin:25
 
 COPY target/*.jar /home/app/license-server.jar
 
@@ -6,6 +6,6 @@ RUN apt update && apt upgrade -y
 
 EXPOSE 8080
 
-CMD cd /home/app/
+WORKDIR /home/app
 
 ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar /home/app/license-server.jar"]

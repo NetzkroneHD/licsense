@@ -16,6 +16,12 @@ import {
     ListBehaviorResultDto
 } from '@license/license-api-client-typescript-fetch/src/models/ListBehaviorResultDto';
 
+function minusMonth(months: number): Date {
+    const date = new Date();
+    date.setMonth(date.getMonth()-months);
+    return date;
+}
+
 @Component({
     selector: 'license-monitoring',
     imports: [
@@ -56,10 +62,10 @@ export class MonitoringComponent {
     });
 
 
-    protected formGroup = new FormGroup({
+    protected readonly formGroup = new FormGroup({
         licenseKey: new FormControl<string | null>(null),
-        startDate: new FormControl<Date | null>(null),
-        endDate: new FormControl<Date | null>(null),
+        startDate: new FormControl<Date | null>(minusMonth(2)),
+        endDate: new FormControl<Date | null>(minusMonth(1)),
     });
 
     constructor() {
