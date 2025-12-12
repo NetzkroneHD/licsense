@@ -10,7 +10,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>license-gui</artifactId>
+    <artifactId>license-server-rs</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
