@@ -26,6 +26,7 @@
         <module>license-oauth2-server</module>
 		<module>license-gui</module>
         <module>license-product</module>
+		<module></module>
     </modules>
 
 </project>
