@@ -59,9 +59,6 @@ export class ItemsFacade {
                     return item;
                 });
             });
-            if(isAdmin) {
-            } else {
-            }
         });
 
     }
