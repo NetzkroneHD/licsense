@@ -1,10 +1,9 @@
 use base64::{engine::general_purpose, Engine as _};
 use rsa::pkcs1v15::SigningKey;
-use rsa::pkcs8::{DecodePrivateKey, EncodePrivateKey, EncodePublicKey};
+use rsa::pkcs8::{DecodePrivateKey, DecodePublicKey, EncodePrivateKey, EncodePublicKey};
 use rsa::signature::{SignatureEncoding, Signer};
 use sha2::Sha512;
 
-use rsa::pkcs1::LineEnding;
 use rsa::{RsaPrivateKey, RsaPublicKey};
 
 pub fn sign(plain_text: String, private_key: RsaPrivateKey) -> Result<String, Box<dyn std::error::Error>> {
