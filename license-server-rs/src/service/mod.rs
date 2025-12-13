@@ -1,1 +1,1 @@
-mod key_service;
+pub mod key_service;
