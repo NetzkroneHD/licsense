@@ -14,5 +14,7 @@ impl ErrorHandler<()> for ServerImpl {}
 
 fn main() {
     let pair = key_service::generate_key_pair(2048).unwrap();
-    println!("public key: {:?}", key_service::public_key_to_base64(&pair.1));
+    println!("private key: {:?}", key_service::private_key_to_base64(&pair.0).unwrap());
+    println!();
+    println!("public key: {:?}", key_service::public_key_to_base64(&pair.1).unwrap());
 }

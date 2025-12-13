@@ -1,4 +1,4 @@
-# Setup host.docker.internal 
+# Setup host.docker.internal
 
 ```sh
 sudo nano /etc/hosts
