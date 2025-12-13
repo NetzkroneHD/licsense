@@ -1,5 +1,6 @@
 mod controller;
 mod model;
+mod service;
 
 use license_api_server_rust_axum::apis::ErrorHandler;
 
