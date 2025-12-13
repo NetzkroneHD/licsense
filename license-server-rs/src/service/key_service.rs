@@ -6,11 +6,9 @@ use sha2::Sha512;
 
 use rsa::{RsaPrivateKey, RsaPublicKey};
 
-pub fn sign(plain_text: String, private_key: RsaPrivateKey) -> Result<String, Box<dyn std::error::Error>> {
-    let signing_key: SigningKey<Sha512> = SigningKey::new(private_key);
+pub fn sign(plain_text: String, signing_key: &SigningKey<Sha512>) -> Result<String, Box<dyn std::error::Error>> {
     let signature = signing_key.sign(plain_text.as_bytes());
     let encoded_signature = general_purpose::STANDARD.encode(signature.to_bytes());
-
     Ok(encoded_signature)
 }
 
@@ -86,7 +84,14 @@ mod tests {
     #[test]
     fn test_load_private_key() {
         let expected = rsa_private_key();
-        let result = load_private_key(BASE_64_PRIVATE_KEY).expect("load_private_key");
+        let result = load_private_key(BASE_64_PRIVATE_KEY).unwrap();
+        assert_eq!(expected, result);
+    }
+
+    #[test]
+    fn test_load_public_key() {
+        let expected = rsa_public_key();
+        let result = load_public_key(BASE_64_PUBLIC_KEY).unwrap();
         assert_eq!(expected, result);
     }
     
