@@ -1,4 +1,4 @@
-use crate::ServerImpl;
+use crate::server::ServerImpl;
 use license_api_server_rust_axum::apis::license::{CreateLicenseResponse, DeleteLicenseLogsResponse, DeleteLicenseResponse, GetLicenseLogsResponse, GetLicenseResponse, UpdateLicenseResponse};
 use license_api_server_rust_axum::models::{DeleteLicenseLogsPathParams, DeleteLicensePathParams, GetLicenseLogsPathParams, GetLicenseLogsQueryParams, GetLicensePathParams, License, UpdateLicensePathParams};
 

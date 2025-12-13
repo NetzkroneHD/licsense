@@ -1,8 +1,8 @@
+use crate::server::ServerImpl;
 use axum_extra::extract::{CookieJar, Host};
 use http::Method;
 use license_api_server_rust_axum::apis::publisher::{GetLicensesFromPublisherResponse, GetPublishersResponse};
 use license_api_server_rust_axum::models::GetLicensesFromPublisherPathParams;
-use crate::ServerImpl;
 
 #[allow(unused_variables)]
 #[async_trait::async_trait]

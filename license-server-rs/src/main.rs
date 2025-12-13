@@ -2,16 +2,11 @@ mod controller;
 mod model;
 mod service;
 mod mapper;
+mod server;
 
 use license_api_server_rust_axum::apis::ErrorHandler;
 use rsa::pkcs1v15::SigningKey;
 use service::key_service;
-
-struct ServerImpl {
-   // database: sea_orm::DbConn,
-}
-
-impl ErrorHandler<()> for ServerImpl {}
 
 
 fn main() {

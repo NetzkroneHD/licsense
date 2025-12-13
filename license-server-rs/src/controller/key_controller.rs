@@ -1,8 +1,8 @@
+use crate::server::ServerImpl;
 use axum_extra::extract::{CookieJar, Host};
 use http::Method;
 use license_api_server_rust_axum::apis::key::{DeleteKeyResponse, GenerateKeyResponse, GeneratePublisherKeyResponse, GetKeyResponse};
 use license_api_server_rust_axum::models::{DeleteKeyPathParams, GenerateKeyRequest, GeneratePublisherKeyPathParams, GetKeyPathParams};
-use crate::ServerImpl;
 
 #[allow(unused_variables)]
 #[async_trait::async_trait]
