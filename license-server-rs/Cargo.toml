@@ -4,3 +4,7 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+license_api_server_rust_axum = { version = "1.0.0", path = "../license-oas-api/target/rust-axum" }
+async-trait = "0.1.89"
+http = "1.4.0"
+axum-extra = "0.12.2"
