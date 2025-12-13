@@ -4,11 +4,11 @@ A comprehensive software license management system built with modern technologie
 
 **!!! IMPORTANT !!!**: This project is just a personal experiment to explore new technologies and is not intended for production use.
 
-## Overview
+## 🚀 Overview
 
 Licsense is a multi-module project designed to manage software licenses, providing both server-side API implementations (Java/Spring Boot and Rust) and a modern Angular-based GUI. The system includes OAuth2 authentication via Keycloak, OpenAPI-driven API specifications, and client libraries for integration.
 
-## Project Structure
+## 📋 Project Structure
 
 This is a Maven-based multi-module project with the following components:
 
@@ -52,7 +52,7 @@ This is a Maven-based multi-module project with the following components:
 
 - **[license-example-plugin](license-example-plugin/)** - Example plugin demonstrating license integration
 
-## Technology Stack
+## 🛠️ Technology Stack
 
 ### Backend
 
@@ -77,7 +77,7 @@ This is a Maven-based multi-module project with the following components:
 - **Docker & Docker Compose** - Containerization
 - **OpenAPI 3.0** - API specification
 
-## Getting Started
+## 🏗️ Getting Started
 
 ### Prerequisites
 
@@ -156,7 +156,7 @@ Add the following entry:
 172.17.0.1 host.docker.internal
 ```
 
-## API Documentation
+## 📚 API Documentation
 
 The API is defined using OpenAPI 3.0 specifications in [license-oas-api/openapi.yaml](license-oas-api/openapi.yaml).
 
@@ -182,7 +182,7 @@ API testing collections are available in:
 - [license-oas-api/bruno/](license-oas-api/bruno/) - Bruno API client collections
 - [license-server/license.postman_collection.json](license-server/license.postman_collection.json) - Postman collection
 
-## Development
+## 🔧 Development
 
 ### Code Generation
 
@@ -217,15 +217,15 @@ Each module contains Docker configuration:
 
 The [license-product](license-product/) module provides a complete production setup.
 
-## Contributing
+## 🤝 Contributing
 
 This is a personal project for exploring new technologies. Feel free to explore the codebase and adapt it for your needs.
 
-## License
+## 📄 License
 
-This project is developed by netzkronehd for experimentation with modern software development technologies.
+This project is developed by NetzkroneHD for experimentation with modern software development technologies.
 
-## Dodule Documentation
+## 🔗 Module Documentation
 
 - [License Server README](license-server/README.md)
 - [License GUI README](license-gui/README.md)
