@@ -1,4 +1,5 @@
 mod controller;
+mod model;
 
 use license_api_server_rust_axum::apis::ErrorHandler;
 
@@ -11,5 +12,5 @@ impl ErrorHandler<()> for ServerImpl {}
 
 fn main() {
     println!("Hello, world!");
-    
+
 }
