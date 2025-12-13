@@ -1,26 +1,34 @@
 use std::fmt::{Display, Formatter};
-
-#[derive(Debug)]
-pub enum ListMode {
-    Blacklist,
-    Whitelist,
-}
+use std::str::FromStr;
+use crate::model::list_mode_model::ListMode;
 
 #[derive(Debug)]
 pub enum ListBehaviorResult {
     Allow,
     Deny,
 }
-
-pub struct ListBehavior {
+pub struct ListBehaviorModel {
     pub mode: ListMode,
 }
 
-impl ListBehavior {
+impl ListBehaviorModel {
     pub fn new(mode: ListMode) -> Self {
-        ListBehavior { mode }
+        ListBehaviorModel { mode }
     }
 }
+
+impl FromStr for ListBehaviorResult {
+    type Err = String;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s.to_lowercase().as_str() {
+            "allow" => Ok(Self::Allow),
+            "deny" => Ok(Self::Deny),
+            _ => Err(format!("Invalid behavior mode: {}", s)),
+        }
+    }
+}
+
 
 pub trait Behavior {
     fn check_state(
@@ -30,7 +38,7 @@ pub trait Behavior {
     ) -> Result<ListBehaviorResult, regex::Error>;
 }
 
-impl Behavior for ListBehavior {
+impl Behavior for ListBehaviorModel {
     fn check_state(
         &self,
         ip_addresses: &Vec<String>,
@@ -57,7 +65,7 @@ impl Behavior for ListBehavior {
     }
 }
 
-impl PartialEq for ListBehavior {
+impl PartialEq for ListBehaviorModel {
     fn eq(&self, other: &Self) -> bool {
         self.mode == other.mode
     }
@@ -73,22 +81,7 @@ impl PartialEq for ListBehaviorResult {
     }
 }
 
-impl PartialEq for ListMode {
-    fn eq(&self, other: &Self) -> bool {
-        matches!(
-            (self, other),
-            (ListMode::Blacklist, ListMode::Blacklist) | (ListMode::Whitelist, ListMode::Whitelist)
-        )
-    }
-}
-
-impl Display for ListMode {
-    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{:?}", self)
-    }
-}
-
-impl Display for ListBehavior {
+impl Display for ListBehaviorModel {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         write!(f, "ListBehavior {{ mode: {} }}", self.mode)
     }

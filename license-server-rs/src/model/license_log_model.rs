@@ -1,4 +1,4 @@
-use crate::model::list_mode::ListBehaviorResult;
+use crate::model::list_behavior_result::ListBehaviorResult;
 use std::fmt::{Display, Formatter};
 
 pub struct LicenseLogModel {

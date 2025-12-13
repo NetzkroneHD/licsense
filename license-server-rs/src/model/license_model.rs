@@ -1,4 +1,5 @@
-use crate::model::list_mode;
+use crate::model::list_mode_model;
+use chrono::{DateTime, Utc};
 use std::fmt::{Display, Formatter};
 
 pub struct LicenseModel {
@@ -6,8 +7,8 @@ pub struct LicenseModel {
     pub publisher: String,
     pub notes: String,
     pub valid: bool,
-    pub valid_until: chrono::DateTime<chrono::FixedOffset>,
-    pub list_mode: list_mode::ListMode,
+    pub valid_until: DateTime<Utc>,
+    pub list_mode: list_mode_model::ListMode,
     pub ip_addresses: Vec<String>,
 }
 

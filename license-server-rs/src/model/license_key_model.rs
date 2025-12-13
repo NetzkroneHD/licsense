@@ -6,6 +6,21 @@ pub struct LicenseKeyModel {
     public_key: String,
 }
 
+impl LicenseKeyModel {
+    pub fn owner(&self) -> &str {
+        &self.owner
+    }
+
+    pub fn private_key(&self) -> &str {
+        &self.private_key
+    }
+
+    pub fn public_key(&self) -> &str {
+        &self.public_key
+    }
+
+}
+
 impl PartialEq for LicenseKeyModel {
     fn eq(&self, other: &Self) -> bool {
         self.owner == other.owner
@@ -14,9 +29,12 @@ impl PartialEq for LicenseKeyModel {
     }
 }
 
-
 impl Display for LicenseKeyModel {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        write!(f, "LicenseKeyModel {{ owner: {:?}, public_key: {:?} }}", self.owner, self.public_key)
+        write!(
+            f,
+            "LicenseKeyModel {{ owner: {:?}, public_key: {:?} }}",
+            self.owner, self.public_key
+        )
     }
 }

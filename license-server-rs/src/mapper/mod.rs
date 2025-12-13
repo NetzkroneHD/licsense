@@ -1,0 +1,6 @@
+mod license_model_mapper;
+mod list_behavior_model_mapper;
+mod license_mode_model_mapper;
+mod license_check_result_model_mapper;
+mod license_key_model_mapper;
+mod license_log_model_mapper;
