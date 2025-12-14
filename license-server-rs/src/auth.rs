@@ -1,6 +1,6 @@
 use crate::server::ServerImpl;
 use http::HeaderMap;
-use jsonwebtoken::{Algorithm, DecodingKey, Validation, decode, decode_header, jwk};
+use jsonwebtoken::{decode, decode_header, jwk, Algorithm, DecodingKey, Validation};
 use license_api_server_rust_axum::apis::{ApiAuthBasic, BasicAuthKind};
 use reqwest::Client;
 use serde::Deserialize;
@@ -22,24 +22,17 @@ impl ApiAuthBasic for ServerImpl {
         headers: &HeaderMap,
         key: &str,
     ) -> Option<Self::Claims> {
-        let jwk_set_uri = "http://host.docker.internal:80/auth/realms/license/protocol/openid-connect/certs";
-        let expected_issuer = "http://localhost/auth/realms/license";
-
         let token_str = extract_token_str(headers, key)?;
         let kid = extract_kid(token_str)?;
-        let jwk_set = fetch_jwk_set(jwk_set_uri).await?;
-        let jwk = find_jwk(&jwk_set, &kid)?;
+        let jwk = find_jwk(&self.jwt_set, &kid)?;
         let alg = match_jwk_algorithm(jwk)?;
         let decoding_key = create_decoding_key(jwk)?;
 
-        validate_and_decode(token_str, &decoding_key, alg, expected_issuer).map(|_| { () })
+        validate_and_decode(token_str, &decoding_key, alg, &self.expected_issuer).map(|_| { () })
     }
 }
 
-// --- Helper Functions ---
-
 fn match_jwk_algorithm(jwk: &jwk::Jwk) -> Option<Algorithm> {
-    // The `common` field contains the "alg" parameter from the JSON
     match jwk.common.key_algorithm {
         Some(jwk::KeyAlgorithm::RS256) => Some(Algorithm::RS256),
         Some(jwk::KeyAlgorithm::RS384) => Some(Algorithm::RS384),
@@ -47,8 +40,6 @@ fn match_jwk_algorithm(jwk: &jwk::Jwk) -> Option<Algorithm> {
         Some(jwk::KeyAlgorithm::ES256) => Some(Algorithm::ES256),
         Some(jwk::KeyAlgorithm::ES384) => Some(Algorithm::ES384),
         Some(jwk::KeyAlgorithm::PS256) => Some(Algorithm::PS256),
-        // Add others as needed.
-        // Note: We return None for "RSA-OAEP" because that is for encryption, not signing.
         _ => {
             eprintln!("Auth Error: Unsupported or missing algorithm in JWK");
             None
@@ -63,12 +54,16 @@ fn validate_and_decode(
     issuer: &str,
 ) -> Option<TokenClaims> {
     let mut validation = Validation::new(alg);
+    validation.validate_aud = false;
+    validation.validate_exp = true;
+    validation.validate_nbf = true;
     validation.set_issuer(&[issuer]);
+
 
     match decode::<TokenClaims>(token, key, &validation) {
         Ok(data) => Some(data.claims),
         Err(e) => {
-            eprintln!("Token validation failed: {:?}", e);
+            eprintln!("Token validation for token {:?} failed: {:?}", token, e);
             None
         }
     }
