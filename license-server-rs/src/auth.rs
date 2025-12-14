@@ -77,15 +77,13 @@ fn extract_kid(token: &str) -> Option<String> {
     decode_header(token).ok()?.kid
 }
 
-pub async fn fetch_jwk_set(uri: &str) -> Option<jwk::JwkSet> {
-    Client::new()
+pub async fn fetch_jwk_set(uri: &str) -> Result<jwk::JwkSet, Box<dyn std::error::Error>> {
+    let response = Client::new()
         .get(uri)
         .send()
-        .await
-        .ok()?
-        .json::<jwk::JwkSet>()
-        .await
-        .ok()
+        .await?;
+
+    Ok(response.json::<jwk::JwkSet>().await?)
 }
 
 fn find_jwk<'a>(jwk_set: &'a jwk::JwkSet, kid: &str) -> Option<&'a jwk::Jwk> {

@@ -16,12 +16,15 @@ impl ErrorHandler<()> for ServerImpl {}
 
 pub async fn start_server(addr: &str, jwk_set_uri: &str, expected_issuer: String) {
     tracing_subscriber::fmt::init();
-    println!("Trying to fetch jwk set URI: {}", jwk_set_uri);
-    let jwk = auth::fetch_jwk_set(jwk_set_uri).await;
-    println!("Fetch result: {:?}", jwk);
+    println!("Trying to fetch jwk set URI...");
+    let jwk = auth::fetch_jwk_set(jwk_set_uri).await.unwrap_or_else(|err| {
+        panic!("Failed to fetch jwk: {:?}", err);
+    });
+
+    println!("Successfully fetched jwk set URI");
 
     let app = server::new(Arc::new(ServerImpl {
-        jwt_set: jwk.unwrap(),
+        jwt_set: jwk,
         expected_issuer
     }));
 
