@@ -41,3 +41,5 @@ build/
 /license-server/docker-compose/
 /license-gui/.angular/
 *.log
+
+**/.bruno/
