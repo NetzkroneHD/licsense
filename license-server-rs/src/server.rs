@@ -1,6 +1,7 @@
 use license_api_server_rust_axum::apis::ErrorHandler;
 use license_api_server_rust_axum::server;
 use std::sync::Arc;
+use tokio::net::TcpListener;
 use tokio::signal;
 
 pub struct ServerImpl {
@@ -14,7 +15,14 @@ pub async fn start_server(addr: &str) {
     tracing_subscriber::fmt::init();
 
     // Init Axum router
-    let app = server::new(Arc::new(ServerImpl));
+    let app = server::new(Arc::new(ServerImpl {}));
+
+    // Run the server with graceful shutdown
+    let listener = TcpListener::bind(addr).await.unwrap();
+    axum::serve(listener, app)
+        .with_graceful_shutdown(shutdown_signal())
+        .await
+        .unwrap();
 }
 
 async fn shutdown_signal() {
